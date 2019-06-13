@@ -8,6 +8,18 @@ import {
 
 import { ControlledVocab } from '@folio/stripes/smart-components';
 
+import fieldComponents from '../util/fieldComponents';
+
+const visibleFields = [
+  'name',
+  'code',
+];
+const columnMapping = {
+  name: <FormattedMessage id="ui-tenant-settings.settings.location.institutions.institution" />,
+  code: <FormattedMessage id="ui-tenant-settings.settings.location.code" />,
+};
+const objectLabel = <FormattedMessage id="ui-tenant-settings.settings.location.locations" />;
+
 class LocationInstitutions extends React.Component {
   static manifest = Object.freeze({
     locationsPerInstitution: {
@@ -77,12 +89,10 @@ class LocationInstitutions extends React.Component {
         records="locinsts"
         label={this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.location.institutions' })}
         labelSingular={this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.location.institutions.institution' })}
-        objectLabel={<FormattedMessage id="ui-tenant-settings.settings.location.locations" />}
-        visibleFields={['name', 'code']}
-        columnMapping={{
-          name: <FormattedMessage id="ui-tenant-settings.settings.location.institutions.institution" />,
-          code: <FormattedMessage id="ui-tenant-settings.settings.location.code" />,
-        }}
+        objectLabel={objectLabel}
+        visibleFields={visibleFields}
+        columnMapping={columnMapping}
+        fieldComponents={fieldComponents}
         formatter={formatter}
         nameKey="name"
         id="institutions"

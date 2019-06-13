@@ -6,9 +6,19 @@ import {
   injectIntl,
   intlShape,
 } from 'react-intl';
+
 import { ControlledVocab } from '@folio/stripes/smart-components';
 import { Select } from '@folio/stripes/components';
 
+const visibleFields = [
+  'name',
+  'code',
+];
+const columnMapping = {
+  name: <FormattedMessage id="ui-tenant-settings.settings.location.libraries.library" />,
+  code: <FormattedMessage id="ui-tenant-settings.settings.location.code" />,
+};
+const objectLabel = <FormattedMessage id="ui-tenant-settings.settings.location.locations" />;
 
 class LocationLibraries extends React.Component {
   static manifest = Object.freeze({
@@ -178,12 +188,9 @@ class LocationLibraries extends React.Component {
         rowFilterFunction={(row) => row.campusId === campusId}
         label={this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.location.libraries' })}
         labelSingular={this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.location.libraries.library' })}
-        objectLabel={<FormattedMessage id="ui-tenant-settings.settings.location.locations" />}
-        visibleFields={['name', 'code']}
-        columnMapping={{
-          name: <FormattedMessage id="ui-tenant-settings.settings.location.libraries.library" />,
-          code: <FormattedMessage id="ui-tenant-settings.settings.location.code" />,
-        }}
+        objectLabel={objectLabel}
+        visibleFields={visibleFields}
+        columnMapping={columnMapping}
         formatter={formatter}
         nameKey="group"
         id="libraries"
