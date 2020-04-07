@@ -328,6 +328,7 @@ class LocationForm extends React.Component {
       >
         <Paneset isRoot>
           <Pane
+            id="location-form-pane"
             defaultWidth="100%"
             firstMenu={this.addFirstMenu()}
             footer={this.renderFooter()}
