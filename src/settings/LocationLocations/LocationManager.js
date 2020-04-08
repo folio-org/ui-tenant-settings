@@ -108,6 +108,18 @@ class LocationManager extends React.Component {
       records: 'items',
       accumulate: true,
     },
+    courselistingEntries: {
+      type: 'okapi',
+      path: 'coursereserves/courselistings',
+      records: 'courseListings',
+      accumulate: true,
+    },
+    reserveEntries: {
+      type: 'okapi',
+      path: 'coursereserves/reserves',
+      records: 'reserves',
+      accumulate: true,
+    },
   });
 
   static propTypes = {

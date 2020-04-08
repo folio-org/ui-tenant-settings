@@ -38,6 +38,7 @@ class LocationForm extends React.Component {
   static propTypes = {
     stripes: PropTypes.shape({
       hasPerm: PropTypes.func.isRequired,
+      hasInterface: PropTypes.func.isRequired,
       connect: PropTypes.func.isRequired,
     }).isRequired,
     locationResources: PropTypes.shape({
@@ -48,6 +49,8 @@ class LocationForm extends React.Component {
     parentMutator: PropTypes.shape({
       holdingsEntries: PropTypes.object.isRequired,
       itemEntries: PropTypes.object.isRequired,
+      courselistingEntries: PropTypes.object.isRequired,
+      reserveEntries: PropTypes.object.isRequired,
     }),
     initialValues: PropTypes.object,
     intl: intlShape.isRequired,
@@ -143,13 +146,32 @@ class LocationForm extends React.Component {
   confirmDelete(confirmation) {
     const loc = this.props.initialValues;
     if (confirmation) {
-      this.props.parentMutator.holdingsEntries.reset();
-      this.props.parentMutator.itemEntries.reset();
-      const query = `permanentLocationId=${this.props.initialValues.id} or temporaryLocationId=${this.props.initialValues.id}`;
-      const holdingsRecords = this.props.parentMutator.holdingsEntries.GET({ params: { query } });
-      const itemRecords = this.props.parentMutator.itemEntries.GET({ params: { query } });
+      const mutator = this.props.parentMutator;
+      const id = this.props.initialValues.id;
+      const promises = [];
 
-      Promise.all([holdingsRecords, itemRecords]).then(values => {
+      // Uses in Inventory
+      {
+        mutator.holdingsEntries.reset();
+        mutator.itemEntries.reset();
+        const query = `permanentLocationId=${id} or temporaryLocationId=${id}`;
+        promises.push(mutator.holdingsEntries.GET({ params: { query } }));
+        promises.push(mutator.itemEntries.GET({ params: { query } }));
+      }
+
+      // Uses in Course Reserves
+      if (this.props.stripes.hasInterface('course-reserves-storage')) {
+        mutator.courselistingEntries.reset();
+        const query = `locationId=="${id}"`;
+        promises.push(mutator.courselistingEntries.GET({ params: { query } }));
+      }
+      if (this.props.stripes.hasInterface('reserves-storage')) {
+        mutator.reserveEntries.reset();
+        const query = `copiedItem.temporaryLocationId=="${id}" or copiedItem.permanentLocationId=="${id}"`;
+        promises.push(mutator.reserveEntries.GET({ params: { query } }));
+      }
+
+      Promise.all(promises).then(values => {
         if (undefined === values.find(records => records.length !== 0)) {
           this.props.onRemove(loc);
         } else {
