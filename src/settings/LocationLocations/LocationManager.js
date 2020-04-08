@@ -555,7 +555,7 @@ class LocationManager extends React.Component {
     mutator.holdingsEntries.reset();
     mutator.itemEntries.reset();
 
-    const query = `permanentLocationId=${location.id} or temporaryLocationId=${location.id}`;
+    const query = `permanentLocationId==${location.id} or temporaryLocationId==${location.id}`;
     const holdingsRecords = mutator.holdingsEntries.GET({ params: { query } });
     const itemRecords = mutator.itemEntries.GET({ params: { query } });
 
