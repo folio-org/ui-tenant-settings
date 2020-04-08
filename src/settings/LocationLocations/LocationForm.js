@@ -161,8 +161,8 @@ class LocationForm extends React.Component {
 
     return (
       <PaneFooter
-        renderStart={closeButton}
         renderEnd={saveButton}
+        renderStart={closeButton}
       />
     );
   }

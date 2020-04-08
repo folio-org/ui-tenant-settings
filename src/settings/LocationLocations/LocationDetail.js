@@ -237,8 +237,14 @@ class LocationDetail extends React.Component {
       sections,
     } = this.state;
 
-    const name = loc.name || <FormattedMessage id="ui-tenant-settings.settings.location.locations.untitledLocation" />;
-    const confirmationMessage = <SafeHTMLMessage id="ui-tenant-settings.settings.location.locations.deleteLocationMessage" values={{ name }} />;
+    const locationName =
+      loc.name || <FormattedMessage id="ui-tenant-settings.settings.location.locations.untitledLocation" />;
+    const confirmationMessage = (
+      <SafeHTMLMessage
+        id="ui-tenant-settings.settings.location.locations.deleteLocationMessage"
+        values={{ name: locationName }}
+      />
+    );
 
     return (
       <Pane
