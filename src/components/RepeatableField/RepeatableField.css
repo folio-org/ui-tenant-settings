@@ -1,9 +1,9 @@
 .RFLegend {
-  margin-bottom: var(--radius);
+  margin-bottom: 6px;
 }
 
 .addButton {
-  margin-bottom: 6px;
+  margin-bottom: 12px;
 }
 
 .linkButton {
