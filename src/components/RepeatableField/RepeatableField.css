@@ -1,3 +1,16 @@
 .RFLegend {
-  margin-bottom: 6px;
+  margin-bottom: var(--radius);
+}
+
+.addButton {
+  margin-bottom: calc(var(--radius) * 2);
+}
+
+.linkButton {
+  padding: var(--input-vertical-padding);
+  margin-bottom: calc(var(--radius) * 2);
+}
+
+.fullWidth {
+  width: 100%;
 }
