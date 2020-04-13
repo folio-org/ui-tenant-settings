@@ -3,12 +3,12 @@
 }
 
 .addButton {
-  margin-bottom: calc(var(--radius) * 2);
+  margin-bottom: 6px;
 }
 
 .linkButton {
   padding: var(--input-vertical-padding);
-  margin-bottom: calc(var(--radius) * 2);
+  margin-bottom: 12px;
 }
 
 .fullWidth {
