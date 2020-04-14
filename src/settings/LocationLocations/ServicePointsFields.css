@@ -30,3 +30,34 @@
   font-weight: var(--text-weight-bold);
   padding: 0 0.1rem;
 }
+
+.fieldsLayout {
+  margin-top: 1.6rem;
+  margin-bottom: calc(var(--gutter-static) * -2);
+}
+
+.selectLayout {
+  min-width: 200px;
+}
+
+.selectField {
+  min-width: 180px;
+}
+
+.radioButtonLayout {
+  min-width: 50px;
+  align-self: flex-start;
+  padding-top: 7px;
+}
+
+.servicePointsLabel {
+  min-width: 200px;
+}
+
+.primaryLabel {
+  min-width: 50px;
+}
+
+.emptyMessage {
+  color: var(--error);
+}
