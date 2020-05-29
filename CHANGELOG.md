@@ -4,6 +4,7 @@
 
 ### Stories
 * [STRIPES-672](https://issues.folio.org/browse/STRIPES-672) Upgrade to `stripes` `4.0`, `react-intl` `4.5`. Refs STRIPES-672.
+* [STCOR-148](https://issues.folio.org/browse/STCOR-148) Prefer `stripes.actsAs` to the deprecated `stripes.type` in `package.json`.
 
 ## 3.1.0 (IN PROGRESS)
 
