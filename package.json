@@ -82,7 +82,7 @@
         "displayName": "Settings (tenant): Can maintain SSO settings",
         "subPermissions": [
           "login-saml.configuration.get",
-          "login-saml.configuration.put,
+          "login-saml.configuration.put",
           "settings.tenant-settings.enabled"
         ],
         "visible": true
