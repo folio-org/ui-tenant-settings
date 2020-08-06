@@ -80,9 +80,6 @@ class Plugins extends React.Component {
 
   savePlugin(plugin) {
     const value = plugin.value;
-
-    console.log(plugin);
-
     if (plugin.id) {
       // Setting has been set previously: replace it
       this.props.mutator.recordId.replace(plugin.id);
@@ -100,7 +97,6 @@ class Plugins extends React.Component {
   }
 
   save(data) {
-    console.log({data})
     data.plugins.forEach(p => this.savePlugin(p));
     const updateMsg = <FormattedMessage id="ui-tenant-settings.settings.updated" />;
     this.callout.sendCallout({ message: updateMsg });
@@ -108,7 +104,7 @@ class Plugins extends React.Component {
 
   render() {
     const plugins = this.getPlugins();
-    console.log({plugins})
+
     return (
       <Layout className="full">
         <PluginForm
