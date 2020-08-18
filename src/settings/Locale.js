@@ -140,11 +140,7 @@ class Locale extends React.Component {
         </IfPermission>
         <Row>
           <Col xs={12} id="select-locale">
-            <div>
-              <FormattedMessage id="ui-tenant-settings.settings.localization" />
-            </div>
-            <br />
-            <FormattedMessage id="ui-tenant-settings.settings.primaryCurrency">
+            <FormattedMessage id="ui-tenant-settings.settings.localization">
               {label => (
                 <Field
                   component={Select}
@@ -152,7 +148,7 @@ class Locale extends React.Component {
                   name="locale"
                   placeholder="---"
                   dataOptions={options}
-                  aria-label={label}
+                  label={label}
                 />
               )}
             </FormattedMessage>
@@ -160,11 +156,7 @@ class Locale extends React.Component {
         </Row>
         <Row>
           <Col xs={12} id="select-timezone">
-            <div>
-              <FormattedMessage id="ui-tenant-settings.settings.timeZonePicker" />
-            </div>
-            <br />
-            <FormattedMessage id="ui-tenant-settings.settings.primaryCurrency">
+            <FormattedMessage id="ui-tenant-settings.settings.timeZonePicker">
               {label => (
                 <Field
                   component={Select}
@@ -172,7 +164,7 @@ class Locale extends React.Component {
                   name="timezone"
                   placeholder="---"
                   dataOptions={timeZonesList}
-                  aria-label={label}
+                  label={label}
                 />
               )}
             </FormattedMessage>
@@ -180,10 +172,6 @@ class Locale extends React.Component {
         </Row>
         <Row>
           <Col xs={12} id="select-currency">
-            <div>
-              <FormattedMessage id="ui-tenant-settings.settings.primaryCurrency" />
-            </div>
-            <br />
             <FormattedMessage id="ui-tenant-settings.settings.primaryCurrency">
               {label => (
                 <Field
@@ -191,7 +179,7 @@ class Locale extends React.Component {
                   id="currency"
                   name="currency"
                   placeholder="---"
-                  aria-label={label}
+                  label={label}
                 />
               )}
             </FormattedMessage>
