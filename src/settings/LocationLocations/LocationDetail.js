@@ -93,8 +93,7 @@ class LocationDetail extends React.Component {
     return (
       index === 0 ?
         <li key={index}>
-          {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
-          {sp} (primary)
+          <>{sp} (primary)</>
         </li> :
         <li key={index}>
           {sp}
