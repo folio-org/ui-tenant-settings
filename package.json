@@ -36,7 +36,7 @@
         "displayName": "UI: Tenant-settings module is enabled"
       },
       {
-        "permissionName": "ui-tenant-setting.module.enabled",
+        "permissionName": "ui-tenant-settings.module.enabled",
         "subPermissions": [
           "module.tenant-settings.enabled"
         ],
@@ -48,6 +48,13 @@
         "subPermissions": [
           "settings.enabled"
         ]
+      },
+      {
+        "permissionName": "ui-tenant-settings.settings.enabled",
+        "subPermissions": [
+          "settings.tenant-settings.enabled"
+        ],
+        "visible": true
       },
       {
         "permissionName": "ui-tenant-settings.settings.addresses",
