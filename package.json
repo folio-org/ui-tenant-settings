@@ -33,7 +33,8 @@
     "permissionSets": [
       {
         "permissionName": "module.tenant-settings.enabled",
-        "displayName": "UI: Tenant-settings module is enabled"
+        "displayName": "UI: Tenant-settings module is enabled",
+        "visible": false
       },
       {
         "permissionName": "ui-tenant-settings.module.enabled",
@@ -47,7 +48,8 @@
         "displayName": "Settings (tenant): display list of settings pages",
         "subPermissions": [
           "settings.enabled"
-        ]
+        ],
+        "visible": false
       },
       {
         "permissionName": "ui-tenant-settings.settings.enabled",
