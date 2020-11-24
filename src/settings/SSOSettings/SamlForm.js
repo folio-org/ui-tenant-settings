@@ -86,6 +86,7 @@ class SamlForm extends React.Component {
       values,
     } = this.props;
 
+
     const identifierOptions = (optionLists.identifierOptions || []).map(i => (
       { id: i.key, label: i.label, value: i.key, selected: initialValues.userProperty === i.key }
     ));
@@ -137,7 +138,7 @@ class SamlForm extends React.Component {
                 <Button
                   id="download-metadata-button"
                   onClick={this.downloadMetadata}
-                  disabled={!values.idpUrl}
+                  disabled={!values.idpUrl || !pristine}
                 >
                   <FormattedMessage id="ui-tenant-settings.settings.saml.downloadMetadata" />
                 </Button>
