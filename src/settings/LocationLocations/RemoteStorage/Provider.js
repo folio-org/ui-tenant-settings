@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useIntl } from 'react-intl';
 
 import { stripesConnect } from '@folio/stripes/core';
-
-import { useIntlTag } from '../../../util/useIntlTag';
-
 
 const Context = React.createContext({});
 
@@ -17,7 +15,8 @@ const Provider = ({ resources, mutator, ...rest }) => {
     persistentMutator.configurations.GET();
   }, [persistentMutator]);
 
-  const t = useIntlTag('ui-tenant-settings.settings.location.remotes');
+  const { formatMessage } = useIntl();
+  const translate = key => formatMessage({ id: `ui-tenant-settings.settings.location.remotes.${key}` });
 
   const remoteMap = React.useMemo(
     () => Object.fromEntries(resources.mappings.records.map(
@@ -38,7 +37,7 @@ const Provider = ({ resources, mutator, ...rest }) => {
     ...resources,
     remoteMap,
     setMapping,
-    t,
+    translate,
   };
 
   return <Context.Provider value={context} {...rest} />;
