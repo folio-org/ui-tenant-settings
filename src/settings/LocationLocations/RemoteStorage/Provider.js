@@ -11,11 +11,11 @@ const Context = React.createContext({});
 export const useRemoteStorageApi = () => React.useContext(Context);
 
 const Provider = ({ resources, mutator, ...rest }) => {
-  const [pm] = React.useState(mutator); // Persistent mutator
+  const [persistentMutator] = React.useState(mutator);
 
   React.useEffect(() => {
-    pm.configurations.GET();
-  }, [pm]);
+    persistentMutator.configurations.GET();
+  }, [persistentMutator]);
 
   const t = useIntlTag('ui-tenant-settings.settings.location.remotes');
 
@@ -29,9 +29,9 @@ const Provider = ({ resources, mutator, ...rest }) => {
   const setMapping = ({ folioLocationId, configurationId }) => {
     if (remoteMap[folioLocationId] === configurationId) return Promise.resolve();
 
-    if (configurationId) return pm.mappings.POST({ folioLocationId, configurationId });
+    if (configurationId) return persistentMutator.mappings.POST({ folioLocationId, configurationId });
 
-    return pm.mappings.DELETE({ folioLocationId, configurationId });
+    return persistentMutator.mappings.DELETE({ folioLocationId, configurationId });
   };
 
   const context = {
