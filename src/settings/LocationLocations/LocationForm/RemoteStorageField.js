@@ -14,13 +14,13 @@ export const RemoteStorageField = ({ initialValues, checkLocationHasHoldingsOrIt
 
   React.useEffect(
     () => {
-      // For new locations - initial state is NOT read-only
-      if (locationId === undefined) {
+      const isNewLocation = (locationId === undefined);
+
+      if (isNewLocation) {
         setIsReadOnly(false);
         return;
       }
 
-      // Initial state is read-only, until we get assured there are no Holdings or Items associated
       setIsReadOnly(true);
       checkLocationHasHoldingsOrItems(locationId).then(setIsReadOnly);
     },
