@@ -37,19 +37,19 @@ const LocationFormContainer = ({
 
   const { setMapping } = useRemoteStorageApi();
 
-  const fireSetMapping = (...args) => setMapping(...args).catch(showSubmitErrorCallout);
+  const initiateSetMapping = (...args) => setMapping(...args).catch(showSubmitErrorCallout);
 
   const saveData = async (formData) => {
     const { remoteId: configurationId, ...locationData } = formData;
 
     if (locationData.id === undefined) {
       const newLocation = await parentMutator.entries.POST(locationData);
-      fireSetMapping({ folioLocationId: newLocation?.id, configurationId });
+      initiateSetMapping({ folioLocationId: newLocation?.id, configurationId });
 
       return newLocation;
     }
 
-    fireSetMapping({ folioLocationId: locationData.id, configurationId });
+    initiateSetMapping({ folioLocationId: locationData.id, configurationId });
 
     return parentMutator.entries.PUT(locationData);
   };
