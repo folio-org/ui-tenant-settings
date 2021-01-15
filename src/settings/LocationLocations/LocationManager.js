@@ -482,7 +482,7 @@ class LocationManager extends React.Component {
     } = this.props;
 
     return this.checkLocationHasHoldingsOrItems(location.id)
-      .then(itHas => !itHas && mutator.entries.DELETE(location))
+      .then(hasSomething => !hasSomething && mutator.entries.DELETE(location))
       .then(result => {
         const isRemoved = (result !== false);
 
@@ -643,3 +643,4 @@ class LocationManager extends React.Component {
 }
 
 export default injectIntl(LocationManager);
+// export default LocationManager;
