@@ -1,12 +1,14 @@
-import { map, omit } from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import { map, omit } from 'lodash';
+
 import { modules } from 'stripes-config'; // eslint-disable-line import/no-unresolved, import/no-extraneous-dependencies
 import {
   Callout,
   Layout,
 } from '@folio/stripes/components';
+
 import PluginForm from './PluginForm';
 
 class Plugins extends React.Component {
@@ -107,10 +109,10 @@ class Plugins extends React.Component {
     return (
       <Layout className="full">
         <PluginForm
-          onSubmit={this.save}
           label={this.props.label}
           pluginTypes={this.pluginTypes}
           initialValues={{ plugins }}
+          onSubmit={this.save}
         />
         <Callout ref={(ref) => { this.callout = ref; }} />
       </Layout>

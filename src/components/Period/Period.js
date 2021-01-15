@@ -133,7 +133,7 @@ class Period extends React.Component {
               type="number"
               name={inputValuePath}
               component={TextField}
-              withRef
+              forwardRef
               inputRef={this.inputRef}
               onBlur={this.onInputBlur}
               onClearField={this.onInputClear}
