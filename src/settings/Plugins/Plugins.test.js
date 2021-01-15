@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { act, screen } from '@testing-library/react';
+import { act, waitFor, screen } from '@testing-library/react';
 import user from '@testing-library/user-event';
 
 import '../../../test/jest/__mocks__';
@@ -26,18 +26,19 @@ describe('Plugins', () => {
     setSinglePlugin.mockClear();
   });
 
-  it('renders plugins', async () => {
+  it('should render plugins', async () => {
     const { findAllByText } = await renderPlugins({ label: 'plugins' });
     expect(await findAllByText('plugins')).toBeDefined();
   });
 
-  it('chooses and saves plugin', async () => {
+  it('should choose and save plugin', async () => {
     await act(async () => {
       await renderPlugins({ label: 'plugins' });
-      const button = screen.getByRole('button', { type: /submit/i });
 
-      user.selectOptions(screen.getByTestId('find-instance'), ['@folio/plugin-find-instance']);
-      user.click(button);
+      await user.selectOptions(screen.getByTestId('find-instance'), ['@folio/plugin-find-instance']);
+      await waitFor(() => expect(screen.getByRole('button', { type: /submit/i })).toBeEnabled());
+
+      user.click(screen.getByRole('button', { type: /submit/i }));
     });
 
     expect(setSinglePlugin).toHaveBeenCalledTimes(1);

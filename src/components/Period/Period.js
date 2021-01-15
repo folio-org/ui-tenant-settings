@@ -85,6 +85,8 @@ class Period extends React.Component {
 
     changeFormValue(selectValuePath, e.target.value);
 
+    console.log(this.inputRef);
+
     this.inputRef.current.focus();
   };
 
@@ -133,7 +135,7 @@ class Period extends React.Component {
               type="number"
               name={inputValuePath}
               component={TextField}
-              withRef
+              forwardRef
               inputRef={this.inputRef}
               onBlur={this.onInputBlur}
               onClearField={this.onInputClear}
