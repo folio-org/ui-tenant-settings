@@ -42,6 +42,8 @@ describe('Bindings', () => {
 
     act(() => {
       const textarea = screen.getByRole('textbox', { name: /binding/i });
+      // paste is needed to avoid form validation on each letter which fails each time;
+      // as the outcome characters are also not being added
       user.paste(textarea, '{"test": "test"}');
     });
 
