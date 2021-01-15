@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { act, screen, waitFor } from '@testing-library/react';
+import { act, screen } from '@testing-library/react';
 import user from '@testing-library/user-event';
 
 import '../../../test/jest/__mocks__';
@@ -38,18 +38,19 @@ describe('Bindings', () => {
   });
 
   it('fills and saves bindings', async () => {
-    await act(async () => {
-      await renderBindings({ label: 'binding' });
+    renderBindings({ label: 'binding' });
 
+    act(() => {
       const textarea = screen.getByRole('textbox', { name: /binding/i });
-
-      // paste is needed to avoid form validation on each letter which fails each time;
-      // as the outcome characters are also not being added
       user.paste(textarea, '{"test": "test"}');
+    });
 
-      await waitFor(() => expect(screen.getByRole('button', { type: /submit/i })).toBeEnabled());
-
-      user.click(screen.getByRole('button', { type: /submit/i }));
+    // setBindings() is supposed to be executed onAfterSave,
+    // so it does wait for an API call to resolve
+    // hence we need to act async
+    await act(async () => {
+      const button = screen.getByRole('button', { type: /submit/i });
+      user.click(button);
     });
 
     expect(setBindings).toHaveBeenCalledTimes(1);

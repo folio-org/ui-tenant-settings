@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { act, waitFor, screen } from '@testing-library/react';
+import { act, screen } from '@testing-library/react';
 import user from '@testing-library/user-event';
 
 import '../../../test/jest/__mocks__';
@@ -26,19 +26,24 @@ describe('Plugins', () => {
     setSinglePlugin.mockClear();
   });
 
-  it('should render plugins', async () => {
+  it('renders plugins', async () => {
     const { findAllByText } = await renderPlugins({ label: 'plugins' });
     expect(await findAllByText('plugins')).toBeDefined();
   });
 
-  it('should choose and save plugin', async () => {
-    await act(async () => {
-      await renderPlugins({ label: 'plugins' });
+  it('chooses and saves plugin', () => {
+    renderPlugins({ label: 'plugins' });
 
-      await user.selectOptions(screen.getByTestId('find-instance'), ['@folio/plugin-find-instance']);
-      await waitFor(() => expect(screen.getByRole('button', { type: /submit/i })).toBeEnabled());
+    act(() => {
+      user.selectOptions(screen.getByTestId('find-instance'), ['@folio/plugin-find-instance']);
+    });
 
-      user.click(screen.getByRole('button', { type: /submit/i }));
+    // setSinglePlugin() is executed immediately on click,
+    // it does not wait for API call to resolve
+    // hence no async here
+    act(() => {
+      const button = screen.getByRole('button', { type: /submit/i });
+      user.click(button);
     });
 
     expect(setSinglePlugin).toHaveBeenCalledTimes(1);
