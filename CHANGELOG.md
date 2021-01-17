@@ -6,6 +6,7 @@
 * [UITEN-127](https://issues.folio.org/browse/UITEN-127) Add additional permission to location permission set.
 * [UITEN-128](https://issues.folio.org/browse/UITEN-128) Do not warn about dangling references in optional modules.
 * [UITEN-80](https://issues.folio.org/browse/UITEN-80) Fix bug causing some locations to be miscounted in libraries list.
+* [UITEN-146](https://issues.folio.org/browse/UITEN-146) Update `stripes` to `v6.0.0`.
 * [UITEN-115](https://issues.folio.org/browse/UITEN-115) Make permission names localizable.
 * [UITEN-119](https://issues.folio.org/browse/UITEN-119) Fix console warnings.
 * [UITEN-119](https://issues.folio.org/browse/UITEN-119) Fix Jest catching /test/ui-testing/test.js

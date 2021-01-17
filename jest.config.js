@@ -15,9 +15,10 @@ module.exports = {
   transform: { '^.+\\.(js|jsx)$': path.join(__dirname, './test/jest/jest-transformer.js') },
   transformIgnorePatterns: [`/node_modules/(?!${esModules}|ky)`],
   moduleNameMapper: {
-    '^.+\\.(css)$': '<rootDir>/node_modules/jest-css-modules',
+    '^.+\\.(css)$': 'identity-obj-proxy',
     '^.+\\.(svg)$': 'identity-obj-proxy',
   },
   testMatch: ['**/(lib|src)/**/?(*.)test.{js,jsx}'],
   testPathIgnorePatterns: ['/node_modules/', '<rootDir>/test/ui-testing'],
+  setupFilesAfterEnv: [path.join(__dirname, './test/jest/jest.setup.js')],
 };

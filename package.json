@@ -180,11 +180,11 @@
     "@bigtest/mocha": "^0.5.2",
     "@bigtest/react": "^0.1.2",
     "@folio/eslint-config-stripes": "^3.2.1",
-    "@folio/stripes": "^5.0.0",
+    "@folio/stripes": "^6.0.0",
     "@folio/stripes-cli": "^1.18.0",
-    "@folio/stripes-components": "^8.0.0",
-    "@folio/stripes-core": "^6.0.0",
-    "@folio/stripes-smart-components": "^5.1.0",
+    "@folio/stripes-components": "^9.0.0",
+    "@folio/stripes-core": "^7.0.0",
+    "@folio/stripes-smart-components": "^6.0.0",
     "@testing-library/dom": "^7.26.3",
     "@testing-library/jest-dom": "^5.11.1",
     "@testing-library/react": "^11.0.2",
@@ -202,16 +202,16 @@
     "faker": "^4.1.0",
     "inflected": "^2.0.4",
     "jest": "^26.4.2",
-    "jest-css-modules": "^2.1.0",
     "jest-junit": "^11.1.0",
     "miragejs": "^0.1.40",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
     "react-intl": "^5.8.0",
-    "react-redux": "^5.0.7",
+    "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.0",
-    "sinon": "^7.2.2"
+    "sinon": "^7.2.2",
+    "identity-obj-proxy": "^3.0.0"
   },
   "dependencies": {
     "@folio/react-intl-safe-html": "^2.0.0",
@@ -221,10 +221,10 @@
     "query-string": "^6.8.1",
     "react-final-form": "^6.3.0",
     "react-final-form-arrays": "^3.1.1",
-    "redux-form": "^7.0.3"
+    "redux-form": "^8.0.0"
   },
   "peerDependencies": {
-    "@folio/stripes": "^5.0.0",
+    "@folio/stripes": "^6.0.0",
     "react": "*",
     "react-intl": "^5.8.0",
     "react-router-dom": "^5.2.0"

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { act, screen } from '@testing-library/react';
+import { act, screen, waitFor } from '@testing-library/react';
 import user from '@testing-library/user-event';
 
 import '../../../test/jest/__mocks__';
@@ -32,20 +32,24 @@ describe('Bindings', () => {
     setBindings.mockClear();
   });
 
-  it('renders bindings', async () => {
+  it('should render bindings', async () => {
     const { findAllByText } = await renderBindings({ label: 'binding' });
     expect(await findAllByText('binding')).toBeDefined();
   });
 
-  it('fills and saves bindings', async () => {
+  it('should fill and save bindings', async () => {
+    renderBindings({ label: 'binding' });
+
     await act(async () => {
-      await renderBindings({ label: 'binding' });
       const textarea = screen.getByRole('textbox', { name: /binding/i });
-      const button = screen.getByRole('button', { type: /submit/i });
 
-      await user.type(textarea, '{"test": "test"}');
+      // paste is needed to avoid form validation on each letter which fails each time;
+      // as the outcome characters are also not being added
+      user.paste(textarea, '{"test": "test"}');
 
-      user.click(button);
+      await waitFor(() => expect(screen.getByRole('button', { type: /submit/i })).toBeEnabled());
+
+      user.click(screen.getByRole('button', { type: /submit/i }));
     });
 
     expect(setBindings).toHaveBeenCalledTimes(1);

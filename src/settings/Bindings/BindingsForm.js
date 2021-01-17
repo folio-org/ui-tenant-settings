@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import { Field } from 'react-final-form';
+
 import {
   Button,
   Col,
@@ -10,7 +12,6 @@ import {
   TextArea,
 } from '@folio/stripes/components';
 import stripesFinalForm from '@folio/stripes/final-form';
-import { Field } from 'react-final-form';
 import { stripesShape, withStripes } from '@folio/stripes/core';
 
 import styles from './Bindings.css';
