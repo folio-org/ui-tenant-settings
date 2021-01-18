@@ -12,6 +12,7 @@ const Provider = ({ resources, mutator, ...rest }) => {
   const [persistentMutator] = React.useState(mutator);
 
   React.useEffect(() => {
+    persistentMutator.configurations.reset();
     persistentMutator.configurations.GET();
   }, [persistentMutator]);
 
