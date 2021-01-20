@@ -137,5 +137,10 @@
     "permission.settings.plugins": "الإعدادات (المستأجر): إمكانية الحفاظ على البرامج المساعدة المفضلة",
     "permission.settings.sso": "الإعدادات (المستأجر): إمكانية الحفاظ على إعدادات SSO",
     "permission.settings.location": "الإعدادات (المستأجر): إمكانية إنشاء، وتحرير، وإزالة المواقع",
-    "permission.settings.servicepoints": "الإعدادات (المستأجر): إمكانية إنشاء، وتحرير، وإزالة نقاط الخدمة"
+    "permission.settings.servicepoints": "الإعدادات (المستأجر): إمكانية إنشاء، وتحرير، وإزالة نقاط الخدمة",
+    "settings.location.remotes.remote": "التخزين عن بعد",
+    "settings.location.remotes.no": "لا (افتراضي)",
+    "settings.location.remotes.loading": "جاري التحميل...",
+    "settings.location.remotes.readonly": "لا يمكن تغييره إلا في حالة عدم وجود مقتنيات دائمة أو مواد مرتبطة بهذا الموقع",
+    "settings.location.remotes.failed": "فشل التحميل"
 }

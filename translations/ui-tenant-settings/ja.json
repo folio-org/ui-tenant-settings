@@ -137,5 +137,10 @@
     "permission.settings.plugins": "Settings (tenant): Can maintain preferred plugins",
     "permission.settings.sso": "設定（テナント）：SSO設定を管理できます",
     "permission.settings.location": "Settings (tenant): Can create, edit and remove locations",
-    "permission.settings.servicepoints": "設定（テナント）：サービスポイントを作成、編集、削除できます"
+    "permission.settings.servicepoints": "設定（テナント）：サービスポイントを作成、編集、削除できます",
+    "settings.location.remotes.remote": "Remote storage",
+    "settings.location.remotes.no": "No (default)",
+    "settings.location.remotes.loading": "loading...",
+    "settings.location.remotes.readonly": "can only be changed when there are no permanent holdings or items associated with this location",
+    "settings.location.remotes.failed": "Failed to load"
 }

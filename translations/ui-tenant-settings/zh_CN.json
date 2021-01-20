@@ -137,5 +137,10 @@
     "permission.settings.plugins": "设置（租户）：可以维护首选插件",
     "permission.settings.sso": "设置（租户）：可以维护SSO设置",
     "permission.settings.location": "设置（租户）：可以创建、编辑和移除位置",
-    "permission.settings.servicepoints": "设置（租户）：可以创建、编辑和移除服务点"
+    "permission.settings.servicepoints": "设置（租户）：可以创建、编辑和移除服务点",
+    "settings.location.remotes.remote": "Remote storage",
+    "settings.location.remotes.no": "No (default)",
+    "settings.location.remotes.loading": "loading...",
+    "settings.location.remotes.readonly": "can only be changed when there are no permanent holdings or items associated with this location",
+    "settings.location.remotes.failed": "Failed to load"
 }

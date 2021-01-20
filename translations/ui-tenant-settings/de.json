@@ -137,5 +137,10 @@
     "permission.settings.plugins": "Einstellungen (Tenant): Kann bevorzugte Plugins verwalten",
     "permission.settings.sso": "Einstellungen (Tenant): Kann SSO Einstellungen verwalten",
     "permission.settings.location": "Einstellungen (Tenant): Kann Standorte erstellen, bearbeiten und entfernen",
-    "permission.settings.servicepoints": "Einstellungen (Tenant): Kann Servicestellen erstellen, bearbeiten und entfernen"
+    "permission.settings.servicepoints": "Einstellungen (Tenant): Kann Servicestellen erstellen, bearbeiten und entfernen",
+    "settings.location.remotes.remote": "Remote storage",
+    "settings.location.remotes.no": "No (default)",
+    "settings.location.remotes.loading": "loading...",
+    "settings.location.remotes.readonly": "can only be changed when there are no permanent holdings or items associated with this location",
+    "settings.location.remotes.failed": "Failed to load"
 }
