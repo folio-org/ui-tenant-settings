@@ -10,7 +10,7 @@
 * [UITEN-115](https://issues.folio.org/browse/UITEN-115) Make permission names localizable.
 * [UITEN-119](https://issues.folio.org/browse/UITEN-119) Fix console warnings.
 * [UITEN-119](https://issues.folio.org/browse/UITEN-119) Fix Jest catching /test/ui-testing/test.js
-* [UITEN-119](https://issues.folio.org/browse/UITEN-119) Add remote-storage back-end module dependencies.
+* [UITEN-119](https://issues.folio.org/browse/UITEN-119) Add remote-storage back-end module optional dependencies.
 * [UITEN-119](https://issues.folio.org/browse/UITEN-119) Add remote-storage sub-perms in ui-tenant-settings.settings.location.
 * [UITEN-119](https://issues.folio.org/browse/UITEN-119) Add Remote Storage field functionality to Location edit form.
 * [UITEN-119](https://issues.folio.org/browse/UITEN-119) Refactor Location edit form.
