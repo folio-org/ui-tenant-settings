@@ -137,5 +137,10 @@
     "permission.settings.plugins": "Ustawienia (dzierżawa): może obsługiwać preferowane wtyczki",
     "permission.settings.sso": "Ustawienia (dzierżawca): może obsługiwać ustawienia SSO",
     "permission.settings.location": "Ustawienia (dzierżawa): może tworzyć, edytować i usuwać lokalizacje",
-    "permission.settings.servicepoints": "Ustawienia (dzierżawa): może tworzyć, edytować i usuwać punkty obsługi"
+    "permission.settings.servicepoints": "Ustawienia (dzierżawa): może tworzyć, edytować i usuwać punkty obsługi",
+    "settings.location.remotes.remote": "Remote storage",
+    "settings.location.remotes.no": "No (default)",
+    "settings.location.remotes.loading": "loading...",
+    "settings.location.remotes.readonly": "can only be changed when there are no permanent holdings or items associated with this location",
+    "settings.location.remotes.failed": "Failed to load"
 }
