@@ -141,6 +141,6 @@
     "settings.location.remotes.remote": "Armazenamento externo",
     "settings.location.remotes.no": "Não (padrão)",
     "settings.location.remotes.loading": "carregando...",
-    "settings.location.remotes.readonly": "can only be changed when there are no permanent holdings or items associated with this location",
+    "settings.location.remotes.readonly": "só pode ser alterado quando não houver acervos permanentes ou itens associados a este local",
     "settings.location.remotes.failed": "Falha ao carregar"
 }
