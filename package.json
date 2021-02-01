@@ -163,6 +163,14 @@
           "inventory-storage.service-points.item.delete"
         ],
         "visible": true
+      },
+      {
+        "permissionName": "ui-tenant-settings.settings.bursar-exports",
+        "displayName": "Settings (tenant): Bursar admin",
+        "subPermissions": [
+          "settings.tenant-settings.enabled"
+        ],
+        "visible": true
       }
     ]
   },

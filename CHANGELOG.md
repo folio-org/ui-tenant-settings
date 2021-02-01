@@ -14,6 +14,7 @@
 * [UITEN-119](https://issues.folio.org/browse/UITEN-119) Add remote-storage sub-perms in ui-tenant-settings.settings.location.
 * [UITEN-119](https://issues.folio.org/browse/UITEN-119) Add Remote Storage field functionality to Location edit form.
 * [UITEN-119](https://issues.folio.org/browse/UITEN-119) Refactor Location edit form.
+* [UITEN-152](https://issues.folio.org/browse/UITEN-152) Bursar exports settings page
 
 ## [5.0.1](https://github.com/folio-org/ui-tenant-settings/tree/v5.0.1) (2020-11-13)
 [Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v5.0.0...v5.0.1)

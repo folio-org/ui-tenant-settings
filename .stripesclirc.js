@@ -38,4 +38,3 @@ module.exports = {
     serve: servePlugin
   }
 };
-
