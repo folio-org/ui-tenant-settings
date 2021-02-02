@@ -142,5 +142,7 @@
     "settings.location.remotes.no": "لا (افتراضي)",
     "settings.location.remotes.loading": "جاري التحميل...",
     "settings.location.remotes.readonly": "لا يمكن تغييره إلا في حالة عدم وجود مقتنيات دائمة أو مواد مرتبطة بهذا الموقع",
-    "settings.location.remotes.failed": "فشل التحميل"
+    "settings.location.remotes.failed": "فشل التحميل",
+    "settings.bursarExports": "Bursar exports",
+    "permission.settings.bursar-exports": "Settings (tenant): Bursar admin"
 }
