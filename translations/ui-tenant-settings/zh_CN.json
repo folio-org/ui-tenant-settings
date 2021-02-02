@@ -138,9 +138,11 @@
     "permission.settings.sso": "设置（租户）：可以维护SSO设置",
     "permission.settings.location": "设置（租户）：可以创建、编辑和移除位置",
     "permission.settings.servicepoints": "设置（租户）：可以创建、编辑和移除服务点",
-    "settings.location.remotes.remote": "Remote storage",
-    "settings.location.remotes.no": "No (default)",
-    "settings.location.remotes.loading": "loading...",
-    "settings.location.remotes.readonly": "can only be changed when there are no permanent holdings or items associated with this location",
-    "settings.location.remotes.failed": "Failed to load"
+    "settings.location.remotes.remote": "远程存储",
+    "settings.location.remotes.no": "否（默认）",
+    "settings.location.remotes.loading": "载入中...",
+    "settings.location.remotes.readonly": "仅当没有与此馆藏地关联的永久馆藏或单件时才能更改",
+    "settings.location.remotes.failed": "加载失败",
+    "settings.bursarExports": "Bursar exports",
+    "permission.settings.bursar-exports": "Settings (tenant): Bursar admin"
 }

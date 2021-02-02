@@ -142,5 +142,7 @@
     "settings.location.remotes.no": "No (default)",
     "settings.location.remotes.loading": "loading...",
     "settings.location.remotes.readonly": "can only be changed when there are no permanent holdings or items associated with this location",
-    "settings.location.remotes.failed": "Failed to load"
+    "settings.location.remotes.failed": "Failed to load",
+    "settings.bursarExports": "Bursar exports",
+    "permission.settings.bursar-exports": "Settings (tenant): Bursar admin"
 }

@@ -142,5 +142,7 @@
     "settings.location.remotes.no": "Não (padrão)",
     "settings.location.remotes.loading": "carregando...",
     "settings.location.remotes.readonly": "só pode ser alterado quando não houver acervos permanentes ou itens associados a este local",
-    "settings.location.remotes.failed": "Falha ao carregar"
+    "settings.location.remotes.failed": "Falha ao carregar",
+    "settings.bursarExports": "Bursar exports",
+    "permission.settings.bursar-exports": "Settings (tenant): Bursar admin"
 }
