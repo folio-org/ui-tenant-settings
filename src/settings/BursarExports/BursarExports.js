@@ -1,19 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useIntl } from 'react-intl';
 
 import {
-  Col,
+  Button,
   Pane,
-  Row,
+  PaneFooter,
 } from '@folio/stripes/components';
+
+import { BursarExportsConfiguration } from './BursarExportsConfiguration';
 
 export const BursarExports = () => {
   const { formatMessage } = useIntl();
 
+  const [bursarConfigForm, setBursarConfigForm] = useState();
+  const bursarConfigFormState = bursarConfigForm?.getState();
+
+  const saveBursarConfig = () => {
+    return bursarConfigForm?.submit();
+  };
+
   const paneFooter = (
-    <div>
-      Bursar exports footer
-    </div>
+    <PaneFooter
+      renderEnd={
+        <Button
+          buttonStyle="primary mega"
+          disabled={bursarConfigFormState?.pristine || bursarConfigFormState?.submitting}
+          onClick={saveBursarConfig}
+          type="submit"
+        >
+          {formatMessage({ id: 'ui-tenant-settings.settings.bursarExports.save' })}
+        </Button>
+      }
+    />
   );
 
   return (
@@ -23,11 +41,10 @@ export const BursarExports = () => {
       id="pane-batch-group-configuration"
       paneTitle={formatMessage({ id: 'ui-tenant-settings.settings.bursarExports' })}
     >
-      <Row>
-        <Col>
-          Bursar exports configuration
-        </Col>
-      </Row>
+      <BursarExportsConfiguration
+        onFormStateChanged={setBursarConfigForm}
+        onSubmit={(values) => { console.log(values); }}
+      />
     </Pane>
   );
 };
