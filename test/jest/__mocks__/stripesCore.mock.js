@@ -93,6 +93,7 @@ jest.mock('@folio/stripes/core', () => {
 
   return {
     ...jest.requireActual('@folio/stripes/core'),
+    useOkapiKy: jest.fn(),
     stripesConnect,
     useStripes,
     withStripes,

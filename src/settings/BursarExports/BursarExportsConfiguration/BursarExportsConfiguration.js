@@ -64,7 +64,7 @@ export const BursarExportsConfigurationForm = ({
         </Col>
 
         {
-          Boolean(formValues.schedulePeriod) && (
+          formValues.schedulePeriod !== SCHEDULE_PERIODS.none && (
             <Col xs={4}>
               <Field
                 data-testid="schedule-frequency"
@@ -93,7 +93,7 @@ export const BursarExportsConfigurationForm = ({
               })}
             </Label>
 
-            <FieldArray name="scheduleWeekdays">
+            <FieldArray name="weekDays">
               {
                 ({ fields }) => WEEKDAYS.map((weekday, index) => (
                   <Field
@@ -139,7 +139,7 @@ export const BursarExportsConfigurationForm = ({
             label={formatMessage({
               id: 'ui-tenant-settings.settings.bursarExports.ftpAddress'
             })}
-            name="ftpAddress"
+            name="ftpUrl"
             type="text"
             required
             validate={validateRequired}
@@ -168,19 +168,19 @@ export const BursarExportsConfiguration = stripesFinalForm({
 
       utils.changeValue(state, 'schedulePeriod', () => nextValue);
 
-      if (nextValue && !prevValue) {
+      if (prevValue === SCHEDULE_PERIODS.none) {
         utils.changeValue(state, 'scheduleFrequency', () => 1);
       }
 
       if (prevValue === SCHEDULE_PERIODS.weeks) {
-        utils.changeValue(state, 'scheduleWeekdays', () => undefined);
+        utils.changeValue(state, 'weekDays', () => undefined);
       }
 
       if ([SCHEDULE_PERIODS.none, SCHEDULE_PERIODS.hours].includes(nextValue)) {
         utils.changeValue(state, 'scheduleTime', () => undefined);
       }
 
-      if (!nextValue) {
+      if (nextValue === SCHEDULE_PERIODS.none) {
         utils.changeValue(state, 'scheduleFrequency', () => undefined);
       }
     },

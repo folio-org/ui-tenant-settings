@@ -1,8 +1,8 @@
 export const SCHEDULE_PERIODS = {
-  none: '',
-  hours: 'hours',
-  days: 'days',
-  weeks: 'weeks',
+  none: 'NONE',
+  hours: 'HOUR',
+  days: 'DAY',
+  weeks: 'WEEK',
 };
 
-export const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+export const WEEKDAYS = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
