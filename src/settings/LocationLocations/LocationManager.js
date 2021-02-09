@@ -600,14 +600,16 @@ class LocationManager extends React.Component {
               if (!selectedItem) return null;
 
               return (
-                <LocationDetail
-                  initialValues={selectedItem}
-                  servicePointsById={servicePointsById}
-                  onEdit={this.handleDetailEdit}
-                  onClone={this.handleDetailClone}
-                  onClose={this.handleDetailClose}
-                  onRemove={this.onRemove}
-                />
+                <RemoteStorageApiProvider>
+                  <LocationDetail
+                    initialValues={selectedItem}
+                    servicePointsById={servicePointsById}
+                    onEdit={this.handleDetailEdit}
+                    onClone={this.handleDetailClone}
+                    onClose={this.handleDetailClose}
+                    onRemove={this.onRemove}
+                  />
+                </RemoteStorageApiProvider>
               );
             }
           }
