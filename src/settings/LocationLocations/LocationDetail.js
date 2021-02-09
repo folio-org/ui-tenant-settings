@@ -164,7 +164,7 @@ const LocationDetail = ({
   const campusList = campuses?.records || [];
   const campus = campusList.length === 1 ? campusList[0] : null;
 
-  const libraryList = (libraries || {}).records || [];
+  const libraryList = libraries?.records || [];
   const library = libraryList.length === 1 ? libraryList[0] : null;
 
   // massage the "details" property which is represented in the API as
