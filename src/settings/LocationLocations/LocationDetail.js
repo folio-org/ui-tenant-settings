@@ -55,9 +55,7 @@ const LocationDetail = ({
     return currentConfig?.name;
   }, [loc]);
 
-  const handleExpandAll = useCallback((newSections) => {
-    setSections(newSections);
-  }, []);
+  const handleExpandAll = setSections;
 
   const renderServicePoint = useCallback((sp, index) => {
     return (
