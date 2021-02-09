@@ -16,6 +16,7 @@
 * [UITEN-119](https://issues.folio.org/browse/UITEN-119) Refactor Location edit form.
 * [UITEN-152](https://issues.folio.org/browse/UITEN-152) Bursar exports settings page
 * [UITEN-156](https://issues.folio.org/browse/UITEN-156) Bursar exports configuration form
+* [UITEN-158](https://issues.folio.org/browse/UITEN-158) Update `@folio/stripes-cli` to `v2`
 
 ## [5.0.1](https://github.com/folio-org/ui-tenant-settings/tree/v5.0.1) (2020-11-13)
 [Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v5.0.0...v5.0.1)
