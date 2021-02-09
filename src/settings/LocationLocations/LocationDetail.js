@@ -161,7 +161,7 @@ const LocationDetail = ({
   const institutionList = (institutions || {}).records || [];
   const institution = institutionList.length === 1 ? institutionList[0] : null;
 
-  const campusList = (campuses || {}).records || [];
+  const campusList = campuses?.records || [];
   const campus = campusList.length === 1 ? campusList[0] : null;
 
   const libraryList = (libraries || {}).records || [];
