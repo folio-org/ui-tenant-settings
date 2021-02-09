@@ -169,6 +169,8 @@
   "settings.bursarExports.scheduleWeekdays.wednesday": "W",
   "settings.bursarExports.scheduleTime": "Schedule time",
   "settings.bursarExports.ftpAddress": "FTP address",
+  "settings.bursarExports.daysOutstanding": "Max. days outstanding",
+  "settings.bursarExports.patronGroups": "Patron groups",
   "settings.bursarExports.save": "Save",
   "settings.bursarExports.save.success": "Bursar exports configuration has been successfully saved",
   "settings.bursarExports.save.error": "Bursar exports configuration configuration was not saved",

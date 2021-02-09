@@ -16,6 +16,7 @@ jest.mock('./apiQuery', () => {
   return {
     useBursarConfigQuery: jest.fn(),
     useBursarConfigMutation: jest.fn(),
+    usePatronGroupsQuery: jest.fn().mockReturnValue({}),
   };
 });
 jest.mock('./BursarExportsConfiguration', () => {

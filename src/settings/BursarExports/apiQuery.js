@@ -18,7 +18,6 @@ export const useBursarConfigQuery = (key = 'bursarConfig') => {
         schedulePeriod: SCHEDULE_PERIODS.none,
       };
     },
-    retry: false,
   });
 
   return {
@@ -57,5 +56,23 @@ export const useBursarConfigMutation = (options = {}) => {
 
   return {
     mutateBursarConfig: mutateAsync,
+  };
+};
+
+export const usePatronGroupsQuery = () => {
+  const ky = useOkapiKy();
+
+  const { isLoading, data = [] } = useQuery({
+    queryKey: 'patronGroups',
+    queryFn: async () => {
+      const { usergroups = [] } = await ky.get('groups').json();
+
+      return usergroups;
+    },
+  });
+
+  return {
+    isLoading,
+    patronGroups: data,
   };
 };

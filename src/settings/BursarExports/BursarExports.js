@@ -12,6 +12,7 @@ import {
 import {
   useBursarConfigQuery,
   useBursarConfigMutation,
+  usePatronGroupsQuery,
 } from './apiQuery';
 import { BursarExportsConfiguration } from './BursarExportsConfiguration';
 
@@ -19,6 +20,7 @@ export const BursarExports = () => {
   const { formatMessage } = useIntl();
   const callout = useContext(CalloutContext);
 
+  const { patronGroups } = usePatronGroupsQuery();
   const { isLoading, bursarConfig } = useBursarConfigQuery();
   const { mutateBursarConfig } = useBursarConfigMutation({
     onSuccess: () => {
@@ -73,8 +75,9 @@ export const BursarExports = () => {
     >
       <BursarExportsConfiguration
         initialValues={bursarConfig}
-        onFormStateChanged={setBursarConfigForm}
         onSubmit={mutateBursarConfig}
+        onFormStateChanged={setBursarConfigForm}
+        patronGroups={patronGroups}
       />
     </Pane>
   );

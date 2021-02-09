@@ -20,6 +20,7 @@ import {
   WEEKDAYS,
 } from './constants';
 import { validateRequired } from './validation';
+import { PatronGroupsField } from './PatronGroupsField';
 
 export const BursarExportsConfigurationForm = ({
   form,
@@ -27,6 +28,7 @@ export const BursarExportsConfigurationForm = ({
   onFormStateChanged,
   pristine,
   submitting,
+  patronGroups,
 }) => {
   const { formatMessage } = useIntl();
 
@@ -86,30 +88,32 @@ export const BursarExportsConfigurationForm = ({
 
       {
         formValues.schedulePeriod === SCHEDULE_PERIODS.weeks && (
-          <>
-            <Label required>
-              {formatMessage({
-                id: 'ui-tenant-settings.settings.bursarExports.scheduleWeekdays'
-              })}
-            </Label>
+          <Row>
+            <Col xs={12}>
+              <Label required>
+                {formatMessage({
+                  id: 'ui-tenant-settings.settings.bursarExports.scheduleWeekdays'
+                })}
+              </Label>
 
-            <FieldArray name="weekDays">
-              {
-                ({ fields }) => WEEKDAYS.map((weekday, index) => (
-                  <Field
-                    key={index}
-                    component={Checkbox}
-                    label={formatMessage({
-                      id: `ui-tenant-settings.settings.bursarExports.scheduleWeekdays.${weekday}`
-                    })}
-                    name={`${fields.name}[${weekday}]`}
-                    type="checkbox"
-                    vertical
-                  />
-                ))
-              }
-            </FieldArray>
-          </>
+              <FieldArray name="weekDays" validate={validateRequired}>
+                {
+                  ({ fields }) => WEEKDAYS.map((weekday, index) => (
+                    <Field
+                      key={index}
+                      component={Checkbox}
+                      label={formatMessage({
+                        id: `ui-tenant-settings.settings.bursarExports.scheduleWeekdays.${weekday}`
+                      })}
+                      name={`${fields.name}[${weekday}]`}
+                      type="checkbox"
+                      vertical
+                    />
+                  ))
+                }
+              </FieldArray>
+            </Col>
+          </Row>
         )
       }
 
@@ -146,6 +150,32 @@ export const BursarExportsConfigurationForm = ({
           />
         </Col>
       </Row>
+
+      {
+        formValues.schedulePeriod !== SCHEDULE_PERIODS.none && (
+          <Row>
+            <Col xs={4}>
+              <Field
+                data-testid="days-outstanding"
+                component={TextField}
+                label={formatMessage({
+                  id: 'ui-tenant-settings.settings.bursarExports.daysOutstanding'
+                })}
+                name="daysOutstanding"
+                type="number"
+                min={1}
+                hasClearIcon={false}
+                required
+                validate={validateRequired}
+              />
+            </Col>
+
+            <Col xs={4}>
+              <PatronGroupsField patronGroups={patronGroups} />
+            </Col>
+          </Row>
+        )
+      }
     </form>
   );
 };
@@ -156,6 +186,7 @@ BursarExportsConfigurationForm.propTypes = {
   onFormStateChanged: PropTypes.func.isRequired,
   pristine: PropTypes.bool,
   submitting: PropTypes.bool,
+  patronGroups: PropTypes.arrayOf(PropTypes.object),
 };
 
 export const BursarExportsConfiguration = stripesFinalForm({
@@ -170,6 +201,7 @@ export const BursarExportsConfiguration = stripesFinalForm({
 
       if (prevValue === SCHEDULE_PERIODS.none) {
         utils.changeValue(state, 'scheduleFrequency', () => 1);
+        utils.changeValue(state, 'daysOutstanding', () => 1);
       }
 
       if (prevValue === SCHEDULE_PERIODS.weeks) {
@@ -182,6 +214,8 @@ export const BursarExportsConfiguration = stripesFinalForm({
 
       if (nextValue === SCHEDULE_PERIODS.none) {
         utils.changeValue(state, 'scheduleFrequency', () => undefined);
+        utils.changeValue(state, 'daysOutstanding', () => undefined);
+        utils.changeValue(state, 'patronGroups', () => undefined);
       }
     },
   },
