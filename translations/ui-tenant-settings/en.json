@@ -159,7 +159,7 @@
   "settings.bursarExports.schedulePeriod.hours": "Hours",
   "settings.bursarExports.schedulePeriod.days": "Days",
   "settings.bursarExports.schedulePeriod.weeks": "Weeks",
-  "settings.bursarExports.scheduleFrequency": "Schedulef requency",
+  "settings.bursarExports.scheduleFrequency": "Schedule frequency",
   "settings.bursarExports.scheduleWeekdays": "Weekdays",
   "settings.bursarExports.scheduleWeekdays.Friday": "F",
   "settings.bursarExports.scheduleWeekdays.Monday": "M",
