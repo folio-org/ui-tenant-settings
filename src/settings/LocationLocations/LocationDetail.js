@@ -1,8 +1,7 @@
-import React, { Fragment } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import {
-  cloneDeep,
   get,
   isEmpty,
 } from 'lodash';
@@ -27,69 +26,38 @@ import {
 } from '@folio/stripes/core';
 
 import LocationInUseModal from './LocationInUseModal';
+import { useRemoteStorageApi } from './RemoteStorage';
 
-class LocationDetail extends React.Component {
-  static manifest = Object.freeze({
-    institutions: {
-      type: 'okapi',
-      path: 'location-units/institutions/!{initialValues.institutionId}',
-    },
-    campuses: {
-      type: 'okapi',
-      path: 'location-units/campuses/!{initialValues.campusId}',
-    },
-    libraries: {
-      type: 'okapi',
-      path: 'location-units/libraries/!{initialValues.libraryId}',
-    },
+const LocationDetail = ({
+  initialValues: loc,
+  resources: {
+    institutions,
+    campuses,
+    libraries,
+  },
+  servicePointsById,
+  onEdit,
+  onClone,
+  onClose,
+  onRemove,
+}) => {
+  const [sections, setSections] = useState({
+    generalInformation: true,
+    locationDetails: true,
   });
+  const [isDeleteLocationModalOpened, setIsDeleteLocationModalOpened] = useState(false);
+  const [isLocationInUseModalOpened, setIsLocationInUseModalOpened] = useState(false);
 
-  static propTypes = {
-    stripes: PropTypes.shape({
-      connect: PropTypes.func.isRequired,
-    }).isRequired,
-    initialValues: PropTypes.object,
-    resources: PropTypes.shape({
-      institutions: PropTypes.object,
-      campuses: PropTypes.object,
-      libraries: PropTypes.object,
-    }).isRequired,
-    servicePointsById: PropTypes.object,
-    onEdit: PropTypes.func.isRequired,
-    onClone: PropTypes.func.isRequired,
-    onClose: PropTypes.func.isRequired,
-    onRemove: PropTypes.func.isRequired,
-  };
+  const { remoteMap, configurations } = useRemoteStorageApi();
 
-  constructor(props) {
-    super(props);
+  const remoteStorageName = useMemo(() => {
+    const currentConfig = configurations.records.find(config => remoteMap[loc.id] === config.id);
+    return currentConfig?.name;
+  }, [loc]);
 
-    this.handleSectionToggle = this.handleSectionToggle.bind(this);
-    this.handleExpandAll = this.handleExpandAll.bind(this);
-    this.renderServicePoints = this.renderServicePoints.bind(this);
-    this.renderServicePoint = this.renderServicePoint.bind(this);
+  const handleExpandAll = setSections;
 
-    this.state = {
-      sections: {
-        generalInformation: true,
-        locationDetails: true,
-      },
-      isDeleteLocationModalOpened: false,
-      isLocationInUseModalOpened: false,
-    };
-
-    this.cViewMetaData = props.stripes.connect(ViewMetaData);
-  }
-
-  handleExpandAll(sections) {
-    this.setState((curState) => {
-      const newState = cloneDeep(curState);
-      newState.sections = sections;
-      return newState;
-    });
-  }
-
-  renderServicePoint(sp, index) {
+  const renderServicePoint = useCallback((sp, index) => {
     return (
       index === 0 ?
         <li key={index}>
@@ -99,11 +67,9 @@ class LocationDetail extends React.Component {
           {sp}
         </li>
     );
-  }
+  }, []);
 
-  renderServicePoints() {
-    const { initialValues: loc, servicePointsById } = this.props;
-
+  const renderServicePoints = useCallback(() => {
     const itemsList = [];
     // as primary servicePoint surely exists and servicePointsById shouldn't be empty, its index would be at the 0th position of itemsList array
     if (!isEmpty(servicePointsById) && loc.servicePointIds.length !== 0) {
@@ -117,49 +83,43 @@ class LocationDetail extends React.Component {
     return (
       <List
         items={itemsList}
-        itemFormatter={this.renderServicePoint}
+        itemFormatter={renderServicePoint}
         isEmptyMessage="No servicePoints found"
       />
     );
-  }
+  }, []);
 
-  handleSectionToggle({ id }) {
-    this.setState((curState) => {
-      const newState = cloneDeep(curState);
-      newState.sections[id] = !newState.sections[id];
-      return newState;
-    });
-  }
+  const handleSectionToggle = useCallback(({ id }) => {
+    setSections(prevSections => ({ ...prevSections, [id]: !prevSections[id] }));
+  }, []);
 
-  toggleDeleteLocationConfirmation = () => {
-    this.setState(prevState => ({ isDeleteLocationModalOpened: !prevState.isDeleteLocationModalOpened }));
-  }
+  const toggleDeleteLocationConfirmation = useCallback(() => {
+    setIsDeleteLocationModalOpened(prevState => !prevState);
+  }, []);
 
-  toggleLocationInUseModal = () => {
-    this.setState(prevState => ({ isLocationInUseModalOpened: !prevState.isLocationInUseModalOpened }));
-  }
+  const toggleLocationInUseModal = useCallback(() => {
+    setIsLocationInUseModalOpened(prevState => !prevState);
+  }, []);
 
-  removeLocation = () => {
-    const { initialValues, onRemove } = this.props;
+  const removeLocation = useCallback(() => {
+    toggleDeleteLocationConfirmation();
 
-    this.toggleDeleteLocationConfirmation();
-
-    onRemove(initialValues)
+    onRemove(loc)
       .then(isRemoved => {
         if (!isRemoved) {
-          this.toggleLocationInUseModal();
+          toggleLocationInUseModal();
         }
       });
-  };
+  }, []);
 
-  renderActionMenu = item => ({ onToggle }) => (
-    <Fragment>
+  const renderActionMenu = item => ({ onToggle }) => (
+    <>
       <Button
         data-test-edit-location-menu-button
         buttonStyle="dropdownItem"
         id="clickable-edit-location"
         onClick={() => {
-          this.props.onEdit(item);
+          onEdit(item);
           onToggle();
         }}
       >
@@ -172,7 +132,7 @@ class LocationDetail extends React.Component {
         buttonStyle="dropdownItem"
         id="clickable-copy-location"
         onClick={() => {
-          this.props.onClone(item);
+          onClone(item);
           onToggle();
         }}
       >
@@ -186,7 +146,7 @@ class LocationDetail extends React.Component {
           buttonStyle="dropdownItem"
           id="clickable-delete-location"
           onClick={() => {
-            this.toggleDeleteLocationConfirmation();
+            toggleDeleteLocationConfirmation();
             onToggle();
           }}
         >
@@ -195,190 +155,215 @@ class LocationDetail extends React.Component {
           </Icon>
         </Button>
       </IfPermission>
-    </Fragment>
+    </>
   );
 
-  render() {
-    const {
-      initialValues: loc,
-      resources: {
-        institutions,
-        campuses,
-        libraries,
-      },
-      onClose,
-    } = this.props;
+  const institutionList = institutions?.records || [];
+  const institution = institutionList.length === 1 ? institutionList[0] : null;
 
-    const institutionList = (institutions || {}).records || [];
-    const institution = institutionList.length === 1 ? institutionList[0] : null;
+  const campusList = campuses?.records || [];
+  const campus = campusList.length === 1 ? campusList[0] : null;
 
-    const campusList = (campuses || {}).records || [];
-    const campus = campusList.length === 1 ? campusList[0] : null;
+  const libraryList = libraries?.records || [];
+  const library = libraryList.length === 1 ? libraryList[0] : null;
 
-    const libraryList = (libraries || {}).records || [];
-    const library = libraryList.length === 1 ? libraryList[0] : null;
-
-    // massage the "details" property which is represented in the API as
-    // an object but displayed on the details page as an array of
-    // key-value pairs sorted by key.
-    const details = [];
-    Object.keys(loc.details || []).sort().forEach(name => {
-      details.push(
-        <Row key={name}>
-          <Col xs={12}>
-            <KeyValue label={name} value={loc.details[name]} />
-          </Col>
-        </Row>
-      );
-    });
-
-    const {
-      isDeleteLocationModalOpened,
-      isLocationInUseModalOpened,
-      sections,
-    } = this.state;
-
-    const locationName =
-      loc.name || <FormattedMessage id="ui-tenant-settings.settings.location.locations.untitledLocation" />;
-    const confirmationMessage = (
-      <SafeHTMLMessage
-        id="ui-tenant-settings.settings.location.locations.deleteLocationMessage"
-        values={{ name: locationName }}
-      />
+  // massage the "details" property which is represented in the API as
+  // an object but displayed on the details page as an array of
+  // key-value pairs sorted by key.
+  const details = [];
+  Object.keys(loc.details || []).sort().forEach(name => {
+    details.push(
+      <Row key={name}>
+        <Col xs={12}>
+          <KeyValue label={name} value={loc.details[name]} />
+        </Col>
+      </Row>
     );
+  });
 
-    return (
-      <Pane
-        id="location-details"
-        paneTitle={loc.name}
-        defaultWidth="70%"
-        dismissible
-        actionMenu={this.renderActionMenu(loc)}
-        onClose={onClose}
+  const locationName =
+    loc.name || <FormattedMessage id="ui-tenant-settings.settings.location.locations.untitledLocation" />;
+  const confirmationMessage = (
+    <SafeHTMLMessage
+      id="ui-tenant-settings.settings.location.locations.deleteLocationMessage"
+      values={{ name: locationName }}
+    />
+  );
+
+  return (
+    <Pane
+      id="location-details"
+      paneTitle={loc.name}
+      defaultWidth="70%"
+      dismissible
+      actionMenu={renderActionMenu(loc)}
+      onClose={onClose}
+    >
+      <Row end="xs">
+        <Col xs>
+          <ExpandAllButton accordionStatus={sections} onToggle={handleExpandAll} />
+        </Col>
+      </Row>
+      <Accordion
+        open={sections.generalInformation}
+        id="generalInformation"
+        onToggle={handleSectionToggle}
+        label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.generalInformation" />}
       >
-        <Row end="xs">
-          <Col xs>
-            <ExpandAllButton accordionStatus={sections} onToggle={this.handleExpandAll} />
+        {loc.metadata && loc.metadata.createdDate &&
+          <Row>
+            <Col xs={12}>
+              <ViewMetaData metadata={loc.metadata} />
+            </Col>
+          </Row>
+        }
+        <Row>
+          <Col xs={12}>
+            <KeyValue
+              label={<FormattedMessage id="ui-tenant-settings.settings.location.institutions.institution" />}
+              value={get(institution, ['name'])}
+            />
           </Col>
         </Row>
-        <Accordion
-          open={sections.generalInformation}
-          id="generalInformation"
-          onToggle={this.handleSectionToggle}
-          label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.generalInformation" />}
-        >
-          {loc.metadata && loc.metadata.createdDate &&
-            <Row>
-              <Col xs={12}>
-                <this.cViewMetaData metadata={loc.metadata} />
-              </Col>
-            </Row>
-          }
-          <Row>
-            <Col xs={12}>
-              <KeyValue
-                label={<FormattedMessage id="ui-tenant-settings.settings.location.institutions.institution" />}
-                value={get(institution, ['name'])}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12}>
-              <KeyValue
-                label={<FormattedMessage id="ui-tenant-settings.settings.location.campuses.campus" />}
-                value={get(campus, ['name'])}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12}>
-              <KeyValue
-                label={<FormattedMessage id="ui-tenant-settings.settings.location.libraries.library" />}
-                value={get(library, ['name'])}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12}>
-              <KeyValue
-                label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.name" />}
-                value={loc.name}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12}>
-              <KeyValue
-                label={<FormattedMessage id="ui-tenant-settings.settings.location.code" />}
-                value={loc.code}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12}>
-              <KeyValue
-                label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.discoveryDisplayName" />}
-                value={loc.discoveryDisplayName}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12}>
-              <KeyValue
-                label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.servicePoints" />}
-              >
-                {this.renderServicePoints()}
-              </KeyValue>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12}>
-              <KeyValue
-                label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.status" />}
-                value={<FormattedMessage id={`ui-tenant-settings.settings.location.${loc.isActive ? 'locations.active' : 'locations.inactive'}`} />}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12}>
-              <KeyValue
-                label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.description" />}
-                value={loc.description}
-              />
-            </Col>
-          </Row>
-        </Accordion>
-        <Accordion
-          open={sections.locationDetails}
-          id="locationDetails"
-          onToggle={this.handleSectionToggle}
-          label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.locationDetails" />}
-        >
-          {details}
-        </Accordion>
-
-        {
-          isDeleteLocationModalOpened && (
-            <ConfirmationModal
-              id="deletelocation-confirmation"
-              open
-              heading={<FormattedMessage id="ui-tenant-settings.settings.location.locations.deleteLocation" />}
-              message={confirmationMessage}
-              onConfirm={this.removeLocation}
-              onCancel={this.toggleDeleteLocationConfirmation}
-              confirmLabel={<FormattedMessage id="stripes-core.button.delete" />}
+        <Row>
+          <Col xs={12}>
+            <KeyValue
+              label={<FormattedMessage id="ui-tenant-settings.settings.location.campuses.campus" />}
+              value={get(campus, ['name'])}
             />
-          )
-        }
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12}>
+            <KeyValue
+              label={<FormattedMessage id="ui-tenant-settings.settings.location.libraries.library" />}
+              value={get(library, ['name'])}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12}>
+            <KeyValue
+              label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.name" />}
+              value={loc.name}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12}>
+            <KeyValue
+              label={<FormattedMessage id="ui-tenant-settings.settings.location.code" />}
+              value={loc.code}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12}>
+            <KeyValue
+              label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.discoveryDisplayName" />}
+              value={loc.discoveryDisplayName}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12}>
+            <KeyValue
+              label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.servicePoints" />}
+            >
+              {renderServicePoints()}
+            </KeyValue>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12}>
+            <KeyValue
+              label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.status" />}
+              value={<FormattedMessage id={`ui-tenant-settings.settings.location.${loc.isActive ? 'locations.active' : 'locations.inactive'}`} />}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12}>
+            <KeyValue
+              label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.description" />}
+              value={loc.description}
+            />
+          </Col>
+        </Row>
+        {remoteStorageName && (
+          <Row>
+            <Col xs={12}>
+              <KeyValue
+                label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.remoteStorage" />}
+                value={remoteStorageName}
+              />
+            </Col>
+          </Row>
+        )}
+      </Accordion>
+      <Accordion
+        open={sections.locationDetails}
+        id="locationDetails"
+        onToggle={handleSectionToggle}
+        label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.locationDetails" />}
+      >
+        {details}
+      </Accordion>
 
-        {
-          isLocationInUseModalOpened && (
-            <LocationInUseModal toggleModal={this.toggleLocationInUseModal} />
-          )
-        }
-      </Pane>
-    );
-  }
-}
+      {
+        isDeleteLocationModalOpened && (
+          <ConfirmationModal
+            id="deletelocation-confirmation"
+            open
+            heading={<FormattedMessage id="ui-tenant-settings.settings.location.locations.deleteLocation" />}
+            message={confirmationMessage}
+            onConfirm={removeLocation}
+            onCancel={toggleDeleteLocationConfirmation}
+            confirmLabel={<FormattedMessage id="stripes-core.button.delete" />}
+          />
+        )
+      }
+
+      {
+        isLocationInUseModalOpened && (
+          <LocationInUseModal toggleModal={toggleLocationInUseModal} />
+        )
+      }
+    </Pane>
+  );
+};
+
+LocationDetail.manifest = Object.freeze({
+  institutions: {
+    type: 'okapi',
+    path: 'location-units/institutions/!{initialValues.institutionId}',
+  },
+  campuses: {
+    type: 'okapi',
+    path: 'location-units/campuses/!{initialValues.campusId}',
+  },
+  libraries: {
+    type: 'okapi',
+    path: 'location-units/libraries/!{initialValues.libraryId}',
+  },
+});
+
+LocationDetail.propTypes = {
+  stripes: PropTypes.shape({
+    connect: PropTypes.func.isRequired,
+  }).isRequired,
+  initialValues: PropTypes.object,
+  resources: PropTypes.shape({
+    institutions: PropTypes.object,
+    campuses: PropTypes.object,
+    libraries: PropTypes.object,
+    mappings: PropTypes.array,
+  }).isRequired,
+  servicePointsById: PropTypes.object,
+  onEdit: PropTypes.func.isRequired,
+  onClone: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
+};
 
 export default stripesConnect(LocationDetail);

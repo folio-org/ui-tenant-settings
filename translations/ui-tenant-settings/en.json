@@ -69,6 +69,7 @@
   "settings.location.locations.active": "Active",
   "settings.location.locations.inactive": "Inactive",
   "settings.location.locations.description": "Description",
+  "settings.location.locations.remoteStorage": "Remote storage",
   "settings.location.locations.locationDetails": "Location details",
   "settings.location.locations.createLocation": "Create location",
   "settings.location.locations.deleteLocation": "Delete location?",
