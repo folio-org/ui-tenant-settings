@@ -67,7 +67,7 @@ class Organization extends React.Component {
             route: 'bursar-exports',
             label: <FormattedMessage id="ui-tenant-settings.settings.bursarExports" />,
             component: BursarExports,
-            perm: 'ui-tenant-settings.settings.bursar-exports',
+            perm: 'ui-plugin-bursar-export.bursar-exports.all',
           },
         ],
       },

@@ -238,5 +238,8 @@
     "react": "*",
     "react-intl": "^5.8.0",
     "react-router-dom": "^5.2.0"
+  },
+  "optionalDependencies": {
+    "@folio/plugin-bursar-export": "^1.0.0"
   }
 }
