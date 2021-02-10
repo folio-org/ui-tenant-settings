@@ -4,8 +4,6 @@
   "settings.general.label": "General",
   "settings.general.saveAndClose": "Save & close",
 
-  "settings.validation.required": "Required!",
-
   "settings.index.paneTitle": "Tenant",
   "settings.bindings.label": "Key bindings",
   "settings.language.label": "Language and localization",
@@ -153,23 +151,7 @@
   "settings.save.error.network": "Record not saved",
 
   "settings.bursarExports": "Bursar exports",
-  "settings.bursarExports.schedulePeriod": "Schedule period",
-  "settings.bursarExports.schedulePeriod.none": "None",
-  "settings.bursarExports.schedulePeriod.hours": "Hours",
-  "settings.bursarExports.schedulePeriod.days": "Days",
-  "settings.bursarExports.schedulePeriod.weeks": "Weeks",
-  "settings.bursarExports.scheduleFrequency": "Schedule frequency",
-  "settings.bursarExports.scheduleWeekdays": "Weekdays",
-  "settings.bursarExports.scheduleWeekdays.Friday": "F",
-  "settings.bursarExports.scheduleWeekdays.Monday": "M",
-  "settings.bursarExports.scheduleWeekdays.Saturday": "S",
-  "settings.bursarExports.scheduleWeekdays.Sunday": "S",
-  "settings.bursarExports.scheduleWeekdays.Thursday": "T",
-  "settings.bursarExports.scheduleWeekdays.Tuesday": "T",
-  "settings.bursarExports.scheduleWeekdays.Wednesday": "W",
-  "settings.bursarExports.scheduleTime": "Schedule time",
-  "settings.bursarExports.ftpAddress": "FTP address",
-  "settings.bursarExports.save": "Save",
+  "settings.bursarExports.notAvailable": "No plugin available!",
 
   "permission.module.enabled": "UI: Tenant-settings module is enabled",
   "permission.settings.enabled": "Settings (tenant): display list of settings pages",
