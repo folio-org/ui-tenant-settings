@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useField } from 'react-final-form';
 
 import { Control, useRemoteStorageApi } from '../RemoteStorage';
@@ -6,13 +6,13 @@ import { Control, useRemoteStorageApi } from '../RemoteStorage';
 export const RemoteStorageField = ({ initialValues, checkLocationHasHoldingsOrItems }) => {
   const { remoteMap, mappings, translate: t } = useRemoteStorageApi();
 
-  const [isReadOnly, setIsReadOnly] = React.useState(true);
+  const [isReadOnly, setIsReadOnly] = useState(true);
 
   const locationId = initialValues?.id;
 
   const field = useField('remoteId', { initialValue: remoteMap[locationId] });
 
-  React.useEffect(
+  useEffect(
     () => {
       const isNewLocation = (locationId === undefined);
 

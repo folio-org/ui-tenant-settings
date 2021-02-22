@@ -51,7 +51,7 @@ const LocationDetail = ({
   const { remoteMap, configurations } = useRemoteStorageApi();
 
   const remoteStorageName = useMemo(() => {
-    const currentConfig = configurations.records.find(config => remoteMap[loc.id] === config.id);
+    const currentConfig = configurations?.records.find(config => remoteMap[loc.id] === config.id);
     return currentConfig?.name;
   }, [loc]);
 
