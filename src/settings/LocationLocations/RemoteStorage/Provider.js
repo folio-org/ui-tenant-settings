@@ -22,7 +22,6 @@ const Provider = ({ resources, mutator, ...rest }) => {
   useEffect(() => {
     if (withRemoteStorage) {
       persistentMutator.configurations.GET();
-      persistentMutator.mappings.GET();
     }
   }, [persistentMutator, withRemoteStorage]);
 
@@ -66,12 +65,10 @@ Provider.manifest = Object.freeze({
   mappings: {
     type: 'okapi',
     path: 'remote-storage/mappings',
-    accumulate: true,
     records: 'mappings',
     pk: 'folioLocationId',
     clientGeneratePk: false, // because we use POST instead of PUT for modification here (there's no PUT)
     throwErrors: false,
-    fetch: false,
   },
 });
 
