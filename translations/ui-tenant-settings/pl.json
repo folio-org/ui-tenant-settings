@@ -138,13 +138,13 @@
     "permission.settings.sso": "Ustawienia (dzierżawca): może obsługiwać ustawienia SSO",
     "permission.settings.location": "Ustawienia (dzierżawa): może tworzyć, edytować i usuwać lokalizacje",
     "permission.settings.servicepoints": "Ustawienia (dzierżawa): może tworzyć, edytować i usuwać punkty obsługi",
-    "settings.location.remotes.remote": "Remote storage",
-    "settings.location.remotes.no": "No (default)",
-    "settings.location.remotes.loading": "loading...",
-    "settings.location.remotes.readonly": "can only be changed when there are no permanent holdings or items associated with this location",
-    "settings.location.remotes.failed": "Failed to load",
-    "settings.bursarExports": "Bursar exports",
-    "permission.settings.bursar-exports": "Settings (tenant): Bursar admin",
-    "settings.location.locations.remoteStorage": "Remote storage",
-    "settings.bursarExports.notAvailable": "No plugin available!"
+    "settings.location.remotes.remote": "Magazyn zdalny",
+    "settings.location.remotes.no": "Nie (domyślnie)",
+    "settings.location.remotes.loading": "ładowanie...",
+    "settings.location.remotes.readonly": "można zmienić tylko wtedy, gdy nie ma stałych zasobów lub egzemplarzy związanych z tą lokalizacją",
+    "settings.location.remotes.failed": "Nie udało się załadować",
+    "settings.bursarExports": "Eksport kwestury",
+    "permission.settings.bursar-exports": "Ustawienia (dzierżawca): Administrator kwestury",
+    "settings.location.locations.remoteStorage": "Magazyn zdalny",
+    "settings.bursarExports.notAvailable": "Brak dostępnej wtyczki!"
 }
