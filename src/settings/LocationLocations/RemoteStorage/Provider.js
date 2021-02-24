@@ -7,15 +7,14 @@ import React, {
 import PropTypes from 'prop-types';
 import { useIntl } from 'react-intl';
 
-import { stripesConnect, useStripes } from '@folio/stripes/core';
+import { stripesConnect, withStripes } from '@folio/stripes/core';
 import { useRemoteStorageMappings } from '@folio/stripes-smart-components';
 
 const Context = createContext({});
 
 export const useRemoteStorageApi = () => useContext(Context);
 
-const Provider = ({ resources, mutator, ...rest }) => {
-  const stripes = useStripes();
+const Provider = ({ resources, mutator, stripes, ...rest }) => {
   const remoteMap = useRemoteStorageMappings();
   const [persistentMutator] = useState(mutator);
   const withRemoteStorage = stripes.hasInterface('remote-storage-configurations') && stripes.hasInterface('remote-storage-mappings');
@@ -63,12 +62,13 @@ Provider.manifest = Object.freeze({
     pk: 'folioLocationId',
     clientGeneratePk: false, // because we use POST instead of PUT for modification here (there's no PUT)
     throwErrors: false,
-    fetch: false,
+    fetch: ({ stripes }) => stripes.hasInterface('remote-storage-mappings'),
   },
 });
 
 Provider.propTypes = {
   mutator: PropTypes.object.isRequired,
+  stripes: PropTypes.object,
 };
 
-export const RemoteStorageApiProvider = stripesConnect(Provider);
+export const RemoteStorageApiProvider = stripesConnect(withStripes(Provider));

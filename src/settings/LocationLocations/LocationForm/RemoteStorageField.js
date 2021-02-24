@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useField } from 'react-final-form';
-import { isEmpty } from 'lodash';
 
 import { Control, useRemoteStorageApi } from '../RemoteStorage';
 
 export const RemoteStorageField = ({ initialValues, checkLocationHasHoldingsOrItems }) => {
-  const { remoteMap, translate: t } = useRemoteStorageApi();
+  const { remoteMap, mappings, translate: t } = useRemoteStorageApi();
 
   const [isReadOnly, setIsReadOnly] = useState(true);
 
@@ -28,9 +27,9 @@ export const RemoteStorageField = ({ initialValues, checkLocationHasHoldingsOrIt
     [locationId]
   );
 
-  const message = (isReadOnly && t('readonly'));
+  const message = (mappings.failed && t('failed')) || (mappings.isPending && t('loading')) || (isReadOnly && t('readonly'));
 
-  const isDisabled = isEmpty(remoteMap);
+  const isDisabled = !mappings.hasLoaded;
 
   return (
     <Control
