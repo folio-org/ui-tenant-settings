@@ -20,6 +20,7 @@ const Provider = ({ resources, mutator, stripes, ...rest }) => {
 
   useEffect(() => {
     if (withRemoteStorage) {
+      persistentMutator.configurations.reset();
       persistentMutator.configurations.GET();
     }
   }, [persistentMutator, withRemoteStorage]);
@@ -59,7 +60,6 @@ Provider.manifest = Object.freeze({
     accumulate: true,
     records: 'configurations',
     throwErrors: false,
-    fetch: false,
   },
   mappings: {
     type: 'okapi',
