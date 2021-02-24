@@ -3,19 +3,18 @@ import React, {
   useState,
   useContext,
   createContext,
+  useMemo,
 } from 'react';
 import PropTypes from 'prop-types';
 import { useIntl } from 'react-intl';
 
 import { stripesConnect, withStripes } from '@folio/stripes/core';
-import { useRemoteStorageMappings } from '@folio/stripes-smart-components';
 
 const Context = createContext({});
 
 export const useRemoteStorageApi = () => useContext(Context);
 
 const Provider = ({ resources, mutator, stripes, ...rest }) => {
-  const remoteMap = useRemoteStorageMappings();
   const [persistentMutator] = useState(mutator);
   const withRemoteStorage = stripes.hasInterface('remote-storage-configurations') && stripes.hasInterface('remote-storage-mappings');
 
@@ -27,6 +26,13 @@ const Provider = ({ resources, mutator, stripes, ...rest }) => {
 
   const { formatMessage } = useIntl();
   const translate = key => formatMessage({ id: `ui-tenant-settings.settings.location.remotes.${key}` });
+
+  const remoteMap = useMemo(
+    () => Object.fromEntries(resources.mappings.records.map(
+      ({ folioLocationId, configurationId }) => [folioLocationId, configurationId]
+    )),
+    [resources.mappings.records]
+  );
 
   const setMapping = ({ folioLocationId, configurationId }) => {
     if (remoteMap[folioLocationId] === configurationId) return Promise.resolve();
