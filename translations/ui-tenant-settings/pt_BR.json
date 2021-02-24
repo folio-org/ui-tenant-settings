@@ -145,6 +145,6 @@
     "settings.location.remotes.failed": "Falha ao carregar",
     "settings.bursarExports": "Bursar exports",
     "permission.settings.bursar-exports": "Settings (tenant): Bursar admin",
-    "settings.location.locations.remoteStorage": "Remote storage",
-    "settings.bursarExports.notAvailable": "No plugin available!"
+    "settings.location.locations.remoteStorage": "Armazenamento externo",
+    "settings.bursarExports.notAvailable": "Nenhum plugin disponível!"
 }
