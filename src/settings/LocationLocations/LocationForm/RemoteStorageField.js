@@ -1,9 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useField } from 'react-final-form';
+
+import { useStripes } from '@folio/stripes-core';
 
 import { Control, useRemoteStorageApi } from '../RemoteStorage';
 
 export const RemoteStorageField = ({ initialValues, checkLocationHasHoldingsOrItems }) => {
+  const stripes = useStripes();
+  const noInterfaces = useMemo(
+    () => !stripes.hasInterface('remote-storage-configurations') || !stripes.hasInterface('remote-storage-mappings'),
+    [stripes]
+  );
+
   const { remoteMap, mappings, translate: t } = useRemoteStorageApi();
 
   const [isReadOnly, setIsReadOnly] = useState(true);
@@ -14,6 +22,8 @@ export const RemoteStorageField = ({ initialValues, checkLocationHasHoldingsOrIt
 
   useEffect(
     () => {
+      if (noInterfaces) return;
+
       const isNewLocation = (locationId === undefined);
 
       if (isNewLocation) {
@@ -24,8 +34,10 @@ export const RemoteStorageField = ({ initialValues, checkLocationHasHoldingsOrIt
       setIsReadOnly(true);
       checkLocationHasHoldingsOrItems(locationId).then(setIsReadOnly);
     },
-    [locationId]
+    [locationId, noInterfaces]
   );
+
+  if (noInterfaces) return null;
 
   const message = (mappings.failed && t('failed')) || (mappings.isPending && t('loading')) || (isReadOnly && t('readonly'));
 
