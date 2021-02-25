@@ -18,6 +18,7 @@
 * [UITEN-158](https://issues.folio.org/browse/UITEN-158) Update `@folio/stripes-cli` to `v2`
 * [UITEN-150](https://issues.folio.org/browse/UITEN-150) View remote storage details in settings > tenant > location
 * [UITEN-151](https://issues.folio.org/browse/UITEN-151) Guard appearance of remote-storage field with `hasInterface()`
+* [UITEN-162](https://issues.folio.org/browse/UITEN-162) Remote Storage configuration should be removed
 
 ## [5.0.1](https://github.com/folio-org/ui-tenant-settings/tree/v5.0.1) (2020-11-13)
 [Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v5.0.0...v5.0.1)

@@ -48,10 +48,10 @@ const LocationDetail = ({
   const [isDeleteLocationModalOpened, setIsDeleteLocationModalOpened] = useState(false);
   const [isLocationInUseModalOpened, setIsLocationInUseModalOpened] = useState(false);
 
-  const { remoteMap, configurations } = useRemoteStorageApi();
+  const { remoteMap, configurations, setMapping } = useRemoteStorageApi();
 
   const remoteStorageName = useMemo(() => {
-    const currentConfig = configurations?.records.find(config => remoteMap[loc.id] === config.id);
+    const currentConfig = configurations.records.find(config => remoteMap[loc.id] === config.id);
     return currentConfig?.name;
   }, [loc]);
 
@@ -108,6 +108,8 @@ const LocationDetail = ({
       .then(isRemoved => {
         if (!isRemoved) {
           toggleLocationInUseModal();
+        } else {
+          setMapping({ folioLocationId: loc.id });
         }
       });
   }, []);
