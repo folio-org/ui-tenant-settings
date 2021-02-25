@@ -8,7 +8,7 @@ import React, {
 import PropTypes from 'prop-types';
 import { useIntl } from 'react-intl';
 
-import { stripesConnect, withStripes } from '@folio/stripes/core';
+import { stripesConnect } from '@folio/stripes/core';
 
 const Context = createContext({});
 
@@ -77,4 +77,4 @@ Provider.propTypes = {
   stripes: PropTypes.object,
 };
 
-export const RemoteStorageApiProvider = stripesConnect(withStripes(Provider));
+export const RemoteStorageApiProvider = stripesConnect(Provider);
