@@ -164,7 +164,6 @@ class LocationForm extends React.Component {
     const loc = initialValues || {};
     const { sections } = this.state;
     const disabled = !stripes.hasPerm('settings.tenant-settings.enabled');
-    const withRemoteStorage = stripes.hasInterface('remote-storage-configurations') && stripes.hasInterface('remote-storage-mappings');
 
     const institutions = [];
     ((locationResources.institutions || {}).records || []).forEach(i => {
@@ -296,11 +295,9 @@ class LocationForm extends React.Component {
                     validateFields={[]}
                   />
                 </Col>
-                {withRemoteStorage && (
-                  <Col xs={4}>
-                    <RemoteStorageField {...this.props} />
-                  </Col>
-                )}
+                <Col xs={4}>
+                  <RemoteStorageField {...this.props} />
+                </Col>
               </Row>
               <Row>
                 <Col xs={8}>

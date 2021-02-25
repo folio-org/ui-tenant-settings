@@ -101,7 +101,7 @@ const LocationDetail = ({
     setIsLocationInUseModalOpened(prevState => !prevState);
   }, []);
 
-  const removeLocation = useCallback(() => {
+  const removeLocation = () => {
     toggleDeleteLocationConfirmation();
 
     onRemove(loc)
@@ -112,7 +112,7 @@ const LocationDetail = ({
           setMapping({ folioLocationId: loc.id });
         }
       });
-  }, []);
+  };
 
   const renderActionMenu = item => ({ onToggle }) => (
     <>

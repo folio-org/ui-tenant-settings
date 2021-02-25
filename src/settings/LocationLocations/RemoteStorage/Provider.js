@@ -16,14 +16,13 @@ export const useRemoteStorageApi = () => useContext(Context);
 
 const Provider = ({ resources, mutator, stripes, ...rest }) => {
   const [persistentMutator] = useState(mutator);
-  const withRemoteStorage = stripes.hasInterface('remote-storage-configurations') && stripes.hasInterface('remote-storage-mappings');
 
   useEffect(() => {
-    if (withRemoteStorage) {
+    if (stripes.hasInterface('remote-storage-configurations')) {
       persistentMutator.configurations.reset();
       persistentMutator.configurations.GET();
     }
-  }, [persistentMutator, withRemoteStorage]);
+  }, [persistentMutator.configurations, stripes]);
 
   const { formatMessage } = useIntl();
   const translate = key => formatMessage({ id: `ui-tenant-settings.settings.location.remotes.${key}` });
@@ -36,19 +35,21 @@ const Provider = ({ resources, mutator, stripes, ...rest }) => {
   );
 
   const setMapping = ({ folioLocationId, configurationId }) => {
-    if (remoteMap[folioLocationId] === configurationId) return Promise.resolve();
+    if (!stripes.hasInterface('remote-storage-mappings') || (remoteMap[folioLocationId] === configurationId)) {
+      return Promise.resolve();
+    }
 
     if (configurationId) return persistentMutator.mappings.POST({ folioLocationId, configurationId });
 
     return persistentMutator.mappings.DELETE({ folioLocationId, configurationId });
   };
 
-  const context = withRemoteStorage ? {
+  const context = {
     ...resources,
     remoteMap,
     setMapping,
     translate,
-  } : {};
+  };
 
   return <Context.Provider value={context} {...rest} />;
 };
