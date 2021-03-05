@@ -62,7 +62,7 @@
     "settings.servicePoints.description": "الوصف",
     "settings.servicePoints.shelvingLagTime": "وقت التأخير على الرف (بالدقائق)",
     "settings.servicePoints.pickupLocation": "موقع الالتقاط",
-    "settings.servicePoints.feeFineOwner": "مالك الرسم الغرامة",
+    "settings.servicePoints.feeFineOwner": "جهة تحصيل الرسم الغرامة",
     "settings.servicePoints.deleteServicePoint": "حذف نقطة الخدمة",
     "settings.servicePoints.delete": "حذف",
     "settings.servicePoints.untitledServicePoint": "اسم نقطة الخدمة",
