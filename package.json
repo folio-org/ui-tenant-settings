@@ -156,14 +156,6 @@
           "inventory-storage.service-points.item.delete"
         ],
         "visible": true
-      },
-      {
-        "permissionName": "ui-tenant-settings.settings.bursar-exports",
-        "displayName": "Settings (tenant): Bursar admin",
-        "subPermissions": [
-          "settings.tenant-settings.enabled"
-        ],
-        "visible": true
       }
     ]
   },
@@ -231,8 +223,5 @@
     "react": "*",
     "react-intl": "^5.8.0",
     "react-router-dom": "^5.2.0"
-  },
-  "optionalDependencies": {
-    "@folio/plugin-bursar-export": "^1.0.0"
   }
 }
