@@ -138,13 +138,13 @@
     "permission.settings.sso": "Paramètres (tenant) : peut maintenir la configuration SSO",
     "permission.settings.location": "Paramètres (tenant) : peut créer, modifier et supprimer des localisations",
     "permission.settings.servicepoints": "Paramètres (tenant) : Peut créer, modifier et supprimer des \"service points\"",
-    "settings.location.remotes.remote": "Remote storage",
+    "settings.location.remotes.remote": "Stockage à distance",
     "settings.location.remotes.no": "No (default)",
     "settings.location.remotes.loading": "loading...",
     "settings.location.remotes.readonly": "can only be changed when there are no permanent holdings or items associated with this location",
     "settings.location.remotes.failed": "Failed to load",
     "settings.bursarExports": "Bursar exports",
     "permission.settings.bursar-exports": "Settings (tenant): Bursar admin",
-    "settings.location.locations.remoteStorage": "Remote storage",
-    "settings.bursarExports.notAvailable": "No plugin available!"
+    "settings.location.locations.remoteStorage": "Stockage à distance",
+    "settings.bursarExports.notAvailable": "Aucun plugin disponible!"
 }
