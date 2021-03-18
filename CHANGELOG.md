@@ -1,9 +1,9 @@
 # Change history for ui-tenant-settings
 
-## (6.0.0) IN PROGRESS
+## (6.1.0) IN PROGRESS
 
-## [5.1.0](https://github.com/folio-org/ui-tenant-settings/tree/v5.1.0)(2021-03-12)
-[Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v5.0.1...v5.1.0)
+## [6.0.0](https://github.com/folio-org/ui-tenant-settings/tree/v6.0.0)(2021-03-12)
+[Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v5.0.1...v6.0.0)
 * [UITEN-13](https://issues.folio.org/browse/UITEN-13) Build RTL/Jest unit test code coverage.
 * [UITEN-123](https://issues.folio.org/browse/UITEN-123) Disable "Download metadata" button when url is not provided.
 * [UITEN-127](https://issues.folio.org/browse/UITEN-127) Add additional permission to location permission set.
