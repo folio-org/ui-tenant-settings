@@ -113,7 +113,7 @@
     "settings.locale.localeWarning": "The settings on this page will PERMANENTLY change the locale (including language display, date format, and number format) for all users. You are strongly discouraged from changing the locale here unless you are absolutely certain it is the correct action. To TEMPORARILY change the locale for your session only, click the \"{label}\" button instead.",
     "settings.locale.changeSessionLocale": "Changer langue et les paramètres régionaux de la session",
     "settings.general.saveAndClose": "Sauvegarder et fermer",
-    "settings.pluginNames.create-inventory-records": "Create inventory records",
+    "settings.pluginNames.create-inventory-records": "Créer des enregistrements d'inventaire",
     "settings.pluginNames.find-user": "Trouver un utilisateur",
     "settings.pluginNames.find-instance": "Rechercher une instance",
     "settings.pluginNames.find-import-profile": "Find import profile",
@@ -143,8 +143,8 @@
     "settings.location.remotes.loading": "loading...",
     "settings.location.remotes.readonly": "can only be changed when there are no permanent holdings or items associated with this location",
     "settings.location.remotes.failed": "Failed to load",
-    "settings.bursarExports": "Bursar exports",
-    "permission.settings.bursar-exports": "Settings (tenant): Bursar admin",
+    "settings.bursarExports": "Exportations intendant",
+    "permission.settings.bursar-exports": "Paramètres: intendant (administration",
     "settings.location.locations.remoteStorage": "Stockage à distance",
     "settings.bursarExports.notAvailable": "Aucun plugin disponible!"
 }
