@@ -151,9 +151,6 @@
   "settings.addresses.name": "Name",
   "settings.save.error.network": "Record not saved",
 
-  "settings.bursarExports": "Bursar exports",
-  "settings.bursarExports.notAvailable": "No plugin available!",
-
   "permission.module.enabled": "UI: Tenant-settings module is enabled",
   "permission.settings.enabled": "Settings (tenant): View",
   "permission.settings.addresses": "Settings (tenant): Can manage tenant addresses",
