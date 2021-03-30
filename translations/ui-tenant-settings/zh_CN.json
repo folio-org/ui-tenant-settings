@@ -130,7 +130,7 @@
     "settings.pluginNames.find-erm-usage-data-provider": "查找ERM使用元数据提供者",
     "settings.pluginNames.find-finc-metadata-source": "查找财务元数据来源",
     "permission.module.enabled": "用户界面：租户设置模块已启用",
-    "permission.settings.enabled": "设置（租户）：显示设置页面列表",
+    "permission.settings.enabled": "设置（租户）：查看",
     "permission.settings.addresses": "设置（租户）：可以管理租户地址",
     "permission.settings.key-bindings": "设置（租户）：可以维护主绑定",
     "permission.settings.locale": "设置（租户）：可以编辑语言、本地化和货币",
