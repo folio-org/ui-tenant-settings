@@ -62,15 +62,6 @@
         "visible": true
       },
       {
-        "permissionName": "ui-tenant-settings.settings.key-bindings",
-        "displayName": "Settings (tenant): Can maintain key bindings",
-        "subPermissions": [
-          "configuration.all",
-          "settings.tenant-settings.enabled"
-        ],
-        "visible": true
-      },
-      {
         "permissionName": "ui-tenant-settings.settings.locale",
         "displayName": "Settings (tenant): Can edit language, localization, and currency",
         "subPermissions": [
