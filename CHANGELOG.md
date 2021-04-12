@@ -2,6 +2,8 @@
 
 ## (6.1.0) IN PROGRESS
 
+* [UITEN-65](https://issues.folio.org/browse/UITEN-65) Disable key-bindings; it was just a mean tease.
+
 ## [6.0.0](https://github.com/folio-org/ui-tenant-settings/tree/v6.0.0)(2021-03-12)
 [Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v5.0.1...v6.0.0)
 * [UITEN-13](https://issues.folio.org/browse/UITEN-13) Build RTL/Jest unit test code coverage.

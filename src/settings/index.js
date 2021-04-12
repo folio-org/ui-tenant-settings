@@ -7,7 +7,6 @@ import Addresses from './Addresses';
 import { BursarExports } from './BursarExports';
 import Locale from './Locale';
 import Plugins from './Plugins';
-import Bindings from './Bindings';
 import SSOSettings from './SSOSettings';
 import LocationCampuses from './LocationCampuses';
 import LocationInstitutions from './LocationInstitutions';
@@ -32,12 +31,6 @@ class Organization extends React.Component {
             label: <FormattedMessage id="ui-tenant-settings.settings.addresses.label" />,
             component: Addresses,
             perm: 'ui-tenant-settings.settings.addresses',
-          },
-          {
-            route: 'keys',
-            label: <FormattedMessage id="ui-tenant-settings.settings.bindings.label" />,
-            component: Bindings,
-            perm: 'ui-tenant-settings.settings.key-bindings',
           },
           {
             route: 'locale',
