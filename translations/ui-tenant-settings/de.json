@@ -92,7 +92,7 @@
     "settings.servicePoints.ok": "Okay",
     "settings.servicePoints.deleteServicePointWithLocsMessage": "<strong>{name} ist mit einem oder mehreren Standorten verknüpft</strong>. Sicher, dass <strong>{name}</strong> entfernt werden soll?",
     "settings.servicePoints.primary": "primär",
-    "settings.servicePoint.expirationPeriod": "Hold shelf expiration period",
+    "settings.servicePoint.expirationPeriod": "Abholregal-Ablaufzeitraum",
     "settings.servicePoint.selectInterval": "Intervall auswählen",
     "settings.servicePoints.printByDefault": "Standardmäßig drucken",
     "settings.servicePoints.printSlip.yes": "{name} - ja",
