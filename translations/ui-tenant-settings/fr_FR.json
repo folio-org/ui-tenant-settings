@@ -62,7 +62,7 @@
     "settings.servicePoints.description": "Description",
     "settings.servicePoints.shelvingLagTime": "Temps de latence du rayonnage (minutes)",
     "settings.servicePoints.pickupLocation": "Emplacement du point de retrait",
-    "settings.servicePoints.feeFineOwner": "Propriétaire des frais/de l'amende",
+    "settings.servicePoints.feeFineOwner": "Propriétaire des frais/amendes",
     "settings.servicePoints.deleteServicePoint": "Supprimer l'unité de services",
     "settings.servicePoints.delete": "Supprimer",
     "settings.servicePoints.untitledServicePoint": "Nom de l'unité de services",
