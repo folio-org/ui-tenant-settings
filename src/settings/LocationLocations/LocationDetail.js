@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import {
@@ -27,6 +27,7 @@ import {
 
 import LocationInUseModal from './LocationInUseModal';
 import { useRemoteStorageApi } from './RemoteStorage';
+import RemoteStorageDetails from './RemoteStorageDetails';
 
 const LocationDetail = ({
   initialValues: loc,
@@ -48,12 +49,7 @@ const LocationDetail = ({
   const [isDeleteLocationModalOpened, setIsDeleteLocationModalOpened] = useState(false);
   const [isLocationInUseModalOpened, setIsLocationInUseModalOpened] = useState(false);
 
-  const { remoteMap, configurations, setMapping } = useRemoteStorageApi();
-
-  const remoteStorageName = useMemo(() => {
-    const currentConfig = configurations?.records.find(config => remoteMap[loc.id] === config.id);
-    return currentConfig?.name;
-  }, [loc]);
+  const { setMapping } = useRemoteStorageApi();
 
   const handleExpandAll = setSections;
 
@@ -292,16 +288,7 @@ const LocationDetail = ({
             />
           </Col>
         </Row>
-        {remoteStorageName && (
-          <Row>
-            <Col xs={12}>
-              <KeyValue
-                label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.remoteStorage" />}
-                value={remoteStorageName}
-              />
-            </Col>
-          </Row>
-        )}
+        <RemoteStorageDetails locationId={loc.id} />
       </Accordion>
       <Accordion
         open={sections.locationDetails}
