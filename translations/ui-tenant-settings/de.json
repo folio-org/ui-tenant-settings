@@ -3,7 +3,7 @@
     "settings.bindings.label": "Tastenbelegung",
     "settings.language.label": "Sprache und Lokalisierung",
     "settings.plugins.label": "Bevorzugte Plugins",
-    "settings.ssoSettings.label": "SSO settings",
+    "settings.ssoSettings.label": "SSO-Einstellungen",
     "settings.shelvingLocations.label": "Regalstandort",
     "settings.bindings.provide": "Provide bindings for {actionNames}",
     "settings.keyBindings": "Edit key bindings as JSON.",
