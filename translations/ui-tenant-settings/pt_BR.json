@@ -130,7 +130,7 @@
     "settings.pluginNames.find-erm-usage-data-provider": "Encontrar provedor de metadados de uso de ERM",
     "settings.pluginNames.find-finc-metadata-source": "Encontrar fonte de metadados de finanças",
     "permission.module.enabled": "UI: O módulo de configurações do tenant está ativado",
-    "permission.settings.enabled": "Configurações (tenant): exibe a lista de páginas de configurações",
+    "permission.settings.enabled": "Configurações (tenant): exibir",
     "permission.settings.addresses": "Configurações (tenant): Pode gerenciar endereços de tenant",
     "permission.settings.key-bindings": "Configurações (tenant): pode manter as combinações de teclas",
     "permission.settings.locale": "Configurações (tenant): Pode editar o idioma, a localização e a moeda",
@@ -143,8 +143,8 @@
     "settings.location.remotes.loading": "carregando...",
     "settings.location.remotes.readonly": "só pode ser alterado quando não houver acervos permanentes ou itens associados a este local",
     "settings.location.remotes.failed": "Falha ao carregar",
-    "settings.bursarExports": "Bursar exports",
-    "permission.settings.bursar-exports": "Settings (tenant): Bursar admin",
+    "settings.bursarExports": "Exportações de tesoureiro",
+    "permission.settings.bursar-exports": "Configurações (tenant): Administrador de Tesouraria",
     "settings.location.locations.remoteStorage": "Armazenamento externo",
     "settings.bursarExports.notAvailable": "Nenhum plugin disponível!"
 }
