@@ -15,16 +15,6 @@ const mockRemoteMap = {
   locationWithDetails: 2,
 };
 
-// jest.mock('@folio/stripes/components', () => ({
-//   ...jest.requireActual('@folio/stripes/components'),
-//   KeyValue: jest.fn(({ label, children }) => (
-//     <>
-//       <span>{label}</span>
-//       <span>{children}</span>
-//     </>
-//   )),
-// }));
-
 jest.mock(
   './RemoteStorage',
   () => ({
