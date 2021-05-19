@@ -32,13 +32,13 @@ describe('RemoteStorageDetails', () => {
   it('should render remote storage name and workflow preference if location have them', () => {
     renderRemoteStorageDetails({ locationId: 'locationWithDetails' });
 
-    expect(screen.queryByText('ui-tenant-settings.settings.location.locations.remoteStorage')).toBeVisible();
-    expect(screen.queryByText('ui-tenant-settings.settings.location.locations.returning-workflow.title')).toBeVisible();
+    expect(screen.getByText(/remoteStorage/)).toBeVisible();
+    expect(screen.getByText(/returning-workflow.title/)).toBeVisible();
   });
 
   it('should not render workflow preference if location have not it', () => {
     renderRemoteStorageDetails({ locationId: 'locationWithoutDetails' });
 
-    expect(screen.queryByText('ui-tenant-settings.settings.location.locations.returning-workflow.title')).not.toBeInTheDocument();
+    expect(screen.queryByText(/returning-workflow.title/)).not.toBeInTheDocument();
   });
 });
