@@ -78,12 +78,18 @@ describe('LocationDetail', () => {
     expect(screen.queryByText('ui-tenant-settings.settings.location.locations.locationDetails')).toBeVisible();
   });
 
-  it('should open delete confirmation window when delete button in action menu clicked', () => {
+  it('should open delete confirmation modal when delete button in action menu is clicked', () => {
     renderLocationDetail();
-    const deleteButton = screen.queryByText('stripes-core.button.delete');
+    const actions = screen.getByRole('button', { name: /actions/i });
 
-    user.click(deleteButton);
-    expect(screen.queryByText('ui-tenant-settings.settings.location.locations.deleteLocation')).toBeInTheDocument();
+    user.click(actions);
+    const delete = screen.getByRole('button', { name: /delete/i });
+    expect(delete).toBeVisible();
+
+    user.click(delete);
+    const dialog = screen.getByRole('dialog');
+    expect(dialog).toBeVisible();
+    expect(within(dialog).getByRole('heading', { name: /deleteLocation/ })).toBeVisible();
   });
 
   it('should call onEdit when edit button in action menu clicked', () => {
