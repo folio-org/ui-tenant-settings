@@ -66,7 +66,7 @@ describe('LocationDetail', () => {
   it('should render all fields in location details', () => {
     renderLocationDetail();
 
-    expect(screen.queryByText('ui-tenant-settings.settings.location.institutions.institution')).toBeVisible();
+    expect(screen.getByText(/institutions.institution/)).toBeVisible();
     expect(screen.queryByText('ui-tenant-settings.settings.location.campuses.campus')).toBeVisible();
     expect(screen.queryByText('ui-tenant-settings.settings.location.libraries.library')).toBeVisible();
     expect(screen.queryByText('ui-tenant-settings.settings.location.locations.name')).toBeVisible();
