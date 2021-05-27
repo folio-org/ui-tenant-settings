@@ -158,10 +158,12 @@
     "test": "yarn run test:unit && yarn run test:e2e"
   },
   "devDependencies": {
+    "@babel/core": "^7.9.0",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/plugin-proposal-decorators": "^7.0.0",
     "@babel/plugin-transform-runtime": "^7.10.5",
     "@babel/preset-react": "^7.10.4",
+    "@babel/preset-typescript": "^7.13.0",
     "@bigtest/interactor": "^0.9.1",
     "@bigtest/mocha": "^0.5.2",
     "@bigtest/react": "^0.1.2",
@@ -186,6 +188,7 @@
     "eslint-plugin-jest-dom": "^3.2.3",
     "eslint-plugin-testing-library": "^3.9.2",
     "faker": "^4.1.0",
+    "identity-obj-proxy": "^3.0.0",
     "inflected": "^2.0.4",
     "jest": "^26.4.2",
     "jest-junit": "^11.1.0",
@@ -196,8 +199,7 @@
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.0",
-    "sinon": "^7.2.2",
-    "identity-obj-proxy": "^3.0.0"
+    "sinon": "^7.2.2"
   },
   "dependencies": {
     "@folio/react-intl-safe-html": "^2.0.0",
