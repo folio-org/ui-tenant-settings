@@ -88,7 +88,7 @@
     "settings.location.locations.servicePoints": "Punto/i di distribuzione",
     "settings.location.locations.primary": "Principale",
     "settings.servicePoints.disallowDeleteServicePoint": "Impossibile eliminare il punto di distribuzione",
-    "settings.servicePoints.disallowDeleteServicePointMessage": "Questo punto di distribuzione non può essere eliminato, in quanto punto di distribuzione primario per una o più sezioni.",
+    "settings.servicePoints.disallowDeleteServicePointMessage": "Questo punto di distribuzione non può essere eliminato, in quanto punto di distribuzione principale per una o più sezioni.",
     "settings.servicePoints.ok": "Ok.",
     "settings.servicePoints.deleteServicePointWithLocsMessage": "<strong> {name} è associato a una o più locations </strong> . Sei sicuro di voler rimuovere <strong> {name} ? </strong>",
     "settings.servicePoints.primary": "principale",
