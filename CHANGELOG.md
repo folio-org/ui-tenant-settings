@@ -3,6 +3,9 @@
 ## (6.1.0) IN PROGRESS
 
 * [UITEN-169](https://issues.folio.org/browse/UITEN-169) Move Tenant/Bursar exports to Users/Transfer criteria
+* [UITEN-65](https://issues.folio.org/browse/UITEN-65) Disable key-bindings; it was just a mean tease.
+* [UITEN-165](https://issues.folio.org/browse/UITEN-165) Add remote storage returning workflow details to location view.
+* [UITEN-174](https://issues.folio.org/browse/UITEN-174) Update "remote-storage-mappings" interface
 
 ## [6.0.0](https://github.com/folio-org/ui-tenant-settings/tree/v6.0.0)(2021-03-12)
 [Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v5.0.1...v6.0.0)
