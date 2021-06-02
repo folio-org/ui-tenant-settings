@@ -4,7 +4,6 @@ import { Settings } from '@folio/stripes/smart-components';
 import { stripesShape } from '@folio/stripes/core';
 
 import Addresses from './Addresses';
-import { BursarExports } from './BursarExports';
 import Locale from './Locale';
 import Plugins from './Plugins';
 import SSOSettings from './SSOSettings';
@@ -55,12 +54,6 @@ class Organization extends React.Component {
             label: <FormattedMessage id="ui-tenant-settings.settings.servicePoints.label" />,
             component: ServicePoints,
             perm: 'ui-tenant-settings.settings.servicepoints',
-          },
-          {
-            route: 'bursar-exports',
-            label: <FormattedMessage id="ui-tenant-settings.settings.bursarExports" />,
-            component: BursarExports,
-            perm: 'ui-plugin-bursar-export.bursar-exports.all',
           },
         ],
       },
