@@ -1,7 +1,6 @@
-import 'babel-polyfill';
-import turnOffWarnings from './helpers/turn-off-warnings';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 
-turnOffWarnings();
 // require all modules ending in "-test" from the current directory and
 // all subdirectories
 const requireTest = require.context('./tests/', true, /-test/);
