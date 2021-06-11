@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, createIntl, createIntlCache } from 'react-intl';
 import { Field } from 'redux-form';
+import { translations } from 'stripes-config';
+
 
 import { IfPermission, supportedLocales } from '@folio/stripes/core';
 import { ConfigManager } from '@folio/stripes/smart-components';
@@ -93,7 +95,24 @@ class Locale extends React.Component {
     return JSON.stringify({ locale, timezone, currency });
   }
 
+  handleLocaleChange = (event, newValue) => {
+    const region = newValue.replace('-', '_');
+    fetch(translations[region] ? translations[region] : translations.en_US)
+      .then((response) => {
+        if (response.ok) {
+          response.json().then((values) => {
+            let warning = values['ui-tenant-settings.settings.locale.localeWarning'];
+            const buttonValue = this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.locale.changeSessionLocale' });
+            warning = warning.replace('{label}', buttonValue);
+            // eslint-disable-next-line no-alert
+            window.alert(warning);
+          });
+        }
+      });
+  };
+
   render() {
+    const { formatMessage } = this.props.intl;
     return (
       <this.configManager
         label={this.props.label}
@@ -107,7 +126,10 @@ class Locale extends React.Component {
           <Row>
             <Col xs={12}>
               <p>
-                <FormattedMessage id="ui-tenant-settings.settings.locale.localeWarning" values={{ label: <FormattedMessage id="ui-tenant-settings.settings.locale.changeSessionLocale" /> }} />
+                <FormattedMessage
+                  id="ui-tenant-settings.settings.locale.localeWarning"
+                  values={{ label: formatMessage({ id: 'ui-tenant-settings.settings.locale.changeSessionLocale' }) }}
+                />
               </p>
               <div>
                 <Button to="/settings/developer/locale">
@@ -119,49 +141,38 @@ class Locale extends React.Component {
         </IfPermission>
         <Row>
           <Col xs={12} id="select-locale">
-            <FormattedMessage id="ui-tenant-settings.settings.localization">
-              {label => (
-                <Field
-                  component={Select}
-                  id="locale"
-                  name="locale"
-                  placeholder="---"
-                  dataOptions={options}
-                  label={label}
-                />
-              )}
-            </FormattedMessage>
+            <Field
+              component={Select}
+              id="locale"
+              name="locale"
+              placeholder="---"
+              dataOptions={options}
+              label={formatMessage({ id: 'ui-tenant-settings.settings.localization' })}
+              onChange={this.handleLocaleChange}
+            />
           </Col>
         </Row>
         <Row>
           <Col xs={12} id="select-timezone">
-            <FormattedMessage id="ui-tenant-settings.settings.timeZonePicker">
-              {label => (
-                <Field
-                  component={Select}
-                  id="timezone"
-                  name="timezone"
-                  placeholder="---"
-                  dataOptions={timeZonesList}
-                  label={label}
-                />
-              )}
-            </FormattedMessage>
+            <Field
+              component={Select}
+              id="timezone"
+              name="timezone"
+              placeholder="---"
+              dataOptions={timeZonesList}
+              label={formatMessage({ id: 'ui-tenant-settings.settings.timeZonePicker' })}
+            />
           </Col>
         </Row>
         <Row>
           <Col xs={12} id="select-currency">
-            <FormattedMessage id="ui-tenant-settings.settings.primaryCurrency">
-              {label => (
-                <Field
-                  component={CurrencySelect}
-                  id="currency"
-                  name="currency"
-                  placeholder="---"
-                  label={label}
-                />
-              )}
-            </FormattedMessage>
+            <Field
+              component={CurrencySelect}
+              id="currency"
+              name="currency"
+              placeholder="---"
+              label={formatMessage({ id: 'ui-tenant-settings.settings.primaryCurrency' })}
+            />
           </Col>
         </Row>
       </this.configManager>
