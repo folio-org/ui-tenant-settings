@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { useRemoteStorageApi } from './RemoteStorage';
 import RemoteStorageDetails from './RemoteStorageDetails';
 
@@ -41,12 +41,20 @@ describe('RemoteStorageDetails', () => {
     expect(screen.getByText('RS2')).toBeVisible();
   });
 
-  it('should not render name if state is broken', () => {
-    useRemoteStorageApi.mockImplementation(() => ({ remoteMap: undefined, configurations: undefined }));
+  it('should render correct result based on state changes', async () => {
+    useRemoteStorageApi.mockImplementation(() => ({ remoteMap: mockRemoteMap, configurations: mockConfigurations }));
+    const sut = renderRemoteStorageDetails({ locationId: 'locationWithDetails' });
 
-    renderRemoteStorageDetails({ locationId: 'locationWithDetails' });
+    await waitFor(() => {
+      expect(screen.getByText('RS2')).toBeVisible();
+    });
 
-    expect(screen.queryByText('RS2')).not.toBeInTheDocument();
+    useRemoteStorageApi.mockImplementation(() => ({ remoteMap: mockRemoteMap, configurations: undefined }));
+    sut.rerender(<RemoteStorageDetails locationId="locationWithDetails" />);
+
+    await waitFor(() => {
+      expect(screen.queryByText('RS2')).not.toBeInTheDocument();
+    });
   });
 
   it('should not render workflow preference if location have not it', () => {
