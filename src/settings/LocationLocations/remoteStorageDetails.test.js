@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { useRemoteStorageApi } from './RemoteStorage';
+
 import RemoteStorageDetails from './RemoteStorageDetails';
 
 const mockConfigurations = {
@@ -15,7 +15,12 @@ const mockRemoteMap = {
   locationWithDetails: 2,
 };
 
-jest.mock('./RemoteStorage');
+jest.mock(
+  './RemoteStorage',
+  () => ({
+    useRemoteStorageApi: () => ({ remoteMap: mockRemoteMap, configurations: mockConfigurations }),
+  }),
+);
 
 const renderRemoteStorageDetails = ({
   locationId
@@ -24,29 +29,11 @@ const renderRemoteStorageDetails = ({
 ));
 
 describe('RemoteStorageDetails', () => {
-  beforeEach(() => {
-    useRemoteStorageApi.mockImplementation(() => ({ remoteMap: mockRemoteMap, configurations: mockConfigurations }));
-  });
-
   it('should render remote storage name and workflow preference if location have them', () => {
     renderRemoteStorageDetails({ locationId: 'locationWithDetails' });
 
     expect(screen.getByText(/remoteStorage/)).toBeVisible();
     expect(screen.getByText(/returning-workflow.title/)).toBeVisible();
-  });
-
-  it('should render name for location with details', () => {
-    renderRemoteStorageDetails({ locationId: 'locationWithDetails' });
-
-    expect(screen.getByText('RS2')).toBeVisible();
-  });
-
-  it('should not render name if state is broken', () => {
-    useRemoteStorageApi.mockImplementation(() => ({ remoteMap: undefined, configurations: undefined }));
-
-    renderRemoteStorageDetails({ locationId: 'locationWithDetails' });
-
-    expect(screen.queryByText('RS2')).not.toBeInTheDocument();
   });
 
   it('should not render workflow preference if location have not it', () => {

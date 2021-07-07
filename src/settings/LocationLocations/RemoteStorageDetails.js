@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 
@@ -13,7 +13,9 @@ import { useRemoteStorageApi } from './RemoteStorage';
 const RemoteStorageDetails = ({ locationId }) => {
   const { remoteMap, configurations } = useRemoteStorageApi();
 
-  const currentConfig = configurations?.records.find(config => remoteMap[locationId] === config.id);
+  const currentConfig = useMemo(() => {
+    return configurations?.records.find(config => remoteMap[locationId] === config.id);
+  }, [locationId, remoteMap]);
 
   return (
     <>
