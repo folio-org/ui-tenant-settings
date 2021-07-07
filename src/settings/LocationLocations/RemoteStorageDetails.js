@@ -15,7 +15,7 @@ const RemoteStorageDetails = ({ locationId }) => {
 
   const currentConfig = useMemo(() => {
     return configurations?.records.find(config => remoteMap[locationId] === config.id);
-  }, [locationId, remoteMap]);
+  }, [locationId, remoteMap, configurations]);
 
   return (
     <>
