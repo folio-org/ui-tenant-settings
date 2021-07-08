@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { useRemoteStorageApi } from './RemoteStorage';
 import RemoteStorageDetails from './RemoteStorageDetails';
 
@@ -45,16 +45,12 @@ describe('RemoteStorageDetails', () => {
     useRemoteStorageApi.mockImplementation(() => ({ remoteMap: mockRemoteMap, configurations: mockConfigurations }));
     const sut = renderRemoteStorageDetails({ locationId: 'locationWithDetails' });
 
-    await waitFor(() => {
-      expect(screen.getByText('RS2')).toBeVisible();
-    });
+    expect(screen.getByText('RS2')).toBeVisible();
 
     useRemoteStorageApi.mockImplementation(() => ({ remoteMap: mockRemoteMap, configurations: undefined }));
     sut.rerender(<RemoteStorageDetails locationId="locationWithDetails" />);
 
-    await waitFor(() => {
-      expect(screen.queryByText('RS2')).not.toBeInTheDocument();
-    });
+    expect(screen.queryByText('RS2')).not.toBeInTheDocument();
   });
 
   it('should not render workflow preference if location have not it', () => {
