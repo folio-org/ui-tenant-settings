@@ -41,10 +41,14 @@ describe('RemoteStorageDetails', () => {
     expect(screen.getByText('RS2')).toBeVisible();
   });
 
-  it('should not render name if state is broken', () => {
-    useRemoteStorageApi.mockImplementation(() => ({ remoteMap: undefined, configurations: undefined }));
+  it('should render correct result based on state changes', async () => {
+    useRemoteStorageApi.mockImplementation(() => ({ remoteMap: mockRemoteMap, configurations: mockConfigurations }));
+    const sut = renderRemoteStorageDetails({ locationId: 'locationWithDetails' });
 
-    renderRemoteStorageDetails({ locationId: 'locationWithDetails' });
+    expect(screen.getByText('RS2')).toBeVisible();
+
+    useRemoteStorageApi.mockImplementation(() => ({ remoteMap: mockRemoteMap, configurations: undefined }));
+    sut.rerender(<RemoteStorageDetails locationId="locationWithDetails" />);
 
     expect(screen.queryByText('RS2')).not.toBeInTheDocument();
   });
