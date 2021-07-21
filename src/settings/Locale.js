@@ -28,6 +28,19 @@ class Locale extends React.Component {
 
     try {
       config = Object.assign({}, defaultConfig, JSON.parse(value));
+
+      // a numbering system may be glommed onto the locale.
+      // separate it if so, allowing the locale and numbering system
+      // to be configured independently. this is pretty brain-dead
+      // right now and proper locale-value parsing will need to be
+      // implemented if we choose to support for additional options.
+      if (config.locale) {
+        const parts = config.locale.split('-u-nu-');
+        config.locale = parts[0];
+        if (parts[1]) {
+          config.numberingSystem = parts[0];
+        }
+      }
     } catch (e) {
       config = defaultConfig;
     }
@@ -48,7 +61,6 @@ class Locale extends React.Component {
     }
 
    setTimeout(() => {
-      console.log(`${locale} ${timezone} ${currency}`)
       if (locale) this.props.stripes.setLocale(locale);
       if (timezone) this.props.stripes.setTimezone(timezone);
       if (currency) this.props.stripes.setCurrency(currency);
