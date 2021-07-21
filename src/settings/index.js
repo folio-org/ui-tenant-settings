@@ -5,7 +5,6 @@ import { stripesShape } from '@folio/stripes/core';
 
 import Addresses from './Addresses';
 import Locale from './Locale';
-import Bindings from './Bindings';
 import Plugins from './Plugins';
 import SSOSettings from './SSOSettings';
 import LocationCampuses from './LocationCampuses';
@@ -38,12 +37,6 @@ class Organization extends React.Component {
             component: Locale,
             perm: 'ui-tenant-settings.settings.locale',
           },
-          {
-            route: 'bindings',
-            label: 'bindings',
-            component: Bindings,
-          },
-
           {
             route: 'plugins',
             label: <FormattedMessage id="ui-tenant-settings.settings.plugins.label" />,
