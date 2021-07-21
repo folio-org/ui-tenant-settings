@@ -60,7 +60,7 @@ class Locale extends React.Component {
       locale = `${locale}-u-nu-${numberingSystem}`;
     }
 
-   setTimeout(() => {
+    setTimeout(() => {
       if (locale) this.props.stripes.setLocale(locale);
       if (timezone) this.props.stripes.setTimezone(timezone);
       if (currency) this.props.stripes.setCurrency(currency);

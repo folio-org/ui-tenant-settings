@@ -81,5 +81,4 @@ describe('Locale', () => {
       // expect(setTimezone).toHaveBeenCalledWith('America/New_York');
     }, 2000);
   });
-
 });
