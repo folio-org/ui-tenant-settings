@@ -5,6 +5,7 @@
 * [UITEN-170](https://issues.folio.org/browse/UITEN-170) Include missing staff-slips permission in service-points pset
 * [UITEN-181](https://issues.folio.org/browse/UITEN-181) Set numbering system independently of locale
 * [UITEN-178](https://issues.folio.org/browse/UITEN-178) Permission sets should avoid ".all" permissions
+* [UITEN-183](https://issues.folio.org/browse/UITEN-183) Increment stripes to v7
 
 ## [6.1.0](https://github.com/folio-org/ui-tenant-settings/tree/v6.1.0)(2021-06-11)
 [Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v6.0.0...v6.1.0)
