@@ -143,8 +143,9 @@
     "settings.location.remotes.loading": "载入中...",
     "settings.location.remotes.readonly": "仅当没有与此馆藏地关联的永久馆藏或单件时才能更改",
     "settings.location.remotes.failed": "加载失败",
-    "settings.bursarExports": "费用/罚款导出",
     "permission.settings.bursar-exports": "设置（租户）：费用/罚款管理员",
     "settings.location.locations.remoteStorage": "远程存储",
-    "settings.bursarExports.notAvailable": "无可用插件！"
+    "settings.location.locations.returning-workflow.title": "Returning workflow preference",
+    "settings.location.locations.returning-workflow.Scanned to folio": "Items received at remote storage scanned into FOLIO",
+    "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "Items received at remote storage scanned into CaiaSoft"
 }

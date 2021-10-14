@@ -143,8 +143,9 @@
     "settings.location.remotes.loading": "Chargement...",
     "settings.location.remotes.readonly": "ne peut être modifié que s'il n'y a pas de collections ou d'exemplaires permanents associés à cet emplacement",
     "settings.location.remotes.failed": "Échec du chargement",
-    "settings.bursarExports": "Exportations intendant",
     "permission.settings.bursar-exports": "Paramètres: intendant (administration",
     "settings.location.locations.remoteStorage": "Stockage à distance",
-    "settings.bursarExports.notAvailable": "Aucun plugin disponible!"
+    "settings.location.locations.returning-workflow.title": "Returning workflow preference",
+    "settings.location.locations.returning-workflow.Scanned to folio": "Items received at remote storage scanned into FOLIO",
+    "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "Items received at remote storage scanned into CaiaSoft"
 }
