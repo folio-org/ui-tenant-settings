@@ -143,8 +143,9 @@
     "settings.location.remotes.loading": "ładowanie...",
     "settings.location.remotes.readonly": "można zmienić tylko wtedy, gdy nie ma stałych zasobów lub egzemplarzy związanych z tą lokalizacją",
     "settings.location.remotes.failed": "Nie udało się załadować",
-    "settings.bursarExports": "Eksport kwestury",
     "permission.settings.bursar-exports": "Ustawienia (dzierżawca): Administrator kwestury",
     "settings.location.locations.remoteStorage": "Magazyn zdalny",
-    "settings.bursarExports.notAvailable": "Brak dostępnej wtyczki!"
+    "settings.location.locations.returning-workflow.title": "Returning workflow preference",
+    "settings.location.locations.returning-workflow.Scanned to folio": "Items received at remote storage scanned into FOLIO",
+    "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "Items received at remote storage scanned into CaiaSoft"
 }

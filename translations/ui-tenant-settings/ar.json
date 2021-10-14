@@ -143,8 +143,9 @@
     "settings.location.remotes.loading": "جاري التحميل...",
     "settings.location.remotes.readonly": "لا يمكن تغييره إلا في حالة عدم وجود مقتنيات دائمة أو مواد مرتبطة بهذا الموقع",
     "settings.location.remotes.failed": "فشل التحميل",
-    "settings.bursarExports": "تصديرات Bursar",
     "permission.settings.bursar-exports": "الإعدادات (المستأجر): إدارة Bursar",
     "settings.location.locations.remoteStorage": "المخزون البعيد",
-    "settings.bursarExports.notAvailable": "لا توجد برامج مساعدة!"
+    "settings.location.locations.returning-workflow.title": "Returning workflow preference",
+    "settings.location.locations.returning-workflow.Scanned to folio": "Items received at remote storage scanned into FOLIO",
+    "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "Items received at remote storage scanned into CaiaSoft"
 }
