@@ -145,7 +145,7 @@
     "settings.location.remotes.failed": "فشل التحميل",
     "permission.settings.bursar-exports": "الإعدادات (المستأجر): إدارة Bursar",
     "settings.location.locations.remoteStorage": "المخزون البعيد",
-    "settings.location.locations.returning-workflow.title": "Returning workflow preference",
-    "settings.location.locations.returning-workflow.Scanned to folio": "Items received at remote storage scanned into FOLIO",
-    "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "Items received at remote storage scanned into CaiaSoft"
+    "settings.location.locations.returning-workflow.title": "تفضيل سير عمل الإعادة",
+    "settings.location.locations.returning-workflow.Scanned to folio": "تم مسح المواد المستلمة في التخزين البعيد ضوئيًا إلى فوليو",
+    "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "تم مسح المواد المستلمة في التخزين البعيد ضوئيًا إلى CaiaSoft"
 }
