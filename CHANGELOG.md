@@ -2,6 +2,8 @@
 
 ## IN PROGRESS
 
+* [UITEN-188](https://issues.folio.org/browse/UITEN-188) Upgrade react-intl-safe-html
+
 ## [7.0.0](https://github.com/folio-org/ui-tenant-settings/tree/v7.0.0)(2021-09-31)
 [Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v6.1.2...v7.0.0)
 
