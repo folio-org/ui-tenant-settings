@@ -145,7 +145,7 @@
     "settings.location.remotes.failed": "Falha ao carregar",
     "permission.settings.bursar-exports": "Configurações (tenant): Administrador de Tesouraria",
     "settings.location.locations.remoteStorage": "Armazenamento externo",
-    "settings.location.locations.returning-workflow.title": "Returning workflow preference",
-    "settings.location.locations.returning-workflow.Scanned to folio": "Items received at remote storage scanned into FOLIO",
-    "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "Items received at remote storage scanned into CaiaSoft"
+    "settings.location.locations.returning-workflow.title": "Preferência de retorno do fluxo de trabalho",
+    "settings.location.locations.returning-workflow.Scanned to folio": "Itens recebidos em armazenagem remota digitalizados no FOLIO",
+    "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "Itens recebidos em armazenamento remoto digitalizados no CaiaSoft"
 }
