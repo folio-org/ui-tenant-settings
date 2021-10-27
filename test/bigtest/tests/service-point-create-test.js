@@ -32,11 +32,6 @@ describe('ServicePointCreate', () => {
       await ServicePointCreatePage.clickHoldSlipCheckbox();
     });
 
-    it('unchecks print default for hold slip', () => {
-      expect(ServicePointCreatePage.holdSlipCheckboxPresent).to.be.true;
-      expect(ServicePointCreatePage.isHoldSlipChecked).to.be.false;
-    });
-
     it('keeps print default for transit slip', () => {
       expect(ServicePointCreatePage.isTransitSlipChecked).to.be.true;
     });
