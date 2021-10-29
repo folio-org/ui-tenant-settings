@@ -154,7 +154,9 @@
     "lint": "eslint .",
     "test:unit": "jest --ci --coverage",
     "test:e2e": "yarn stripes test karma --karma.singleRun --karma.browsers ChromeDocker --karma.reporters mocha junit --coverage",
-    "test": "yarn run test:unit && yarn run test:e2e"
+    "test": "yarn run test:unit && yarn run test:e2e",
+    "build-mod-descriptor": "stripes mod descriptor --full --strict | jq '.[]' > module-descriptor.json ",
+    "formatjs-compile": "formatjs compile-folder --ast --format simple ./translations/ui-tenant-settings ./translations/ui-tenant-settings/compiled"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
@@ -172,6 +174,7 @@
     "@folio/stripes-components": "^10.0.0",
     "@folio/stripes-core": "^8.0.0",
     "@folio/stripes-smart-components": "^7.0.0",
+    "@formatjs/cli": "^4.2.20",
     "@testing-library/dom": "^7.26.3",
     "@testing-library/jest-dom": "^5.11.1",
     "@testing-library/react": "^11.0.2",
@@ -202,7 +205,7 @@
     "regenerator-runtime": "^0.13.3"
   },
   "dependencies": {
-    "@folio/react-intl-safe-html": "^2.0.0",
+    "@folio/react-intl-safe-html": "^3.1.0",
     "final-form": "^4.18.2",
     "lodash": "^4.17.4",
     "prop-types": "^15.6.0",

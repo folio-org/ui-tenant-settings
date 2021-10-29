@@ -143,8 +143,9 @@
     "settings.location.remotes.loading": "loading...",
     "settings.location.remotes.readonly": "can only be changed when there are no permanent holdings or items associated with this location",
     "settings.location.remotes.failed": "Failed to load",
-    "settings.bursarExports": "Bursar exports",
     "permission.settings.bursar-exports": "Settings (tenant): Bursar admin",
     "settings.location.locations.remoteStorage": "Remote storage",
-    "settings.bursarExports.notAvailable": "No plugin available!"
+    "settings.location.locations.returning-workflow.title": "Returning workflow preference",
+    "settings.location.locations.returning-workflow.Scanned to folio": "Items received at remote storage scanned into FOLIO",
+    "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "Items received at remote storage scanned into CaiaSoft"
 }

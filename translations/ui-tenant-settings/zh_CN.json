@@ -111,7 +111,7 @@
     "settings.servicePoints.pickupLocation.no": "否",
     "settings.save.error.network": "记录未保存",
     "settings.locale.localeWarning": "此页面上的设置将永久更改所有用户的语言环境（包括语言显示、日期格式和数字格式）。强烈建议您不要在此处更改语言环境，除非您完全确定这是正确的操作。要仅临时更改会话的语言环境，请单击“ {label} ”按钮。",
-    "settings.locale.changeSessionLocale": "更改会话语言环境",
+    "settings.locale.changeSessionLocale": "更改临时语言环境",
     "settings.general.saveAndClose": "保存并关闭",
     "settings.pluginNames.create-inventory-records": "创建典藏记录",
     "settings.pluginNames.find-user": "查找用户",
@@ -143,8 +143,9 @@
     "settings.location.remotes.loading": "载入中...",
     "settings.location.remotes.readonly": "仅当没有与此馆藏地关联的永久馆藏或单件时才能更改",
     "settings.location.remotes.failed": "加载失败",
-    "settings.bursarExports": "费用/罚款导出",
     "permission.settings.bursar-exports": "设置（租户）：费用/罚款管理员",
     "settings.location.locations.remoteStorage": "远程存储",
-    "settings.bursarExports.notAvailable": "无可用插件！"
+    "settings.location.locations.returning-workflow.title": "Returning workflow preference",
+    "settings.location.locations.returning-workflow.Scanned to folio": "Items received at remote storage scanned into FOLIO",
+    "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "Items received at remote storage scanned into CaiaSoft"
 }
