@@ -3,23 +3,7 @@ import { screen, render } from '@testing-library/react';
 
 import LocationInstitutions from './LocationInstitutions';
 
-jest.mock('@folio/stripes-smart-components/lib/ControlledVocab', () => jest.fn(({
-  formatter,
-  label
-}) => (
-  <>
-    <span>{label}</span>
-    <span>
-      {formatter.numberOfObjects(
-        {
-          'id' : '1',
-          'name' : 'Københavns Universitet',
-          'code' : 'KU',
-        }
-      )}
-    </span>
-  </>
-)));
+import '../../test/jest/__mocks__';
 
 const stripesMock = {
   connect: component => component,
