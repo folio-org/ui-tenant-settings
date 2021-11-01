@@ -11,42 +11,36 @@ import {
 
 import LocationCampuses from './LocationCampuses';
 
-jest.mock('@folio/stripes-smart-components/lib/ControlledVocab', () => {
-  const MockComponent = jest.fn(({
-    rowFilter,
-    label,
-    rowFilterFunction,
-    preCreateHook,
-    listSuppressor,
-    formatter
-  }) => (
-    <>
-      {label}
-      <div onChange={rowFilterFunction}>{rowFilter}</div>
-      {formatter.numberOfObjects(
-        {
-          'id' : '1',
-          'name' : 'Annex',
-          'code' : 'KU',
-        }
-      )}
-      <button
-        data-testid="button-new"
-        type="button"
-        onClick={() => {
-          preCreateHook();
-          listSuppressor();
-        }}
-      >
+jest.mock('@folio/stripes-smart-components/lib/ControlledVocab', () => jest.fn(({
+  rowFilter,
+  label,
+  rowFilterFunction,
+  preCreateHook,
+  listSuppressor,
+  formatter
+}) => (
+  <>
+    {label}
+    <div onChange={rowFilterFunction}>{rowFilter}</div>
+    {formatter.numberOfObjects(
+      {
+        'id' : '1',
+        'name' : 'Annex',
+        'code' : 'KU',
+      }
+    )}
+    <button
+      data-testid="button-new"
+      type="button"
+      onClick={() => {
+        preCreateHook();
+        listSuppressor();
+      }}
+    >
           New
-      </button>
-    </>
-  ));
-
-  MockComponent.manifest = {};
-
-  return MockComponent;
-});
+    </button>
+  </>
+)));
 
 const STRIPES = buildStripes();
 
@@ -97,15 +91,11 @@ const mutatorMock = {
 };
 
 const renderLocationCampuses = (resources = {}) => {
-  const component = () => (
-    <LocationCampuses
-      mutator={mutatorMock}
-      resources={resources}
-      stripes={STRIPES}
-    />
-  );
-
-  return renderWithRouter(renderWithReduxForm(component));
+  return renderWithRouter(<LocationCampuses
+    mutator={mutatorMock}
+    resources={resources}
+    stripes={STRIPES}
+  />);
 };
 
 
