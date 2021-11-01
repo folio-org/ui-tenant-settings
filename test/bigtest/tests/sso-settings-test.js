@@ -34,21 +34,6 @@ describe('SSOSettings', () => {
       });
     });
 
-    describe('Failing idp url validation', () => {
-      beforeEach(async function () {
-        await sso.idpUrl.fillAndBlur('invalid url');
-        await sso.binding.selectAndBlur('POST binding');
-        await sso.attribute.fillAndBlur('attr');
-        await sso.userProperty.selectAndBlur('Barcode');
-
-        await sso.save();
-      });
-
-      it('should show validation error', () => {
-        expect(sso.feedbackError).to.equal(translations['settings.saml.validate.idpUrl']);
-      });
-    });
-
     describe('Disable download metadata button', () => {
       beforeEach(async function () {
         await sso.idpUrl.fillAndBlur('');
