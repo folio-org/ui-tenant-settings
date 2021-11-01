@@ -17,11 +17,19 @@ jest.mock('@folio/stripes-smart-components/lib/ControlledVocab', () => {
     label,
     rowFilterFunction,
     preCreateHook,
-    listSuppressor
+    listSuppressor,
+    formatter
   }) => (
     <>
       {label}
       <div onChange={rowFilterFunction}>{rowFilter}</div>
+      {formatter.numberOfObjects(
+        {
+          'id' : '1',
+          'name' : 'Annex',
+          'code' : 'KU',
+        }
+      )}
       <button
         data-testid="button-new"
         type="button"
@@ -83,12 +91,12 @@ const mutatorMock = {
     reset: jest.fn(() => Promise.resolve()),
   },
   institutions: {
-    GET: jest.fn(() => Promise.resolve()).mockResolvedValue(resourcesMock.institutions),
+    GET: jest.fn(() => Promise.resolve()),
     reset: jest.fn(() => Promise.resolve()),
   },
 };
 
-const renderAddresses = (resources = {}) => {
+const renderLocationCampuses = (resources = {}) => {
   const component = () => (
     <LocationCampuses
       mutator={mutatorMock}
@@ -101,20 +109,20 @@ const renderAddresses = (resources = {}) => {
 };
 
 
-describe('Addresses', () => {
+describe('LocationCampuses', () => {
   it('should render LocationCampuses with empty resources', async () => {
-    renderAddresses();
+    renderLocationCampuses();
 
     expect(screen.getByTestId('institutuins-empty')).toBeVisible();
   });
   it('should render LocationCampuses', async () => {
-    renderAddresses(resourcesMock);
+    renderLocationCampuses(resourcesMock);
 
-    expect(renderAddresses).toBeDefined();
+    expect(renderLocationCampuses).toBeDefined();
   });
 
   it('should render LocationCampuses changed option value', async () => {
-    renderAddresses(resourcesMock);
+    renderLocationCampuses(resourcesMock);
 
     const checkboxInstitution = screen.getByRole('combobox');
 
