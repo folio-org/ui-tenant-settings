@@ -2,7 +2,6 @@ import { beforeEach, describe, it } from '@bigtest/mocha';
 import { expect } from 'chai';
 import setupApplication from '../helpers/setup-application';
 import ServicePointUpdatePage from '../interactors/service-point-update';
-import ServicePointShowPage from '../interactors/service-point-show';
 
 describe('ServicePointUpdate', () => {
   setupApplication();
@@ -29,18 +28,6 @@ describe('ServicePointUpdate', () => {
     it('sets print default for transit slip', () => {
       expect(ServicePointUpdatePage.transitSlipCheckboxPresent).to.be.true;
       expect(ServicePointUpdatePage.isTransitSlipChecked).to.be.true;
-    });
-  });
-
-  describe('saving service point', () => {
-    beforeEach(async function () {
-      await ServicePointUpdatePage.clickTransitSlipCheckbox();
-      await ServicePointUpdatePage.save();
-    });
-
-    it('sets transit to print by default', () => {
-      expect(ServicePointShowPage.holdSlipList(0).text).to.equal('Hold - yes');
-      expect(ServicePointShowPage.holdSlipList(1).text).to.equal('Transit - yes');
     });
   });
 });
