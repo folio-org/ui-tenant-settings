@@ -5,9 +5,7 @@ import userEvent from '@testing-library/user-event';
 
 import '../../test/jest/__mocks__';
 import buildStripes from '../../test/jest/__new_mocks__/stripesCore.mock';
-import {
-  renderWithRouter,
-} from '../../test/jest/helpers';
+import { renderWithRouter } from '../../test/jest/helpers';
 
 import LocationCampuses from './LocationCampuses';
 
