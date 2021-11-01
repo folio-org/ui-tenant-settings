@@ -145,7 +145,7 @@
     "settings.location.remotes.failed": "加载失败",
     "permission.settings.bursar-exports": "设置（租户）：费用/罚款管理员",
     "settings.location.locations.remoteStorage": "远程存储",
-    "settings.location.locations.returning-workflow.title": "Returning workflow preference",
-    "settings.location.locations.returning-workflow.Scanned to folio": "Items received at remote storage scanned into FOLIO",
-    "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "Items received at remote storage scanned into CaiaSoft"
+    "settings.location.locations.returning-workflow.title": "返还工作流程首选项",
+    "settings.location.locations.returning-workflow.Scanned to folio": "远程存储中收到的单件已扫描到FOLIO中",
+    "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "远程存储中收到的单件已扫描到CaiaSoft中"
 }
