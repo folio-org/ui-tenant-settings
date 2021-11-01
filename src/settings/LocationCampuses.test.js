@@ -90,13 +90,13 @@ const mutatorMock = {
   },
 };
 
-const renderLocationCampuses = (resources = {}) => {
-  return renderWithRouter(<LocationCampuses
+const renderLocationCampuses = (resources = {}) => renderWithRouter(
+  <LocationCampuses
     mutator={mutatorMock}
     resources={resources}
     stripes={STRIPES}
-  />);
-};
+  />
+);
 
 
 describe('LocationCampuses', () => {
