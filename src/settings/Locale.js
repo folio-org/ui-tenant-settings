@@ -18,6 +18,7 @@ class Locale extends React.Component {
   constructor(props) {
     super(props);
     this.configManager = props.stripes.connect(ConfigManager);
+    this.afterSave = this.afterSave.bind(this);
   }
 
   // eslint-disable-next-line class-methods-use-this
