@@ -115,7 +115,7 @@ class LocationLibraries extends React.Component {
     ));
 
     if (!institutions.length) {
-      return <div />;
+      return <div data-testid="libraries-empty" />;
     }
 
     const campuses = [];
