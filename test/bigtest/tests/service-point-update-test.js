@@ -19,15 +19,4 @@ describe('ServicePointUpdate', () => {
       expect(ServicePointUpdatePage.isTransitSlipChecked).to.be.false;
     });
   });
-
-  describe('setting print slip print defaults on service point', () => {
-    beforeEach(async function () {
-      await ServicePointUpdatePage.clickTransitSlipCheckbox();
-    });
-
-    it('sets print default for transit slip', () => {
-      expect(ServicePointUpdatePage.transitSlipCheckboxPresent).to.be.true;
-      expect(ServicePointUpdatePage.isTransitSlipChecked).to.be.true;
-    });
-  });
 });

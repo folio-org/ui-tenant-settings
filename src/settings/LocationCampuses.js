@@ -101,7 +101,7 @@ class LocationCampuses extends React.Component {
     }));
 
     if (!institutions.length) {
-      return <div />;
+      return <div data-testid="institutuins-empty" />;
     }
 
     const rowFilter = (
