@@ -107,8 +107,6 @@ class LocationLibraries extends React.Component {
     const { institutionId, campusId } = this.state;
     const { resources } = this.props;
 
-    console.log(resources);
-
     const institutions = get(resources, 'institutions.records', []).map(i => (
       <option value={i.id} key={i.id}>
         {i.name}
