@@ -100,7 +100,7 @@ const resourcesMock = {
   },
 };
 
-const renderLocationCampuses = (resources = {}) => render(
+const renderLocationLibaries = (resources = {}) => render(
   <LocacationLibraries
     mutator={mutatorMock}
     resources={resources}
@@ -111,18 +111,18 @@ const renderLocationCampuses = (resources = {}) => render(
 
 describe('LocationLibraries', () => {
   it('should render LocationLibraries with empty resources', async () => {
-    renderLocationCampuses();
+    renderLocationLibaries();
 
     expect(screen.getByTestId('libraries-empty')).toBeVisible();
   });
   it('should render LocationLibraries with resourses', async () => {
-    renderLocationCampuses(resourcesMock);
+    renderLocationLibaries(resourcesMock);
 
-    expect(renderLocationCampuses).toBeDefined();
+    expect(renderLocationLibaries).toBeDefined();
   });
 
   it('should render LocationLibraries changed option value', async () => {
-    renderLocationCampuses(resourcesMock);
+    renderLocationLibaries(resourcesMock);
 
     const checkboxInstitution = screen.getByRole('combobox');
 
