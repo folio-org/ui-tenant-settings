@@ -14,6 +14,7 @@
   "settings.bindings.provide": "Provide bindings for {actionNames}",
   "settings.keyBindings": "Edit key bindings as JSON.",
   "settings.localization": "Locale (for language display, date format etc.)",
+  "settings.numberingSystem": "Numbering system",
   "settings.timeZonePicker": "Time zone (time zone used when showing date time information)",
   "settings.primaryCurrency": "Primary currency (for currency symbol to display)",
   "settings.locale.localeWarning": "The settings on this page will PERMANENTLY change the locale (including language display, date format, and number format) for all users. You are strongly discouraged from changing the locale here unless you are absolutely certain it is the correct action. To TEMPORARILY change the locale for your session only, click the \"{label}\" button instead.",
