@@ -1,60 +1,55 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { Accordion, Col, List, Row } from '@folio/stripes/components';
 import {
-  FormattedMessage,
-  injectIntl,
+  FormattedMessage, useIntl,
 } from 'react-intl';
 
-class LocationList extends React.Component {
-  static propTypes = {
-    expanded: PropTypes.bool,
-    onToggle: PropTypes.func,
-    locations: PropTypes.arrayOf(PropTypes.object),
-    servicePoint: PropTypes.object,
-    intl: PropTypes.object,
-  };
+function LocationList({ locations, expanded, servicePoint, onToggle }) {
+  const intl = useIntl();
 
-  renderLocation(location) {
-    const { servicePoint, intl: { formatMessage } } = this.props;
-
+  const renderLocation = (location) => {
     if (!location) return (<div />);
 
     const { name, code, primaryServicePoint } = location;
     const primary = (primaryServicePoint === servicePoint.id)
-      ? formatMessage({ id: 'ui-tenant-settings.settings.servicePoints.primary' }) :
+      ? intl.formatMessage({ id: 'ui-tenant-settings.settings.servicePoints.primary' }) :
       '';
     const title = `${name} - ${code} ${primary}`;
     return (<li key={title}>{title}</li>);
-  }
+  };
 
-  renderLocations(locations) {
+  const renderLocations = () => {
     return (
       <List
         items={locations}
-        itemFormatter={location => this.renderLocation(location)}
+        itemFormatter={location => renderLocation(location)}
         isEmptyMessage={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.noLocationsFound" />}
       />
     );
-  }
+  };
 
-  render() {
-    const { expanded, onToggle, locations } = this.props;
-    return (
-      <Accordion
-        open={expanded}
-        id="locationSection"
-        onToggle={onToggle}
-        label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.assignedLocations" />}
-      >
-        <Row>
-          <Col xs={12}>
-            {this.renderLocations(locations)}
-          </Col>
-        </Row>
-      </Accordion>
-    );
-  }
+  return (
+    <Accordion
+      open={expanded}
+      id="locationSection"
+      onToggle={onToggle}
+      label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.assignedLocations" />}
+    >
+      <Row>
+        <Col xs={12}>
+          {renderLocations(locations)}
+        </Col>
+      </Row>
+    </Accordion>
+  );
 }
 
-export default injectIntl(LocationList);
+LocationList.propTypes = {
+  expanded: PropTypes.bool,
+  onToggle: PropTypes.func,
+  locations: PropTypes.arrayOf(PropTypes.object),
+  servicePoint: PropTypes.object,
+};
+
+export default memo(LocationList);
