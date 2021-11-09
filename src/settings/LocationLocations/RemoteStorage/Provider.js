@@ -41,7 +41,7 @@ const Provider = ({ resources, mutator, stripes, ...rest }) => {
 
     if (configurationId) return persistentMutator.mappings.POST({ folioLocationId, configurationId });
 
-    return persistentMutator.mappings.DELETE({ folioLocationId, configurationId });
+    return persistentMutator.mappings.DELETE({ folioLocationId });
   };
 
   const context = {
@@ -64,7 +64,8 @@ Provider.manifest = Object.freeze({
   },
   mappings: {
     type: 'okapi',
-    path: 'remote-storage/mappings?limit=10000',
+    path: 'remote-storage/mappings',
+    perRequest: 10000,
     records: 'mappings',
     pk: 'folioLocationId',
     clientGeneratePk: false, // because we use POST instead of PUT for modification here (there's no PUT)
