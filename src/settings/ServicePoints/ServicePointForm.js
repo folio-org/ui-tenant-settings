@@ -21,7 +21,7 @@ import { ViewMetaData } from '@folio/stripes/smart-components';
 import stripesFinalForm from '@folio/stripes/final-form';
 import { Field } from 'react-final-form';
 
-import { useStripes } from '@folio/stripes-core';
+import { useStripes } from '@folio/stripes/core';
 import Period from '../../components/Period';
 import LocationList from './LocationList';
 import StaffSlipEditList from './StaffSlipEditList';
