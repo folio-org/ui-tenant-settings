@@ -38,7 +38,7 @@ function LocationList({ locations, expanded, servicePoint, onToggle }) {
     >
       <Row>
         <Col xs={12}>
-          {renderLocations(locations)}
+          {renderLocations()}
         </Col>
       </Row>
     </Accordion>
