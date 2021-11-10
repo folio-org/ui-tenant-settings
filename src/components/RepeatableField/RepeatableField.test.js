@@ -1,54 +1,91 @@
 import React from 'react';
 
-import { screen, render } from '@testing-library/react';
-import { Form } from 'react-final-form';
-import arrayMutators from 'final-form-arrays';
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import stripesFinalForm from '@folio/stripes/final-form';
+import { FormattedMessage } from 'react-intl';
+import { TextField } from '@folio/stripes/components';
 
-import '../../../test/jest/__mocks__';
+import { renderWithRouter } from '../../../test/jest/helpers';
 
 import RepeatableField from '.';
 
-const addButtonIdMock = '1';
-const addLabelMock = <span>AddLabel</span>;
-const labelMock = <span>RepeatableFieldLabel</span>;
-const templateMock = [
-  {
-    component: 'div',
-    name: 'name',
-    renderValue: jest.fn(),
-  },
-  {
-    name: 'value',
-  }
-];
+const Form = stripesFinalForm({})(({ children }) => <form>{children}</form>);
 
-const newItemTemplateMock = {
-  name: '',
-  value: ''
-};
-
-const renderRepeatableField = () => render(
+const renderRepeatableField = (newItemTemplate) => renderWithRouter(
   <Form
     onSubmit={() => {}}
-    mutators={{ ...arrayMutators }}
-    render={() => (
-      <RepeatableField
-        addButtonId={addButtonIdMock}
-        label={labelMock}
-        addLabel={addLabelMock}
-        name="RepeatableField"
-        addDefaultItem
-        newItemTemplate={newItemTemplateMock}
-        template={templateMock}
-      />
-    )}
-  />
+  >
+    <RepeatableField
+      addLabel={
+        <div icon="plus-sign">
+          <FormattedMessage id="ui-tenant-settings.settings.location.locations.addDetails" />
+        </div>
+      }
+      name="RepeatableField"
+      addButtonId="clickable-add-location-details"
+      template={[
+        {
+          name: 'name',
+          label: <FormattedMessage id="ui-tenant-settings.settings.location.locations.detailsName" />,
+          component: TextField,
+          renderValue: item => item || '',
+          withFinalForm: true,
+          value: 'old value'
+        },
+        {
+          name: 'value',
+          label: <FormattedMessage id="ui-tenant-settings.settings.location.locations.detailsValue" />,
+          component: TextField,
+          value: 'old value'
+        },
+      ]}
+      newItemTemplate={newItemTemplate}
+    />
+  </Form>
+
 );
 
 describe('RepeatableField', () => {
-  it('should render RepeatableField label', async () => {
+  it('should render RepeatableField label', () => {
+    renderRepeatableField({ name: '', value: '' });
+
+    userEvent.click(screen.getByRole('button'));
+
+    const inputs = [
+      /settings.location.locations.detailsName/,
+      /location.locations.detailsValue/
+    ];
+
+    inputs.forEach((el) => userEvent.type(screen.getByRole('textbox', { name: el }), 'New value'));
+
+    inputs.forEach((el) => expect(screen.getByRole('textbox', { name: el })).toHaveValue('New value'));
+
+    const clearButtons = screen.getAllByRole('button', { name: /stripes-components.clearThisField/ });
+
+    clearButtons.forEach((el) => userEvent.click(el));
+
+    userEvent.click(screen.getByRole('button', { name: 'Icon' }));
+  });
+
+  it('should render RepeatableField label', () => {
     renderRepeatableField();
 
-    expect(screen.getByText('RepeatableFieldLabel')).toBeVisible();
+    userEvent.click(screen.getByRole('button'));
+
+    const inputs = [
+      /settings.location.locations.detailsName/,
+      /location.locations.detailsValue/
+    ];
+
+    inputs.forEach((el) => userEvent.type(screen.getByRole('textbox', { name: el }), 'New value'));
+
+    inputs.forEach((el) => expect(screen.getByRole('textbox', { name: el })).toHaveValue('New value'));
+
+    const clearButtons = screen.getAllByRole('button', { name: /stripes-components.clearThisField/ });
+
+    clearButtons.forEach((el) => userEvent.click(el));
+
+    userEvent.click(screen.getByRole('button', { name: 'Icon' }));
   });
 });

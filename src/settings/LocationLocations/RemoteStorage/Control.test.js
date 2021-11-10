@@ -44,7 +44,16 @@ const resourcesMock = {
     hasLoaded: false,
     isPending: false,
     pendingMutations: [],
-    records: [],
+    records: [
+      {
+        configurationId: 'de17bad7-2a30-4f1c-bee5-f653ded15629',
+        folioLocationId: '53cf956f-c1df-410b-8bea-27f712cca7c0'
+      },
+      {
+        configurationId: 'de17bad7-2a30-4f1c-bee5-f653ded15629',
+        folioLocationId: 'c0762159-8fe3-4cbc-ae64-fa274f7acc47'
+      }
+    ],
     successfulMutations: [],
   }
 };
@@ -64,7 +73,7 @@ const renderControl = () => render(
 );
 
 describe('Control', () => {
-  it('should render Control', async () => {
+  it('should render Control', () => {
     renderControl();
 
     const options = [

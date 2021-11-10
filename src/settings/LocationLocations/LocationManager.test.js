@@ -1,8 +1,9 @@
 import React from 'react';
-
+import { screen } from '@testing-library/dom';
 import { createMemoryHistory } from 'history';
 
 import '../../../test/jest/__mocks__';
+import userEvent from '@testing-library/user-event';
 import buildStripes from '../../../test/jest/__new_mocks__/stripesCore.mock';
 import {
   renderWithRouter
@@ -10,50 +11,85 @@ import {
 
 import LocationManager from './LocationManager';
 
-jest.mock('react-virtualized-auto-sizer', () => {
-  return jest.fn(({ children }) => <div>{children({})}</div>);
-});
+jest.mock('./RemoteStorage/Provider', () => ({
+  ...jest.requireActual('./RemoteStorage/Provider'),
+  useRemoteStorageApi: () => ({
+    remoteMap: {},
+    mappings: {
+      failed: false,
+      hasLoaded: true,
+      isPending: false
+    },
+    configurations: {
+      failed: false,
+      hasLoaded: true,
+      isPending: false,
+      records: []
+    },
+    translate: () => 'str'
+  })
+}));
 
 const STRIPES = buildStripes();
 
 const history = createMemoryHistory();
 
 const locationMock = {
-  pathname: 'setting/tenant-settings/location-locations',
-  search: ''
+  pathname: '/settings/tenant-settings/location-locations',
+  search: '',
+  hash: '',
+  key: '00ee83',
 };
 
 const resourcesMock = {
   campuses: { hasLoaded: true,
-    records:[{ code: 'CC',
-      id: '62cf76b7-cca5-4d33-9217-edf42ce1a848',
-      institutionId: '40ee00ca-a518-4b49-be01-0638d0a4ac57',
-      name: 'City Campus' },
-    {
-      code: 'E',
-      id: '470ff1dd-937a-4195-bf9e-06bcfcd135df',
-      institutionId: '40ee00ca-a518-4b49-be01-0638d0a4ac57',
-      name: 'Online'
-    }
+    resource: 'campuses',
+    dataKey: 'location-locations',
+    records:[
+      { code: 'CC',
+        id: '40ee00ca-a518-4b49-be01-0638d0a4ac57ff',
+        institutionId: '40ee00ca-a518-4b49-be01-0638d0a4ac57',
+        name: 'City Campus' },
+      {
+        code: 'E',
+        id: '40ee00ca-a518-4b49-be01-0638d0a4ac57f',
+        institutionId: '40ee00ca-a518-4b49-be01-0638d0a4ac57',
+        name: 'Online'
+      }
     ] },
   entries:{
     hasLoaded: true,
     records:[
       {
         campusId: '62cf76b7-cca5-4d33-9217-edf42ce1a848',
-        code: 'KU/CC/DI/A',
+        code: 'KU/CC/DI/2',
+        id: 'f34d27c6-a8eb-461b-acd6-5dea81771e70',
+        institutionId: '40ee00ca-a518-4b49-be01-0638d0a4ac57',
+        isActive: true,
+        detaild: {},
+        libraryId: '5d78803e-ca04-4b4a-aeae-2c63b924518b',
+        name: 'Annex',
+        primaryServicePoint: '3a40852d-49fd-4df2-a1f9-6e2641a6e91f',
+        servicePointIds: ['3a40852d-49fd-4df2-a1f9-6e2641a6e91f'],
+        servicePoints: []
+      },
+      {
+        campusId: '62cf76b7-cca5-4d33-9217-edf42ce1a848',
+        code: 'KU/CC/DI/M',
         id: '53cf956f-c1df-410b-8bea-27f712cca7c0',
         institutionId: '40ee00ca-a518-4b49-be01-0638d0a4ac57',
         isActive: true,
+        detaild: {},
         libraryId: '5d78803e-ca04-4b4a-aeae-2c63b924518b',
         name: 'Annex',
         primaryServicePoint: '3a40852d-49fd-4df2-a1f9-6e2641a6e91f',
         servicePointIds: ['3a40852d-49fd-4df2-a1f9-6e2641a6e91f'],
         servicePoints: []
       }
-    ]
+    ],
+    resource: 'entries'
   },
-  institutions:{
+  institutions: {
     hasLoaded: true,
     records: [
       {
@@ -64,9 +100,11 @@ const resourcesMock = {
     ]
   },
   libraries:{
+    dataKey: 'location-locations',
+    hasLoaded: true,
     records: [
       {
-        campusId: '62cf76b7-cca5-4d33-9217-edf42ce1a848',
+        campusId: '40ee00ca-a518-4b49-be01-0638d0a4ac57ff',
         code: 'DI',
         id: '5d78803e-ca04-4b4a-aeae-2c63b924518b',
         name: 'Datalogisk Institut'
@@ -140,26 +178,71 @@ const mutatorMock = {
 };
 
 const matchMock = {
-  path: 'setting/tenant-settings/location-locations'
+  path: '/settings/tenant-settings/location-locations',
+  isExact: true,
+  params: {}
 };
 
-const renderLocationManager = () => renderWithRouter(<LocationManager
-  stripes={STRIPES}
-  resources={resourcesMock}
-  mutator={mutatorMock}
-  label={<span>ServicePointManager</span>}
-  location={locationMock}
-  history={history}
-  match={matchMock}
-/>);
+const renderLocationManager = () => renderWithRouter(
+  <LocationManager
+    stripes={STRIPES}
+    resources={resourcesMock}
+    mutator={mutatorMock}
+    label={<span>ServicePointManager</span>}
+    location={locationMock}
+    history={history}
+    match={matchMock}
+  />
+);
 
 describe('LocationManager', () => {
   beforeEach(() => {
-    history.push('setting/tenant-settings/location-locations');
+    const overlayContainer = document.createElement('div');
+
+    overlayContainer.id = 'ModuleContainer';
+    document.body.append(overlayContainer);
   });
-  it('should render LocationManager', async () => {
+
+  it('should render LocationManager', () => {
+    const { container } = renderLocationManager();
+
+    const buttons = [
+      /stripes-components.button.new/,
+      /stripes-components.collapseAll/,
+      /Icon ui-tenant-settings.settings.location.locations.generalInformation/,
+      /Icon ui-tenant-settings.settings.location.locations.locationDetails/,
+      /ui-tenant-settings.settings.general.saveAndClose/
+    ];
+
+    buttons.forEach((el) => userEvent.click(screen.getByRole('button', { name: el })));
+
+    buttons.forEach((el) => expect(screen.getByRole('button', { name: el })).toBeVisible());
+
+    userEvent.click(container.querySelector('#clickable-close-locations-location'));
+  });
+
+  it('should render select Instutions', () => {
     renderLocationManager();
 
-    expect(renderLocationManager).toBeDefined();
+    const selectInstitution = screen.getAllByRole('combobox', { name: 'ui-tenant-settings.settings.location.institutions.institution' });
+
+    const institutionOptions = screen.getAllByRole('option', { name: 'Københavns Universitet (KU)' });
+
+    selectInstitution.forEach((el, index) => userEvent.selectOptions(
+      el,
+      institutionOptions[index]
+    ));
+
+    institutionOptions.forEach((el) => expect(el.selected).toBe(true));
+  });
+
+  it('should render select Service points', () => {
+    renderLocationManager();
+
+    userEvent.selectOptions(
+      screen.getByRole('combobox', { name: /settings.location.locations.status/ }),
+      screen.getByRole('option', { name: /settings.location.locations.inactive/ }),
+    );
+    expect(screen.getByRole('option', { name: /settings.location.locations.inactive/ }).selected).toBe(true);
   });
 });

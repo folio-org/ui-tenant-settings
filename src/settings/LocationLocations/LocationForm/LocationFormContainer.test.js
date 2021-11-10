@@ -1,28 +1,66 @@
 import React from 'react';
 
-import { screen, render } from '@testing-library/react';
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import '../../../../test/jest/__mocks__';
 import buildStripes from '../../../../test/jest/__new_mocks__/stripesCore.mock';
-import { renderWithRouter, renderWithReduxForm } from '../../../../test/jest/helpers';
+import { renderWithRouter } from '../../../../test/jest/helpers';
 
 import LocationFormContainer from './LocationFormContainer';
-import { RemoteStorageApiProvider } from '../RemoteStorage/Provider';
-
 
 jest.mock('./DetailsField', () => {
   return () => <span>DetaolsField</span>;
 });
+
+const mockSetMapping = jest.fn();
+
+jest.mock('../RemoteStorage/Provider', () => ({
+  ...jest.requireActual('../RemoteStorage/Provider'),
+  useRemoteStorageApi: () => ({
+    remoteMap: {
+    },
+    mappings: {
+      failed: false,
+      hasLoaded: true,
+      isPending: false,
+      records: [
+        {
+          configurationId: 'de17bad7-2a30-4f1c-bee5-f653ded15629',
+          folioLocationId: '53cf956f-c1df-410b-8bea-27f712cca7c0'
+        },
+        {
+          configurationId: 'de17bad7-2a30-4f1c-bee5-f653ded15629',
+          folioLocationId: 'c0762159-8fe3-4cbc-ae64-fa274f7acc47'
+        }
+      ],
+    },
+    configurations: {
+      failed: false,
+      hasLoaded: true,
+      isPending: false,
+      records: [],
+    },
+    translate: () => 'str',
+    setMapping: mockSetMapping
+  })
+}));
 
 const onSaveMock = jest.fn();
 
 const STRIPES = buildStripes();
 
 const initialValuesMock = {
+  id: '1',
+  name: 'Initial Value',
   campusId: '',
   detailsArray: [],
   institutionId: '',
   isActive: true,
+  metadata: {
+    createdDate: '2021-10-28T03:23:16.718+00:00',
+    updatedDate: '2021-10-28T03:23:16.718+00:00',
+  },
   libraryId: '',
   servicePointIds:[
     {
@@ -39,6 +77,9 @@ const servicePointsByNameMock = {
 
 const restPropsMock = {
   checkLocationHasHoldingsOrItems: jest.fn(() => Promise.resolve()),
+  pristine: false,
+  submitting: false,
+  cloning: true,
   stripes: STRIPES,
   locationResources: {
     campuses: {
@@ -117,6 +158,9 @@ const restPropsMock = {
           staffSlips: []
         }
       ]
+    },
+    locations: {
+      records: []
     }
   }
 };
@@ -173,9 +217,58 @@ const renderLocationFormContainer = () => renderWithRouter(
 );
 
 describe('LocationFormContainer', () => {
-  it('should render ServicePointManager titles', async () => {
+  it('should render ServicePointManager titles', () => {
     renderLocationFormContainer();
 
     expect(renderLocationFormContainer).toBeDefined();
+  });
+
+  it('should render changed values in inputs', () => {
+    renderLocationFormContainer();
+
+    const inputs = [
+      /settings.location.locations.name/,
+      /settings.location.code/,
+      /settings.location.locations.discoveryDisplayName/,
+      /settings.location.locations.description/,
+    ];
+
+    inputs.forEach((el) => userEvent.clear(screen.getByRole('textbox', { name: el })));
+
+    inputs.forEach((el) => userEvent.type(screen.getByRole('textbox', { name: el }), 'Test value'));
+
+    inputs.forEach((el) => expect(screen.getByRole('textbox', { name: el })).toHaveValue('Test value'));
+  });
+
+  it('should render expand buttons', () => {
+    renderLocationFormContainer();
+
+    userEvent.click(screen.getByRole('button', { name: 'Icon ui-tenant-settings.settings.location.locations.generalInformation' }));
+
+    userEvent.click(screen.getByRole('button', { name: 'Icon ui-tenant-settings.settings.location.locations.locationDetails' }));
+
+    userEvent.click(screen.getByRole('button', { name: /stripes-components.expandAll/ }));
+
+    userEvent.click(screen.getByRole('button', { name: /settings.general.saveAndClose/ }));
+  });
+
+  it('should render Service point combobox', () => {
+    renderLocationFormContainer();
+
+    userEvent.selectOptions(
+      screen.getByRole('combobox', { name: 'ui-tenant-settings.settings.location.locations.servicePoints' }),
+      screen.getByRole('option', { name: 'Circ Desk 1' }),
+    );
+    expect(screen.getByRole('option', { name: 'Circ Desk 1' }).selected).toBe(true);
+  });
+
+  it('should render Service point checkbox', () => {
+    renderLocationFormContainer();
+
+    const checkbox = screen.getByRole('radio', { name: 'servicePoint use as primary 0' });
+
+    userEvent.click(checkbox);
+
+    expect(checkbox).toBeChecked();
   });
 });
