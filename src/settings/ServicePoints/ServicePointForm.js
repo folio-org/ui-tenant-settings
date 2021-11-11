@@ -34,7 +34,7 @@ import {
 
 import styles from './ServicePoints.css';
 
-function ServicePointForm({
+const ServicePointForm = ({
   initialValues,
   parentResources,
   parentMutator,
@@ -43,7 +43,7 @@ function ServicePointForm({
   form,
   handleSubmit,
   onCancel
-}) {
+}) => {
   const [sections, setSections] = useState({
     generalSection: true,
     locationSection: true
@@ -280,7 +280,7 @@ function ServicePointForm({
       </Paneset>
     </form>
   );
-}
+};
 
 ServicePointForm.propTypes = {
   initialValues: PropTypes.object,

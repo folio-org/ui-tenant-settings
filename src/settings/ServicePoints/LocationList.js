@@ -5,7 +5,7 @@ import {
   FormattedMessage, useIntl,
 } from 'react-intl';
 
-function LocationList({ locations, expanded, servicePoint, onToggle }) {
+const LocationList = ({ locations, expanded, servicePoint, onToggle }) => {
   const intl = useIntl();
 
   const renderLocation = (location) => {
@@ -43,7 +43,7 @@ function LocationList({ locations, expanded, servicePoint, onToggle }) {
       </Row>
     </Accordion>
   );
-}
+};
 
 LocationList.propTypes = {
   expanded: PropTypes.bool,
