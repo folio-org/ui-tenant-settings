@@ -84,7 +84,7 @@
     "settings.servicePoints.noLocationsFound": "لم يتم العثور على مواقع",
     "meta.title": "المستأجر",
     "settings.index.paneTitle": "المستأجر",
-    "settings.location.locations.missingSelection": "يرجى تحديد مؤسسة ، وحرم جامعي ومكتبة للمتابعة.",
+    "settings.location.locations.missingSelection": "يرجى تحديد مؤسسة، وحرم جامعي ومكتبة للمتابعة.",
     "settings.location.locations.servicePoints": "نقاط الخدمة",
     "settings.location.locations.primary": "الرئيسي",
     "settings.servicePoints.disallowDeleteServicePoint": "لا يمكن حذف نقطة الخدمة",
@@ -143,8 +143,9 @@
     "settings.location.remotes.loading": "جاري التحميل...",
     "settings.location.remotes.readonly": "لا يمكن تغييره إلا في حالة عدم وجود مقتنيات دائمة أو مواد مرتبطة بهذا الموقع",
     "settings.location.remotes.failed": "فشل التحميل",
-    "settings.bursarExports": "تصديرات Bursar",
     "permission.settings.bursar-exports": "الإعدادات (المستأجر): إدارة Bursar",
     "settings.location.locations.remoteStorage": "المخزون البعيد",
-    "settings.bursarExports.notAvailable": "لا توجد برامج مساعدة!"
+    "settings.location.locations.returning-workflow.title": "تفضيل سير عمل الإعادة",
+    "settings.location.locations.returning-workflow.Scanned to folio": "تم مسح المواد المستلمة في التخزين البعيد ضوئيًا إلى فوليو",
+    "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "تم مسح المواد المستلمة في التخزين البعيد ضوئيًا إلى CaiaSoft"
 }

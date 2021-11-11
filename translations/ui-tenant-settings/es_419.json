@@ -143,8 +143,9 @@
     "settings.location.remotes.loading": "Cargando...",
     "settings.location.remotes.readonly": "can only be changed when there are no permanent holdings or items associated with this location",
     "settings.location.remotes.failed": "Falló al cargar",
-    "settings.bursarExports": "Exportaciones de tesorería",
     "permission.settings.bursar-exports": "Configuración (Tenant): Administrar Bursar",
     "settings.location.locations.remoteStorage": "Almacenamiento remoto",
-    "settings.bursarExports.notAvailable": "No hay plugin disponible!"
+    "settings.location.locations.returning-workflow.title": "Returning workflow preference",
+    "settings.location.locations.returning-workflow.Scanned to folio": "Items received at remote storage scanned into FOLIO",
+    "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "Items received at remote storage scanned into CaiaSoft"
 }
