@@ -202,7 +202,7 @@
     "regenerator-runtime": "^0.13.3"
   },
   "dependencies": {
-    "@folio/react-intl-safe-html": "^2.0.0",
+    "@folio/react-intl-safe-html": "^3.1.0",
     "final-form": "^4.18.2",
     "lodash": "^4.17.4",
     "prop-types": "^15.6.0",
