@@ -39,7 +39,7 @@ describe('Locations', () => {
       expect(locations.list.rowCount).to.equal(3);
     });
 
-    describe('can sort', () => {
+    describe.skip('can sort', () => {
       beforeEach(async () => {
         await locations.list.headers(1).click();
       });
