@@ -6,6 +6,7 @@
 * [UITEN-189](https://issues.folio.org/browse/UITEN-189) menu ui-tenant-settings.settings.numberingSystem needs defined translation
 * [UITEN-190](https://issues.folio.org/browse/UITEN-190) Service Point Locations accordion doesn't refresh when moving from existing service point to creating new service point
 * [UITEN-175](https://issues.folio.org/browse/UITEN-175) prefer @folio/stripes exports to private paths when importing components
+* [UITEN-191](https://issues.folio.org/browse/UITEN-191) Permissions error when editing Settings --> Tenant --> Locations
 
 ## [7.0.0](https://github.com/folio-org/ui-tenant-settings/tree/v7.0.0)(2021-09-31)
 [Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v6.1.2...v7.0.0)
