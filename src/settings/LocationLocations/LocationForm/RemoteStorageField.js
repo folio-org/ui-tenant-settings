@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useField } from 'react-final-form';
 
-import { useStripes } from '@folio/stripes-core';
+import { useStripes } from '@folio/stripes/core';
 
 import { Control, useRemoteStorageApi } from '../RemoteStorage';
 
