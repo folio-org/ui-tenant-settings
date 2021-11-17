@@ -55,7 +55,11 @@
         "permissionName": "ui-tenant-settings.settings.addresses",
         "displayName": "Settings (tenant): Can manage tenant addresses",
         "subPermissions": [
-          "configuration.all",
+          "configuration.entries.collection.get",
+          "configuration.entries.item.get",
+          "configuration.entries.item.post",
+          "configuration.entries.item.put",
+          "configuration.entries.item.delete",
           "users.collection.get",
           "settings.tenant-settings.enabled"
         ],
@@ -65,7 +69,9 @@
         "permissionName": "ui-tenant-settings.settings.locale",
         "displayName": "Settings (tenant): Can edit language, localization, and currency",
         "subPermissions": [
-          "configuration.all",
+          "configuration.entries.collection.get",
+          "configuration.entries.item.get",
+          "configuration.entries.item.post",
           "settings.tenant-settings.enabled"
         ],
         "visible": true
@@ -74,7 +80,11 @@
         "permissionName": "ui-tenant-settings.settings.plugins",
         "displayName": "Settings (tenant): Can maintain preferred plugins",
         "subPermissions": [
-          "configuration.all",
+          "configuration.entries.collection.get",
+          "configuration.entries.item.get",
+          "configuration.entries.item.post",
+          "configuration.entries.item.put",
+          "configuration.entries.item.delete",
           "settings.tenant-settings.enabled"
         ],
         "visible": true
