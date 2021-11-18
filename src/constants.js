@@ -3,7 +3,7 @@ export const patronIdentifierTypes = [
   { key: 'externalSystemId', label: 'External System ID' },
   { key: 'id', label: 'FOLIO Record Number' },
   { key: 'username', label: 'Username' },
-  { key: 'email', label: 'Email' },
+  { key: 'personal.email', label: 'Email' },
 ];
 
 export const samlBindingTypes = [
