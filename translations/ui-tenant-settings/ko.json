@@ -5,7 +5,7 @@
     "settings.plugins.label": "선호 플러그인",
     "settings.ssoSettings.label": "SSO 설정",
     "settings.shelvingLocations.label": "선반 위치",
-    "settings.bindings.provide": "{actionName}에 대한 바인딩 제공",
+    "settings.bindings.provide": "{actionNames}에 대한 바인딩 제공",
     "settings.keyBindings": "키 바인딩을 JSON으로 편집합니다.",
     "settings.localization": "로케일(언어 표시, 날짜 형식 등)",
     "settings.timeZonePicker": "시간대(날짜 시간 정보를 표시할 때 사용되는 시간대)",
