@@ -24,8 +24,7 @@ class Locale extends React.Component {
 
   afterSave(setting) {
     const localeValues = JSON.parse(setting.value);
-    let { locale } = localeValues;
-    const { numberingSystem, timezone, currency } = localeValues;
+    const { locale, timezone, currency } = localeValues;
 
     setTimeout(() => {
       if (locale) this.props.stripes.setLocale(locale);
