@@ -138,14 +138,15 @@
     "permission.settings.sso": "Einstellungen (Mandant): Kann SSO Einstellungen verwalten",
     "permission.settings.location": "Einstellungen (Mandant): Kann Standorte erstellen, bearbeiten und entfernen",
     "permission.settings.servicepoints": "Einstellungen (Mandant): Kann Servicestellen erstellen, bearbeiten und entfernen",
-    "settings.location.remotes.remote": "Remote storage",
+    "settings.location.remotes.remote": "Fernmagazin",
     "settings.location.remotes.no": "No (default)",
     "settings.location.remotes.loading": "lade...",
     "settings.location.remotes.readonly": "can only be changed when there are no permanent holdings or items associated with this location",
     "settings.location.remotes.failed": "Laden fehlgeschlagen",
     "permission.settings.bursar-exports": "Settings (tenant): Bursar admin",
-    "settings.location.locations.remoteStorage": "Remote storage",
+    "settings.location.locations.remoteStorage": "Fernmagazin",
     "settings.location.locations.returning-workflow.title": "Returning workflow preference",
     "settings.location.locations.returning-workflow.Scanned to folio": "Items received at remote storage scanned into FOLIO",
-    "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "Items received at remote storage scanned into CaiaSoft"
+    "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "Items received at remote storage scanned into CaiaSoft",
+    "settings.numberingSystem": "Numbering system"
 }
