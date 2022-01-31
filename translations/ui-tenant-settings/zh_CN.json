@@ -147,5 +147,6 @@
     "settings.location.locations.remoteStorage": "远程存储",
     "settings.location.locations.returning-workflow.title": "返还工作流程首选项",
     "settings.location.locations.returning-workflow.Scanned to folio": "远程存储中收到的单件已扫描到FOLIO中",
-    "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "远程存储中收到的单件已扫描到CaiaSoft中"
+    "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "远程存储中收到的单件已扫描到CaiaSoft中",
+    "settings.numberingSystem": "编号系统"
 }

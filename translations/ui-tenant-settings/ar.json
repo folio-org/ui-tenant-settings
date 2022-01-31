@@ -147,5 +147,6 @@
     "settings.location.locations.remoteStorage": "المخزون البعيد",
     "settings.location.locations.returning-workflow.title": "تفضيل سير عمل الإعادة",
     "settings.location.locations.returning-workflow.Scanned to folio": "تم مسح المواد المستلمة في التخزين البعيد ضوئيًا إلى فوليو",
-    "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "تم مسح المواد المستلمة في التخزين البعيد ضوئيًا إلى CaiaSoft"
+    "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "تم مسح المواد المستلمة في التخزين البعيد ضوئيًا إلى CaiaSoft",
+    "settings.numberingSystem": "نظام الترقيم"
 }
