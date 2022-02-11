@@ -47,7 +47,7 @@ class LocationManager extends React.Component {
       path: 'locations',
       params: {
         query: 'cql.allRecords=1 sortby name',
-        limit: '1000',
+        limit: '3000',
       },
     },
     uniquenessValidator: {
