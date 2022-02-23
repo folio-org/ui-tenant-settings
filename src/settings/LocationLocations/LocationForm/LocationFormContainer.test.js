@@ -13,7 +13,7 @@ jest.mock('./DetailsField', () => {
   return () => <span>DetaolsField</span>;
 });
 
-const mockSetMapping = jest.fn();
+const mockSetMapping = jest.fn().mockResolvedValue(true);
 
 jest.mock('../RemoteStorage/Provider', () => ({
   ...jest.requireActual('../RemoteStorage/Provider'),
@@ -85,7 +85,7 @@ const restPropsMock = {
     campuses: {
       records: [
         {
-          code: 'CC',
+          code: 'DI',
           id: '62cf76b7-cca5-4d33-9217-edf42ce1a848',
           institutionId: '40ee00ca-a518-4b49-be01-0638d0a4ac57',
           name: 'City Campus',
@@ -124,12 +124,14 @@ const restPropsMock = {
       ]
     },
     libraries: {
+      dataKey: 'location-locations',
+      hasLoaded: true,
       records: [
         {
           campusId: '62cf76b7-cca5-4d33-9217-edf42ce1a848',
           code: 'DI',
           id: '5d78803e-ca04-4b4a-aeae-2c63b924518b',
-          name: 'Datalogisk Institut',
+          name: 'Datalogisk Institut'
         }
       ]
     },
@@ -238,6 +240,8 @@ describe('LocationFormContainer', () => {
     inputs.forEach((el) => userEvent.type(screen.getByRole('textbox', { name: el }), 'Test value'));
 
     inputs.forEach((el) => expect(screen.getByRole('textbox', { name: el })).toHaveValue('Test value'));
+
+    userEvent.click(screen.getByRole('button', { name: /settings.general.saveAndClose/ }));
   });
 
   it('should render expand buttons', () => {
@@ -270,5 +274,57 @@ describe('LocationFormContainer', () => {
     userEvent.click(checkbox);
 
     expect(checkbox).toBeChecked();
+  });
+
+  it('should render ', () => {
+    renderLocationFormContainer();
+
+    const inputs = [
+      /settings.location.locations.name/,
+      /settings.location.code/,
+      /settings.location.locations.discoveryDisplayName/,
+      /settings.location.locations.description/,
+    ];
+
+    inputs.forEach((el) => userEvent.clear(screen.getByRole('textbox', { name: el })));
+
+    inputs.forEach((el) => userEvent.type(screen.getByRole('textbox', { name: el }), 'Test value'));
+
+    inputs.forEach((el) => expect(screen.getByRole('textbox', { name: el })).toHaveValue('Test value'));
+
+    const checkbox = screen.getByRole('radio', { name: 'servicePoint use as primary 0' });
+
+    userEvent.click(checkbox);
+
+    userEvent.selectOptions(
+      screen.getByRole('combobox', { name: 'ui-tenant-settings.settings.location.locations.servicePoints' }),
+      screen.getByRole('option', { name: 'Circ Desk 1' }),
+    );
+
+    const selectInstitution = screen.getByRole('combobox', { name: 'ui-tenant-settings.settings.location.institutions.institution' });
+    const institutionOptions = screen.getByRole('option', { name: 'Københavns Universitet (KU)' });
+
+
+    userEvent.selectOptions(
+      selectInstitution,
+      institutionOptions
+    );
+
+    const selectCampus = screen.getByRole('combobox', { name: 'ui-tenant-settings.settings.location.campuses.campus' });
+    const campusOptions = screen.getByRole('option', { name: 'City Campus (DI)' });
+
+    userEvent.selectOptions(
+      selectCampus,
+      campusOptions
+    );
+
+    const selectLibrary = screen.getByRole('combobox', { name: 'ui-tenant-settings.settings.location.libraries.library' });
+    const libraryOption = screen.getByRole('option', { name : 'Datalogisk Institut (DI)' });
+
+    userEvent.selectOptions(
+      selectLibrary,
+      libraryOption
+    );
+    userEvent.click(screen.getByRole('button', { name: /settings.general.saveAndClose/ }));
   });
 });

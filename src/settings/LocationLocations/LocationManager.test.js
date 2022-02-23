@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen } from '@testing-library/dom';
+import { screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 
 import '../../../test/jest/__mocks__';
@@ -46,12 +46,12 @@ const resourcesMock = {
     resource: 'campuses',
     dataKey: 'location-locations',
     records:[
-      { code: 'CC',
+      { code: 'DI',
         id: '40ee00ca-a518-4b49-be01-0638d0a4ac57ff',
         institutionId: '40ee00ca-a518-4b49-be01-0638d0a4ac57',
         name: 'City Campus' },
       {
-        code: 'E',
+        code: 'DI',
         id: '40ee00ca-a518-4b49-be01-0638d0a4ac57f',
         institutionId: '40ee00ca-a518-4b49-be01-0638d0a4ac57',
         name: 'Online'
@@ -71,7 +71,7 @@ const resourcesMock = {
         name: 'Annex',
         primaryServicePoint: '3a40852d-49fd-4df2-a1f9-6e2641a6e91f',
         servicePointIds: ['3a40852d-49fd-4df2-a1f9-6e2641a6e91f'],
-        servicePoints: []
+        servicePoints: [],
       },
       {
         campusId: '62cf76b7-cca5-4d33-9217-edf42ce1a848',
@@ -183,7 +183,7 @@ const matchMock = {
   params: {}
 };
 
-const renderLocationManager = () => renderWithRouter(
+const renderLocationManager = (match = matchMock) => renderWithRouter(
   <LocationManager
     stripes={STRIPES}
     resources={resourcesMock}
@@ -191,7 +191,7 @@ const renderLocationManager = () => renderWithRouter(
     label={<span>ServicePointManager</span>}
     location={locationMock}
     history={history}
-    match={matchMock}
+    match={match}
   />
 );
 
@@ -225,8 +225,8 @@ describe('LocationManager', () => {
     renderLocationManager();
 
     const selectInstitution = screen.getAllByRole('combobox', { name: 'ui-tenant-settings.settings.location.institutions.institution' });
-
     const institutionOptions = screen.getAllByRole('option', { name: 'Københavns Universitet (KU)' });
+
 
     selectInstitution.forEach((el, index) => userEvent.selectOptions(
       el,
@@ -234,6 +234,26 @@ describe('LocationManager', () => {
     ));
 
     institutionOptions.forEach((el) => expect(el.selected).toBe(true));
+
+    const selectCampus = screen.getAllByRole('combobox', { name: 'ui-tenant-settings.settings.location.campuses.campus' });
+    const campusOption = screen.getAllByRole('option', { name: 'City Campus (DI)' });
+
+    selectCampus.forEach((el, index) => userEvent.selectOptions(
+      el,
+      campusOption[index]
+    ));
+
+    campusOption.forEach((el) => expect(el.selected).toBe(true));
+
+    const selectLibrary = screen.getAllByRole('combobox', { name: 'ui-tenant-settings.settings.location.libraries.library' });
+    const libraryOption = screen.getAllByRole('option', { name : 'Datalogisk Institut (DI)' });
+
+    selectLibrary.forEach((el, index) => userEvent.selectOptions(
+      el,
+      libraryOption[index]
+    ));
+
+    libraryOption.forEach((el) => expect(el.selected).toBe(true));
   });
 
   it('should render select Service points', () => {
@@ -244,5 +264,16 @@ describe('LocationManager', () => {
       screen.getByRole('option', { name: /settings.location.locations.inactive/ }),
     );
     expect(screen.getByRole('option', { name: /settings.location.locations.inactive/ }).selected).toBe(true);
+  });
+
+  it('should render detailPage', () => {
+    const newMatchMock = {
+      path: '/settings/tenant-settings/location-locations',
+      isExact: true,
+      params: {}
+    };
+    history.push('53cf956f-c1df-410b-8bea-27f712cca7c0');
+
+    renderLocationManager(newMatchMock);
   });
 });
