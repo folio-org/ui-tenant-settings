@@ -2,14 +2,22 @@
 
 ## IN PROGRESS
 
-* [UITEN-188](https://issues.folio.org/browse/UITEN-188) Upgrade react-intl-safe-html
+## [7.0.0](https://github.com/folio-org/ui-tenant-settings/tree/v7.0.0)(2021-02-25)
+[Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v7.0.1...v7.1.0)
+
 * [UITEN-189](https://issues.folio.org/browse/UITEN-189) menu ui-tenant-settings.settings.numberingSystem needs defined translation
 * [UITEN-190](https://issues.folio.org/browse/UITEN-190) Service Point Locations accordion doesn't refresh when moving from existing service point to creating new service point
 * [UITEN-175](https://issues.folio.org/browse/UITEN-175) prefer @folio/stripes exports to private paths when importing components
 * [UITEN-191](https://issues.folio.org/browse/UITEN-191) Permissions error when editing Settings --> Tenant --> Locations
 * [UITEN-187](https://issues.folio.org/browse/UITEN-187) refactor psets away from backend ".all" permissions
-* [UITEN-201](https://issues.folio.org/browse/UITEN-201)Locations not visible in Settings > Tenant > Locations if more than 1000 locations exist on one library
+* [UITEN-201](https://issues.folio.org/browse/UITEN-201) Locations not visible in Settings > Tenant > Locations if more than 1000 locations exist on one library
+* [UITEN-145](https://issues.folio.org/browse/UITEN-145) Rewrite Bigtest tests for Locations page with jest/react-testing-library
 
+## [7.0.1](https://github.com/folio-org/ui-tenant-settings/tree/v7.0.0)(2021-11-11)
+[Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v7.0.0...v7.0.1)
+
+* [UITEN-188](https://issues.folio.org/browse/UITEN-188) Upgrade react-intl-safe-html
+* [UITEN-194](https://issues.folio.org/browse/UITEN-194) Unable to save location after changing remote location to No
 ## [7.0.0](https://github.com/folio-org/ui-tenant-settings/tree/v7.0.0)(2021-09-31)
 [Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v6.1.2...v7.0.0)
 
