@@ -147,5 +147,6 @@
     "settings.location.locations.remoteStorage": "원격 스토리지",
     "settings.location.locations.returning-workflow.title": "워크플로 기본 설정 반환",
     "settings.location.locations.returning-workflow.Scanned to folio": "원격 저장소에서 받은 항목을 FOLIO로 스캔",
-    "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "원격 저장소에서 받은 항목을 CaiaSoft로 스캔"
+    "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "원격 저장소에서 받은 항목을 CaiaSoft로 스캔",
+    "settings.numberingSystem": "Numbering system"
 }

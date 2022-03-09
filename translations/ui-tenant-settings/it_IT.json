@@ -147,5 +147,6 @@
     "settings.location.locations.remoteStorage": "Archiviazione remota",
     "settings.location.locations.returning-workflow.title": "Returning workflow preference",
     "settings.location.locations.returning-workflow.Scanned to folio": "Items received at remote storage scanned into FOLIO",
-    "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "Items received at remote storage scanned into CaiaSoft"
+    "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "Items received at remote storage scanned into CaiaSoft",
+    "settings.numberingSystem": "Numbering system"
 }
