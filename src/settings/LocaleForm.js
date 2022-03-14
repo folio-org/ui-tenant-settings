@@ -71,7 +71,7 @@ const localesList = (intl) => {
     };
   });
 
-  return locales;
+  return locales.sort((a, b) => a.label.localeCompare(b.label));
 };
 
 /**
