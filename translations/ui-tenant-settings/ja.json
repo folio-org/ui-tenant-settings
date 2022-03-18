@@ -38,7 +38,7 @@
     "settings.location.locations.discoveryDisplayName": "ディスカバリー表示名",
     "settings.location.locations.status": "ステータス",
     "settings.location.locations.active": "有効",
-    "settings.location.locations.inactive": "無効",
+    "settings.location.locations.inactive": "非アクティブ",
     "settings.location.locations.description": "説明",
     "settings.location.locations.locationDetails": "Location details",
     "settings.location.locations.createLocation": "Create location",
