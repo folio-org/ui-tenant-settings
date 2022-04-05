@@ -5,7 +5,6 @@ import {
   get,
   isEmpty,
 } from 'lodash';
-import SafeHTMLMessage from '@folio/react-intl-safe-html';
 
 import {
   Accordion,
@@ -182,7 +181,7 @@ const LocationDetail = ({
   const locationName =
     loc.name || <FormattedMessage id="ui-tenant-settings.settings.location.locations.untitledLocation" />;
   const confirmationMessage = (
-    <SafeHTMLMessage
+    <FormattedMessage
       id="ui-tenant-settings.settings.location.locations.deleteLocationMessage"
       values={{ name: locationName }}
     />
