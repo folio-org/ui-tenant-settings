@@ -60,7 +60,7 @@
     "settings.servicePoints.code": "Código",
     "settings.servicePoints.discoveryDisplayName": "Nome de exibição no serviço de descoberta",
     "settings.servicePoints.description": "Descrição",
-    "settings.servicePoints.shelvingLagTime": "Tempo de atraso das estantes (minutos)",
+    "settings.servicePoints.shelvingLagTime": "Tempo de atraso para guarda na estante de exemplar devolvido  (em minutos)",
     "settings.servicePoints.pickupLocation": "Localização de retirada",
     "settings.servicePoints.feeFineOwner": "Dono da taxa/multa",
     "settings.servicePoints.deleteServicePoint": "Excluir ponto de serviço",
