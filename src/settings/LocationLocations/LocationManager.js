@@ -32,7 +32,6 @@ import {
   Layer,
   Callout,
 } from '@folio/stripes/components';
-import SafeHTMLMessage from '@folio/react-intl-safe-html';
 
 import { SORT_TYPES } from '../../constants';
 import LocationDetail from './LocationDetail';
@@ -510,7 +509,7 @@ class LocationManager extends React.Component {
     if (!this.callout.current) return;
 
     const message = (
-      <SafeHTMLMessage
+      <FormattedMessage
         id="stripes-core.successfullyDeleted"
         values={{
           entry: this.entryLabel,
