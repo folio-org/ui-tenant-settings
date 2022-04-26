@@ -3,6 +3,7 @@
 ## IN PROGRESS
 * [UITEN-200](https://issues.folio.org/browse/UITEN-200) Language and localization > locale dropdown should be sorted in current locale
 * [UITEN-176](https://issues.folio.org/browse/UITEN-176) Refactor away from `react-intl-safe-html`
+* [UITEN-172](https://issues.folio.org/browse/UITEN-172) @folio/eslint-config-stripes@"^3.2.1" causes peer-dep inconsistency
 
 ## [7.0.0](https://github.com/folio-org/ui-tenant-settings/tree/v7.0.0)(2021-02-25)
 [Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v7.0.1...v7.1.0)
