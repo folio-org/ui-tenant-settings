@@ -141,12 +141,12 @@
     "settings.location.remotes.remote": "Remote storage",
     "settings.location.remotes.no": "No (default)",
     "settings.location.remotes.loading": "loading...",
-    "settings.location.remotes.readonly": "can only be changed when there are no permanent holdings or items associated with this location",
+    "settings.location.remotes.readonly": "lze změnit pouze v případě, že s tímto místem nejsou spojeny žádné trvalé holdingy nebo položky",
     "settings.location.remotes.failed": "Failed to load",
     "permission.settings.bursar-exports": "Settings (tenant): Bursar admin",
     "settings.location.locations.remoteStorage": "Remote storage",
-    "settings.location.locations.returning-workflow.title": "Returning workflow preference",
-    "settings.location.locations.returning-workflow.Scanned to folio": "Items received at remote storage scanned into FOLIO",
-    "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "Items received at remote storage scanned into CaiaSoft",
-    "settings.numberingSystem": "Numbering system"
+    "settings.location.locations.returning-workflow.title": "Vracení předvolby pracovního postupu",
+    "settings.location.locations.returning-workflow.Scanned to folio": "Položky přijaté ve vzdáleném úložišti naskenované do FOLIO",
+    "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "Položky přijaté na vzdáleném úložišti naskenované do CaiaSoft",
+    "settings.numberingSystem": "Systém číslování"
 }
