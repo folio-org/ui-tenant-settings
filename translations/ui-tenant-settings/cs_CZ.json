@@ -3,7 +3,7 @@
     "settings.bindings.label": "Key bindings",
     "settings.language.label": "Language and localization",
     "settings.plugins.label": "Preferované pluginy",
-    "settings.ssoSettings.label": "SSO settings",
+    "settings.ssoSettings.label": "Nastavení SSO",
     "settings.shelvingLocations.label": "Shelving Locations",
     "settings.bindings.provide": "Provide bindings for {actionNames}",
     "settings.keyBindings": "Edit key bindings as JSON.",
