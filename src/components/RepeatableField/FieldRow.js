@@ -134,7 +134,6 @@ class FieldRow extends React.Component {
     if (this.props.fields.length === 0 && !this.props.addDefaultItem) {
       return (
         <div ref={this.props.containerRef}>
-          2222222222222222222222222222
           <SRStatus ref={(ref) => { this.srstatus = ref; }} />
           <fieldset>
             <legend id={this._arrayId} className={css.RFLegend}>{this.props.label}</legend>
