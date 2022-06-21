@@ -83,22 +83,17 @@ const renderPeriod = () => render(
 
 );
 describe('Period', () => {
-  it('should render changed value in input', () => {
+  it('should render changed value in input and call changeFormValue on blur and clear', () => {
     renderPeriod();
 
     const input = screen.getByRole('spinbutton');
 
     userEvent.type(input, '-123');
 
-    userEvent.clear(input);
+    const clearButton = screen.getByRole('button', { name: /clearThisField/ });
 
+    userEvent.click(clearButton);
     userEvent.type(input, '123');
-
-    expect(input).toHaveValue(123);
-  });
-
-  it('should render changed option', () => {
-    renderPeriod();
 
     const select = screen.getByRole('combobox');
 
@@ -106,5 +101,8 @@ describe('Period', () => {
       select,
       screen.getByRole('option', { name: 'Days' }),
     );
+
+    expect(input).toHaveValue(123);
+    expect(changeFormValueMock).toHaveBeenCalledTimes(2);
   });
 });

@@ -88,4 +88,15 @@ describe('RepeatableField', () => {
 
     userEvent.click(screen.getByRole('button', { name: 'Icon' }));
   });
+
+  it('should add new field button', () => {
+    renderRepeatableField();
+    const addLocDetailsButton = screen.getByRole('button', { name: /locations.addDetails/ });
+
+    userEvent.click(addLocDetailsButton);
+
+    const removeFieldButton = screen.getByRole('button', { name: /Icon/ });
+    userEvent.click(removeFieldButton);
+    expect(screen.getByText(/has been removed/)).toBeVisible();
+  });
 });
