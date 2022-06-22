@@ -56,12 +56,6 @@ class FieldRow extends React.Component {
     } = this.props;
 
     if (this.action) {
-      if (this.action.type === 'add') {
-        this.srstatus.sendMessage(
-          `added new ${label} field. ${fields.length} ${label} total`
-        );
-        this.action = null;
-      }
       if (this.action.type === 'remove') {
         const { item } = this.action;
         let contextualSpeech;
@@ -93,10 +87,6 @@ class FieldRow extends React.Component {
   handleRemove(index, item) {
     this.action = { type: 'remove', item, index };
     this.props.fields.remove(index);
-  }
-
-  handleAdd() {
-    this.action = { type: 'add' };
   }
 
   refIfLastRow(ref, index) {

@@ -118,7 +118,7 @@ class Period extends React.Component {
     } = this.props;
 
     return (
-      <React.Fragment>
+      <>
         <Row className={css.labelRow}>
           <Col xs={12}>
             <Label className={css.label} required>
@@ -157,7 +157,7 @@ class Period extends React.Component {
             </FormattedMessage>
           </Col>
         </Row>
-      </React.Fragment>
+      </>
     );
   }
 }
