@@ -1,11 +1,17 @@
 # Change history for ui-tenant-settings
 
 ## IN PROGRESS
+
+## [7.2.0](https://github.com/folio-org/ui-tenant-settings/tree/v7.2.0)(2021-07-01)
+[Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v7.1.1...v7.2.0)
+
+* [UITEN-181](https://issues.folio.org/browse/UITEN-181) Set numbering system independent of locale
 * [UITEN-200](https://issues.folio.org/browse/UITEN-200) Language and localization > locale dropdown should be sorted in current locale
 * [UITEN-176](https://issues.folio.org/browse/UITEN-176) Refactor away from `react-intl-safe-html`
 * [UITEN-172](https://issues.folio.org/browse/UITEN-172) @folio/eslint-config-stripes@"^3.2.1" causes peer-dep inconsistency
+* [UITEN-209](https://issues.folio.org/browse/UITEN-209) Improve in ui-tenant-settings test coverage with jest/RTL to 80%
 
-## [7.0.0](https://github.com/folio-org/ui-tenant-settings/tree/v7.0.0)(2021-02-25)
+## [7.1.0](https://github.com/folio-org/ui-tenant-settings/tree/v7.1.0)(2021-02-25)
 [Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v7.0.1...v7.1.0)
 
 * [UITEN-189](https://issues.folio.org/browse/UITEN-189) menu ui-tenant-settings.settings.numberingSystem needs defined translation
