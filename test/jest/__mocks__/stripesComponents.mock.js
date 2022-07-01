@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 
 jest.mock('@folio/stripes/components', () => ({
@@ -15,13 +16,20 @@ jest.mock('@folio/stripes/components', () => ({
     contentData,
     formatter,
     onRowClick,
+    onHeaderClick,
   }) => {
     if (isEmptyMessage && !totalCount) {
       return isEmptyMessage;
     }
 
     const tableHeader = visibleColumns.map((columnName, index) => (
-      <td key={index}>{columnMapping[columnName]}</td>
+      // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+      <td
+        key={index}
+        onClick={(e) => onHeaderClick(e, { name: 'name' })}
+      >
+        {columnMapping[columnName]}
+      </td>
     ));
 
     const tableBody = contentData.map((item, i) => (
@@ -30,10 +38,9 @@ jest.mock('@folio/stripes/components', () => ({
           <td>
             <button
               type="button"
-              onClick={onRowClick}
+              onClick={(e) => onRowClick(e, { id: '1' })}
             >
-
-                row button
+              row button
             </button>
           </td>
         ) : null}
