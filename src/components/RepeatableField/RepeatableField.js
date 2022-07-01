@@ -24,7 +24,6 @@ class RepeatableField extends React.Component {
     this.lastField = null;
 
     this._added = false;
-    this._arrayId = `${this.props.label}-fields`;
     this.buildComponentFromTemplate = this.buildComponentFromTemplate.bind(this);
     this.addDefaultField = this.addDefaultField.bind(this);
     this.handleAddField = this.handleAddField.bind(this);
