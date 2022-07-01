@@ -92,11 +92,10 @@ describe('RepeatableField', () => {
   it('should add new field button', () => {
     renderRepeatableField();
     const addLocDetailsButton = screen.getByRole('button', { name: /locations.addDetails/ });
-    
+
     userEvent.click(addLocDetailsButton);
-    userEvent.click(screen.getByRole('button', { name: 'ui-tenant-settings.settings.location.locations.addDetails'}));
-    
-    // screen.getByRole('button', { name: 123});
+    userEvent.click(screen.getByRole('button', { name: 'ui-tenant-settings.settings.location.locations.addDetails' }));
+
     const removeFieldButton = screen.getAllByRole('button', { name: /Icon/ });
     userEvent.click(removeFieldButton[0]);
     expect(screen.getByText(/has been removed/)).toBeVisible();
