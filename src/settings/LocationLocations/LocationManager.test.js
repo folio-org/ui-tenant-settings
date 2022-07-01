@@ -254,6 +254,10 @@ describe('LocationManager', () => {
     ));
 
     libraryOption.forEach((el) => expect(el.selected).toBe(true));
+    const rowButtons = screen.getAllByRole('button', { name: 'row button' });
+    const headerButton = screen.getByRole('cell', { name: 'ui-tenant-settings.settings.location.locations.status' });
+    userEvent.click(headerButton);
+    userEvent.click(rowButtons[0]);
   });
 
   it('should render select Service points', () => {

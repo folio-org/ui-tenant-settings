@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 
@@ -573,7 +573,7 @@ class LocationManager extends React.Component {
         >
           <SearchAndSortQuery>
             {() => (
-              <Fragment>
+              <>
                 {this.renderFilter()}
                 <MultiColumnList
                   id="locations-list"
@@ -588,7 +588,7 @@ class LocationManager extends React.Component {
                   onHeaderClick={this.onSort}
                   onRowClick={this.onSelectRow}
                 />
-              </Fragment>
+              </>
             )}
           </SearchAndSortQuery>
         </Pane>

@@ -7,7 +7,12 @@ import LocationDetail from './LocationDetail';
 
 const mockInitialValues = {
   id: '1',
-  servicePointIds: [],
+  servicePointIds: [
+    {
+      primary: true,
+      selectSP: 'Circ Desk 1',
+    }
+  ],
 };
 
 const mockSetMapping = jest.fn();
@@ -41,7 +46,9 @@ const renderLocationDetail = ({
     campuses: {},
     libraries: {},
   },
-  servicePointsById = {},
+  servicePointsById = {
+    '1': 'Circ Desk 1'
+  },
   onEdit = jest.fn(),
   onClone = jest.fn(),
   onClose = jest.fn(),
