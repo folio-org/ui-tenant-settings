@@ -69,7 +69,8 @@
           "configuration.entries.collection.get",
           "configuration.entries.item.get",
           "configuration.entries.item.post",
-          "settings.tenant-settings.enabled"
+          "settings.tenant-settings.enabled",
+          "configuration.entries.item.put"
         ],
         "visible": true
       },
