@@ -4,7 +4,7 @@
     "settings.language.label": "Jazyk a lokalizace",
     "settings.plugins.label": "Preferované pluginy",
     "settings.ssoSettings.label": "Nastavení SSO",
-    "settings.shelvingLocations.label": "Umístění regálů",
+    "settings.shelvingLocations.label": "Umístění v regálech",
     "settings.bindings.provide": "Poskytněte vazby pro {actionNames}",
     "settings.keyBindings": "Upravte klávesové zkratky jako JSON.",
     "settings.localization": "Uživatelské prostředí (pro zobrazení jazyka, formátu data atd.)",
@@ -40,7 +40,7 @@
     "settings.location.locations.active": "Aktivní",
     "settings.location.locations.inactive": "Neaktivní",
     "settings.location.locations.description": "Popis",
-    "settings.location.locations.locationDetails": "Podrobnosti o umístění",
+    "settings.location.locations.locationDetails": "Detaily umístění",
     "settings.location.locations.createLocation": "Vytvořit umístění",
     "settings.location.locations.deleteLocation": "Smazat umístění?",
     "settings.location.locations.deleteLocationMessage": "<strong>{name}</strong> bude <strong>odebráno</strong>",
@@ -146,7 +146,7 @@
     "permission.settings.bursar-exports": "Nastavení (nájemce): Administrátor kvestora",
     "settings.location.locations.remoteStorage": "Vzdálené úložiště",
     "settings.location.locations.returning-workflow.title": "Vracení předvolby pracovního postupu",
-    "settings.location.locations.returning-workflow.Scanned to folio": "Jednotky přijaté ve vzdáleném úložišti naskenované do FOLIO",
-    "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "Jednotky přijaté na vzdáleném úložišti naskenované do CaiaSoft",
+    "settings.location.locations.returning-workflow.Scanned to folio": "Jednotky přijaté ve vzdáleném úložišti načtené do FOLIO",
+    "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "Jednotky přijaté na vzdáleném úložišti načtené do CaiaSoft",
     "settings.numberingSystem": "Systém číslování"
 }
