@@ -92,7 +92,7 @@
     "settings.servicePoints.ok": "Dobře",
     "settings.servicePoints.deleteServicePointWithLocsMessage": "<strong>{name} je přidružen k jednomu nebo více místům</strong>. Opravdu chcete odebrat <strong>{name}?</strong>",
     "settings.servicePoints.primary": "primární",
-    "settings.servicePoint.expirationPeriod": "Doba vypršení platnosti regálu",
+    "settings.servicePoint.expirationPeriod": "Doba vypršení platnosti police rezervací",
     "settings.servicePoint.selectInterval": "Vybrat interval",
     "settings.servicePoints.printByDefault": "Tisk ve výchozím nastavení",
     "settings.servicePoints.printSlip.yes": "{name} - ano",
