@@ -3,6 +3,7 @@
 ## IN PROGRESS
 
 * [UITEN-211](https://issues.folio.org/browse/UITEN-211) Unable to modify tenant language and localization settings with ui-tenant-settings.settings.locale assigned.
+* [UITEN-217](https://issues.folio.org/browse/UITEN-217) View of services points doesn't update when clicking from one location to another.
 
 ## [7.2.0](https://github.com/folio-org/ui-tenant-settings/tree/v7.2.0)(2021-07-01)
 [Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v7.1.1...v7.2.0)

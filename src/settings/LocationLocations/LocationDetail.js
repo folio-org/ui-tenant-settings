@@ -82,7 +82,7 @@ const LocationDetail = ({
         isEmptyMessage="No servicePoints found"
       />
     );
-  }, []);
+  }, [loc, renderServicePoint, servicePointsById]);
 
   const handleSectionToggle = useCallback(({ id }) => {
     setSections(prevSections => ({ ...prevSections, [id]: !prevSections[id] }));
