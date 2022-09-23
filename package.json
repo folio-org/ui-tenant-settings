@@ -1,3 +1,4 @@
+
 {
   "name": "@folio/tenant-settings",
   "version": "7.2.0",
@@ -46,7 +47,7 @@
         "subPermissions": [
           "settings.tenant-settings.enabled"
         ],
-        "visible": true
+        "visible": false
       },
       {
         "permissionName": "ui-tenant-settings.settings.addresses",
