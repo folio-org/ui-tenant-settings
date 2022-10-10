@@ -22,7 +22,7 @@
       "locations": "3.0",
       "login-saml": "2.0",
       "service-points": "3.0",
-      "users": "15.0"
+      "users": "15.0 16.0"
     },
     "optionalOkapiInterfaces": {
       "remote-storage-configurations": "1.0",
