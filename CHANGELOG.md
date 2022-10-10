@@ -8,6 +8,7 @@
 * [UITEN-224](https://issues.folio.org/browse/UITEN-224) ui-tenant-settings.settings.enabled does not function as expected
 * [UITEN-230](https://issues.folio.org/browse/UITEN-230) Convert "Change session locale" from button to plain text link
 * [UITEN-226](https://issues.folio.org/browse/UITEN-226) View-only access to Settings > Tenant > Location setup > Campuses
+* [UITEN-227](https://issues.folio.org/browse/UITEN-227) View-only access to Settings > Tenant > Location setup > Libraries.
 
 ## [7.2.0](https://github.com/folio-org/ui-tenant-settings/tree/v7.2.0)(2021-07-01)
 [Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v7.1.1...v7.2.0)
