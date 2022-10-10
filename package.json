@@ -1,3 +1,4 @@
+
 {
   "name": "@folio/tenant-settings",
   "version": "7.2.0",
@@ -21,7 +22,7 @@
       "locations": "3.0",
       "login-saml": "2.0",
       "service-points": "3.0",
-      "users": "15.0"
+      "users": "15.0 16.0"
     },
     "optionalOkapiInterfaces": {
       "remote-storage-configurations": "1.0",
@@ -46,7 +47,7 @@
         "subPermissions": [
           "settings.tenant-settings.enabled"
         ],
-        "visible": true
+        "visible": false
       },
       {
         "permissionName": "ui-tenant-settings.settings.addresses",
@@ -69,7 +70,8 @@
           "configuration.entries.collection.get",
           "configuration.entries.item.get",
           "configuration.entries.item.post",
-          "settings.tenant-settings.enabled"
+          "settings.tenant-settings.enabled",
+          "configuration.entries.item.put"
         ],
         "visible": true
       },

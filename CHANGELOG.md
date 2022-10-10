@@ -2,6 +2,13 @@
 
 ## IN PROGRESS
 
+* [UITEN-236] (https://issues.folio.org/browse/UITEN-236) Upgrade interface 'users' to support version 16.0.
+* [UITEN-211](https://issues.folio.org/browse/UITEN-211) Unable to modify tenant language and localization settings with ui-tenant-settings.settings.locale assigned.
+* [UITEN-217](https://issues.folio.org/browse/UITEN-217) View of services points doesn't update when clicking from one location to another.
+* [UITEN-224](https://issues.folio.org/browse/UITEN-224) ui-tenant-settings.settings.enabled does not function as expected
+* [UITEN-230](https://issues.folio.org/browse/UITEN-230) Convert "Change session locale" from button to plain text link
+* [UITEN-226](https://issues.folio.org/browse/UITEN-226) View-only access to Settings > Tenant > Location setup > Campuses
+
 ## [7.2.0](https://github.com/folio-org/ui-tenant-settings/tree/v7.2.0)(2021-07-01)
 [Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v7.1.1...v7.2.0)
 

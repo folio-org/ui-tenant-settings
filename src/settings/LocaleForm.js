@@ -12,6 +12,7 @@ import {
   Row,
   Select,
 } from '@folio/stripes/components';
+import { TextLink } from '@folio/stripes-components';
 import stripesFinalForm from '@folio/stripes/final-form';
 import {
   IfPermission,
@@ -157,9 +158,9 @@ class LocaleForm extends React.Component {
                   <FormattedMessage id="ui-tenant-settings.settings.locale.localeWarning" values={{ label: <FormattedMessage id="ui-tenant-settings.settings.locale.changeSessionLocale" /> }} />
                 </p>
                 <div>
-                  <Button to="/settings/developer/locale">
+                  <TextLink to="/settings/developer/locale">
                     <FormattedMessage id="ui-tenant-settings.settings.locale.changeSessionLocale" />
-                  </Button>
+                  </TextLink>
                 </div>
               </Col>
             </Row>
