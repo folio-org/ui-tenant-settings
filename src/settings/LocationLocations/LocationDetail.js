@@ -21,7 +21,7 @@ import {
 import { ViewMetaData } from '@folio/stripes/smart-components';
 import {
   stripesConnect,
-  IfPermission,
+  IfPermission, useStripes,
 } from '@folio/stripes/core';
 
 import LocationInUseModal from './LocationInUseModal';
@@ -45,6 +45,8 @@ const LocationDetail = ({
     generalInformation: true,
     locationDetails: true,
   });
+  const stripes = useStripes();
+  const hasAllLocationPerms = stripes.hasPerm('ui-tenant-settings.settings.location');
   const [isDeleteLocationModalOpened, setIsDeleteLocationModalOpened] = useState(false);
   const [isLocationInUseModalOpened, setIsLocationInUseModalOpened] = useState(false);
 
@@ -109,51 +111,55 @@ const LocationDetail = ({
       });
   };
 
-  const renderActionMenu = item => ({ onToggle }) => (
-    <>
-      <Button
-        data-test-edit-location-menu-button
-        buttonStyle="dropdownItem"
-        id="clickable-edit-location"
-        onClick={() => {
-          onEdit(item);
-          onToggle();
-        }}
-      >
-        <Icon icon="edit">
-          <FormattedMessage id="stripes-components.button.edit" />
-        </Icon>
-      </Button>
-      <Button
-        data-test-clone-location-menu-button
-        buttonStyle="dropdownItem"
-        id="clickable-copy-location"
-        onClick={() => {
-          onClone(item);
-          onToggle();
-        }}
-      >
-        <Icon icon="duplicate">
-          <FormattedMessage id="stripes-components.button.duplicate" />
-        </Icon>
-      </Button>
-      <IfPermission perm="settings.tenant-settings.enabled">
+  const renderActionMenu = item => ({ onToggle }) => {
+    if (!hasAllLocationPerms) return null;
+
+    return (
+      <>
         <Button
-          data-test-delete-location-menu-button
+          data-test-edit-location-menu-button
           buttonStyle="dropdownItem"
-          id="clickable-delete-location"
+          id="clickable-edit-location"
           onClick={() => {
-            toggleDeleteLocationConfirmation();
+            onEdit(item);
             onToggle();
           }}
         >
-          <Icon icon="trash">
-            <FormattedMessage id="stripes-core.button.delete" />
+          <Icon icon="edit">
+            <FormattedMessage id="stripes-components.button.edit" />
           </Icon>
         </Button>
-      </IfPermission>
-    </>
-  );
+        <Button
+          data-test-clone-location-menu-button
+          buttonStyle="dropdownItem"
+          id="clickable-copy-location"
+          onClick={() => {
+            onClone(item);
+            onToggle();
+          }}
+        >
+          <Icon icon="duplicate">
+            <FormattedMessage id="stripes-components.button.duplicate" />
+          </Icon>
+        </Button>
+        <IfPermission perm="settings.tenant-settings.enabled">
+          <Button
+            data-test-delete-location-menu-button
+            buttonStyle="dropdownItem"
+            id="clickable-delete-location"
+            onClick={() => {
+              toggleDeleteLocationConfirmation();
+              onToggle();
+            }}
+          >
+            <Icon icon="trash">
+              <FormattedMessage id="stripes-core.button.delete" />
+            </Icon>
+          </Button>
+        </IfPermission>
+      </>
+    );
+  };
 
   const institutionList = institutions?.records || [];
   const institution = institutionList.length === 1 ? institutionList[0] : null;

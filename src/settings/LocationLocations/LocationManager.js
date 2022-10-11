@@ -160,6 +160,7 @@ class LocationManager extends React.Component {
       uniquenessValidator: PropTypes.object,
     }).isRequired,
     stripes: PropTypes.shape({
+      hasPerm: PropTypes.func.isRequired,
       connect: PropTypes.func.isRequired,
       hasInterface: PropTypes.func.isRequired,
     }),
@@ -196,6 +197,7 @@ class LocationManager extends React.Component {
         return formatMessage({ id: `ui-tenant-settings.settings.location.locations.${locationId}` });
       }
     };
+    this.hasAllLocationPerms = props.stripes.hasPerm('ui-tenant-settings.settings.location');
   }
 
   static getDerivedStateFromProps(nextProps) {
@@ -379,19 +381,21 @@ class LocationManager extends React.Component {
           <Col xs>
             <Headline size="medium" margin="none"><FormattedMessage id="ui-tenant-settings.settings.location.locations" /></Headline>
           </Col>
-          <Col xs>
-            <Row end="xs">
-              <Col xs>
-                <Button
-                  id="clickable-add-location"
-                  to={buildUrl(location, { layer: 'add' })}
-                  marginBottom0
-                >
-                  <FormattedMessage id="stripes-components.button.new" />
-                </Button>
-              </Col>
-            </Row>
-          </Col>
+          {this.hasAllLocationPerms && (
+            <Col xs>
+              <Row end="xs">
+                <Col xs>
+                  <Button
+                    id="clickable-add-location"
+                    to={buildUrl(location, { layer: 'add' })}
+                    marginBottom0
+                  >
+                    <FormattedMessage id="stripes-components.button.new" />
+                  </Button>
+                </Col>
+              </Row>
+            </Col>
+          )}
         </Row>
         {!libraryId &&
           <FormattedMessage
