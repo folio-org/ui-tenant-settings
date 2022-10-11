@@ -153,7 +153,8 @@
           "inventory-storage.location-units.campuses.item.get",
           "inventory-storage.locations.collection.get",
           "inventory-storage.locations.item.get"
-        ]
+        ],
+        "visible": true
       },
       {
         "permissionName": "ui-tenant-settings.settings.servicepoints",
