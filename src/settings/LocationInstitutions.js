@@ -93,6 +93,7 @@ class LocationInstitutions extends React.Component {
         sortby="name"
         validate={composeValidators(locationCodeValidator.validate)}
         editable={this.hasAllLocationPerms}
+        canCreate={this.hasAllLocationPerms}
       />
     );
   }

@@ -138,7 +138,7 @@ class LocationLibraries extends React.Component {
     };
 
     const filterBlock = (
-      <React.Fragment>
+      <>
         <Select
           label={<FormattedMessage id="ui-tenant-settings.settings.location.institutions.institution" />}
           id="institutionSelect"
@@ -167,7 +167,7 @@ class LocationLibraries extends React.Component {
             {campuses}
           </Select>
         }
-      </React.Fragment>
+      </>
     );
 
     return (
@@ -191,12 +191,13 @@ class LocationLibraries extends React.Component {
         formatter={formatter}
         nameKey="group"
         id="libraries"
-        preCreateHook={(item) => Object.assign({}, item, { campusId })}
+        preCreateHook={(item) => ({ ...item, campusId })}
         listSuppressor={() => !(institutionId && campusId)}
         listSuppressorText={<FormattedMessage id="ui-tenant-settings.settings.location.libraries.missingSelection" />}
         sortby="name"
         validate={composeValidators(locationCodeValidator.validate)}
         editable={this.hasAllLocationPerms}
+        canCreate={this.hasAllLocationPerms}
       />
     );
   }

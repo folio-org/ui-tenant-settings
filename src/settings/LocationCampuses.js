@@ -143,12 +143,13 @@ class LocationCampuses extends React.Component {
         formatter={{ numberOfObjects: this.numberOfObjectsFormatter }}
         nameKey="group"
         id="campuses"
-        preCreateHook={(item) => Object.assign({}, item, { institutionId: this.state.institutionId })}
+        preCreateHook={(item) => ({ ...item, institutionId: this.state.institutionId })}
         listSuppressor={() => !this.state.institutionId}
         listSuppressorText={<FormattedMessage id="ui-tenant-settings.settings.location.campuses.missingSelection" />}
         sortby="name"
         validate={composeValidators(locationCodeValidator.validate)}
         editable={this.hasAllLocationPerms}
+        canCreate={this.hasAllLocationPerms}
       />
     );
   }

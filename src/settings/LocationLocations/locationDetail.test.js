@@ -21,7 +21,10 @@ jest.mock(
   '@folio/stripes/core',
   () => ({
     stripesConnect: Component => props => <Component {...props} />,
-    IfPermission : ({ children }) => <>{children}</>
+    IfPermission : ({ children }) => <>{children}</>,
+    useStripes: () => ({
+      hasPerm: () => true
+    })
   }),
 );
 
