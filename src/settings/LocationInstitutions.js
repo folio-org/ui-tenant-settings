@@ -28,6 +28,7 @@ class LocationInstitutions extends React.Component {
     intl: PropTypes.object,
     stripes: PropTypes.shape({
       connect: PropTypes.func.isRequired,
+      hasPerm: PropTypes.bool.isRequired,
     }).isRequired,
     resources: PropTypes.shape({
       locationsPerInstitution: PropTypes.object,
@@ -42,6 +43,7 @@ class LocationInstitutions extends React.Component {
 
   constructor(props) {
     super(props);
+    this.hasAllLocationPerms = props.stripes.hasPerm('ui-tenant-settings.settings.location');
     this.connectedControlledVocab = props.stripes.connect(ControlledVocab);
     this.numberOfObjectsFormatter = this.numberOfObjectsFormatter.bind(this);
   }
@@ -90,6 +92,7 @@ class LocationInstitutions extends React.Component {
         id="institutions"
         sortby="name"
         validate={composeValidators(locationCodeValidator.validate)}
+        editable={this.hasAllLocationPerms}
       />
     );
   }

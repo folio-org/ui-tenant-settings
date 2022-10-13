@@ -145,8 +145,8 @@
     "settings.location.remotes.failed": "Caricamento fallito",
     "permission.settings.bursar-exports": "Settings (tenant): Bursar admin",
     "settings.location.locations.remoteStorage": "Archiviazione remota",
-    "settings.location.locations.returning-workflow.title": "Returning workflow preference",
-    "settings.location.locations.returning-workflow.Scanned to folio": "Items received at remote storage scanned into FOLIO",
-    "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "Items received at remote storage scanned into CaiaSoft",
-    "settings.numberingSystem": "Numbering system"
+    "settings.location.locations.returning-workflow.title": "Preferenze del flusso di lavoro di restituzione",
+    "settings.location.locations.returning-workflow.Scanned to folio": "Articoli ricevuti in un deposito remoto scansionati in FOLIO",
+    "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "Articoli ricevuti in un deposito remoto scansionati in CaiaSoft",
+    "settings.numberingSystem": "Sistema di numerazione"
 }
