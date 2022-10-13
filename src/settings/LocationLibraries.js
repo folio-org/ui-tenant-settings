@@ -42,6 +42,7 @@ class LocationLibraries extends React.Component {
     intl: PropTypes.object,
     stripes: PropTypes.shape({
       connect: PropTypes.func.isRequired,
+      hasPerm: PropTypes.bool.isRequired,
     }).isRequired,
     resources: PropTypes.shape({
       institutions: PropTypes.object,
@@ -67,8 +68,8 @@ class LocationLibraries extends React.Component {
   constructor(props) {
     super(props);
     this.connectedControlledVocab = props.stripes.connect(ControlledVocab);
-    this.numberOfObjectsFormatter = this.numberOfObjectsFormatter.bind(this);
     this.hasAllLocationPerms = props.stripes.hasPerm('ui-tenant-settings.settings.location');
+    this.numberOfObjectsFormatter = this.numberOfObjectsFormatter.bind(this);
 
     this.state = {
       institutionId: null,
@@ -195,6 +196,7 @@ class LocationLibraries extends React.Component {
         listSuppressorText={<FormattedMessage id="ui-tenant-settings.settings.location.libraries.missingSelection" />}
         sortby="name"
         validate={composeValidators(locationCodeValidator.validate)}
+        editable={this.hasAllLocationPerms}
         canCreate={this.hasAllLocationPerms}
       />
     );
