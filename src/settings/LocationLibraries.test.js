@@ -30,13 +30,14 @@ jest.mock('@folio/stripes-smart-components/lib/ControlledVocab', () => jest.fn((
         listSuppressor();
       }}
     >
-         New
+      New
     </button>
   </>
 )));
 
 const stripesMock = {
   connect: component => component,
+  hasPerm: jest.fn().mockResolvedValue(true)
 };
 
 const mutatorMock = {

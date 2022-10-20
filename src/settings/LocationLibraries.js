@@ -42,6 +42,7 @@ class LocationLibraries extends React.Component {
     intl: PropTypes.object,
     stripes: PropTypes.shape({
       connect: PropTypes.func.isRequired,
+      hasPerm: PropTypes.bool.isRequired,
     }).isRequired,
     resources: PropTypes.shape({
       institutions: PropTypes.object,
@@ -67,6 +68,7 @@ class LocationLibraries extends React.Component {
   constructor(props) {
     super(props);
     this.connectedControlledVocab = props.stripes.connect(ControlledVocab);
+    this.hasAllLocationPerms = props.stripes.hasPerm('ui-tenant-settings.settings.location');
     this.numberOfObjectsFormatter = this.numberOfObjectsFormatter.bind(this);
 
     this.state = {
@@ -136,7 +138,7 @@ class LocationLibraries extends React.Component {
     };
 
     const filterBlock = (
-      <React.Fragment>
+      <>
         <Select
           label={<FormattedMessage id="ui-tenant-settings.settings.location.institutions.institution" />}
           id="institutionSelect"
@@ -165,7 +167,7 @@ class LocationLibraries extends React.Component {
             {campuses}
           </Select>
         }
-      </React.Fragment>
+      </>
     );
 
     return (
@@ -189,11 +191,13 @@ class LocationLibraries extends React.Component {
         formatter={formatter}
         nameKey="group"
         id="libraries"
-        preCreateHook={(item) => Object.assign({}, item, { campusId })}
+        preCreateHook={(item) => ({ ...item, campusId })}
         listSuppressor={() => !(institutionId && campusId)}
         listSuppressorText={<FormattedMessage id="ui-tenant-settings.settings.location.libraries.missingSelection" />}
         sortby="name"
         validate={composeValidators(locationCodeValidator.validate)}
+        editable={this.hasAllLocationPerms}
+        canCreate={this.hasAllLocationPerms}
       />
     );
   }

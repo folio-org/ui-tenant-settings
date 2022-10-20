@@ -10,6 +10,10 @@
 * [UITEN-217](https://issues.folio.org/browse/UITEN-217) View of services points doesn't update when clicking from one location to another.
 * [UITEN-224](https://issues.folio.org/browse/UITEN-224) ui-tenant-settings.settings.enabled does not function as expected
 * [UITEN-230](https://issues.folio.org/browse/UITEN-230) Convert "Change session locale" from button to plain text link
+* [UITEN-226](https://issues.folio.org/browse/UITEN-226) View-only access to Settings > Tenant > Location setup > Campuses
+* [UITEN-225](https://issues.folio.org/browse/UITEN-225) View-only access to Settings > Tenant > Location setup > Institutions
+* [UITEN-227](https://issues.folio.org/browse/UITEN-227) View-only access to Settings > Tenant > Location setup > Libraries.
+* [UITEN-226](https://issues.folio.org/browse/UITEN-228) View-only access to Settings > Tenant > Location setup > Locations
 
 ## [7.2.0](https://github.com/folio-org/ui-tenant-settings/tree/v7.2.0)(2021-07-01)
 [Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v7.1.1...v7.2.0)

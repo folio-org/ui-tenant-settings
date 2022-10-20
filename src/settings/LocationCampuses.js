@@ -33,6 +33,7 @@ class LocationCampuses extends React.Component {
   static propTypes = {
     stripes: PropTypes.shape({
       connect: PropTypes.func.isRequired,
+      hasPerm: PropTypes.func.isRequired
     }).isRequired,
     resources: PropTypes.shape({
       institutions: PropTypes.shape({
@@ -58,6 +59,7 @@ class LocationCampuses extends React.Component {
   constructor(props) {
     super(props);
     this.connectedControlledVocab = props.stripes.connect(ControlledVocab);
+    this.hasAllLocationPerms = props.stripes.hasPerm('ui-tenant-settings.settings.location');
     this.numberOfObjectsFormatter = this.numberOfObjectsFormatter.bind(this);
 
     this.state = {
@@ -141,11 +143,13 @@ class LocationCampuses extends React.Component {
         formatter={{ numberOfObjects: this.numberOfObjectsFormatter }}
         nameKey="group"
         id="campuses"
-        preCreateHook={(item) => Object.assign({}, item, { institutionId: this.state.institutionId })}
+        preCreateHook={(item) => ({ ...item, institutionId: this.state.institutionId })}
         listSuppressor={() => !this.state.institutionId}
         listSuppressorText={<FormattedMessage id="ui-tenant-settings.settings.location.campuses.missingSelection" />}
         sortby="name"
         validate={composeValidators(locationCodeValidator.validate)}
+        editable={this.hasAllLocationPerms}
+        canCreate={this.hasAllLocationPerms}
       />
     );
   }
