@@ -1,19 +1,4 @@
-export const initialValuesMock = {
-  'id': '3a40852d-49fd-4df2-a1f9-6e2641a6e91f',
-  'name': 'Circ Desk 1',
-  'code': 'cd1',
-  'discoveryDisplayName': 'Circulation Desk -- Hallway',
-  'pickupLocation': true,
-  'holdShelfExpiryPeriod': {
-    'duration': 3,
-    'intervalId': 'Weeks'
-  },
-  'staffSlips': [],
-  'metadata': {
-    'createdDate': '2022-11-25T01:54:36.021+00:00',
-    'updatedDate': '2022-11-25T01:54:36.021+00:00'
-  }
-};
+export const initialValuesMock = {};
 
 export const parentMutatorMock = {
   staffSlips: {
@@ -144,5 +129,22 @@ export const parentResourcesMock = {
         servicePoints: []
       }
     ]
+  }
+};
+
+export const servicePointsMock = {
+  'id': '3a40852d-49fd-4df2-a1f9-6e2641a6e91f',
+  'name': 'Circ Desk 1',
+  'code': 'cd1',
+  'discoveryDisplayName': 'Circulation Desk -- Hallway',
+  'pickupLocation': true,
+  'holdShelfExpiryPeriod': {
+    'duration': 3,
+    'intervalId': 'Weeks'
+  },
+  'staffSlips': [],
+  'metadata': {
+    'createdDate': '2022-11-25T01:54:36.021+00:00',
+    'updatedDate': '2022-11-25T01:54:36.021+00:00'
   }
 };

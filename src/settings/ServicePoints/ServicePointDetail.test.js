@@ -10,7 +10,7 @@ import {
 } from '../../../test/jest/helpers';
 
 import ServicePointDetail from './ServicePointDetail';
-import { initialValuesMock, parentMutatorMock, parentResourcesMock } from './test/setup';
+import { servicePointsMock, parentMutatorMock, parentResourcesMock } from './test/setup';
 
 const STRIPES = buildStripes();
 
@@ -18,7 +18,7 @@ const renderServicePointDetail = () => {
   const component = () => (
     <ServicePointDetail
       parentResources={parentResourcesMock}
-      initialValues={initialValuesMock}
+      initialValues={servicePointsMock}
       stripes={STRIPES}
       parentMutator={parentMutatorMock}
     />
