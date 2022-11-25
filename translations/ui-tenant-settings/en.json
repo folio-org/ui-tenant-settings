@@ -25,8 +25,17 @@
   "settings.saml.validate.binding": "Please select SAML binding type",
   "settings.saml.validate.userProperty": "Please select a user property",
   "settings.saml.validate.idpUrl": "This is not a valid Identity Provider URL",
+
+  "settings.servicePoint.closedLibraryDueDateManagement": "Closed library date management for hold shelf expiration expiration date calculation",
+  "settings.servicePoint.closedLibraryDueDateManagement.KeepTheOriginalDate": "Keep the original date",
+  "settings.servicePoint.closedLibraryDueDateManagement.MoveToTheEndOfThePreviousOpenDay": "Move to the end of the previous open day",
+  "settings.servicePoint.closedLibraryDueDateManagement.MoveToTheEndOfTheNextOpenDay": "Move to the end of the next open day",
+  "settings.servicePoint.closedLibraryDueDateManagement.KeepTheOriginalDateTime": "Keep the original date/time",
+  "settings.servicePoint.closedLibraryDueDateManagement.MoveToTheEndOfTheCurrentServicePointHours": "Move to the end of the current service point hours",
+  "settings.servicePoint.closedLibraryDueDateManagement.MoveToTheBeginningOfTheNextOpenServicePointHours": "Move to the beginning of the next open service point hours",
   "settings.servicePoint.expirationPeriod": "Hold shelf expiration period",
   "settings.servicePoint.selectInterval": "Select interval",
+  
   "settings.saml.idpUrl": "Identity Provider URL",
   "settings.saml.downloadMetadata": "Download metadata",
   "settings.saml.idpUrlChanged": "The IdP URL has changed since the last download. Please download the service point metadata and re-upload to the IdP.",
