@@ -55,4 +55,16 @@ describe('ServicePointDetail', () => {
 
     regions.forEach((el) => expect(screen.getByRole('region', { name: el })).toHaveAttribute('class', 'content-region expanded'));
   });
+
+  describe('when pickupLocation is true', () => {
+    it('should render hold shelf expiration', () => {
+      renderServicePointDetail();
+      expect(screen.getByText('ui-tenant-settings.settings.servicePoint.expirationPeriod')).toBeDefined();
+    });
+
+    it('should render closed library date management', () => {
+      renderServicePointDetail();
+      expect(screen.getByText('ui-tenant-settings.settings.servicePoint.closedLibraryDueDateManagement')).toBeDefined();
+    });
+  });
 });

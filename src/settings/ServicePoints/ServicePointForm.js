@@ -155,19 +155,28 @@ const ServicePointForm = ({
   }, []);
 
   const getClosedLibraryDateManagementOptions = () => {
-    const { holdShelfExpiryPeriod } = formValues;
+    const { holdShelfExpiryPeriod = {} } = formValues;
 
-    if (shortTermExpiryPeriod.findIndex(item => item === holdShelfExpiryPeriod.intervalId) > -1) {
-      return (shortTermClosedDateManagementTranslations.map(item => (
-        {
-          label: intl.formatMessage({ id: item.label}),
-          value: item.value
-        }
-      )));
+    if (holdShelfExpiryPeriod?.intervalId) {
+      if (shortTermExpiryPeriod.findIndex(item => item === holdShelfExpiryPeriod.intervalId) > -1) {
+        return (shortTermClosedDateManagementTranslations.map(item => (
+          {
+            label: intl.formatMessage({ id: item.label }),
+            value: item.value
+          }
+        )));
+      } else {
+        return (longTermClosedDateManagementTranslations.map(item => (
+          {
+            label: intl.formatMessage({ id: item.label }),
+            value: item.value
+          }
+        )));
+      }
     } else {
       return (longTermClosedDateManagementTranslations.map(item => (
         {
-          label: intl.formatMessage({ id: item.label}),
+          label: intl.formatMessage({ id: item.label }),
           value: item.value
         }
       )));
