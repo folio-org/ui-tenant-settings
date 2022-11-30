@@ -11,11 +11,7 @@ import { ViewMetaData } from '@folio/stripes/smart-components';
 import LocationList from './LocationList';
 import StaffSlipList from './StaffSlipList';
 import { intervalPeriods } from '../../constants';
-import {
-  shortTermExpiryPeriod,
-  shortTermClosedDateManagementEnum,
-  longTermClosedDateManagementEnum
-} from './constants';
+import { closedLibraryDateManagementMapping } from './constants';
 
 class ServicePointDetail extends React.Component {
   static propTypes = {
@@ -25,6 +21,7 @@ class ServicePointDetail extends React.Component {
     }).isRequired,
     initialValues: PropTypes.object,
     parentResources: PropTypes.object,
+    parentMutator: PropTypes.object
   };
 
   constructor(props) {
@@ -81,23 +78,13 @@ class ServicePointDetail extends React.Component {
     });
   }
 
-  getHoldShelfClosedLibraryDateManagementValue = () => {
-    const { intervalId } = this.props.initialValues.holdShelfExpiryPeriod;
-
-    if (shortTermExpiryPeriod.indexOf(intervalId) > -1) {
-      return shortTermClosedDateManagementEnum.KEEP_THE_CURRENT_DUE_DATE_TIME;
-    } else {
-      return longTermClosedDateManagementEnum.KEEP_THE_CURRENT_DUE_DATE;
-    }
-  }
-
   render() {
     const { initialValues, parentResources } = this.props;
     const locations = (parentResources.locations || {}).records || [];
     const staffSlips = orderBy((parentResources.staffSlips || {}).records || [], 'name');
     const servicePoint = initialValues;
     const { sections } = this.state;
-    const { holdShelfExpiryPeriod = {} } = servicePoint;
+    const { holdShelfExpiryPeriod = {}, holdShelfClosedLibraryDateManagement } = servicePoint;
     const { duration, intervalId } = holdShelfExpiryPeriod;
 
     return (
@@ -174,10 +161,9 @@ class ServicePointDetail extends React.Component {
               </Row>
               <Row>
                 <Col xs={8} data-test-closed-library-date-management-menu>
-                  <KeyValue
-                    label={<FormattedMessage id="ui-tenant-settings.settings.servicePoint.closedLibraryDueDateManagement" />}
-                    value={this.getHoldShelfClosedLibraryDateManagementValue()}
-                  />
+                  <KeyValue label={<FormattedMessage id="ui-tenant-settings.settings.servicePoint.closedLibraryDueDateManagement" />}>
+                    <FormattedMessage id={`ui-tenant-settings.settings.servicePoint.closedLibraryDueDateManagement.${closedLibraryDateManagementMapping[holdShelfClosedLibraryDateManagement]}`} />
+                  </KeyValue>
                 </Col>
               </Row>
             </>

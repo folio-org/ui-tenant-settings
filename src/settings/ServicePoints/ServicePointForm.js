@@ -34,8 +34,8 @@ import {
 
 import {
   shortTermExpiryPeriod,
-  shortTermClosedDateManagementTranslations,
-  longTermClosedDateManagementTranslations
+  shortTermClosedDateManagementMenu,
+  longTermClosedDateManagementMenu
 } from './constants';
 
 import styles from './ServicePoints.css';
@@ -65,7 +65,7 @@ const ServicePointForm = ({
   const staffSlips = orderBy((parentResources.staffSlips || {}).records || [], 'name');
   const disabled = !stripes.hasPerm('settings.tenant-settings.enabled');
   const formValues = form.getState().values;
-  console.log('form values ', formValues);
+
   const selectOptions = [
     {
       label: intl.formatMessage({ id: 'ui-tenant-settings.settings.servicePoints.pickupLocation.no' }),
@@ -157,30 +157,21 @@ const ServicePointForm = ({
   const getClosedLibraryDateManagementOptions = () => {
     const { holdShelfExpiryPeriod = {} } = formValues;
 
-    if (holdShelfExpiryPeriod?.intervalId) {
-      if (shortTermExpiryPeriod.findIndex(item => item === holdShelfExpiryPeriod.intervalId) > -1) {
-        return (shortTermClosedDateManagementTranslations.map(item => (
-          {
-            label: intl.formatMessage({ id: item.label }),
-            value: item.value
-          }
-        )));
-      } else {
-        return (longTermClosedDateManagementTranslations.map(item => (
-          {
-            label: intl.formatMessage({ id: item.label }),
-            value: item.value
-          }
-        )));
-      }
-    } else {
-      return (longTermClosedDateManagementTranslations.map(item => (
-        {
-          label: intl.formatMessage({ id: item.label }),
-          value: item.value
-        }
-      )));
+    let menu = longTermClosedDateManagementMenu;
+
+    if (
+      (holdShelfExpiryPeriod?.intervalId) &&
+      (shortTermExpiryPeriod.findIndex(item => item === holdShelfExpiryPeriod.intervalId) > -1)
+    ) {
+      menu = shortTermClosedDateManagementMenu;
     }
+
+    return (menu.map(item => (
+      {
+        label: intl.formatMessage({ id: `ui-tenant-settings.settings.servicePoint.closedLibraryDueDateManagement.${item.label}` }),
+        value: item.value
+      }
+    )));
   };
 
   return (
@@ -305,6 +296,7 @@ const ServicePointForm = ({
                   </div>
                   <div data-test-closed-library-date-managemnet>
                     <Field
+                      id="input-service-closed-library-date-management"
                       label={<FormattedMessage id="ui-tenant-settings.settings.servicePoint.closedLibraryDueDateManagement" />}
                       name="holdShelfClosedLibraryDateManagement"
                       component={Select}

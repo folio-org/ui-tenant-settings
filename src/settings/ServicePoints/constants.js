@@ -1,43 +1,41 @@
 export const shortTermExpiryPeriod = ['Hours', 'Minutes'];
 export const longTermExpiryPeriod = ['Months', 'Weeks', 'Days'];
 
-export const shortTermClosedDateManagementEnum = {
-  KEEP_THE_CURRENT_DUE_DATE_TIME: 'Keep_the_current_due_date_time',
-  MOVE_TO_END_OF_CURRENT_SERVICE_POINT_HOURS: 'Move_to_end_of_current_service_point_hours',
-  MOVE_TO_BEGINNING_OF_NEXT_OPEN_SERVICE_POINT_HOURS: 'Move_to_beginning_of_next_open_service_point_hours'
+export const closedLibraryDateManagementMapping = {
+  Keep_the_current_due_date_time: 'KeepTheOriginalDateTime',
+  Move_to_end_of_current_service_point_hours: 'MoveToTheEndOfTheCurrentServicePointHours',
+  Move_to_beginning_of_next_open_service_point_hours: 'MoveToTheBeginningOfTheNextOpenServicePointHours',
+  Keep_the_current_due_date : 'KeepTheOriginalDate',
+  Move_to_the_end_of_the_previous_open_day: 'MoveToTheEndOfThePreviousOpenDay',
+  Move_to_the_end_of_the_next_open_day: 'MoveToTheEndOfTheNextOpenDay',
 };
 
-export const longTermClosedDateManagementEnum = {
-  KEEP_THE_CURRENT_DUE_DATE : 'Keep_the_current_due_date',
-  MOVE_TO_THE_END_OF_THE_PREVIOUS_OPEN_DAY: 'Move_to_the_end_of_the_previous_open_day',
-  MOVE_TO_THE_END_OF_THE_NEXT_OPEN_DAY: 'Move_to_the_end_of_the_next_open_day',
-};
-
-export const shortTermClosedDateManagementTranslations = [
+export const shortTermClosedDateManagementMenu = [
   {
-    label: 'ui-tenant-settings.settings.servicePoint.closedLibraryDueDateManagement.KeepTheOriginalDateTime',
+    label: 'KeepTheOriginalDateTime',
     value: 'Keep_the_current_due_date_time'
   },
   {
-    label: 'ui-tenant-settings.settings.servicePoint.closedLibraryDueDateManagement.MoveToTheEndOfTheCurrentServicePointHours',
+    label: 'MoveToTheEndOfTheCurrentServicePointHours',
     value: 'Move_to_end_of_current_service_point_hours'
   },
   {
-    label: 'ui-tenant-settings.settings.servicePoint.closedLibraryDueDateManagement.MoveToTheBeginningOfTheNextOpenServicePointHours',
+    label: 'MoveToTheBeginningOfTheNextOpenServicePointHours',
     value: 'Move_to_beginning_of_next_open_service_point_hours'
   }
 ];
-export const longTermClosedDateManagementTranslations = [
+
+export const longTermClosedDateManagementMenu = [
   {
-    label: 'ui-tenant-settings.settings.servicePoint.closedLibraryDueDateManagement.KeepTheOriginalDate',
+    label: 'KeepTheOriginalDate',
     value: 'Keep_the_current_due_date'
   },
   {
-    label: 'ui-tenant-settings.settings.servicePoint.closedLibraryDueDateManagement.MoveToTheEndOfThePreviousOpenDay',
+    label: 'MoveToTheEndOfThePreviousOpenDay',
     value: 'Move_to_the_end_of_the_previous_open_day'
   },
   {
-    label: 'ui-tenant-settings.settings.servicePoint.closedLibraryDueDateManagement.MoveToTheEndOfTheNextOpenDay',
+    label: 'MoveToTheEndOfTheNextOpenDay',
     value: 'Move_to_the_end_of_the_next_open_day'
   }
 ];

@@ -132,19 +132,119 @@ export const parentResourcesMock = {
   }
 };
 
-export const servicePointsMock = {
-  'id': '3a40852d-49fd-4df2-a1f9-6e2641a6e91f',
-  'name': 'Circ Desk 1',
-  'code': 'cd1',
-  'discoveryDisplayName': 'Circulation Desk -- Hallway',
-  'pickupLocation': true,
-  'holdShelfExpiryPeriod': {
-    'duration': 3,
-    'intervalId': 'Weeks'
+export const servicePointsMock = [
+  {
+    'id': '3a40852d-49fd-4df2-a1f9-6e2641a6e91f',
+    'name': 'Circ Desk 1',
+    'code': 'cd1',
+    'discoveryDisplayName': 'Circulation Desk -- Hallway',
+    'pickupLocation': true,
+    'holdShelfClosedLibraryDateManagement': 'Keep_the_current_due_date',
+    'holdShelfExpiryPeriod': {
+      'duration': 3,
+      'intervalId': 'Weeks'
+    },
+    'staffSlips': [],
+    'metadata': {
+      'createdDate': '2022-11-25T01:54:36.021+00:00',
+      'updatedDate': '2022-11-25T01:54:36.021+00:00'
+    }
   },
-  'staffSlips': [],
-  'metadata': {
-    'createdDate': '2022-11-25T01:54:36.021+00:00',
-    'updatedDate': '2022-11-25T01:54:36.021+00:00'
+  {
+    'id': '3a40852d-49fd-4df2-a1f9-6e2641a6e91f',
+    'name': 'Circ Desk 1',
+    'code': 'cd1',
+    'discoveryDisplayName': 'Circulation Desk -- Hallway',
+    'pickupLocation': true,
+    'holdShelfClosedLibraryDateManagement': 'Move_to_the_end_of_the_previous_open_day',
+    'holdShelfExpiryPeriod': {
+      'duration': 3,
+      'intervalId': 'Months'
+    },
+    'staffSlips': [],
+    'metadata': {
+      'createdDate': '2022-11-25T01:54:36.021+00:00',
+      'updatedDate': '2022-11-25T01:54:36.021+00:00'
+    }
+  },
+  {
+    'id': '3a40852d-49fd-4df2-a1f9-6e2641a6e91f',
+    'name': 'Circ Desk 1',
+    'code': 'cd1',
+    'discoveryDisplayName': 'Circulation Desk -- Hallway',
+    'pickupLocation': true,
+    'holdShelfClosedLibraryDateManagement': 'Move_to_the_end_of_the_next_open_day',
+    'holdShelfExpiryPeriod': {
+      'duration': 3,
+      'intervalId': 'Days'
+    },
+    'staffSlips': [],
+    'metadata': {
+      'createdDate': '2022-11-25T01:54:36.021+00:00',
+      'updatedDate': '2022-11-25T01:54:36.021+00:00'
+    }
+  },
+  {
+    'id': '3a40852d-49fd-4df2-a1f9-6e2641a6e91f',
+    'name': 'Circ Desk 1',
+    'code': 'cd1',
+    'discoveryDisplayName': 'Circulation Desk -- Hallway',
+    'pickupLocation': true,
+    'holdShelfClosedLibraryDateManagement': 'Keep_the_current_due_date_time',
+    'holdShelfExpiryPeriod': {
+      'duration': 3,
+      'intervalId': 'Minutes'
+    },
+    'staffSlips': [],
+    'metadata': {
+      'createdDate': '2022-11-25T01:54:36.021+00:00',
+      'updatedDate': '2022-11-25T01:54:36.021+00:00'
+    }
+  },
+  {
+    'id': '3a40852d-49fd-4df2-a1f9-6e2641a6e91f',
+    'name': 'Circ Desk 1',
+    'code': 'cd1',
+    'discoveryDisplayName': 'Circulation Desk -- Hallway',
+    'pickupLocation': true,
+    'holdShelfClosedLibraryDateManagement': 'Move_to_end_of_current_service_point_hours',
+    'holdShelfExpiryPeriod': {
+      'duration': 3,
+      'intervalId': 'Hours'
+    },
+    'staffSlips': [],
+    'metadata': {
+      'createdDate': '2022-11-25T01:54:36.021+00:00',
+      'updatedDate': '2022-11-25T01:54:36.021+00:00'
+    }
+  },
+  {
+    'id': '3a40852d-49fd-4df2-a1f9-6e2641a6e91f',
+    'name': 'Circ Desk 1',
+    'code': 'cd1',
+    'discoveryDisplayName': 'Circulation Desk -- Hallway',
+    'pickupLocation': true,
+    'holdShelfClosedLibraryDateManagement': 'Move_to_beginning_of_next_open_service_point_hours',
+    'holdShelfExpiryPeriod': {
+      'duration': 3,
+      'intervalId': 'Hours'
+    },
+    'staffSlips': [],
+    'metadata': {
+      'createdDate': '2022-11-25T01:54:36.021+00:00',
+      'updatedDate': '2022-11-25T01:54:36.021+00:00'
+    }
+  },
+  {
+    'id': '3a40852d-49fd-4df2-a1f9-6e2641a6e91f',
+    'name': 'Circ Desk 1',
+    'code': 'cd1',
+    'discoveryDisplayName': 'Circulation Desk -- Hallway',
+    'pickupLocation': false,
+    'staffSlips': [],
+    'metadata': {
+      'createdDate': '2022-11-25T01:54:36.021+00:00',
+      'updatedDate': '2022-11-25T01:54:36.021+00:00'
+    }
   }
-};
+];

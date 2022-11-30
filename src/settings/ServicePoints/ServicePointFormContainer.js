@@ -3,13 +3,20 @@ import React, {
   useEffect,
   useState,
 } from 'react';
+import PropTypes from 'prop-types';
 import {
   cloneDeep,
   unset,
   orderBy,
+  set,
 } from 'lodash';
 
 import ServicePointForm from './ServicePointForm';
+import {
+  shortTermExpiryPeriod,
+  shortTermClosedDateManagementMenu,
+  longTermClosedDateManagementMenu
+} from './constants';
 
 const ServicePointFormContainer = ({
   onSave,
@@ -17,7 +24,15 @@ const ServicePointFormContainer = ({
   initialValues: servicePoint,
   ...rest
 }) => {
-  const [initialValues, setInitialValues] = useState(servicePoint);
+  const getServicePoint = () => {
+    // remove holdShelfClosedLibraryDateManagement from servicepoint object when pickupLocation is not true
+    if (!servicePoint.pickupLocation) {
+      unset(servicePoint, 'holdShelfClosedLibraryDateManagement');
+    }
+    return servicePoint;
+  };
+
+  const [initialValues, setInitialValues] = useState(getServicePoint());
 
   useEffect(() => {
     setInitialValues(servicePoint);
@@ -42,8 +57,20 @@ const ServicePointFormContainer = ({
       data.locationIds = locationIds.filter(l => l).map(l => (l.id ? l.id : l));
     }
 
+    if (
+      data.pickupLocation &&
+      !data.holdShelfClosedLibraryDateManagement
+    ) {
+      if (shortTermExpiryPeriod.findIndex(item => item === data.holdShelfExpiryPeriod.intervalId) > -1) {
+        set(data, 'holdShelfClosedLibraryDateManagement', shortTermClosedDateManagementMenu[0].value);
+      } else {
+        set(data, 'holdShelfClosedLibraryDateManagement', longTermClosedDateManagementMenu[0].value);
+      }
+    }
+
     if (!data.pickupLocation) {
       unset(data, 'holdShelfExpiryPeriod');
+      unset(data, 'holdShelfClosedLibraryDateManagement');
     }
 
     unset(data, 'location');
@@ -62,6 +89,12 @@ const ServicePointFormContainer = ({
       initialValues={initialValues}
     />
   );
+};
+
+ServicePointFormContainer.propTypes = {
+  onSave: PropTypes.func,
+  parentResources: PropTypes.object,
+  initialValues: PropTypes.object
 };
 
 export default ServicePointFormContainer;
