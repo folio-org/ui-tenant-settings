@@ -65,37 +65,37 @@ describe('ServicePointDetail', () => {
 
     it('should render Closed library date management for hold shelf expiration expiration date calculation', () => {
       renderServicePointDetail({ initialValues : servicePointsMock[0] });
-      expect(screen.getByText('ui-tenant-settings.settings.servicePoints.closedLibraryDueDateManagement')).toBeDefined();
+      expect(screen.getByText('ui-tenant-settings.settings.servicePoints.holdShelfClosedLibraryDateManagement')).toBeDefined();
     });
 
     it('should render Closed library date management for hold shelf expiration expiration date calculation with value "Keep the original date"', () => {
       renderServicePointDetail({ initialValues : servicePointsMock[0] });
-      expect(screen.getByText('ui-tenant-settings.settings.servicePoints.closedLibraryDueDateManagement.KeepTheOriginalDate')).toBeDefined();
+      expect(screen.getByText('ui-tenant-settings.settings.servicePoints.holdShelfClosedLibraryDateManagement.keepTheOriginalDate')).toBeDefined();
     });
 
     it('should render Closed library date management for hold shelf expiration expiration date calculation with value "Move to the end of the previous open day"', () => {
       renderServicePointDetail({ initialValues : servicePointsMock[1] });
-      expect(screen.getByText('ui-tenant-settings.settings.servicePoints.closedLibraryDueDateManagement.MoveToTheEndOfThePreviousOpenDay')).toBeDefined();
+      expect(screen.getByText('ui-tenant-settings.settings.servicePoints.holdShelfClosedLibraryDateManagement.moveToTheEndOfThePreviousOpenDay')).toBeDefined();
     });
 
     it('should render Closed library date management for hold shelf expiration expiration date calculation with value "Move to the end of the next open day"', () => {
       renderServicePointDetail({ initialValues : servicePointsMock[2] });
-      expect(screen.getByText('ui-tenant-settings.settings.servicePoints.closedLibraryDueDateManagement.MoveToTheEndOfTheNextOpenDay')).toBeDefined();
+      expect(screen.getByText('ui-tenant-settings.settings.servicePoints.holdShelfClosedLibraryDateManagement.moveToTheEndOfTheNextOpenDay')).toBeDefined();
     });
 
     it('should render Closed library date management for hold shelf expiration expiration date calculation with value "Keep the original date/time"', () => {
       renderServicePointDetail({ initialValues : servicePointsMock[3] });
-      expect(screen.getByText('ui-tenant-settings.settings.servicePoints.closedLibraryDueDateManagement.KeepTheOriginalDateTime')).toBeDefined();
+      expect(screen.getByText('ui-tenant-settings.settings.servicePoints.holdShelfClosedLibraryDateManagement.keepTheOriginalDateTime')).toBeDefined();
     });
 
     it('should render Closed library date management for hold shelf expiration expiration date calculation with value "Move to the end of the current service point hours"', () => {
       renderServicePointDetail({ initialValues : servicePointsMock[4] });
-      expect(screen.getByText('ui-tenant-settings.settings.servicePoints.closedLibraryDueDateManagement.MoveToTheEndOfTheCurrentServicePointHours')).toBeDefined();
+      expect(screen.getByText('ui-tenant-settings.settings.servicePoints.holdShelfClosedLibraryDateManagement.moveToTheEndOfTheCurrentServicePointHours')).toBeDefined();
     });
 
     it('should render Closed library date management for hold shelf expiration expiration date calculation with value "Move to the beginning of the next open service point hours"', () => {
       renderServicePointDetail({ initialValues : servicePointsMock[5] });
-      expect(screen.getByText('ui-tenant-settings.settings.servicePoints.closedLibraryDueDateManagement.MoveToTheBeginningOfTheNextOpenServicePointHours')).toBeDefined();
+      expect(screen.getByText('ui-tenant-settings.settings.servicePoints.holdShelfClosedLibraryDateManagement.MoveToTheBeginningOfTheNextOpenServicePointHours')).toBeDefined();
     });
   });
 
@@ -107,7 +107,7 @@ describe('ServicePointDetail', () => {
 
     it('should not render Closed library date management for hold shelf expiration expiration date calculation', () => {
       renderServicePointDetail({ initialValues : servicePointsMock[6] });
-      expect(screen.queryByText('ui-tenant-settings.settings.servicePoints.closedLibraryDueDateManagement')).toBeNull();
+      expect(screen.queryByText('ui-tenant-settings.settings.servicePoints.holdShelfClosedLibraryDateManagement')).toBeNull();
     });
   });
 });

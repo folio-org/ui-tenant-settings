@@ -161,8 +161,8 @@ class ServicePointDetail extends React.Component {
               </Row>
               <Row>
                 <Col xs={8} data-test-closed-library-date-management-menu>
-                  <KeyValue label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.closedLibraryDueDateManagement" />}>
-                    <FormattedMessage id={`ui-tenant-settings.settings.servicePoints.closedLibraryDueDateManagement.${closedLibraryDateManagementMapping[holdShelfClosedLibraryDateManagement]}`} />
+                  <KeyValue label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.holdShelfClosedLibraryDateManagement" />}>
+                    <FormattedMessage id={`ui-tenant-settings.settings.servicePoints.holdShelfClosedLibraryDateManagement.${closedLibraryDateManagementMapping[holdShelfClosedLibraryDateManagement]}`} />
                   </KeyValue>
                 </Col>
               </Row>
