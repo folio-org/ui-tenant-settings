@@ -88,11 +88,29 @@ describe('ServicePointFormContainer', () => {
     expect(screen.getByRole('option', { name: /settings.servicePoints.pickupLocation.yes/ }).selected).toBe(true);
   });
 
-  it('should render ServicePointFormContainer closed library date management select with changed options', () => {
-    renderServicePointFormContainer();
+  describe('when pick location is yes', () => {
+    beforeEach(() => {
+      renderServicePointFormContainer();
+      userEvent.selectOptions(screen.getByRole('combobox', { name: /settings.servicePoints.pickupLocation/ }), 'true');
+    });
 
-    userEvent.selectOptions(screen.getByRole('combobox', { name: /settings.servicePoints.pickupLocation/ }), 'true');
-    userEvent.selectOptions(screen.getByRole('combobox', { name: /settings.servicePoints.closedLibraryDueDateManagement/ }), 'Move_to_the_end_of_the_previous_open_day');
-    expect(screen.getByRole('option', { name: /settings.servicePoints.closedLibraryDueDateManagement.MoveToTheEndOfThePreviousOpenDay/ }).selected).toBe(true);
+    describe('when hold shelf expiry interval id is short term period Minutes', () => {
+      beforeEach(() => {
+        userEvent.selectOptions(screen.getByRole('combobox', { name: /holdShelfExpiryPeriod.intervalId/ }), 'Minutes');
+      });
+
+      it('should render ServicePointFormContainer closed library date management select with changed options ', () => {
+        userEvent.selectOptions(screen.getByRole('combobox', { name: /settings.servicePoints.closedLibraryDueDateManagement/ }), 'Move_to_end_of_current_service_point_hours');
+        expect(screen.getByRole('option', { name: /settings.servicePoints.closedLibraryDueDateManagement.MoveToTheEndOfTheCurrentServicePointHours/ }).selected).toBe(true);
+      });
+    });
   });
+
+  // it('should render ServicePointFormContainer closed library date management select with changed options', () => {
+  //   renderServicePointFormContainer();
+
+  //   userEvent.selectOptions(screen.getByRole('combobox', { name: /settings.servicePoints.pickupLocation/ }), 'true');
+  //   userEvent.selectOptions(screen.getByRole('combobox', { name: /settings.servicePoints.closedLibraryDueDateManagement/ }), 'Move_to_the_end_of_the_previous_open_day');
+  //   expect(screen.getByRole('option', { name: /settings.servicePoints.closedLibraryDueDateManagement.MoveToTheEndOfThePreviousOpenDay/ }).selected).toBe(true);
+  // });
 });
