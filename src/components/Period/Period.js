@@ -121,7 +121,7 @@ class Period extends React.Component {
       <>
         <Row className={css.labelRow}>
           <Col xs={12}>
-            <Label className={css.label} required>
+            <Label className={css.label} required name={fieldLabel}>
               <FormattedMessage id={fieldLabel} />
             </Label>
           </Col>
