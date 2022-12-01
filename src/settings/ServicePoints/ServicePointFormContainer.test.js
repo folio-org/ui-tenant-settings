@@ -104,5 +104,26 @@ describe('ServicePointFormContainer', () => {
         expect(screen.getByRole('option', { name: /settings.servicePoints.closedLibraryDueDateManagement.MoveToTheEndOfThePreviousOpenDay/ }).selected).toBe(true);
       });
     });
+
+    it('should call saveMock when hitting on button Save&Close', () => {
+      renderServicePointFormContainer();
+
+      const textboxes = [
+        /settings.servicePoints.name/,
+        /settings.servicePoints.code/,
+        /settings.servicePoints.discoveryDisplayName/,
+        /settings.servicePoints.description/,
+        /settings.servicePoints.shelvingLagTime/,
+      ];
+
+      textboxes.forEach((el) => userEvent.type(screen.getByRole('textbox', { name: el }), 'new value'));
+      userEvent.selectOptions(screen.getByRole('combobox', { name: /settings.servicePoints.pickupLocation/ }), 'true');
+      userEvent.type(screen.getByRole('spinbutton', { name: /holdShelfExpiryPeriod.duration/ }, '10'));
+      userEvent.selectOptions(screen.getAllByRole('combobox')[1], 'Days');
+
+      userEvent.click(screen.getByRole('button', { name: /settings.general.saveAndClose/ }));
+
+      expect(onSaveMock).toBeCalled();
+    });
   });
 });
