@@ -81,13 +81,13 @@ describe('ServicePointFormContainer', () => {
     userEvent.click(screen.getByRole('button', { name: /settings.general.saveAndClose/ }));
   });
 
-  // it('should render ServicePointFormContainer select with changed options', () => {
-  //   renderServicePointFormContainer();
+  it('should render ServicePointFormContainer select with changed options', () => {
+    renderServicePointFormContainer();
 
-  //   userEvent.selectOptions(screen.getByRole('combobox', { name: /settings.servicePoints.pickupLocation/ }), 'true');
+    userEvent.selectOptions(screen.getByRole('combobox', { name: /settings.servicePoints.pickupLocation/ }), 'true');
 
-  //   expect(screen.getByRole('option', { name: /settings.servicePoints.pickupLocation.yes/ }).selected).toBe(true);
-  // });
+    expect(screen.getByRole('option', { name: /settings.servicePoints.pickupLocation.yes/ }).selected).toBe(true);
+  });
 
   describe('when pick location is yes', () => {
     beforeEach(() => {
