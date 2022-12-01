@@ -96,7 +96,7 @@ describe('ServicePointFormContainer', () => {
 
     describe('when hold shelf expiry interval id is short term period Minutes', () => {
       beforeEach(() => {
-        userEvent.selectOptions(screen.getAllByRole('combobox')[2], 'Minutes');
+        userEvent.selectOptions(screen.getAllByRole('combobox')[1], 'Minutes');
       });
 
       it('should render ServicePointFormContainer closed library date management select with changed options ', () => {
