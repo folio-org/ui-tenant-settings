@@ -111,10 +111,10 @@ describe('ServicePointFormContainer', () => {
         /settings.servicePoints.code/,
         /settings.servicePoints.discoveryDisplayName/,
         /settings.servicePoints.description/,
-        /settings.servicePoints.shelvingLagTime/,
       ];
 
       textboxes.forEach((el) => userEvent.type(screen.getByRole('textbox', { name: el }), 'new value'));
+      userEvent.type(screen.getByRole('textbox', { name: /settings.servicePoints.shelvingLagTime/ }), '10');
       userEvent.selectOptions(screen.getByRole('combobox', { name: /settings.servicePoints.pickupLocation/ }), 'true');
       userEvent.type(screen.getByRole('spinbutton'), '10');
       userEvent.selectOptions(screen.getAllByRole('combobox')[1], 'Days');
