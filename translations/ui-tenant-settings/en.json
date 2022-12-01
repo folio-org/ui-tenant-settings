@@ -26,7 +26,7 @@
   "settings.saml.validate.userProperty": "Please select a user property",
   "settings.saml.validate.idpUrl": "This is not a valid Identity Provider URL",
 
-  "settings.servicePoints.holdShelfClosedLibraryDateManagement": "Closed library date management for hold shelf expiration expiration date calculation",
+  "settings.servicePoints.holdShelfClosedLibraryDateManagement": "Closed library date management for hold shelf expiration date calculation",
   "settings.servicePoints.holdShelfClosedLibraryDateManagement.keepTheOriginalDate": "Keep the original date",
   "settings.servicePoints.holdShelfClosedLibraryDateManagement.moveToTheEndOfThePreviousOpenDay": "Move to the end of the previous open day",
   "settings.servicePoints.holdShelfClosedLibraryDateManagement.moveToTheEndOfTheNextOpenDay": "Move to the end of the next open day",
