@@ -92,7 +92,7 @@ describe('ServicePointFormContainer', () => {
     renderServicePointFormContainer();
 
     userEvent.selectOptions(screen.getByRole('combobox', { name: /settings.servicePoints.pickupLocation/ }), 'true');
-    userEvent.selectOptions(screen.getByRole('combobox', { name: /settings.servicePoint.closedLibraryDueDateManagement/ }), 'Move_to_the_end_of_the_previous_open_day');
+    userEvent.selectOptions(screen.getByRole('combobox', { name: /settings.servicePoints.closedLibraryDueDateManagement/ }), 'Move_to_the_end_of_the_previous_open_day');
     expect(screen.getByRole('option', { name: /settings.servicePoints.closedLibraryDueDateManagement.MoveToTheEndOfThePreviousOpenDay/ }).selected).toBe(true);
   });
 });

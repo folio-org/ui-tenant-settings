@@ -168,7 +168,7 @@ const ServicePointForm = ({
 
     return (menu.map(item => (
       {
-        label: intl.formatMessage({ id: `ui-tenant-settings.settings.servicePoint.closedLibraryDueDateManagement.${item.label}` }),
+        label: intl.formatMessage({ id: `ui-tenant-settings.settings.servicePoints.closedLibraryDueDateManagement.${item.label}` }),
         value: item.value
       }
     )));
@@ -285,8 +285,8 @@ const ServicePointForm = ({
                 <>
                   <div data-test-holdshelfexpiry>
                     <Period
-                      fieldLabel="ui-tenant-settings.settings.servicePoint.expirationPeriod"
-                      selectPlaceholder="ui-tenant-settings.settings.servicePoint.selectInterval"
+                      fieldLabel="ui-tenant-settings.settings.servicePoints.expirationPeriod"
+                      selectPlaceholder="ui-tenant-settings.settings.servicePoints.selectInterval"
                       inputValuePath="holdShelfExpiryPeriod.duration"
                       selectValuePath="holdShelfExpiryPeriod.intervalId"
                       entity={formValues}
@@ -297,7 +297,7 @@ const ServicePointForm = ({
                   <div data-test-closed-library-date-managemnet>
                     <Field
                       id="input-service-closed-library-date-management"
-                      label={<FormattedMessage id="ui-tenant-settings.settings.servicePoint.closedLibraryDueDateManagement" />}
+                      label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.closedLibraryDueDateManagement" />}
                       name="holdShelfClosedLibraryDateManagement"
                       component={Select}
                       dataOptions={getClosedLibraryDateManagementOptions()}

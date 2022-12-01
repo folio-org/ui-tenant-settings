@@ -154,15 +154,15 @@ class ServicePointDetail extends React.Component {
               <Row>
                 <Col xs={8} data-test-hold-shelf-expiry-period>
                   <KeyValue
-                    label={<FormattedMessage id="ui-tenant-settings.settings.servicePoint.expirationPeriod" />}
+                    label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.expirationPeriod" />}
                     value={`${duration} ${this.intervalPeriodMap[intervalId].label}`}
                   />
                 </Col>
               </Row>
               <Row>
                 <Col xs={8} data-test-closed-library-date-management-menu>
-                  <KeyValue label={<FormattedMessage id="ui-tenant-settings.settings.servicePoint.closedLibraryDueDateManagement" />}>
-                    <FormattedMessage id={`ui-tenant-settings.settings.servicePoint.closedLibraryDueDateManagement.${closedLibraryDateManagementMapping[holdShelfClosedLibraryDateManagement]}`} />
+                  <KeyValue label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.closedLibraryDueDateManagement" />}>
+                    <FormattedMessage id={`ui-tenant-settings.settings.servicePoints.closedLibraryDueDateManagement.${closedLibraryDateManagementMapping[holdShelfClosedLibraryDateManagement]}`} />
                   </KeyValue>
                 </Col>
               </Row>
