@@ -106,8 +106,6 @@ describe('ServicePointFormContainer', () => {
     });
 
     it('should call saveMock when hitting on button Save&Close', () => {
-      renderServicePointFormContainer();
-
       const textboxes = [
         /settings.servicePoints.name/,
         /settings.servicePoints.code/,
