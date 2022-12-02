@@ -8,6 +8,7 @@ import {
   cloneDeep,
   unset,
   orderBy,
+  omit,
   set,
 } from 'lodash';
 
@@ -27,7 +28,7 @@ const ServicePointFormContainer = ({
   const getServicePoint = () => {
     // remove holdShelfClosedLibraryDateManagement from servicepoint object when pickupLocation is not true
     if (!servicePoint.pickupLocation) {
-      unset(servicePoint, 'holdShelfClosedLibraryDateManagement');
+      omit(servicePoint, 'holdShelfClosedLibraryDateManagement');
     }
     return servicePoint;
   };
