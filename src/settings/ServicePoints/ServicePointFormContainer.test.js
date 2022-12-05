@@ -10,16 +10,17 @@ import {
 } from '../../../test/jest/helpers';
 
 import ServicePointFormContainer from './ServicePointFormContainer';
-import { initialValuesMock, parentMutatorMock, parentResourcesMock } from './test/setup';
+import { parentMutatorMock, parentResourcesMock } from './test/setup';
 
-const onSaveMock = jest.fn();
+const onSave = jest.fn();
+const staffSlips = [true, true, true, true];
 
 const renderServicePointFormContainer = () => {
   const component = () => (
     <ServicePointFormContainer
-      onSave={onSaveMock}
+      onSave={onSave}
       parentResources={parentResourcesMock}
-      initialValues={initialValuesMock}
+      initialValues={{ staffSlips }}
       parentMutator={parentMutatorMock}
     />
   );
@@ -86,5 +87,23 @@ describe('ServicePointFormContainer', () => {
     userEvent.selectOptions(screen.getByRole('combobox', { name: /settings.servicePoints.pickupLocation/ }), 'true');
 
     expect(screen.getByRole('option', { name: /settings.servicePoints.pickupLocation.yes/ }).selected).toBe(true);
+  });
+
+  describe('when pick location is yes', () => {
+    beforeEach(() => {
+      renderServicePointFormContainer();
+      userEvent.selectOptions(screen.getByRole('combobox', { name: /settings.servicePoints.pickupLocation/ }), 'true');
+    });
+
+    describe('when hold shelf expiry interval id is short term period Days', () => {
+      beforeEach(() => {
+        userEvent.selectOptions(screen.getAllByRole('combobox')[1], 'Days');
+      });
+
+      it('should render ServicePointFormContainer closed library date management select with changed options ', () => {
+        userEvent.selectOptions(screen.getByRole('combobox', { name: /settings.servicePoints.holdShelfClosedLibraryDateManagement/ }), 'Move_to_the_end_of_the_previous_open_day');
+        expect(screen.getByRole('option', { name: /settings.servicePoints.holdShelfClosedLibraryDateManagement.moveToTheEndOfThePreviousOpenDay/ }).selected).toBe(true);
+      });
+    });
   });
 });

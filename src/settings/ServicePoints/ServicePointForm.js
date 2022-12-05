@@ -32,6 +32,12 @@ import {
   getUniquenessValidation,
 } from './utils';
 
+import {
+  shortTermExpiryPeriod,
+  shortTermClosedDateManagementMenu,
+  longTermClosedDateManagementMenu
+} from './constants';
+
 import styles from './ServicePoints.css';
 
 const ServicePointForm = ({
@@ -59,6 +65,7 @@ const ServicePointForm = ({
   const staffSlips = orderBy((parentResources.staffSlips || {}).records || [], 'name');
   const disabled = !stripes.hasPerm('settings.tenant-settings.enabled');
   const formValues = form.getState().values;
+
   const selectOptions = [
     {
       label: intl.formatMessage({ id: 'ui-tenant-settings.settings.servicePoints.pickupLocation.no' }),
@@ -147,6 +154,25 @@ const ServicePointForm = ({
     }));
   }, []);
 
+  const getClosedLibraryDateManagementOptions = () => {
+    const { holdShelfExpiryPeriod = {} } = formValues;
+
+    let menu = longTermClosedDateManagementMenu;
+
+    if (
+      (holdShelfExpiryPeriod?.intervalId) &&
+      (shortTermExpiryPeriod.findIndex(item => item === holdShelfExpiryPeriod.intervalId) > -1)
+    ) {
+      menu = shortTermClosedDateManagementMenu;
+    }
+
+    return (menu.map(item => (
+      {
+        label: intl.formatMessage({ id: `ui-tenant-settings.settings.servicePoints.holdShelfClosedLibraryDateManagement.${item.label}` }),
+        value: item.value
+      }
+    )));
+  };
 
   return (
     <form
@@ -255,18 +281,30 @@ const ServicePointForm = ({
               </Col>
             </Row>
             {
-              formValues.pickupLocation &&
-              <div data-test-holdshelfexpiry>
-                <Period
-                  fieldLabel="ui-tenant-settings.settings.servicePoint.expirationPeriod"
-                  selectPlaceholder="ui-tenant-settings.settings.servicePoint.selectInterval"
-                  inputValuePath="holdShelfExpiryPeriod.duration"
-                  selectValuePath="holdShelfExpiryPeriod.intervalId"
-                  entity={formValues}
-                  intervalPeriods={periods}
-                  changeFormValue={form.mutators.changeFormValue}
-                />
-              </div>
+              formValues.pickupLocation && (
+                <>
+                  <div data-test-holdshelfexpiry>
+                    <Period
+                      fieldLabel="ui-tenant-settings.settings.servicePoints.expirationPeriod"
+                      selectPlaceholder="ui-tenant-settings.settings.servicePoints.selectInterval"
+                      inputValuePath="holdShelfExpiryPeriod.duration"
+                      selectValuePath="holdShelfExpiryPeriod.intervalId"
+                      entity={formValues}
+                      intervalPeriods={periods}
+                      changeFormValue={form.mutators.changeFormValue}
+                    />
+                  </div>
+                  <div data-test-closed-library-date-managemnet>
+                    <Field
+                      id="input-service-closed-library-date-management"
+                      label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.holdShelfClosedLibraryDateManagement" />}
+                      name="holdShelfClosedLibraryDateManagement"
+                      component={Select}
+                      dataOptions={getClosedLibraryDateManagementOptions()}
+                    />
+                  </div>
+                </>
+              )
             }
             <StaffSlipEditList staffSlips={staffSlips} />
           </Accordion>
