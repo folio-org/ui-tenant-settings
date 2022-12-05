@@ -28,15 +28,17 @@ const ServicePointFormContainer = ({
   const getServicePoint = () => {
     // remove holdShelfClosedLibraryDateManagement from servicepoint object when pickupLocation is not true
     if (!servicePoint.pickupLocation) {
-      omit(servicePoint, 'holdShelfClosedLibraryDateManagement');
+      const newServicePoint = omit(servicePoint, 'holdShelfClosedLibraryDateManagement');
+      return newServicePoint;
+    } else {
+      return servicePoint;
     }
-    return servicePoint;
   };
 
   const [initialValues, setInitialValues] = useState(getServicePoint());
 
   useEffect(() => {
-    setInitialValues(servicePoint);
+    setInitialValues(getServicePoint());
   }, [servicePoint?.id, parentResources?.staffSlips?.hasLoaded]);
 
   const transformStaffSlipsData = useCallback((staffSlips) => {
