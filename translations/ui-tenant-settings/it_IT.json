@@ -92,8 +92,6 @@
     "settings.servicePoints.ok": "Ok.",
     "settings.servicePoints.deleteServicePointWithLocsMessage": "<strong> {name} è associato a una o più locations </strong> . Sei sicuro di voler rimuovere <strong> {name} ? </strong>",
     "settings.servicePoints.primary": "principale",
-    "settings.servicePoint.expirationPeriod": "Periodo scadenza scaffale prenotazioni",
-    "settings.servicePoint.selectInterval": "Seleziona intervallo",
     "settings.servicePoints.printByDefault": "Stampa predefinita",
     "settings.servicePoints.printSlip.yes": "{name} - si",
     "settings.servicePoints.printSlip.no": "{name} - no",
@@ -148,5 +146,14 @@
     "settings.location.locations.returning-workflow.title": "Preferenze del flusso di lavoro di restituzione",
     "settings.location.locations.returning-workflow.Scanned to folio": "Articoli ricevuti in un deposito remoto scansionati in FOLIO",
     "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "Articoli ricevuti in un deposito remoto scansionati in CaiaSoft",
-    "settings.numberingSystem": "Sistema di numerazione"
+    "settings.numberingSystem": "Sistema di numerazione",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement": "Closed library date management for hold shelf expiration date calculation",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.keepTheOriginalDate": "Keep the original date",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.moveToTheEndOfThePreviousOpenDay": "Move to the end of the previous open day",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.moveToTheEndOfTheNextOpenDay": "Move to the end of the next open day",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.keepTheOriginalDateTime": "Keep the original date/time",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.moveToTheEndOfTheCurrentServicePointHours": "Move to the end of the current service point hours",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.MoveToTheBeginningOfTheNextOpenServicePointHours": "Move to the beginning of the next open service point hours",
+    "settings.servicePoints.expirationPeriod": "Hold shelf expiration period",
+    "settings.servicePoints.selectInterval": "Select interval"
 }

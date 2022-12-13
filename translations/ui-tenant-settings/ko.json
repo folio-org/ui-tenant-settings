@@ -92,8 +92,6 @@
     "settings.servicePoints.ok": "확인",
     "settings.servicePoints.deleteServicePointWithLocsMessage": "<strong> {name} 은(는) 하나 이상의 위치 </strong> 와 연결되어 있습니다. <strong> {name} 를) 제거하시겠습니까? </strong>",
     "settings.servicePoints.primary": "기본",
-    "settings.servicePoint.expirationPeriod": "보관 만료 기간 보유",
-    "settings.servicePoint.selectInterval": "간격 선택",
     "settings.servicePoints.printByDefault": "기본으로 인쇄",
     "settings.servicePoints.printSlip.yes": "{name} - 예",
     "settings.servicePoints.printSlip.no": "{name} - 아니요",
@@ -148,5 +146,14 @@
     "settings.location.locations.returning-workflow.title": "워크플로 기본 설정 반환",
     "settings.location.locations.returning-workflow.Scanned to folio": "원격 저장소에서 받은 항목을 FOLIO로 스캔",
     "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "원격 저장소에서 받은 항목을 CaiaSoft로 스캔",
-    "settings.numberingSystem": "Numbering system"
+    "settings.numberingSystem": "Numbering system",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement": "Closed library date management for hold shelf expiration date calculation",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.keepTheOriginalDate": "Keep the original date",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.moveToTheEndOfThePreviousOpenDay": "Move to the end of the previous open day",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.moveToTheEndOfTheNextOpenDay": "Move to the end of the next open day",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.keepTheOriginalDateTime": "Keep the original date/time",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.moveToTheEndOfTheCurrentServicePointHours": "Move to the end of the current service point hours",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.MoveToTheBeginningOfTheNextOpenServicePointHours": "Move to the beginning of the next open service point hours",
+    "settings.servicePoints.expirationPeriod": "Hold shelf expiration period",
+    "settings.servicePoints.selectInterval": "Select interval"
 }

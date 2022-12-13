@@ -92,8 +92,6 @@
     "settings.servicePoints.ok": "Dobře",
     "settings.servicePoints.deleteServicePointWithLocsMessage": "<strong>{name} je přidružen k jednomu nebo více místům</strong>. Opravdu chcete odebrat <strong>{name}?</strong>",
     "settings.servicePoints.primary": "primární",
-    "settings.servicePoint.expirationPeriod": "Doba vypršení platnosti regálu rezervací",
-    "settings.servicePoint.selectInterval": "Vybrat interval",
     "settings.servicePoints.printByDefault": "Tisk ve výchozím nastavení",
     "settings.servicePoints.printSlip.yes": "{name} - ano",
     "settings.servicePoints.printSlip.no": "{name} - ne",
@@ -148,5 +146,14 @@
     "settings.location.locations.returning-workflow.title": "Vracení předvolby pracovního postupu",
     "settings.location.locations.returning-workflow.Scanned to folio": "Jednotky přijaté ve vzdáleném úložišti načtené do FOLIO",
     "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "Jednotky přijaté na vzdáleném úložišti načtené do CaiaSoft",
-    "settings.numberingSystem": "Systém číslování"
+    "settings.numberingSystem": "Systém číslování",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement": "Správa dat uzavřené knihovny pro výpočet data vypršení platnosti regálu rezervací",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.keepTheOriginalDate": "Zachovat původní datum",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.moveToTheEndOfThePreviousOpenDay": "Přesun na konec předchozího pracovního dne",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.moveToTheEndOfTheNextOpenDay": "Přesun na konec dalšího pracovního dne",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.keepTheOriginalDateTime": "Zachovat původní datum/čas",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.moveToTheEndOfTheCurrentServicePointHours": "Přesun na konec aktuálních hodin servisního místa",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.MoveToTheBeginningOfTheNextOpenServicePointHours": "Přesun na začátek dalšího otevřeného servisního místa.",
+    "settings.servicePoints.expirationPeriod": "Doba vypršení platnosti regálu rezervací",
+    "settings.servicePoints.selectInterval": "Vybrat interval"
 }

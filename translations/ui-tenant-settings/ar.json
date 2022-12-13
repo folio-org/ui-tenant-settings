@@ -92,8 +92,6 @@
     "settings.servicePoints.ok": "موافق",
     "settings.servicePoints.deleteServicePointWithLocsMessage": "<strong>{name}  مرتبط بموقع أو أكثر </strong>. هل أنت متأكد من أنك تريد إزالة <strong>{name} ؟</strong>",
     "settings.servicePoints.primary": "الرئيسي",
-    "settings.servicePoint.expirationPeriod": "فترة صلاحية الحجز ",
-    "settings.servicePoint.selectInterval": "تحديد الفاصل الزمني",
     "settings.servicePoints.printByDefault": "الطباعة بشكل افتراضي",
     "settings.servicePoints.printSlip.yes": "{name} - نعم",
     "settings.servicePoints.printSlip.no": "{name} - لا",
@@ -148,5 +146,14 @@
     "settings.location.locations.returning-workflow.title": "تفضيل سير عمل الإعادة",
     "settings.location.locations.returning-workflow.Scanned to folio": "تم مسح المواد المستلمة في التخزين البعيد ضوئيًا إلى فوليو",
     "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "تم مسح المواد المستلمة في التخزين البعيد ضوئيًا إلى CaiaSoft",
-    "settings.numberingSystem": "نظام الترقيم"
+    "settings.numberingSystem": "نظام الترقيم",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement": "Closed library date management for hold shelf expiration date calculation",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.keepTheOriginalDate": "Keep the original date",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.moveToTheEndOfThePreviousOpenDay": "Move to the end of the previous open day",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.moveToTheEndOfTheNextOpenDay": "Move to the end of the next open day",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.keepTheOriginalDateTime": "Keep the original date/time",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.moveToTheEndOfTheCurrentServicePointHours": "Move to the end of the current service point hours",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.MoveToTheBeginningOfTheNextOpenServicePointHours": "Move to the beginning of the next open service point hours",
+    "settings.servicePoints.expirationPeriod": "Hold shelf expiration period",
+    "settings.servicePoints.selectInterval": "Select interval"
 }

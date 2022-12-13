@@ -92,8 +92,6 @@
     "settings.servicePoints.ok": "确定",
     "settings.servicePoints.deleteServicePointWithLocsMessage": "<strong>{name} 与一个或多个馆藏地相关联</strong>。确定要移除<strong>{name} 吗？</strong>",
     "settings.servicePoints.primary": "主要",
-    "settings.servicePoint.expirationPeriod": "预约架到期有效期",
-    "settings.servicePoint.selectInterval": "选择间隔",
     "settings.servicePoints.printByDefault": "默认打印",
     "settings.servicePoints.printSlip.yes": "{name} - 是",
     "settings.servicePoints.printSlip.no": "{name} - 否",
@@ -148,5 +146,14 @@
     "settings.location.locations.returning-workflow.title": "返还工作流程首选项",
     "settings.location.locations.returning-workflow.Scanned to folio": "远程存储中收到的单件已扫描到FOLIO中",
     "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "远程存储中收到的单件已扫描到CaiaSoft中",
-    "settings.numberingSystem": "编号系统"
+    "settings.numberingSystem": "编号系统",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement": "Closed library date management for hold shelf expiration date calculation",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.keepTheOriginalDate": "Keep the original date",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.moveToTheEndOfThePreviousOpenDay": "Move to the end of the previous open day",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.moveToTheEndOfTheNextOpenDay": "Move to the end of the next open day",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.keepTheOriginalDateTime": "Keep the original date/time",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.moveToTheEndOfTheCurrentServicePointHours": "Move to the end of the current service point hours",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.MoveToTheBeginningOfTheNextOpenServicePointHours": "Move to the beginning of the next open service point hours",
+    "settings.servicePoints.expirationPeriod": "Hold shelf expiration period",
+    "settings.servicePoints.selectInterval": "Select interval"
 }
