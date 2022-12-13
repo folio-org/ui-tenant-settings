@@ -92,8 +92,6 @@
     "settings.servicePoints.ok": "De acuerdo",
     "settings.servicePoints.deleteServicePointWithLocsMessage": "<strong>{name} está asociado con una o más localizaciones</strong>. ¿Estás seguro de que quieres eliminar el <strong>{name}?</strong>",
     "settings.servicePoints.primary": "principal",
-    "settings.servicePoint.expirationPeriod": "Periodo de expiración de la reserva en estantería",
-    "settings.servicePoint.selectInterval": "Seleccionar intervalo",
     "settings.servicePoints.printByDefault": "Imprimir por defecto",
     "settings.servicePoints.printSlip.yes": "{name} - sí",
     "settings.servicePoints.printSlip.no": "{name} - no",
@@ -148,5 +146,14 @@
     "settings.location.locations.returning-workflow.title": "Returning workflow preference",
     "settings.location.locations.returning-workflow.Scanned to folio": "Items received at remote storage scanned into FOLIO",
     "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "Items received at remote storage scanned into CaiaSoft",
-    "settings.numberingSystem": "Numbering system"
+    "settings.numberingSystem": "Numbering system",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement": "Gestión de la fecha de cierre de la biblioteca para el cálculo de la fecha de caducidad de las estanterías de espera",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.keepTheOriginalDate": "Mantener la fecha original",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.moveToTheEndOfThePreviousOpenDay": "Desplazarse al final de la jornada de puertas abiertas anterior",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.moveToTheEndOfTheNextOpenDay": "Trasladar al final de la próxima jornada de puertas abiertas",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.keepTheOriginalDateTime": "Mantener la fecha/hora original",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.moveToTheEndOfTheCurrentServicePointHours": "Desplazarse al final de las horas del punto de servicio actual",
+    "settings.servicePoints.holdShelfClosedLibraryDateManagement.MoveToTheBeginningOfTheNextOpenServicePointHours": "Desplazarse al inicio de las horas del siguiente punto de servicio abierto",
+    "settings.servicePoints.expirationPeriod": "Periodo de expiración de la reserva en estantería",
+    "settings.servicePoints.selectInterval": "Seleccionar intervalo"
 }
