@@ -103,6 +103,6 @@ describe('Period', () => {
     );
 
     expect(input).toHaveValue(123);
-    expect(changeFormValueMock).toHaveBeenCalledTimes(2);
+    expect(changeFormValueMock).toHaveBeenCalledTimes(3);
   });
 });

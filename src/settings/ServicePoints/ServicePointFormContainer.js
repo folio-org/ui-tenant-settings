@@ -9,15 +9,9 @@ import {
   unset,
   orderBy,
   omit,
-  set,
 } from 'lodash';
 
 import ServicePointForm from './ServicePointForm';
-import {
-  shortTermExpiryPeriod,
-  shortTermClosedDateManagementMenu,
-  longTermClosedDateManagementMenu
-} from './constants';
 
 const ServicePointFormContainer = ({
   onSave,
@@ -58,17 +52,6 @@ const ServicePointFormContainer = ({
 
     if (locationIds) {
       data.locationIds = locationIds.filter(l => l).map(l => (l.id ? l.id : l));
-    }
-
-    if (
-      data.pickupLocation &&
-      !data.holdShelfClosedLibraryDateManagement
-    ) {
-      if (shortTermExpiryPeriod.findIndex(item => item === data.holdShelfExpiryPeriod.intervalId) > -1) {
-        set(data, 'holdShelfClosedLibraryDateManagement', shortTermClosedDateManagementMenu[0].value);
-      } else {
-        set(data, 'holdShelfClosedLibraryDateManagement', longTermClosedDateManagementMenu[0].value);
-      }
     }
 
     if (!data.pickupLocation) {

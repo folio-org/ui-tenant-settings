@@ -21,6 +21,11 @@ import {
 } from '@folio/stripes/components';
 
 import css from './Period.css';
+import {
+  shortTermExpiryPeriod,
+  shortTermClosedDateManagementMenu,
+  longTermClosedDateManagementMenu
+} from '../../settings/ServicePoints/constants';
 
 const validateDuration = value => {
   if (typeof value !== 'number') {
@@ -38,6 +43,7 @@ class Period extends React.Component {
   static propTypes = {
     fieldLabel: PropTypes.string.isRequired,
     selectPlaceholder: PropTypes.string.isRequired,
+    dependentValuePath: PropTypes.string.isRequired,
     inputValuePath: PropTypes.string.isRequired,
     selectValuePath: PropTypes.string.isRequired,
     entity: PropTypes.object.isRequired,
@@ -81,9 +87,15 @@ class Period extends React.Component {
     const {
       selectValuePath,
       changeFormValue,
+      dependentValuePath,
     } = this.props;
 
     changeFormValue(selectValuePath, e.target.value);
+    const holdShelfClosedLibraryDateManagementValue =
+      shortTermExpiryPeriod.findIndex(item => item === e.target.value) > -1
+        ? shortTermClosedDateManagementMenu[0].value
+        : longTermClosedDateManagementMenu[0].value;
+    changeFormValue(dependentValuePath, holdShelfClosedLibraryDateManagementValue);
 
     this.inputRef.current.focus();
   };
