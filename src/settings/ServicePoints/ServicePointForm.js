@@ -292,6 +292,7 @@ const ServicePointForm = ({
                       entity={formValues}
                       intervalPeriods={periods}
                       changeFormValue={form.mutators.changeFormValue}
+                      dependentValuePath="holdShelfClosedLibraryDateManagement"
                     />
                   </div>
                   <div data-test-closed-library-date-managemnet>

@@ -9,15 +9,9 @@ import {
   unset,
   orderBy,
   omit,
-  set,
 } from 'lodash';
 
 import ServicePointForm from './ServicePointForm';
-import {
-  shortTermExpiryPeriod,
-  shortTermClosedDateManagementMenu,
-  longTermClosedDateManagementMenu
-} from './constants';
 
 const ServicePointFormContainer = ({
   onSave,
@@ -25,7 +19,7 @@ const ServicePointFormContainer = ({
   initialValues: servicePoint,
   ...rest
 }) => {
-  const getServicePoint = () => {
+  const getServicePoint = useCallback(() => {
     // remove holdShelfClosedLibraryDateManagement from servicepoint object when pickupLocation is not true
     if (!servicePoint.pickupLocation) {
       const newServicePoint = omit(servicePoint, 'holdShelfClosedLibraryDateManagement');
@@ -33,13 +27,13 @@ const ServicePointFormContainer = ({
     } else {
       return servicePoint;
     }
-  };
+  }, [servicePoint]);
 
   const [initialValues, setInitialValues] = useState(getServicePoint());
 
   useEffect(() => {
     setInitialValues(getServicePoint());
-  }, [servicePoint?.id, parentResources?.staffSlips?.hasLoaded]);
+  }, [servicePoint.id, parentResources.staffSlips.hasLoaded, getServicePoint]);
 
   const transformStaffSlipsData = useCallback((staffSlips) => {
     const currentSlips = parentResources?.staffSlips?.records || [];
@@ -58,17 +52,6 @@ const ServicePointFormContainer = ({
 
     if (locationIds) {
       data.locationIds = locationIds.filter(l => l).map(l => (l.id ? l.id : l));
-    }
-
-    if (
-      data.pickupLocation &&
-      !data.holdShelfClosedLibraryDateManagement
-    ) {
-      if (shortTermExpiryPeriod.findIndex(item => item === data.holdShelfExpiryPeriod.intervalId) > -1) {
-        set(data, 'holdShelfClosedLibraryDateManagement', shortTermClosedDateManagementMenu[0].value);
-      } else {
-        set(data, 'holdShelfClosedLibraryDateManagement', longTermClosedDateManagementMenu[0].value);
-      }
     }
 
     if (!data.pickupLocation) {
