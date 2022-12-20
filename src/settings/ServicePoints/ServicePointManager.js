@@ -55,6 +55,7 @@ class ServicePointManager extends React.Component {
       entries: PropTypes.shape({
         records: PropTypes.arrayOf(PropTypes.object),
       }),
+      staffSlips: PropTypes.object,
     }).isRequired,
     mutator: PropTypes.shape({
       entries: PropTypes.shape({
