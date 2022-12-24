@@ -155,5 +155,5 @@
     "settings.servicePoints.holdShelfClosedLibraryDateManagement.moveToTheEndOfTheCurrentServicePointHours": "Move to the end of the current service point hours",
     "settings.servicePoints.holdShelfClosedLibraryDateManagement.MoveToTheBeginningOfTheNextOpenServicePointHours": "Move to the beginning of the next open service point hours",
     "settings.servicePoints.expirationPeriod": "Hold shelf expiration period",
-    "settings.servicePoints.selectInterval": "Select interval"
+    "settings.servicePoints.selectInterval": "간격 선택"
 }

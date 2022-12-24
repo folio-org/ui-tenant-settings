@@ -49,7 +49,7 @@
     "settings.location.locations.validation.name.unique": "Standortname muss eindeutig sein",
     "settings.location.locations.validation.code.unique": "Standortcode muss eindeutig sein",
     "settings.hiddenDownloadLink": "Download-Link ausblenden",
-    "settings.servicePoints.label": "Servicestelle",
+    "settings.servicePoints.label": "Servicestellen",
     "settings.servicePoints.name": "Name",
     "settings.servicePoints.closeServicePointDialog": "Schließen",
     "settings.servicePoints.createServicePoint": "Erstellen",
