@@ -7,6 +7,7 @@
 * [UITEN-226](https://issues.folio.org/browse/UITEN-228) View-only access to Settings > Tenant > Location setup > Locations
 * [UITEN-20](https://issues.folio.org/browse/UITEN-20) Add Closed Library Date Management to Service Point for Hold Shelf Expiration
 * [UITEN-237](https://issues.folio.org/browse/UITEN-237) Update "Closed library date management for hold shelf expiration date calculation" menu
+* [UITEN-223](https://issues.folio.org/browse/UITEN-223) Provide local translations to ControlledVocab
 
 ## [7.3.0](https://github.com/folio-org/ui-tenant-settings/tree/v7.3.0)(2022-10-20)
 [Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v7.2.0...v7.3.0)
