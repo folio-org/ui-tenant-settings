@@ -12,6 +12,14 @@ import { Select } from '@folio/stripes/components';
 import composeValidators from '../util/composeValidators';
 import locationCodeValidator from './locationCodeValidator';
 
+const translations = {
+  cannotDeleteTermHeader: 'ui-tenant-settings.settings.location.libraries.cannotDeleteTermHeader',
+  cannotDeleteTermMessage: 'ui-tenant-settings.settings.location.libraries.cannotDeleteTermMessage',
+  deleteEntry: 'ui-tenant-settings.settings.location.libraries.deleteEntry',
+  termDeleted: 'ui-tenant-settings.settings.location.libraries.termDeleted',
+  termWillBeDeleted: 'ui-tenant-settings.settings.location.libraries.termWillBeDeleted',
+};
+
 class LocationLibraries extends React.Component {
   static manifest = Object.freeze({
     institutions: {
@@ -181,7 +189,7 @@ class LocationLibraries extends React.Component {
         rowFilter={filterBlock}
         rowFilterFunction={(row) => row.campusId === campusId}
         label={this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.location.libraries' })}
-        labelSingular={this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.location.libraries.library' })}
+        translations={translations}
         objectLabel={<FormattedMessage id="ui-tenant-settings.settings.location.locations" />}
         visibleFields={['name', 'code']}
         columnMapping={{

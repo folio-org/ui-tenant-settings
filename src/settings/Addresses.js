@@ -14,6 +14,14 @@ import css from './Addresses.css';
 const moduleName = 'TENANT';
 const configName = 'tenant.addresses';
 
+const translations = {
+  cannotDeleteTermHeader: 'ui-tenant-settings.settings.addresses.cannotDeleteTermHeader',
+  cannotDeleteTermMessage: 'ui-tenant-settings.settings.addresses.cannotDeleteTermMessage',
+  deleteEntry: 'ui-tenant-settings.settings.addresses.deleteEntry',
+  termDeleted: 'ui-tenant-settings.settings.addresses.termDeleted',
+  termWillBeDeleted: 'ui-tenant-settings.settings.addresses.termWillBeDeleted',
+};
+
 const fieldComponents = {
   address: ({ fieldProps }) => {
     return (
@@ -138,7 +146,7 @@ class Addresses extends Component {
         records="configs"
         parseRow={parseRow}
         label={this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.addresses.label' })}
-        labelSingular={this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.addresses.address' })}
+        translations={translations}
         objectLabel={objectLabel}
         visibleFields={visibleFields}
         columnMapping={columnMapping}

@@ -10,6 +10,14 @@ import { ControlledVocab } from '@folio/stripes/smart-components';
 import composeValidators from '../util/composeValidators';
 import locationCodeValidator from './locationCodeValidator';
 
+const translations = {
+  cannotDeleteTermHeader: 'ui-tenant-settings.settings.location.institutions.cannotDeleteTermHeader',
+  cannotDeleteTermMessage: 'ui-tenant-settings.settings.location.institutions.cannotDeleteTermMessage',
+  deleteEntry: 'ui-tenant-settings.settings.location.institutions.deleteEntry',
+  termDeleted: 'ui-tenant-settings.settings.location.institutions.termDeleted',
+  termWillBeDeleted: 'ui-tenant-settings.settings.location.institutions.termWillBeDeleted',
+};
+
 class LocationInstitutions extends React.Component {
   static manifest = Object.freeze({
     locationsPerInstitution: {
@@ -80,7 +88,7 @@ class LocationInstitutions extends React.Component {
         baseUrl="location-units/institutions"
         records="locinsts"
         label={this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.location.institutions' })}
-        labelSingular={this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.location.institutions.institution' })}
+        translations={translations}
         objectLabel={<FormattedMessage id="ui-tenant-settings.settings.location.locations" />}
         visibleFields={['name', 'code']}
         columnMapping={{
