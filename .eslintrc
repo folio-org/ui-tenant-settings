@@ -1,5 +1,5 @@
 {
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "extends": "@folio/eslint-config-stripes",
   "rules": {
     "import/prefer-default-export": 0,
@@ -10,7 +10,7 @@
     "jest-dom/prefer-checked": "error",
     "jest-dom/prefer-enabled-disabled": "error",
     "jest-dom/prefer-required": "error",
-    "jest-dom/prefer-to-have-attribute": "error",
+    "jest-dom/prefer-to-have-attribute": "error"
   },
   "env": {
     "jest": true
