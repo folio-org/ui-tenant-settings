@@ -184,7 +184,7 @@
     "@babel/plugin-transform-runtime": "^7.10.5",
     "@babel/preset-react": "^7.10.4",
     "@babel/preset-typescript": "^7.13.0",
-    "@folio/eslint-config-stripes": "^6.3.10000070",
+    "@folio/eslint-config-stripes": "^6.3.1",
     "@folio/stripes": "^7.0.0",
     "@folio/stripes-cli": "^2.0.0",
     "@folio/stripes-components": "^10.0.0",
