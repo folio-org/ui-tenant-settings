@@ -1,4 +1,3 @@
-
 {
   "name": "@folio/tenant-settings",
   "version": "7.3.0",
@@ -178,13 +177,14 @@
     "formatjs-compile": "formatjs compile-folder --ast --format simple ./translations/ui-tenant-settings ./translations/ui-tenant-settings/compiled"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0",
+    "@babel/core": "^7.20.12",
+    "@babel/eslint-parser": "^7.19.1",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/plugin-proposal-decorators": "^7.0.0",
     "@babel/plugin-transform-runtime": "^7.10.5",
     "@babel/preset-react": "^7.10.4",
     "@babel/preset-typescript": "^7.13.0",
-    "@folio/eslint-config-stripes": "^6.2.1",
+    "@folio/eslint-config-stripes": "^6.3.1",
     "@folio/stripes": "^7.0.0",
     "@folio/stripes-cli": "^2.0.0",
     "@folio/stripes-components": "^10.0.0",
@@ -200,7 +200,9 @@
     "babel-plugin-module-resolver": "^4.0.0",
     "chai": "^4.2.0",
     "core-js": "^3.6.1",
-    "eslint": "^7.32.0",
+    "eslint": "7.32.0",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-import-resolver-webpack": "^0.13.2",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jest": "^24.0.0",
     "eslint-plugin-jest-dom": "^3.2.3",

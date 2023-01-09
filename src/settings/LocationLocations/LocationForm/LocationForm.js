@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { cloneDeep, sortBy } from 'lodash';
 import { Field } from 'react-final-form';
@@ -214,9 +214,9 @@ class LocationForm extends React.Component {
                 <Col xs={12}>
                   <Field
                     label={
-                      <Fragment>
+                      <>
                         <FormattedMessage id="ui-tenant-settings.settings.location.institutions.institution" />
-                      </Fragment>
+                      </>
                     }
                     name="institutionId"
                     id="input-location-institution"
@@ -240,9 +240,9 @@ class LocationForm extends React.Component {
                     formatter={(i) => `${i.name}${i.code ? ` (${i.code})` : ''}`}
                     initialOption={{ label: formatMessage({ id: 'ui-tenant-settings.settings.location.campuses.selectCampus' }) }}
                     label={
-                      <Fragment>
+                      <>
                         <FormattedMessage id="ui-tenant-settings.settings.location.campuses.campus" />
-                      </Fragment>
+                      </>
                     }
                     name="campusId"
                     id="input-location-campus"
@@ -262,9 +262,9 @@ class LocationForm extends React.Component {
                     formatter={(i) => `${i.name}${i.code ? ` (${i.code})` : ''}`}
                     initialOption={{ label: formatMessage({ id: 'ui-tenant-settings.settings.location.libraries.selectLibrary' }) }}
                     label={
-                      <Fragment>
+                      <>
                         <FormattedMessage id="ui-tenant-settings.settings.location.libraries.library" />
-                      </Fragment>
+                      </>
                     }
                     name="libraryId"
                     id="input-location-library"
@@ -281,9 +281,9 @@ class LocationForm extends React.Component {
                 >
                   <Field
                     label={
-                      <Fragment>
+                      <>
                         <FormattedMessage id="ui-tenant-settings.settings.location.locations.name" />
-                      </Fragment>
+                      </>
                     }
                     name="name"
                     id="input-location-name"
@@ -303,9 +303,9 @@ class LocationForm extends React.Component {
                 <Col xs={8}>
                   <Field
                     label={
-                      <Fragment>
+                      <>
                         <FormattedMessage id="ui-tenant-settings.settings.location.code" />
-                      </Fragment>
+                      </>
                     }
                     name="code"
                     id="input-location-code"
@@ -322,9 +322,9 @@ class LocationForm extends React.Component {
                 <Col xs={8}>
                   <Field
                     label={
-                      <Fragment>
+                      <>
                         <FormattedMessage id="ui-tenant-settings.settings.location.locations.discoveryDisplayName" />
-                      </Fragment>
+                      </>
                     }
                     name="discoveryDisplayName"
                     id="input-location-discovery-display-name"

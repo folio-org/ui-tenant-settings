@@ -125,7 +125,7 @@ class ServicePointsFields extends React.Component {
     );
 
     return (
-      <React.Fragment>
+      <>
         <FieldArray
           addLabel={
             Object.keys(this.list).length > 1 ?
@@ -138,7 +138,7 @@ class ServicePointsFields extends React.Component {
           name="servicePointIds"
           renderField={this.renderFields}
         />
-      </React.Fragment>
+      </>
     );
   }
 }
