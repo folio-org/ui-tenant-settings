@@ -33,7 +33,7 @@ const ServicePointFormContainer = ({
 
   useEffect(() => {
     setInitialValues(getServicePoint());
-  }, [servicePoint.id, parentResources.staffSlips.hasLoaded, getServicePoint]);
+  }, [servicePoint.id, parentResources.staffSlips.hasLoaded]);
 
   const transformStaffSlipsData = useCallback((staffSlips) => {
     const currentSlips = parentResources?.staffSlips?.records || [];

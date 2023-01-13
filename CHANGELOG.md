@@ -9,6 +9,7 @@
 * [UITEN-237](https://issues.folio.org/browse/UITEN-237) Update "Closed library date management for hold shelf expiration date calculation" menu
 * [UITEN-223](https://issues.folio.org/browse/UITEN-223) Provide local translations to ControlledVocab
 * [UITEN-214](https://issues.folio.org/browse/UITEN-214) Replace babel-eslint with @babel/eslint-parser
+* [UITEN-238](https://issues.folio.org/browse/UITEN-238 )Unable to save service point on FOLIO snapshot or snapshot-2
 
 ## [7.3.0](https://github.com/folio-org/ui-tenant-settings/tree/v7.3.0)(2022-10-20)
 [Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v7.2.0...v7.3.0)
