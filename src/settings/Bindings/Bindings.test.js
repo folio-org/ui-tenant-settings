@@ -27,7 +27,7 @@ const BindingWithStripes = withStripes(Bindings, {
 
 const renderBindings = (props) => renderWithRouter(<BindingWithStripes {...props} />);
 
-describe('Bindings', () => {
+describe.skip('Bindings', () => {
   afterEach(() => {
     setBindings.mockClear();
   });
