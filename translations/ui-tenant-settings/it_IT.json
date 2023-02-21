@@ -171,9 +171,9 @@
     "settings.location.libraries.deleteEntry": "Delete library",
     "settings.location.libraries.termDeleted": "The library <b>{term}</b> was successfully <b>deleted</b>",
     "settings.location.libraries.termWillBeDeleted": "The library <b>{term}</b> will be <b>deleted.</b>",
-    "settings.addresses.cannotDeleteTermHeader": "Cannot delete address",
+    "settings.addresses.cannotDeleteTermHeader": "Impossibile eliminare l'indirizzo",
     "settings.addresses.cannotDeleteTermMessage": "This address cannot be deleted, as it is in use by one or more records.",
-    "settings.addresses.deleteEntry": "Delete address",
+    "settings.addresses.deleteEntry": "Elimina indirizzo",
     "settings.addresses.termDeleted": "The address <b>{term}</b> was successfully <b>deleted</b>",
     "settings.addresses.termWillBeDeleted": "The address <b>{term}</b> will be <b>deleted.</b>"
 }
