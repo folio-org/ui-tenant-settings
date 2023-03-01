@@ -100,7 +100,7 @@
     "settings.intervalPeriod.days": "Days",
     "settings.intervalPeriod.weeks": "Weeks",
     "settings.intervalPeriod.months": "Months",
-    "settings.validate.greaterThanZero": "The value must be integer and greater than 0",
+    "settings.validate.greaterThanZero": "値は 0 より大きい整数でなければなりません",
     "settings.addresses.label": "住所",
     "settings.addresses.address": "住所",
     "settings.addresses.name": "名称",
