@@ -154,7 +154,7 @@
     "settings.servicePoints.holdShelfClosedLibraryDateManagement.keepTheOriginalDateTime": "Keep the original date/time",
     "settings.servicePoints.holdShelfClosedLibraryDateManagement.moveToTheEndOfTheCurrentServicePointHours": "Move to the end of the current service point hours",
     "settings.servicePoints.holdShelfClosedLibraryDateManagement.MoveToTheBeginningOfTheNextOpenServicePointHours": "Move to the beginning of the next open service point hours",
-    "settings.servicePoints.expirationPeriod": "Hold shelf expiration period",
+    "settings.servicePoints.expirationPeriod": "Abholregal-Ablaufdatum",
     "settings.servicePoints.selectInterval": "Select interval",
     "settings.location.institutions.cannotDeleteTermHeader": "Cannot delete institution",
     "settings.location.institutions.cannotDeleteTermMessage": "This institution cannot be deleted, as it is in use by one or more records.",
