@@ -43,7 +43,7 @@
     "settings.location.locations.locationDetails": "Location details",
     "settings.location.locations.createLocation": "Create location",
     "settings.location.locations.deleteLocation": "位置情報を削除しますか？",
-    "settings.location.locations.deleteLocationMessage": "<strong>{名前}は</strong> <strong>削除</strong>されます",
+    "settings.location.locations.deleteLocationMessage": "<strong>{name}は</strong> <strong>削除</strong>されます",
     "settings.location.locations.untitledLocation": "Untitled location",
     "settings.location.locations.addDetails": "新規",
     "settings.location.locations.validation.name.unique": "Location name must be unique",
