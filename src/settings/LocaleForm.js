@@ -7,12 +7,12 @@ import {
   Button,
   Col,
   CurrencySelect,
+  Icon,
   Pane,
   PaneFooter,
   Row,
   Select,
 } from '@folio/stripes/components';
-import { TextLink } from '@folio/stripes-components';
 import stripesFinalForm from '@folio/stripes/final-form';
 import {
   IfPermission,
@@ -154,14 +154,20 @@ class LocaleForm extends React.Component {
           <IfPermission perm="ui-developer.settings.locale">
             <Row>
               <Col xs={12}>
+                <p className={styles.doNot}>
+                  <Icon icon="exclamation-circle" size="large">
+                    <FormattedMessage id="ui-tenant-settings.settings.locale.doNot" />
+                  </Icon>
+                </p>
                 <p>
                   <FormattedMessage id="ui-tenant-settings.settings.locale.localeWarning" values={{ label: <FormattedMessage id="ui-tenant-settings.settings.locale.changeSessionLocale" /> }} />
                 </p>
                 <div>
-                  <TextLink to="/settings/developer/locale">
+                  <Button to="/settings/developer/locale">
                     <FormattedMessage id="ui-tenant-settings.settings.locale.changeSessionLocale" />
-                  </TextLink>
+                  </Button>
                 </div>
+                <br />
               </Col>
             </Row>
           </IfPermission>
