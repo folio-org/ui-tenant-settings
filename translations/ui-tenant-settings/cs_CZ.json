@@ -77,7 +77,7 @@
     "settings.location.locations.detailsName": "Název",
     "settings.location.locations.detailsValue": "Hodnota",
     "settings.servicePoints.stripes-core.button.cancel": "Zrušit",
-    "settings.servicePoints.assignedLocations": "Přidělené lokace",
+    "settings.servicePoints.assignedLocations": "Přiřazená lokace",
     "settings.servicePoints.location": "Lokace",
     "settings.servicePoints.selectLocation": "Vyberte název nebo kód lokace",
     "settings.servicePoints.addLocation": "Přidat lokaci",
