@@ -139,7 +139,7 @@
     "settings.location.remotes.remote": "Almacenamiento remoto",
     "settings.location.remotes.no": "No (valor predeterminado)",
     "settings.location.remotes.loading": "Cargando...",
-    "settings.location.remotes.readonly": "sólo puede cambiarse cuando no hay existencias permanentes o artículos asociados a esta ubicación",
+    "settings.location.remotes.readonly": "sólo puede cambiarse cuando no hay Holdings permanentes o artículos asociados a esta ubicación",
     "settings.location.remotes.failed": "Falló al cargar",
     "permission.settings.bursar-exports": "Configuración (Tenant): Administrar Bursar",
     "settings.location.locations.remoteStorage": "Almacenamiento remoto",
