@@ -82,6 +82,8 @@ class LocationCampuses extends React.Component {
    * will be stale if they change between unmounting/remounting.
    */
   componentDidMount() {
+    const institutionId = sessionStorage.getItem('institutionIdCampuses');
+    this.setState({ institutionId });
     ['institutions', 'locationsPerCampus'].forEach(i => {
       this.props.mutator[i].reset();
       this.props.mutator[i].GET();
@@ -97,6 +99,8 @@ class LocationCampuses extends React.Component {
 
   onChangeInstitution = (e) => {
     this.setState({ institutionId: e.target.value });
+
+    sessionStorage.setItem('institutionIdCampuses', e.target.value);
   }
 
   render() {
@@ -120,6 +124,7 @@ class LocationCampuses extends React.Component {
         id="institutionSelect"
         name="institutionSelect"
         onChange={this.onChangeInstitution}
+        value={this.state.institutionId}
       >
         <FormattedMessage id="ui-tenant-settings.settings.location.institutions.selectInstitution">
           {selectText => (
