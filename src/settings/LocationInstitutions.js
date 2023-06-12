@@ -9,6 +9,7 @@ import { ControlledVocab } from '@folio/stripes/smart-components';
 
 import composeValidators from '../util/composeValidators';
 import locationCodeValidator from './locationCodeValidator';
+import css from './LocationInstitutions.css';
 
 const translations = {
   cannotDeleteTermHeader: 'ui-tenant-settings.settings.location.institutions.cannotDeleteTermHeader',
@@ -30,6 +31,12 @@ class LocationInstitutions extends React.Component {
       },
       accumulate: true,
     },
+    campuses: {
+      type: 'okapi',
+      records: 'loccamps',
+      path: 'location-units/campuses?query=cql.allRecords=1 sortby name&limit=2000',
+      accumulate: true,
+    },
   });
 
   static propTypes = {
@@ -40,9 +47,13 @@ class LocationInstitutions extends React.Component {
     }).isRequired,
     resources: PropTypes.shape({
       locationsPerInstitution: PropTypes.object,
+      campuses: PropTypes.object,
     }).isRequired,
+    history: PropTypes.shape({
+      replace: PropTypes.func,
+    }),
     mutator: PropTypes.shape({
-      locationsPerInstitution: PropTypes.shape({
+      campuses: PropTypes.shape({
         GET: PropTypes.func.isRequired,
         reset: PropTypes.func.isRequired,
       }),
@@ -63,15 +74,34 @@ class LocationInstitutions extends React.Component {
    * will be stale if they change between unmounting/remounting.
    */
   componentDidMount() {
-    this.props.mutator.locationsPerInstitution.reset();
-    this.props.mutator.locationsPerInstitution.GET();
+    this.props.mutator.campuses.reset();
+    this.props.mutator.campuses.GET();
   }
 
   numberOfObjectsFormatter = (item) => {
-    const records = (this.props.resources.locationsPerInstitution || {}).records || [];
-    return records.reduce((count, loc) => {
+    const records = (this.props.resources.campuses || {}).records || [];
+    const numberOfObjects = records.reduce((count, loc) => {
       return loc.institutionId === item.id ? count + 1 : count;
     }, 0);
+
+    const onNumberOfObjectsClick = () => {
+      this.props.history.replace({
+        pathname: 'location-campuses'
+      });
+
+      sessionStorage.setItem('institutionIdCampuses', item.id);
+    };
+
+    return (
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+      <div onClick={onNumberOfObjectsClick} className={css.numberOfObjectsWrapper}>
+        <FormattedMessage
+          id="ui-tenant-settings.settings.location.institutions.number"
+          values={{
+            number: numberOfObjects
+          }}
+        />
+      </div>);
   }
 
   render() {
@@ -89,7 +119,7 @@ class LocationInstitutions extends React.Component {
         records="locinsts"
         label={this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.location.institutions' })}
         translations={translations}
-        objectLabel={<FormattedMessage id="ui-tenant-settings.settings.location.locations" />}
+        objectLabel={<FormattedMessage id="ui-tenant-settings.settings.location.campuses" />}
         visibleFields={['name', 'code']}
         columnMapping={{
           name: <FormattedMessage id="ui-tenant-settings.settings.location.institutions.institution" />,

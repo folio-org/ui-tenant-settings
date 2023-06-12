@@ -193,5 +193,6 @@
   "permission.settings.sso": "Settings (tenant): Can maintain SSO settings",
   "permission.settings.location": "Settings (tenant): Can create, edit and remove locations",
   "permission.settings.servicepoints": "Settings (tenant):  Can create, edit and remove service points",
-  "permission.settings.bursar-exports": "Settings (tenant): Bursar admin"
+  "permission.settings.bursar-exports": "Settings (tenant): Bursar admin",
+  "settings.location.institutions.number": "{number}"
 }
