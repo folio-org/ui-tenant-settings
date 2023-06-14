@@ -65,7 +65,7 @@ const renderLocationInstitutions = () => (
 describe('LocationInstitutions', () => {
   it('should render Institutions form', () => {
     renderLocationInstitutions();
-    const numbersOfObjectsCells = screen.getAllByText('ui-tenant-settings.settings.location.institutions.number');
+    const numbersOfObjectsCells = screen.getAllByText('ui-tenant-settings.settings.location.institutions');
 
     expect(mutatorMock.campuses.GET).toBeCalled();
     expect(mutatorMock.campuses.reset).toBeCalled();
