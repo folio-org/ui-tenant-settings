@@ -46,7 +46,7 @@ const resourcesMock = {
 };
 
 const mutatorMock = {
-  locationsPerInstitution: {
+  campuses: {
     GET: jest.fn(),
     reset: jest.fn(),
   }
@@ -65,9 +65,12 @@ const renderLocationInstitutions = () => (
 describe('LocationInstitutions', () => {
   it('should render Institutions form', () => {
     renderLocationInstitutions();
+    const numbersOfObjectsCells = screen.getAllByText('ui-tenant-settings.settings.location.institutions.number');
 
-    expect(mutatorMock.locationsPerInstitution.GET).toBeCalled();
-    expect(mutatorMock.locationsPerInstitution.reset).toBeCalled();
-    expect(screen.getByText(/settings.location.institutions/)).toBeVisible();
+    expect(mutatorMock.campuses.GET).toBeCalled();
+    expect(mutatorMock.campuses.reset).toBeCalled();
+    numbersOfObjectsCells.forEach((el) => {
+      expect(el).toBeVisible();
+    });
   });
 });
