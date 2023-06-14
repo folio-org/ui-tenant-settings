@@ -3,6 +3,7 @@
 ## IN PROGRESS
 
 * [UITEN-232](https://issues.folio.org/browse/UITEN-232) Remember value in Institutions dropdown on Campuses settings page (Settings > Tenant > Campuses) when navigating away from page and returning
+* [UITEN-247](https://issues.folio.org/browse/UITEN-247) Improve "Number of locations" on Institutions page
 
 ## [7.4.0](https://github.com/folio-org/ui-tenant-settings/tree/v7.4.0)(2023-02-20)
 [Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v7.3.0...v7.4.0)
