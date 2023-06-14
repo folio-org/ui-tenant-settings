@@ -21,16 +21,6 @@ const translations = {
 
 class LocationInstitutions extends React.Component {
   static manifest = Object.freeze({
-    locationsPerInstitution: {
-      type: 'okapi',
-      records: 'locations',
-      path: 'locations',
-      params: {
-        query: 'cql.allRecords=1 sortby name',
-        limit: '500',
-      },
-      accumulate: true,
-    },
     campuses: {
       type: 'okapi',
       records: 'loccamps',
@@ -46,7 +36,6 @@ class LocationInstitutions extends React.Component {
       hasPerm: PropTypes.bool.isRequired,
     }).isRequired,
     resources: PropTypes.shape({
-      locationsPerInstitution: PropTypes.object,
       campuses: PropTypes.object,
     }).isRequired,
     history: PropTypes.shape({
@@ -95,12 +84,7 @@ class LocationInstitutions extends React.Component {
     return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
       <div onClick={onNumberOfObjectsClick} className={css.numberOfObjectsWrapper}>
-        <FormattedMessage
-          id="ui-tenant-settings.settings.location.institutions.number"
-          values={{
-            number: numberOfObjects
-          }}
-        />
+        {numberOfObjects}
       </div>);
   }
 
