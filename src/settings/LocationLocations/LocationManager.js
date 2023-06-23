@@ -38,6 +38,10 @@ import LocationDetail from './LocationDetail';
 import EditForm from './LocationForm';
 import { RemoteStorageApiProvider } from './RemoteStorage';
 
+const LOCATION_LIBRARY_ID_KEY = 'locationLibraryId';
+const LOCATION_CAMPUS_ID_KEY = 'locationCampusId';
+const LOCATION_INSTITUTION_ID_KEY = 'locationInstitutionId';
+
 class LocationManager extends React.Component {
   static manifest = Object.freeze({
     entries: {
@@ -170,9 +174,9 @@ class LocationManager extends React.Component {
     super(props);
 
     this.state = {
-      institutionId: '',
-      campusId: '',
-      libraryId: '',
+      institutionId: sessionStorage.getItem(LOCATION_INSTITUTION_ID_KEY) || '',
+      campusId: sessionStorage.getItem(LOCATION_CAMPUS_ID_KEY) || '',
+      libraryId: sessionStorage.getItem(LOCATION_LIBRARY_ID_KEY) || '',
       servicePointsById: {},
       servicePointsByName: {},
       selectedId: this.initialSelectedLocationId,
@@ -291,22 +295,34 @@ class LocationManager extends React.Component {
   }
 
   onChangeInstitution = (e) => {
+    const institutionId = e.target.value;
+
+    sessionStorage.setItem(LOCATION_INSTITUTION_ID_KEY, institutionId);
+
     this.setState({
-      institutionId: e.target.value,
+      institutionId,
       campusId: '',
       libraryId: '',
     });
   };
 
   onChangeCampus = (e) => {
+    const campusId = e.target.value;
+
+    sessionStorage.setItem(LOCATION_CAMPUS_ID_KEY, campusId);
+
     this.setState({
-      campusId: e.target.value,
+      campusId,
       libraryId: '',
     });
   };
 
   onChangeLibrary = (e) => {
-    this.setState({ libraryId: e.target.value });
+    const libraryId = e.target.value;
+
+    sessionStorage.setItem(LOCATION_LIBRARY_ID_KEY, libraryId);
+
+    this.setState({ libraryId });
   };
 
   renderFilter() {
