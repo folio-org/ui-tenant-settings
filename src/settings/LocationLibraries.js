@@ -92,6 +92,9 @@ class LocationLibraries extends React.Component {
    * will be stale if they change between unmounting/remounting.
    */
   componentDidMount() {
+    const institutionId = sessionStorage.getItem('institutionIdLibraries');
+    const campusId = sessionStorage.getItem('campusIdLibraries');
+    this.setState({ institutionId, campusId });
     ['institutions', 'campuses', 'locationsPerLibrary'].forEach(i => {
       this.props.mutator[i].reset();
       this.props.mutator[i].GET();
@@ -106,11 +109,17 @@ class LocationLibraries extends React.Component {
   }
 
   onChangeInstitution = (e) => {
-    this.setState({ institutionId: e.target.value, campusId: null });
+    const value = e.target.value;
+    this.setState({ institutionId: value, campusId: null });
+
+    sessionStorage.setItem('institutionIdLibraries', value);
   }
 
   onChangeCampus = (e) => {
-    this.setState({ campusId: e.target.value });
+    const value = e.target.value;
+    this.setState({ campusId: value });
+
+    sessionStorage.setItem('campusIdLibraries', value);
   }
 
   render() {
@@ -152,6 +161,7 @@ class LocationLibraries extends React.Component {
           id="institutionSelect"
           name="institutionSelect"
           onChange={this.onChangeInstitution}
+          value={this.state.institutionId}
         >
           <FormattedMessage id="ui-tenant-settings.settings.location.institutions.selectInstitution">
             {selectText => (
@@ -166,6 +176,7 @@ class LocationLibraries extends React.Component {
             id="campusSelect"
             name="campusSelect"
             onChange={this.onChangeCampus}
+            value={this.state.campusId}
           >
             <FormattedMessage id="ui-tenant-settings.settings.location.campuses.selectCampus">
               {selectText => (
