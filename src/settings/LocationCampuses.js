@@ -9,6 +9,7 @@ import { Select } from '@folio/stripes/components';
 
 import locationCodeValidator from './locationCodeValidator';
 import composeValidators from '../util/composeValidators';
+import css from './LocationInstitutions.css';
 
 const translations = {
   cannotDeleteTermHeader: 'ui-tenant-settings.settings.location.campuses.cannotDeleteTermHeader',
@@ -35,7 +36,17 @@ class LocationCampuses extends React.Component {
         limit: '500',
       },
       accumulate: true,
-    }
+    },
+    libraries: {
+      type: 'okapi',
+      path: 'location-units/libraries',
+      params: {
+        query: 'cql.allRecords=1 sortby name',
+        limit: '1000',
+      },
+      records: 'loclibs',
+      accumulate: true,
+    },
   };
 
   static propTypes = {
@@ -50,8 +61,14 @@ class LocationCampuses extends React.Component {
       locationsPerCampus: PropTypes.shape({
         records: PropTypes.arrayOf(PropTypes.object),
       }),
+      libraries: PropTypes.shape({
+        records: PropTypes.arrayOf(PropTypes.object),
+      })
     }),
     intl: PropTypes.object,
+    history: PropTypes.shape({
+      replace: PropTypes.func,
+    }),
     mutator: PropTypes.shape({
       institutions: PropTypes.shape({
         GET: PropTypes.func.isRequired,
@@ -84,17 +101,32 @@ class LocationCampuses extends React.Component {
   componentDidMount() {
     const institutionId = sessionStorage.getItem('institutionIdCampuses');
     this.setState({ institutionId });
-    ['institutions', 'locationsPerCampus'].forEach(i => {
+    ['institutions', 'libraries'].forEach(i => {
       this.props.mutator[i].reset();
       this.props.mutator[i].GET();
     });
   }
 
   numberOfObjectsFormatter = (item) => {
-    const records = (this.props.resources.locationsPerCampus || {}).records || [];
-    return records.reduce((count, loc) => {
+    const records = (this.props.resources.libraries || {}).records || [];
+    const numberOfObjects = records.reduce((count, loc) => {
       return loc.campusId === item.id ? count + 1 : count;
     }, 0);
+
+    const onNumberOfObjectsClick = () => {
+      this.props.history.replace({
+        pathname: 'location-libraries'
+      });
+
+      sessionStorage.setItem('institutionIdLibraries', this.state.institutionId);
+      sessionStorage.setItem('campusIdLibraries', item.id);
+    };
+
+    return (
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+      <div onClick={onNumberOfObjectsClick} className={css.numberOfObjectsWrapper}>
+        {numberOfObjects}
+      </div>);
   }
 
   onChangeInstitution = (e) => {
