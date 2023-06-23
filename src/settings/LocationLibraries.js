@@ -109,15 +109,17 @@ class LocationLibraries extends React.Component {
   }
 
   onChangeInstitution = (e) => {
-    this.setState({ institutionId: e.target.value, campusId: null });
+    const value = e.target.value;
+    this.setState({ institutionId: value, campusId: null });
 
-    sessionStorage.setItem('institutionIdLibraries', e.target.value);
+    sessionStorage.setItem('institutionIdLibraries', value);
   }
 
   onChangeCampus = (e) => {
-    this.setState({ campusId: e.target.value });
+    const value = e.target.value;
+    this.setState({ campusId: value });
 
-    sessionStorage.setItem('campusIdLibraries', e.target.value);
+    sessionStorage.setItem('campusIdLibraries', value);
   }
 
   render() {
