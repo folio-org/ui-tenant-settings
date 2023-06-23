@@ -27,16 +27,6 @@ class LocationCampuses extends React.Component {
       path: 'location-units/institutions?query=cql.allRecords=1 sortby name&limit=100',
       accumulate: true,
     },
-    locationsPerCampus: {
-      type: 'okapi',
-      records: 'locations',
-      path: 'locations',
-      params: {
-        query: 'cql.allRecords=1 sortby name',
-        limit: '500',
-      },
-      accumulate: true,
-    },
     libraries: {
       type: 'okapi',
       path: 'location-units/libraries',
@@ -124,15 +114,20 @@ class LocationCampuses extends React.Component {
 
     return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-      <div onClick={onNumberOfObjectsClick} className={css.numberOfObjectsWrapper}>
+      <div
+        onClick={onNumberOfObjectsClick}
+        className={css.numberOfObjectsWrapper}
+        data-testid={item.id}
+      >
         {numberOfObjects}
       </div>);
   }
 
   onChangeInstitution = (e) => {
-    this.setState({ institutionId: e.target.value });
+    const value = e.target.value;
+    this.setState({ institutionId: value });
 
-    sessionStorage.setItem('institutionIdCampuses', e.target.value);
+    sessionStorage.setItem('institutionIdCampuses', value);
   }
 
   render() {
@@ -179,7 +174,7 @@ class LocationCampuses extends React.Component {
         rowFilterFunction={(row) => row.institutionId === this.state.institutionId}
         label={this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.location.campuses' })}
         translations={translations}
-        objectLabel={<FormattedMessage id="ui-tenant-settings.settings.location.locations" />}
+        objectLabel={<FormattedMessage id="ui-tenant-settings.settings.location.libraries" />}
         visibleFields={['name', 'code']}
         columnMapping={{
           name: <FormattedMessage id="ui-tenant-settings.settings.location.campuses.campus" />,
