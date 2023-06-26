@@ -35,7 +35,7 @@ jest.mock('@folio/stripes-smart-components/lib/ControlledVocab', () => jest.fn((
         listSuppressor();
       }}
     >
-          New
+      New
     </button>
   </>
 )));
@@ -50,35 +50,36 @@ const resourcesMock = {
         name: 'Københavns Universitet' }
     ]
   },
-  locationsPerCampus: {
-    records: [
-      {
-        campusId: '62cf76b7-cca5-4d33-9217-edf42ce1a848',
-        code: 'KU/CC/DI/A',
-        id: '53cf956f-c1df-410b-8bea-27f712cca7c0',
-        institutionId: '40ee00ca-a518-4b49-be01-0638d0a4ac57',
-        libraryId: '5d78803e-ca04-4b4a-aeae-2c63b924518b',
-        name: 'Annex',
-        primaryServicePoint: '3a40852d-49fd-4df2-a1f9-6e2641a6e91f',
-        servicePointIds: ['3a40852d-49fd-4df2-a1f9-6e2641a6e91f'],
-      },
-      {
-        campusId: '62cf76b7-cca5-4d33-9217-edf42ce1a848',
-        code: 'KU',
-        discoveryDisplayName: 'Dematic',
-        id: '0975ac04-21c7-4fd3-ae9b-33ff22453024',
-        institutionId: '40ee00ca-a518-4b49-be01-0638d0a4ac57',
-        libraryId: '5d78803e-ca04-4b4a-aeae-2c63b924518b',
-        name: 'Dematic',
-        primaryServicePoint: '3a40852d-49fd-4df2-a1f9-6e2641a6e91f',
-        servicePointIds: ['3a40852d-49fd-4df2-a1f9-6e2641a6e91f'],
-      }
-    ]
+  libraries: {
+    records:
+          [
+            {
+              'id': '5d78803e-ca04-4b4a-aeae-2c63b924518b',
+              'name': 'Datalogisk Institut',
+              'code': 'DI',
+              'campusId': '62cf76b7-cca5-4d33-9217-edf42ce1a848',
+              'metadata': {
+                'createdDate': '2023-06-23T02:10:45.756+00:00',
+                'updatedDate': '2023-06-23T02:10:45.756+00:00'
+              }
+            },
+            {
+              'id': 'c2549bb4-19c7-4fcc-8b52-39e612fb7dbe',
+              'name': 'Online',
+              'code': 'E',
+              'campusId': '470ff1dd-937a-4195-bf9e-06bcfcd135df',
+              'metadata': {
+                'createdDate': '2023-06-23T02:10:45.756+00:00',
+                'updatedDate': '2023-06-23T02:10:45.756+00:00'
+              }
+            }
+
+          ]
   }
 };
 
 const mutatorMock = {
-  locationsPerCampus: {
+  libraries: {
     GET: jest.fn(() => Promise.resolve()),
     reset: jest.fn(() => Promise.resolve()),
   },
@@ -119,5 +120,17 @@ describe('LocationCampuses', () => {
     expect(screen.getByRole('option', { name: 'Københavns Universitet (KU)' }).selected).toBe(true);
 
     userEvent.click(screen.getByTestId('button-new'));
+  });
+
+  it('should render LocationCampuses changed option value and call click', async () => {
+    renderLocationCampuses(resourcesMock);
+
+    const checkboxInstitution = screen.getByRole('combobox');
+
+    await userEvent.selectOptions(checkboxInstitution, 'Københavns Universitet (KU)');
+
+    expect(screen.getByRole('option', { name: 'Københavns Universitet (KU)' }).selected).toBe(true);
+
+    userEvent.click(screen.getByTestId('1'));
   });
 });

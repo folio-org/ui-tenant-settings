@@ -7,8 +7,10 @@ import {
 import { ControlledVocab } from '@folio/stripes/smart-components';
 import { Select } from '@folio/stripes/components';
 
+import { TextLink } from '@folio/stripes-components';
 import locationCodeValidator from './locationCodeValidator';
 import composeValidators from '../util/composeValidators';
+import css from './LocationInstitutions.css';
 
 const translations = {
   cannotDeleteTermHeader: 'ui-tenant-settings.settings.location.campuses.cannotDeleteTermHeader',
@@ -26,16 +28,16 @@ class LocationCampuses extends React.Component {
       path: 'location-units/institutions?query=cql.allRecords=1 sortby name&limit=100',
       accumulate: true,
     },
-    locationsPerCampus: {
+    libraries: {
       type: 'okapi',
-      records: 'locations',
-      path: 'locations',
+      path: 'location-units/libraries',
       params: {
         query: 'cql.allRecords=1 sortby name',
-        limit: '500',
+        limit: '1000',
       },
+      records: 'loclibs',
       accumulate: true,
-    }
+    },
   };
 
   static propTypes = {
@@ -50,6 +52,9 @@ class LocationCampuses extends React.Component {
       locationsPerCampus: PropTypes.shape({
         records: PropTypes.arrayOf(PropTypes.object),
       }),
+      libraries: PropTypes.shape({
+        records: PropTypes.arrayOf(PropTypes.object),
+      })
     }),
     intl: PropTypes.object,
     mutator: PropTypes.shape({
@@ -84,23 +89,39 @@ class LocationCampuses extends React.Component {
   componentDidMount() {
     const institutionId = sessionStorage.getItem('institutionIdCampuses');
     this.setState({ institutionId });
-    ['institutions', 'locationsPerCampus'].forEach(i => {
+    ['institutions', 'libraries'].forEach(i => {
       this.props.mutator[i].reset();
       this.props.mutator[i].GET();
     });
   }
 
   numberOfObjectsFormatter = (item) => {
-    const records = (this.props.resources.locationsPerCampus || {}).records || [];
-    return records.reduce((count, loc) => {
+    const records = (this.props.resources.libraries || {}).records || [];
+    const numberOfObjects = records.reduce((count, loc) => {
       return loc.campusId === item.id ? count + 1 : count;
     }, 0);
+
+    const onNumberOfObjectsClick = () => {
+      sessionStorage.setItem('institutionIdLibraries', this.state.institutionId);
+      sessionStorage.setItem('campusIdLibraries', item.id);
+    };
+
+    return (
+      <TextLink
+        onClick={onNumberOfObjectsClick}
+        className={css.numberOfObjectsWrapper}
+        data-testid={item.id}
+        to="./location-libraries"
+      >
+        {numberOfObjects}
+      </TextLink>);
   }
 
   onChangeInstitution = (e) => {
-    this.setState({ institutionId: e.target.value });
+    const value = e.target.value;
+    this.setState({ institutionId: value });
 
-    sessionStorage.setItem('institutionIdCampuses', e.target.value);
+    sessionStorage.setItem('institutionIdCampuses', value);
   }
 
   render() {
@@ -147,7 +168,7 @@ class LocationCampuses extends React.Component {
         rowFilterFunction={(row) => row.institutionId === this.state.institutionId}
         label={this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.location.campuses' })}
         translations={translations}
-        objectLabel={<FormattedMessage id="ui-tenant-settings.settings.location.locations" />}
+        objectLabel={<FormattedMessage id="ui-tenant-settings.settings.location.libraries" />}
         visibleFields={['name', 'code']}
         columnMapping={{
           name: <FormattedMessage id="ui-tenant-settings.settings.location.campuses.campus" />,

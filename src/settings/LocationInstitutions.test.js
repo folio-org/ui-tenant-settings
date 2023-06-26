@@ -1,7 +1,8 @@
 import React from 'react';
-import { screen, render } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 
 import LocationInstitutions from './LocationInstitutions';
+import { renderWithRouter } from '../../test/jest/helpers';
 
 jest.mock('@folio/stripes-smart-components/lib/ControlledVocab', () => jest.fn(({
   formatter,
@@ -53,7 +54,7 @@ const mutatorMock = {
 };
 
 const renderLocationInstitutions = () => (
-  render(
+  renderWithRouter(
     <LocationInstitutions
       mutator={mutatorMock}
       stripes={stripesMock}
