@@ -78,8 +78,6 @@ const resourcesMock = {
   }
 };
 
-const replaceMock = jest.fn();
-
 const mutatorMock = {
   libraries: {
     GET: jest.fn(() => Promise.resolve()),
@@ -96,11 +94,6 @@ const renderLocationCampuses = (resources = {}) => renderWithRouter(
     mutator={mutatorMock}
     resources={resources}
     stripes={STRIPES}
-    history={
-    {
-      replace: replaceMock
-    }
-    }
   />
 );
 
@@ -139,6 +132,5 @@ describe('LocationCampuses', () => {
     expect(screen.getByRole('option', { name: 'Københavns Universitet (KU)' }).selected).toBe(true);
 
     userEvent.click(screen.getByTestId('1'));
-    expect(replaceMock).toHaveBeenCalled();
   });
 });
