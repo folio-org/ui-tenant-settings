@@ -11,6 +11,7 @@ import { TextLink } from '@folio/stripes-components';
 import locationCodeValidator from './locationCodeValidator';
 import composeValidators from '../util/composeValidators';
 import css from './LocationInstitutions.css';
+import { CAMPUS_ID_LIBRARIES, INSTITUTION_ID_CAMPUS, INSTITUTION_ID_LIBRARIES } from '../constants';
 
 const translations = {
   cannotDeleteTermHeader: 'ui-tenant-settings.settings.location.campuses.cannotDeleteTermHeader',
@@ -87,7 +88,7 @@ class LocationCampuses extends React.Component {
    * will be stale if they change between unmounting/remounting.
    */
   componentDidMount() {
-    const institutionId = sessionStorage.getItem('institutionIdCampuses');
+    const institutionId = sessionStorage.getItem(INSTITUTION_ID_CAMPUS);
     this.setState({ institutionId });
     ['institutions', 'libraries'].forEach(i => {
       this.props.mutator[i].reset();
@@ -102,8 +103,8 @@ class LocationCampuses extends React.Component {
     }, 0);
 
     const onNumberOfObjectsClick = () => {
-      sessionStorage.setItem('institutionIdLibraries', this.state.institutionId);
-      sessionStorage.setItem('campusIdLibraries', item.id);
+      sessionStorage.setItem(INSTITUTION_ID_LIBRARIES, this.state.institutionId);
+      sessionStorage.setItem(CAMPUS_ID_LIBRARIES, item.id);
     };
 
     return (
@@ -121,7 +122,7 @@ class LocationCampuses extends React.Component {
     const value = e.target.value;
     this.setState({ institutionId: value });
 
-    sessionStorage.setItem('institutionIdCampuses', value);
+    sessionStorage.setItem(INSTITUTION_ID_CAMPUS, value);
   }
 
   render() {

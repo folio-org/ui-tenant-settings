@@ -9,8 +9,17 @@ import { get } from 'lodash';
 import { ControlledVocab } from '@folio/stripes/smart-components';
 import { Select } from '@folio/stripes/components';
 
+import { TextLink } from '@folio/stripes-components';
 import composeValidators from '../util/composeValidators';
 import locationCodeValidator from './locationCodeValidator';
+import {
+  CAMPUS_ID_LIBRARIES,
+  INSTITUTION_ID_LIBRARIES,
+  LOCATION_CAMPUS_ID_KEY,
+  LOCATION_INSTITUTION_ID_KEY,
+  LOCATION_LIBRARY_ID_KEY
+} from '../constants';
+import css from './LocationInstitutions.css';
 
 const translations = {
   cannotDeleteTermHeader: 'ui-tenant-settings.settings.location.libraries.cannotDeleteTermHeader',
@@ -92,8 +101,8 @@ class LocationLibraries extends React.Component {
    * will be stale if they change between unmounting/remounting.
    */
   componentDidMount() {
-    const institutionId = sessionStorage.getItem('institutionIdLibraries');
-    const campusId = sessionStorage.getItem('campusIdLibraries');
+    const institutionId = sessionStorage.getItem(INSTITUTION_ID_LIBRARIES);
+    const campusId = sessionStorage.getItem(CAMPUS_ID_LIBRARIES);
     this.setState({ institutionId, campusId });
     ['institutions', 'campuses', 'locationsPerLibrary'].forEach(i => {
       this.props.mutator[i].reset();
@@ -103,23 +112,40 @@ class LocationLibraries extends React.Component {
 
   numberOfObjectsFormatter = (item) => {
     const records = (this.props.resources.locationsPerLibrary || {}).records || [];
-    return records.reduce((count, loc) => {
+    const numberOfObjects = records.reduce((count, loc) => {
       return loc.libraryId === item.id ? count + 1 : count;
     }, 0);
+
+    const onNumberOfObjectsClick = () => {
+      sessionStorage.setItem(LOCATION_LIBRARY_ID_KEY, item.id);
+      sessionStorage.setItem(LOCATION_INSTITUTION_ID_KEY, this.state.institutionId);
+      sessionStorage.setItem(LOCATION_CAMPUS_ID_KEY, this.state.campusId);
+    };
+
+    return (
+      <TextLink
+        onClick={onNumberOfObjectsClick}
+        className={css.numberOfObjectsWrapper}
+        data-testid={item.id}
+        to="./location-locations"
+      >
+        {numberOfObjects}
+      </TextLink>);
   }
 
   onChangeInstitution = (e) => {
     const value = e.target.value;
     this.setState({ institutionId: value, campusId: null });
 
-    sessionStorage.setItem('institutionIdLibraries', value);
+    sessionStorage.setItem(INSTITUTION_ID_LIBRARIES, value);
+    sessionStorage.setItem(CAMPUS_ID_LIBRARIES, '');
   }
 
   onChangeCampus = (e) => {
     const value = e.target.value;
     this.setState({ campusId: value });
 
-    sessionStorage.setItem('campusIdLibraries', value);
+    sessionStorage.setItem(CAMPUS_ID_LIBRARIES, value);
   }
 
   render() {
