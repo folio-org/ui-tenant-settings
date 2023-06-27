@@ -325,7 +325,6 @@ class LocationManager extends React.Component {
     const libraryId = e.target.value;
 
     sessionStorage.setItem(LOCATION_LIBRARY_ID_KEY, libraryId);
-    sessionStorage.setItem(LOCATION_LIBRARY_ID_KEY, '');
 
     this.setState({ libraryId });
   };
