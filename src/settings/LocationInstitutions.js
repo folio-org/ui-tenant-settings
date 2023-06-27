@@ -11,6 +11,7 @@ import { TextLink } from '@folio/stripes-components';
 import composeValidators from '../util/composeValidators';
 import locationCodeValidator from './locationCodeValidator';
 import css from './LocationInstitutions.css';
+import { INSTITUTION_ID_CAMPUS } from '../constants';
 
 const translations = {
   cannotDeleteTermHeader: 'ui-tenant-settings.settings.location.institutions.cannotDeleteTermHeader',
@@ -72,7 +73,7 @@ class LocationInstitutions extends React.Component {
     }, 0);
 
     const onNumberOfObjectsClick = () => {
-      sessionStorage.setItem('institutionIdCampuses', item.id);
+      sessionStorage.setItem(INSTITUTION_ID_CAMPUS, item.id);
     };
 
     return (

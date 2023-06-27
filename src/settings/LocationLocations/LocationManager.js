@@ -33,14 +33,15 @@ import {
   Callout,
 } from '@folio/stripes/components';
 
-import { SORT_TYPES } from '../../constants';
+import {
+  LOCATION_CAMPUS_ID_KEY,
+  LOCATION_INSTITUTION_ID_KEY,
+  LOCATION_LIBRARY_ID_KEY,
+  SORT_TYPES
+} from '../../constants';
 import LocationDetail from './LocationDetail';
 import EditForm from './LocationForm';
 import { RemoteStorageApiProvider } from './RemoteStorage';
-
-const LOCATION_LIBRARY_ID_KEY = 'locationLibraryId';
-const LOCATION_CAMPUS_ID_KEY = 'locationCampusId';
-const LOCATION_INSTITUTION_ID_KEY = 'locationInstitutionId';
 
 class LocationManager extends React.Component {
   static manifest = Object.freeze({
@@ -125,7 +126,8 @@ class LocationManager extends React.Component {
     match: PropTypes.shape({ path: PropTypes.string.isRequired }).isRequired,
     resources: PropTypes.shape({
       entries: PropTypes.shape({ records: PropTypes.arrayOf(PropTypes.object) }),
-      servicePoints: PropTypes.shape({ records: PropTypes.arrayOf(PropTypes.object) }),
+      servicePoints: PropTypes.shape({ records: PropTypes.arrayOf(PropTypes.object),
+        hasLoaded: PropTypes.bool }),
       institutions: PropTypes.shape({ records: PropTypes.arrayOf(PropTypes.object) }),
       campuses: PropTypes.shape({ records: PropTypes.arrayOf(PropTypes.object) }),
       libraries: PropTypes.shape({ records: PropTypes.arrayOf(PropTypes.object) }),

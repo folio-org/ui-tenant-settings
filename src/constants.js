@@ -44,4 +44,13 @@ export const SORT_TYPES = {
   DESCENDING: 'descending',
 };
 
+export const LOCATION_LIBRARY_ID_KEY = 'locationLibraryId';
+export const LOCATION_CAMPUS_ID_KEY = 'locationCampusId';
+export const LOCATION_INSTITUTION_ID_KEY = 'locationInstitutionId';
+
+export const INSTITUTION_ID_LIBRARIES = 'institutionIdLibraries';
+export const INSTITUTION_ID_CAMPUS = 'institutionIdCampuses';
+export const CAMPUS_ID_LIBRARIES = 'campusIdLibraries';
+
 export default '';
+

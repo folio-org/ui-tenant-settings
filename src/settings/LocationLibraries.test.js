@@ -1,8 +1,9 @@
 import React from 'react';
-import { screen, render } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import LocacationLibraries from './LocationLibraries';
+import { renderWithRouter } from '../../test/jest/helpers';
 
 jest.mock('@folio/stripes-smart-components/lib/ControlledVocab', () => jest.fn(({
   rowFilter,
@@ -101,7 +102,7 @@ const resourcesMock = {
   },
 };
 
-const renderLocationLibaries = (resources = {}) => render(
+const renderLocationLibaries = (resources = {}) => renderWithRouter(
   <LocacationLibraries
     mutator={mutatorMock}
     resources={resources}
@@ -132,5 +133,21 @@ describe('LocationLibraries', () => {
     expect(screen.getByRole('option', { name: 'Københavns Universitet (KU)' }).selected).toBe(true);
 
     userEvent.click(screen.getByTestId('button-new'));
+  });
+
+  it('should render LocationLibraries with filled form', async () => {
+    renderLocationLibaries(resourcesMock);
+
+    const checkboxInstitution = screen.getByRole('combobox', { name: 'ui-tenant-settings.settings.location.institutions.institution' });
+
+    await userEvent.selectOptions(checkboxInstitution, 'Københavns Universitet (KU)');
+
+    expect(screen.getByRole('option', { name: 'Københavns Universitet (KU)' }).selected).toBe(true);
+
+    const checkBoxCampuses = screen.getByRole('combobox', { name: 'ui-tenant-settings.settings.location.campuses.campus' });
+
+    await userEvent.selectOptions(checkBoxCampuses, 'City Campus (CC)');
+
+    userEvent.click(screen.getByTestId('1'));
   });
 });
