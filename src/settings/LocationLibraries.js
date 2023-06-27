@@ -118,6 +118,8 @@ class LocationLibraries extends React.Component {
 
     const onNumberOfObjectsClick = () => {
       sessionStorage.setItem(LOCATION_LIBRARY_ID_KEY, item.id);
+      sessionStorage.setItem(LOCATION_INSTITUTION_ID_KEY, this.state.institutionId);
+      sessionStorage.setItem(LOCATION_CAMPUS_ID_KEY, this.state.campusId);
     };
 
     return (
@@ -136,7 +138,6 @@ class LocationLibraries extends React.Component {
     this.setState({ institutionId: value, campusId: null });
 
     sessionStorage.setItem(INSTITUTION_ID_LIBRARIES, value);
-    sessionStorage.setItem(LOCATION_INSTITUTION_ID_KEY, value);
   }
 
   onChangeCampus = (e) => {
@@ -144,7 +145,6 @@ class LocationLibraries extends React.Component {
     this.setState({ campusId: value });
 
     sessionStorage.setItem(CAMPUS_ID_LIBRARIES, value);
-    sessionStorage.setItem(LOCATION_CAMPUS_ID_KEY, value);
   }
 
   render() {
