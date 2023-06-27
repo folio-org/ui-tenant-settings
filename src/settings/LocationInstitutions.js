@@ -7,6 +7,7 @@ import {
 
 import { ControlledVocab } from '@folio/stripes/smart-components';
 
+import { TextLink } from '@folio/stripes-components';
 import composeValidators from '../util/composeValidators';
 import locationCodeValidator from './locationCodeValidator';
 import css from './LocationInstitutions.css';
@@ -38,9 +39,6 @@ class LocationInstitutions extends React.Component {
     resources: PropTypes.shape({
       campuses: PropTypes.object,
     }).isRequired,
-    history: PropTypes.shape({
-      replace: PropTypes.func,
-    }),
     mutator: PropTypes.shape({
       campuses: PropTypes.shape({
         GET: PropTypes.func.isRequired,
@@ -74,18 +72,17 @@ class LocationInstitutions extends React.Component {
     }, 0);
 
     const onNumberOfObjectsClick = () => {
-      this.props.history.replace({
-        pathname: 'location-campuses'
-      });
-
       sessionStorage.setItem('institutionIdCampuses', item.id);
     };
 
     return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-      <div onClick={onNumberOfObjectsClick} className={css.numberOfObjectsWrapper}>
+      <TextLink
+        onClick={onNumberOfObjectsClick}
+        className={css.numberOfObjectsWrapper}
+        to="./location-campuses"
+      >
         {numberOfObjects}
-      </div>);
+      </TextLink>);
   }
 
   render() {
