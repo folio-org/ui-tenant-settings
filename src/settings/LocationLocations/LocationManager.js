@@ -300,6 +300,8 @@ class LocationManager extends React.Component {
     const institutionId = e.target.value;
 
     sessionStorage.setItem(LOCATION_INSTITUTION_ID_KEY, institutionId);
+    sessionStorage.setItem(LOCATION_CAMPUS_ID_KEY, '');
+    sessionStorage.setItem(LOCATION_LIBRARY_ID_KEY, '');
 
     this.setState({
       institutionId,
@@ -323,6 +325,7 @@ class LocationManager extends React.Component {
     const libraryId = e.target.value;
 
     sessionStorage.setItem(LOCATION_LIBRARY_ID_KEY, libraryId);
+    sessionStorage.setItem(LOCATION_LIBRARY_ID_KEY, '');
 
     this.setState({ libraryId });
   };

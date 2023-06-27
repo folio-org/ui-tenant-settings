@@ -138,6 +138,7 @@ class LocationLibraries extends React.Component {
     this.setState({ institutionId: value, campusId: null });
 
     sessionStorage.setItem(INSTITUTION_ID_LIBRARIES, value);
+    sessionStorage.setItem(CAMPUS_ID_LIBRARIES, '');
   }
 
   onChangeCampus = (e) => {
