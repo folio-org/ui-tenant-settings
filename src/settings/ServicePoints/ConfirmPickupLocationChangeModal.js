@@ -17,6 +17,7 @@ const ConfirmPickupLocationChangeModal = ({
       <Button
         data-testid="confirmButton"
         buttonStyle="primary"
+        autoFocus
         onClick={onConfirm}
       >
         <FormattedMessage id="ui-tenant-settings.settings.confirmPickupLocationChangeModal.button.confirm" />

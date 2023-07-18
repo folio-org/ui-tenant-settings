@@ -4,6 +4,8 @@ import {
   fireEvent,
 } from '@testing-library/react';
 
+import { runAxeTest } from '@folio/stripes-testing';
+
 import '../../../test/jest/__mocks__';
 
 import ConfirmPickupLocationChangeModal from './ConfirmPickupLocationChangeModal';
@@ -33,6 +35,12 @@ describe('ConfirmPickupLocationChangeModal', () => {
     render(
       <ConfirmPickupLocationChangeModal {...defaultProps} />
     );
+  });
+
+  it('should render with no axe errors', async () => {
+    await runAxeTest({
+      rootNode: document.body,
+    });
   });
 
   it('should render title', () => {
