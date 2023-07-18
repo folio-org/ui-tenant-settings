@@ -8,6 +8,7 @@
 * [UITEN-233](https://issues.folio.org/browse/UITEN-234) Remember value in Institutions, campuses and libraries dropdown (Settings > Tenant > Locations) when navigating away from page and returning
 * [UITEN-248](https://issues.folio.org/browse/UITEN-248) Improve "Number of locations" on Campuses page
 * [UITEN-249](https://issues.folio.org/browse/UITEN-249) Improve "Number of locations" on Libraries page
+* [UITEN-251](https://issues.folio.org/browse/UITEN-251) Service Point Page - Add Confirm Pickup location change popup message
 
 ## [7.4.0](https://github.com/folio-org/ui-tenant-settings/tree/v7.4.0)(2023-02-20)
 [Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v7.3.0...v7.4.0)
