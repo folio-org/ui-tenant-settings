@@ -1,7 +1,16 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import { orderBy } from 'lodash';
-import { FormattedMessage, useIntl } from 'react-intl';
+import React, {
+  useCallback,
+  useMemo,
+  useState,
+} from 'react';
 import PropTypes from 'prop-types';
+import {
+  FormattedMessage,
+  useIntl,
+} from 'react-intl';
+import { Field } from 'react-final-form';
+import { orderBy } from 'lodash';
+
 import {
   Accordion,
   Button,
@@ -19,9 +28,9 @@ import {
 } from '@folio/stripes/components';
 import { ViewMetaData } from '@folio/stripes/smart-components';
 import stripesFinalForm from '@folio/stripes/final-form';
-import { Field } from 'react-final-form';
-
 import { useStripes } from '@folio/stripes/core';
+
+import ConfirmPickupLocationChangeModal from './ConfirmPickupLocationChangeModal';
 import Period from '../../components/Period';
 import LocationList from './LocationList';
 import StaffSlipEditList from './StaffSlipEditList';
@@ -40,6 +49,13 @@ import {
 
 import styles from './ServicePoints.css';
 
+export const SELECTED_PICKUP_LOCATION_VALUE = 'true';
+export const UNSELECTED_PICKUP_LOCATION_VALUE = 'false';
+export const LAYER_EDIT = 'layer=edit';
+export const isConfirmPickupLocationChangeModalShouldBeVisible = (search, value) => (
+  search.includes(LAYER_EDIT) && value === UNSELECTED_PICKUP_LOCATION_VALUE
+);
+
 const ServicePointForm = ({
   initialValues,
   parentResources,
@@ -47,13 +63,17 @@ const ServicePointForm = ({
   pristine,
   submitting,
   form,
+  location: {
+    search,
+  },
   handleSubmit,
-  onCancel
+  onCancel,
 }) => {
   const [sections, setSections] = useState({
     generalSection: true,
     locationSection: true
   });
+  const [isConfirmPickupLocationChangeModal, setIsConfirmPickupLocationChangeModal] = useState(false);
   const stripes = useStripes();
   const intl = useIntl();
   const CViewMetaData = useMemo(() => stripes.connect(ViewMetaData), []);
@@ -82,6 +102,12 @@ const ServicePointForm = ({
       label: intl.formatMessage({ id: ip.label })
     }
   ));
+
+  const onConfirmConfirmPickupLocationChangeModal = () => {
+    form.change('pickupLocation', false);
+    setIsConfirmPickupLocationChangeModal(false);
+  };
+  const onCancelConfirmPickupLocationChangeModal = () => setIsConfirmPickupLocationChangeModal(false);
 
   const renderFirstMenu = () => (
     <PaneMenu>
@@ -172,6 +198,16 @@ const ServicePointForm = ({
         value: item.value
       }
     )));
+  };
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+
+    if (isConfirmPickupLocationChangeModalShouldBeVisible(search, value)) {
+      setIsConfirmPickupLocationChangeModal(true);
+    } else {
+      form.change('pickupLocation', value === SELECTED_PICKUP_LOCATION_VALUE);
+    }
   };
 
   return (
@@ -275,7 +311,7 @@ const ServicePointForm = ({
                   id="input-service-pickupLocation"
                   component={Select}
                   dataOptions={selectOptions}
-                  parse={v => (v === 'true')}
+                  onChange={handleChange}
                   disabled={disabled}
                 />
               </Col>
@@ -315,6 +351,11 @@ const ServicePointForm = ({
             expanded={sections.locationSection}
             onToggle={handleSectionToggle}
           />
+          <ConfirmPickupLocationChangeModal
+            open={isConfirmPickupLocationChangeModal}
+            onConfirm={onConfirmConfirmPickupLocationChangeModal}
+            onCancel={onCancelConfirmPickupLocationChangeModal}
+          />
         </Pane>
       </Paneset>
     </form>
@@ -328,6 +369,9 @@ ServicePointForm.propTypes = {
   parentMutator: PropTypes.object,
   onCancel: PropTypes.func,
   pristine: PropTypes.bool,
+  location: PropTypes.shape({
+    search: PropTypes.string.isRequired,
+  }).isRequired,
   submitting: PropTypes.bool,
   form: PropTypes.object.isRequired,
 };
