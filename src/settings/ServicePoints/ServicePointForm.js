@@ -201,10 +201,12 @@ const ServicePointForm = ({
   };
 
   const handleChange = (e) => {
-    if (isConfirmPickupLocationChangeModalShouldBeVisible(search, e.target.value)) {
+    const value = e.target.value;
+
+    if (isConfirmPickupLocationChangeModalShouldBeVisible(search, value)) {
       setIsConfirmPickupLocationChangeModal(true);
     } else {
-      form.change('pickupLocation', e.target.value === SELECTED_PICKUP_LOCATION_VALUE);
+      form.change('pickupLocation', value === SELECTED_PICKUP_LOCATION_VALUE);
     }
   };
 
