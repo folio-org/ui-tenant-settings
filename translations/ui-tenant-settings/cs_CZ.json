@@ -175,5 +175,9 @@
     "settings.addresses.cannotDeleteTermMessage": "Tuto adresu nelze smazat, protože ji používá jeden nebo více záznamů.",
     "settings.addresses.deleteEntry": "Smazat adresu",
     "settings.addresses.termDeleted": "Adresa <b>{term}</b> byla úspěšně <b>smazána</b>",
-    "settings.addresses.termWillBeDeleted": "Adresa <b>{term}</b> bude <b>smazána.</b>"
+    "settings.addresses.termWillBeDeleted": "Adresa <b>{term}</b> bude <b>smazána.</b>",
+    "settings.confirmPickupLocationChangeModal.title": "Confirm Pickup location change",
+    "settings.confirmPickupLocationChangeModal.message": "Changing this Pickup location from \"Yes\" to \"No\" will remove it from existing Request policies and affect all Circulation rules using the policies.",
+    "settings.confirmPickupLocationChangeModal.button.confirm": "Confirm",
+    "settings.confirmPickupLocationChangeModal.button.cancel": "Back"
 }
