@@ -175,5 +175,9 @@
     "settings.addresses.cannotDeleteTermMessage": "Diese Adresse kann nicht gelöscht werden, da sie von einem oder mehreren Datensätzen verwendet wird.",
     "settings.addresses.deleteEntry": "Adresse löschen",
     "settings.addresses.termDeleted": "Die Adresse <b> {term} </b> wurde erfolgreich <b> gelöscht </b>",
-    "settings.addresses.termWillBeDeleted": "Die Adresse <b> {term} </b> wird <b> gelöscht. </b>"
+    "settings.addresses.termWillBeDeleted": "Die Adresse <b> {term} </b> wird <b> gelöscht. </b>",
+    "settings.confirmPickupLocationChangeModal.title": "Confirm Pickup location change",
+    "settings.confirmPickupLocationChangeModal.message": "Changing this Pickup location from \"Yes\" to \"No\" will remove it from existing Request policies and affect all Circulation rules using the policies.",
+    "settings.confirmPickupLocationChangeModal.button.confirm": "Confirm",
+    "settings.confirmPickupLocationChangeModal.button.cancel": "Back"
 }

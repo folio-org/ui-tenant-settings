@@ -175,5 +175,9 @@
     "settings.addresses.cannotDeleteTermMessage": "This address cannot be deleted, as it is in use by one or more records.",
     "settings.addresses.deleteEntry": "Delete address",
     "settings.addresses.termDeleted": "The address <b>{term}</b> was successfully <b>deleted</b>",
-    "settings.addresses.termWillBeDeleted": "The address <b>{term}</b> will be <b>deleted.</b>"
+    "settings.addresses.termWillBeDeleted": "The address <b>{term}</b> will be <b>deleted.</b>",
+    "settings.confirmPickupLocationChangeModal.title": "Confirm Pickup location change",
+    "settings.confirmPickupLocationChangeModal.message": "Changing this Pickup location from \"Yes\" to \"No\" will remove it from existing Request policies and affect all Circulation rules using the policies.",
+    "settings.confirmPickupLocationChangeModal.button.confirm": "Confirm",
+    "settings.confirmPickupLocationChangeModal.button.cancel": "Back"
 }

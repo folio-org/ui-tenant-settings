@@ -175,5 +175,9 @@
     "settings.addresses.cannotDeleteTermMessage": "无法删除此地址，因为它已被一个或多个记录使用。",
     "settings.addresses.deleteEntry": "删除地址",
     "settings.addresses.termDeleted": "本地址<b> {term} </b>已成功<b>删除</b>",
-    "settings.addresses.termWillBeDeleted": "本地址<b> {term} </b>将被<b>删除。 </b>"
+    "settings.addresses.termWillBeDeleted": "本地址<b> {term} </b>将被<b>删除。 </b>",
+    "settings.confirmPickupLocationChangeModal.title": "Confirm Pickup location change",
+    "settings.confirmPickupLocationChangeModal.message": "Changing this Pickup location from \"Yes\" to \"No\" will remove it from existing Request policies and affect all Circulation rules using the policies.",
+    "settings.confirmPickupLocationChangeModal.button.confirm": "Confirm",
+    "settings.confirmPickupLocationChangeModal.button.cancel": "Back"
 }

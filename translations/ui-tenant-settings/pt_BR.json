@@ -122,7 +122,7 @@
     "settings.pluginNames.find-interface": "Encontrar interface",
     "settings.pluginNames.find-license": "Encontrar licença",
     "settings.pluginNames.find-agreement": "Encontre um contrato",
-    "settings.pluginNames.find-po-line": "Encontrar linha do pedido",
+    "settings.pluginNames.find-po-line": "Encontrar linha do pedido de compra",
     "settings.pluginNames.find-package-title": "Encontrar o título do pacote",
     "settings.pluginNames.find-finc-metadata-collection": "Encontre a coleção de metadados de finanças",
     "settings.pluginNames.find-erm-usage-data-provider": "Encontrar provedor de metadados de uso de ERM",
@@ -175,5 +175,9 @@
     "settings.addresses.cannotDeleteTermMessage": "Este endereço não pode ser excluído, pois está em uso por um ou mais registros.",
     "settings.addresses.deleteEntry": "Excluir endereço",
     "settings.addresses.termDeleted": "O endereço <b> {term} </b> foi <b> excluído </b> com sucesso",
-    "settings.addresses.termWillBeDeleted": "O endereço <b> {term} </b> será <b> excluído. </b>"
+    "settings.addresses.termWillBeDeleted": "O endereço <b> {term} </b> será <b> excluído. </b>",
+    "settings.confirmPickupLocationChangeModal.title": "Confirmar alteração do local de retirada",
+    "settings.confirmPickupLocationChangeModal.message": "Alterar esse local de retirada de \"Sim\" para \"Não\" o removerá das políticas de solicitação existentes e afetará todas as regras de circulação que usam as políticas.",
+    "settings.confirmPickupLocationChangeModal.button.confirm": "Confirmar",
+    "settings.confirmPickupLocationChangeModal.button.cancel": "Voltar"
 }
