@@ -176,8 +176,8 @@
     "settings.addresses.deleteEntry": "Borrar dirección",
     "settings.addresses.termDeleted": "La dirección <b>{term}</b> se ha <b>eliminado</b> correctamente",
     "settings.addresses.termWillBeDeleted": "La dirección <b>{term}</b> será <b>eliminada.</b>",
-    "settings.confirmPickupLocationChangeModal.title": "Confirm Pickup location change",
-    "settings.confirmPickupLocationChangeModal.message": "Changing this Pickup location from \"Yes\" to \"No\" will remove it from existing Request policies and affect all Circulation rules using the policies.",
-    "settings.confirmPickupLocationChangeModal.button.confirm": "Confirm",
-    "settings.confirmPickupLocationChangeModal.button.cancel": "Back"
+    "settings.confirmPickupLocationChangeModal.title": "Confirmar cambio de lugar de recogida",
+    "settings.confirmPickupLocationChangeModal.message": "Cambiar esta ubicación de Recogida de \"Sí\" a \"No\" la eliminará de las políticas de Solicitud existentes y afectará a todas las reglas de Circulación que utilicen las políticas.",
+    "settings.confirmPickupLocationChangeModal.button.confirm": "Confirme",
+    "settings.confirmPickupLocationChangeModal.button.cancel": "Volver"
 }
