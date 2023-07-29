@@ -176,8 +176,8 @@
     "settings.addresses.deleteEntry": "删除地址",
     "settings.addresses.termDeleted": "本地址<b> {term} </b>已成功<b>删除</b>",
     "settings.addresses.termWillBeDeleted": "本地址<b> {term} </b>将被<b>删除。 </b>",
-    "settings.confirmPickupLocationChangeModal.title": "Confirm Pickup location change",
-    "settings.confirmPickupLocationChangeModal.message": "Changing this Pickup location from \"Yes\" to \"No\" will remove it from existing Request policies and affect all Circulation rules using the policies.",
-    "settings.confirmPickupLocationChangeModal.button.confirm": "Confirm",
-    "settings.confirmPickupLocationChangeModal.button.cancel": "Back"
+    "settings.confirmPickupLocationChangeModal.title": "确认取件地点更改",
+    "settings.confirmPickupLocationChangeModal.message": "将此取件位置从“是”更改为“否”将从现有请求策略中移除它，并影响使用这些策略的所有流通规则。",
+    "settings.confirmPickupLocationChangeModal.button.confirm": "确认",
+    "settings.confirmPickupLocationChangeModal.button.cancel": "返回"
 }
