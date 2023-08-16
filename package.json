@@ -29,11 +29,6 @@
     },
     "permissionSets": [
       {
-        "permissionName": "module.tenant-settings.enabled",
-        "displayName": "UI: Tenant-settings module is enabled",
-        "visible": false
-      },
-      {
         "permissionName": "settings.tenant-settings.enabled",
         "displayName": "Settings: enabled",
         "subPermissions": [
@@ -42,7 +37,7 @@
         "visible": false
       },
       {
-        "permissionName": "settings.tenant-settings.enabled",
+        "permissionName": "settings.tenant-settings.view",
         "displayName": "Settings (tenant): View",
         "subPermissions": [
           "settings.tenant-settings.enabled",
@@ -54,13 +49,6 @@
           "ui-tenant-settings.settings.location.view"
         ],
         "visible": true
-      },
-      {
-        "permissionName": "ui-tenant-settings.settings.enabled",
-        "subPermissions": [
-          "settings.tenant-settings.enabled"
-        ],
-        "visible": false
       },
       {
         "permissionName": "ui-tenant-settings.settings.addresses.view",
