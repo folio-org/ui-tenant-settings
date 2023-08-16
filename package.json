@@ -35,11 +35,25 @@
       },
       {
         "permissionName": "settings.tenant-settings.enabled",
-        "displayName": "Settings (tenant): View",
+        "displayName": "Settings: enabled",
         "subPermissions": [
           "settings.enabled"
         ],
         "visible": false
+      },
+      {
+        "permissionName": "settings.tenant-settings.enabled",
+        "displayName": "Settings (tenant): View",
+        "subPermissions": [
+          "settings.tenant-settings.enabled",
+          "ui-tenant-settings.settings.addresses.view",
+          "ui-tenant-settings.settings.locale.view",
+          "ui-tenant-settings.settings.plugins.view",
+          "ui-tenant-settings.settings.sso.view",
+          "ui-tenant-settings.settings.servicepoints.view",
+          "ui-tenant-settings.settings.location.view"
+        ],
+        "visible": true
       },
       {
         "permissionName": "ui-tenant-settings.settings.enabled",
@@ -49,52 +63,84 @@
         "visible": false
       },
       {
-        "permissionName": "ui-tenant-settings.settings.addresses",
-        "displayName": "Settings (tenant): Can manage tenant addresses",
+        "permissionName": "ui-tenant-settings.settings.addresses.view",
+        "displayName": "Settings (tenant): Can view tenant addresses",
         "subPermissions": [
           "configuration.entries.collection.get",
           "configuration.entries.item.get",
-          "configuration.entries.item.post",
-          "configuration.entries.item.put",
-          "configuration.entries.item.delete",
           "users.collection.get",
           "settings.tenant-settings.enabled"
         ],
+        "visible": false
+      },
+      {
+        "permissionName": "ui-tenant-settings.settings.addresses",
+        "displayName": "Settings (tenant): Can manage tenant addresses",
+        "subPermissions": [
+          "ui-tenant-settings.settings.addresses.view",
+          "configuration.entries.item.post",
+          "configuration.entries.item.put",
+          "configuration.entries.item.delete"
+        ],
         "visible": true
+      },
+      {
+        "permissionName": "ui-tenant-settings.settings.locale.view",
+        "displayName": "Settings (tenant): Can view language, localization, and currency",
+        "subPermissions": [
+          "configuration.entries.collection.get",
+          "configuration.entries.item.get",
+          "settings.tenant-settings.enabled"
+        ],
+        "visible": false
       },
       {
         "permissionName": "ui-tenant-settings.settings.locale",
         "displayName": "Settings (tenant): Can edit language, localization, and currency",
         "subPermissions": [
-          "configuration.entries.collection.get",
-          "configuration.entries.item.get",
+          "ui-tenant-settings.settings.locale.view",
           "configuration.entries.item.post",
-          "settings.tenant-settings.enabled",
           "configuration.entries.item.put"
         ],
         "visible": true
       },
       {
-        "permissionName": "ui-tenant-settings.settings.plugins",
-        "displayName": "Settings (tenant): Can maintain preferred plugins",
+        "permissionName": "ui-tenant-settings.settings.plugins.view",
+        "displayName": "Settings (tenant): Can view preferred plugins",
         "subPermissions": [
           "configuration.entries.collection.get",
           "configuration.entries.item.get",
-          "configuration.entries.item.post",
-          "configuration.entries.item.put",
-          "configuration.entries.item.delete",
           "settings.tenant-settings.enabled"
         ],
+        "visible": false
+      },
+      {
+        "permissionName": "ui-tenant-settings.settings.plugins",
+        "displayName": "Settings (tenant): Can maintain preferred plugins",
+        "subPermissions": [
+          "ui-tenant-settings.settings.plugins.view",
+          "configuration.entries.item.post",
+          "configuration.entries.item.put",
+          "configuration.entries.item.delete"
+        ],
         "visible": true
+      },
+      {
+        "permissionName": "ui-tenant-settings.settings.sso.view",
+        "displayName": "Settings (tenant): Can view SSO settings",
+        "subPermissions": [
+          "login-saml.configuration.get",
+          "settings.tenant-settings.enabled"
+        ],
+        "visible": false
       },
       {
         "permissionName": "ui-tenant-settings.settings.sso",
         "displayName": "Settings (tenant): Can maintain SSO settings",
         "subPermissions": [
-          "login-saml.configuration.get",
+          "ui-tenant-settings.settings.sso.view",
           "login-saml.configuration.put",
-          "login-saml.regenerate",
-          "settings.tenant-settings.enabled"
+          "login-saml.regenerate"
         ],
         "visible": true
       },
@@ -147,7 +193,7 @@
         "visible": true
       },
       {
-        "permissionName": "ui-tenant-settings.settings.servicepoints",
+        "permissionName": "ui-tenant-settings.settings.servicepoints.view",
         "displayName": "Settings (tenant):  Can create, edit and remove service points",
         "subPermissions": [
           "settings.tenant-settings.enabled",
@@ -159,12 +205,20 @@
           "inventory-storage.location-units.libraries.collection.get",
           "inventory-storage.service-points.collection.get",
           "inventory-storage.service-points.item.get",
-          "inventory-storage.service-points.item.post",
-          "inventory-storage.service-points.item.put",
-          "inventory-storage.service-points.item.delete",
           "circulation-storage.staff-slips.collection.get"
         ],
-        "visible": true
+        "visible": false
+      },
+      {
+        "permissionName": "ui-tenant-settings.settings.servicepoints",
+        "displayName": "Settings (tenant):  Can view service points",
+        "subPermissions": [
+          "ui-tenant-settings.settings.servicepoints.view",
+          "inventory-storage.service-points.item.post",
+          "inventory-storage.service-points.item.put",
+          "inventory-storage.service-points.item.delete"
+        ],
+        "visible": false
       }
     ]
   },
