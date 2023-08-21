@@ -35,7 +35,7 @@
   "settings.servicePoints.holdShelfClosedLibraryDateManagement.MoveToTheBeginningOfTheNextOpenServicePointHours": "Move to the beginning of the next open service point hours",
   "settings.servicePoints.expirationPeriod": "Hold shelf expiration period",
   "settings.servicePoints.selectInterval": "Select interval",
-  
+
   "settings.saml.idpUrl": "Identity Provider URL",
   "settings.saml.downloadMetadata": "Download metadata",
   "settings.saml.idpUrlChanged": "The IdP URL has changed since the last download. Please download the service point metadata and re-upload to the IdP.",
@@ -185,7 +185,7 @@
   "settings.save.error.network": "Record not saved",
 
   "permission.module.enabled": "UI: Tenant-settings module is enabled",
-  "permission.settings.enabled": "Settings (tenant): View",
+  "permission.settings.tenant-settings.view": "Settings (tenant): View",
   "permission.settings.addresses": "Settings (tenant): Can manage tenant addresses",
   "permission.settings.key-bindings": "Settings (tenant): Can maintain key bindings",
   "permission.settings.locale": "Settings (tenant): Can edit language, localization, and currency",
