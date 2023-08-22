@@ -11,6 +11,7 @@
 * [UITEN-251](https://issues.folio.org/browse/UITEN-251) Service Point Page - Add Confirm Pickup location change popup message
 * [UITEN-254](https://issues.folio.org/browse/UITEN-254) *BREAKING* Update `react` to `v18`.
 * [UITEN-255](https://issues.folio.org/browse/UITEN-255) Update Node.js to v18 in GitHub Actions.
+* [UITEN-241](https://issues.folio.org/browse/UITEN-241) Need new permission(s) to view all Tenant settings in UI - Location setup
 
 ## [7.4.0](https://github.com/folio-org/ui-tenant-settings/tree/v7.4.0)(2023-02-20)
 [Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v7.3.0...v7.4.0)
