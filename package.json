@@ -37,7 +37,7 @@
         "visible": false
       },
       {
-        "permissionName": "settings.tenant-settings.view",
+        "permissionName": "ui-tenant-settings.settings.view",
         "displayName": "Settings (tenant): View",
         "subPermissions": [
           "settings.tenant-settings.enabled",
