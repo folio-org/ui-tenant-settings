@@ -128,7 +128,6 @@
     "settings.pluginNames.find-erm-usage-data-provider": "Najít poskytovatele metadat o využití ERM",
     "settings.pluginNames.find-finc-metadata-source": "Najít zdroj finančních metadat",
     "permission.module.enabled": "Uživatelské rozhraní: Modul nastavení nájemce je zprovozněn",
-    "permission.settings.enabled": "Nastavení (nájemce): Zobrazení",
     "permission.settings.addresses": "Nastavení (nájemce): Může spravovat adresy nájemců",
     "permission.settings.key-bindings": "Nastavení (nájemce): Může udržovat vazby klíčů",
     "permission.settings.locale": "Nastavení (nájemce): Lze upravit jazyk, lokalizaci a měnu",
@@ -179,5 +178,12 @@
     "settings.confirmPickupLocationChangeModal.title": "Potvrdit změnu místa vyzvednutí",
     "settings.confirmPickupLocationChangeModal.message": "Změna tohoto místa vyzvednutí z „Ano“ na „Ne“ jej odstraní ze stávajících zásad požadavků a ovlivní všechna pravidla cirkulace využívající tyto zásady.",
     "settings.confirmPickupLocationChangeModal.button.confirm": "Potvrdit",
-    "settings.confirmPickupLocationChangeModal.button.cancel": "Zpět"
+    "settings.confirmPickupLocationChangeModal.button.cancel": "Zpět",
+    "permission.settings.tenant-settings.view": "Nastavení (nájemce): Zobrazení",
+    "permission.settings.addresses.view": "Nastavení (nájemce): Může zobrazit adresy nájemců",
+    "permission.settings.locale.view": "Nastavení (nájemce): Může zobrazit jazyk, lokalizaci a měnu",
+    "permission.settings.plugins.view": "Nastavení (nájemce): Může zobrazit preferované pluginy",
+    "permission.settings.sso.view": "Nastavení (nájemce): Může zobrazit nastavení SSO",
+    "permission.settings.location.view": "Nastavení (nájemce): Zobrazení umístění",
+    "permission.settings.servicepoints.view": "Nastavení (tenant): Může zobrazit pulty služeb"
 }

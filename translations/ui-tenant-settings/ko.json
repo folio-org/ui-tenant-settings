@@ -128,7 +128,6 @@
     "settings.pluginNames.find-erm-usage-data-provider": "ERM 이용통계 메타데이터 공급사 찾기",
     "settings.pluginNames.find-finc-metadata-source": "회계 메타데이터 소스 찾기",
     "permission.module.enabled": "UI: 테넌트(Tenant) 설정 모듈이 활성화됨",
-    "permission.settings.enabled": "설정(테넌트/Tenant): 보기",
     "permission.settings.addresses": "설정(테넌트/Tenant): 테넌트 주소를 관리할 수 있습니다.",
     "permission.settings.key-bindings": "설정(테넌트/Tenant): 키 바인딩을 유지할 수 있습니다.",
     "permission.settings.locale": "설정(테넌트/Tenant): 언어, 현지화 및 통화를 편집할 수 있습니다.",
@@ -179,5 +178,12 @@
     "settings.confirmPickupLocationChangeModal.title": "Confirm Pickup location change",
     "settings.confirmPickupLocationChangeModal.message": "Changing this Pickup location from \"Yes\" to \"No\" will remove it from existing Request policies and affect all Circulation rules using the policies.",
     "settings.confirmPickupLocationChangeModal.button.confirm": "Confirm",
-    "settings.confirmPickupLocationChangeModal.button.cancel": "Back"
+    "settings.confirmPickupLocationChangeModal.button.cancel": "Back",
+    "permission.settings.tenant-settings.view": "Settings (tenant): View",
+    "permission.settings.addresses.view": "Settings (tenant): Can view tenant addresses",
+    "permission.settings.locale.view": "Settings (tenant): Can view language, localization, and currency",
+    "permission.settings.plugins.view": "Settings (tenant): Can view preferred plugins",
+    "permission.settings.sso.view": "Settings (tenant): Can view SSO settings",
+    "permission.settings.location.view": "Settings (Tenant): View locations",
+    "permission.settings.servicepoints.view": "Settings (tenant): Can view service points"
 }

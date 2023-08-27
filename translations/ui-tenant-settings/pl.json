@@ -128,7 +128,6 @@
     "settings.pluginNames.find-erm-usage-data-provider": "Znajdź dostawcę metadanych użycia ERM",
     "settings.pluginNames.find-finc-metadata-source": "Znajdź źródło metadanych dotyczących finansów",
     "permission.module.enabled": "UI: Moduł ustawień dzierżawcy jest włączony",
-    "permission.settings.enabled": "Ustawienia (dzierżawa): wyświetl listę stron ustawień",
     "permission.settings.addresses": "Ustawienia (dzierżawca): może zarządzać adresami dzierżawcy",
     "permission.settings.key-bindings": "Ustawienia (dzierżawca): może obsługiwać przypisania klawiszy",
     "permission.settings.locale": "Ustawienia (dzierżawa): może edytować język, lokalizację i walutę",
@@ -179,5 +178,12 @@
     "settings.confirmPickupLocationChangeModal.title": "Confirm Pickup location change",
     "settings.confirmPickupLocationChangeModal.message": "Changing this Pickup location from \"Yes\" to \"No\" will remove it from existing Request policies and affect all Circulation rules using the policies.",
     "settings.confirmPickupLocationChangeModal.button.confirm": "Confirm",
-    "settings.confirmPickupLocationChangeModal.button.cancel": "Back"
+    "settings.confirmPickupLocationChangeModal.button.cancel": "Back",
+    "permission.settings.tenant-settings.view": "Settings (tenant): View",
+    "permission.settings.addresses.view": "Settings (tenant): Can view tenant addresses",
+    "permission.settings.locale.view": "Settings (tenant): Can view language, localization, and currency",
+    "permission.settings.plugins.view": "Settings (tenant): Can view preferred plugins",
+    "permission.settings.sso.view": "Settings (tenant): Can view SSO settings",
+    "permission.settings.location.view": "Settings (Tenant): View locations",
+    "permission.settings.servicepoints.view": "Settings (tenant): Can view service points"
 }
