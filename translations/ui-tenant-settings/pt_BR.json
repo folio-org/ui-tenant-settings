@@ -128,7 +128,6 @@
     "settings.pluginNames.find-erm-usage-data-provider": "Encontrar provedor de metadados de uso de ERM",
     "settings.pluginNames.find-finc-metadata-source": "Encontrar fonte de metadados de finanças",
     "permission.module.enabled": "UI: O módulo de configurações do inquilino está ativado",
-    "permission.settings.enabled": "Configurações (tenant): exibir",
     "permission.settings.addresses": "Configurações (tenant): Pode gerenciar endereços de inquilino",
     "permission.settings.key-bindings": "Configurações (tenant): pode manter as combinações de teclas",
     "permission.settings.locale": "Configurações (tenant): Pode editar o idioma, a localização e a moeda",
@@ -179,5 +178,12 @@
     "settings.confirmPickupLocationChangeModal.title": "Confirmar alteração do local de retirada",
     "settings.confirmPickupLocationChangeModal.message": "Alterar esse local de retirada de \"Sim\" para \"Não\" o removerá das políticas de solicitação existentes e afetará todas as regras de circulação que usam as políticas.",
     "settings.confirmPickupLocationChangeModal.button.confirm": "Confirmar",
-    "settings.confirmPickupLocationChangeModal.button.cancel": "Voltar"
+    "settings.confirmPickupLocationChangeModal.button.cancel": "Voltar",
+    "permission.settings.tenant-settings.view": "Settings (tenant): View",
+    "permission.settings.addresses.view": "Configurações (locatário): Pode visualizar endereços de locatários",
+    "permission.settings.locale.view": "Settings (tenant): Can view language, localization, and currency",
+    "permission.settings.plugins.view": "Settings (tenant): Can view preferred plugins",
+    "permission.settings.sso.view": "Settings (tenant): Can view SSO settings",
+    "permission.settings.location.view": "Configurações (Locatário): Exibir locais",
+    "permission.settings.servicepoints.view": "Configurações (locatário): Pode visualizar pontos de serviço"
 }
