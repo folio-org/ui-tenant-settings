@@ -116,7 +116,7 @@ class Plugins extends React.Component {
           pluginTypes={this.pluginTypes}
           initialValues={{ plugins }}
           onSubmit={this.save}
-          readOnly={!isReadOnly}
+          readOnly={isReadOnly}
         />
         <Callout ref={(ref) => { this.callout = ref; }} />
       </Layout>
