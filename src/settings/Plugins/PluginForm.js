@@ -24,6 +24,7 @@ class PluginForm extends React.Component {
     submitting: PropTypes.bool,
     label: PropTypes.node,
     pluginTypes: PropTypes.object,
+    readOnly: PropTypes.bool,
   };
 
   constructor(props) {
@@ -33,7 +34,9 @@ class PluginForm extends React.Component {
 
   renderPlugin(field, plugin) {
     const intl = useIntl();
-    const pluginType = this.props.pluginTypes[plugin.configName];
+    const { pluginTypes, readOnly } = this.props;
+
+    const pluginType = pluginTypes[plugin.configName];
 
     const options = [{ value: '@@', label: '(none)' }].concat(pluginType.map(p => ({
       value: p.module,
@@ -44,6 +47,7 @@ class PluginForm extends React.Component {
       <Row key={plugin.configName}>
         <Col xs={12}>
           <Field
+            readOnly={readOnly}
             id={plugin.configName}
             data-testid={plugin.configName}
             label={label}
@@ -73,9 +77,10 @@ class PluginForm extends React.Component {
       pristine,
       submitting,
       label,
+      readOnly,
     } = this.props;
 
-    const footer = (
+    const footer = !readOnly && (
       <PaneFooter
         renderEnd={(
           <Button

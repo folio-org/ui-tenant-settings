@@ -110,6 +110,7 @@ class SSOSettings extends React.Component {
 
   render() {
     const samlFormData = this.getConfig();
+    const isReadOnly = !this.props.stripes.hasPerm('ui-tenant-settings.settings.sso');
 
     return (
       <Layout className="full">
@@ -121,6 +122,7 @@ class SSOSettings extends React.Component {
           parentMutator={this.props.mutator}
           validateIdpUrl={this.validateIdpUrl}
           stripes={this.props.stripes}
+          readOnly={isReadOnly}
         />
         <a // eslint-disable-line jsx-a11y/anchor-is-valid
           hidden

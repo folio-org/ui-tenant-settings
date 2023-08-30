@@ -67,6 +67,7 @@ class ServicePointManager extends React.Component {
     }).isRequired,
     stripes: PropTypes.shape({
       connect: PropTypes.func.isRequired,
+      hasPerm: PropTypes.func.isRequired,
     }),
   };
 
@@ -89,6 +90,14 @@ class ServicePointManager extends React.Component {
       return item;
     });
 
+    const permissions = {
+      put: 'ui-tenant-settings.settings.servicepoints',
+      post: 'ui-tenant-settings.settings.servicepoints',
+      delete: 'ui-tenant-settings.settings.servicepoints',
+    };
+
+    const isEditable = Object.values(permissions).some(p => this.props.stripes.hasPerm(p));
+
     return (
       <EntryManager
         {...this.props}
@@ -102,11 +111,8 @@ class ServicePointManager extends React.Component {
         entryFormComponent={ServicePointFormContainer}
         onSelect={this.onSelect}
         nameKey="name"
-        permissions={{
-          put: 'settings.tenant-settings.enabled',
-          post: 'settings.tenant-settings.enabled',
-          delete: 'settings.tenant-settings.enabled',
-        }}
+        editable={isEditable}
+        permissions={permissions}
       />
     );
   }

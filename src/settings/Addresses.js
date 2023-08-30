@@ -107,6 +107,7 @@ class Addresses extends Component {
     intl: PropTypes.object,
     stripes: PropTypes.shape({
       connect: PropTypes.func.isRequired,
+      hasPerm: PropTypes.func.isRequired,
     }).isRequired,
     resources: PropTypes.shape({
       addresses: PropTypes.object,
@@ -158,6 +159,7 @@ class Addresses extends Component {
         preCreateHook={this.onCreate}
         preUpdateHook={this.onUpdate}
         formatter={formatter}
+        editable={this.props.stripes.hasPerm('ui-tenant-settings.settings.addresses')}
       />
     );
   }

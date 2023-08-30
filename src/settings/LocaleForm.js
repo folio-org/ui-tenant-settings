@@ -111,6 +111,7 @@ class LocaleForm extends React.Component {
   constructor(props) {
     super(props);
 
+    this.isReadOnly = !props.stripes.hasPerm('ui-tenant-settings.settings.locale');
     this.localesOptions = localesList(props.intl);
     this.numberingSystemOptions = [
       { value: '', label: '---' },
@@ -121,7 +122,7 @@ class LocaleForm extends React.Component {
   getFooter() {
     const { pristine, submitting } = this.props;
 
-    return (
+    return !this.isReadOnly && (
       <PaneFooter
         renderEnd={(
           <Button
@@ -168,6 +169,7 @@ class LocaleForm extends React.Component {
           <Row>
             <Col xs={12} id="select-locale">
               <Field
+                readOnly={this.isReadOnly}
                 component={Select}
                 id="locale"
                 name="locale"
@@ -180,6 +182,7 @@ class LocaleForm extends React.Component {
           <Row>
             <Col xs={12} id="select-numbering-system">
               <Field
+                readOnly={this.isReadOnly}
                 component={Select}
                 id="numberingSystem"
                 name="numberingSystem"
@@ -191,6 +194,7 @@ class LocaleForm extends React.Component {
           <Row>
             <Col xs={12} id="select-timezone">
               <Field
+                readOnly={this.isReadOnly}
                 component={Select}
                 id="timezone"
                 name="timezone"
@@ -203,6 +207,7 @@ class LocaleForm extends React.Component {
           <Row>
             <Col xs={12} id="select-currency">
               <Field
+                readOnly={this.isReadOnly}
                 component={CurrencySelect}
                 id="currency"
                 name="currency"
@@ -224,6 +229,9 @@ LocaleForm.propTypes = {
   submitting: PropTypes.bool,
   label: PropTypes.node,
   intl: PropTypes.object,
+  stripes: PropTypes.shape({
+    hasPerm: PropTypes.func.isRequired,
+  })
 };
 
 export default stripesFinalForm({
