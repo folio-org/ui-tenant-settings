@@ -34,6 +34,7 @@ class Plugins extends React.Component {
         log: PropTypes.func.isRequired,
       }).isRequired,
       setSinglePlugin: PropTypes.func.isRequired,
+      hasPerm: PropTypes.func.isRequired,
     }).isRequired,
     resources: PropTypes.shape({
       settings: PropTypes.shape({
@@ -106,6 +107,8 @@ class Plugins extends React.Component {
 
   render() {
     const plugins = this.getPlugins();
+    const isReadOnly = !this.props.stripes.hasPerm('ui-tenant-settings.settings.sso');
+
     return (
       <Layout className="full">
         <PluginForm
@@ -113,6 +116,7 @@ class Plugins extends React.Component {
           pluginTypes={this.pluginTypes}
           initialValues={{ plugins }}
           onSubmit={this.save}
+          readOnly={isReadOnly}
         />
         <Callout ref={(ref) => { this.callout = ref; }} />
       </Layout>

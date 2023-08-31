@@ -5,7 +5,13 @@ import SSOSettings from './SSOSettings';
 import buildStripes from '../../../test/jest/__new_mocks__/stripesCore.mock';
 import { renderWithRouter } from '../../../test/jest/helpers';
 
-const STRIPES = buildStripes();
+
+const hasPermMock = jest.fn().mockReturnValue(true);
+
+const STRIPES = {
+  ...buildStripes(),
+  hasPerm: hasPermMock,
+};
 
 const resourcesMock = {
   values: {
@@ -52,6 +58,10 @@ const renderSSOSettings = () => {
 };
 
 describe('SSOSettings', () => {
+  afterEach(() => {
+    hasPermMock.mockClear();
+  });
+
   it('should render SSOSettings label', () => {
     renderSSOSettings();
 
@@ -96,7 +106,7 @@ describe('SSOSettings', () => {
       userPropertyInput = screen.getByLabelText(/ui-tenant-settings.settings.saml.userProperty/i);
 
       downloadMetaBtn = screen.getByRole('button', { name: 'ui-tenant-settings.settings.saml.downloadMetadata' });
-      saveBtn = screen.getByRole('button', { name: 'stripes-core.button.save' });
+      saveBtn = screen.queryByRole('button', { name: 'stripes-core.button.save' });
     };
 
     it('should render SSOSettings form elements', () => {
@@ -136,6 +146,19 @@ describe('SSOSettings', () => {
 
       expect(changeSpy).toHaveBeenCalled();
       expect(submitSpy).toHaveBeenCalled();
+    });
+
+    it('should render SSOSettings form elements "read-only mode"', async () => {
+      hasPermMock.mockReturnValue(false);
+
+      renderSSOSettings();
+
+      setInputsAndButtons();
+
+      expect(identityProviderUrlInput.hasAttribute('readonly')).toBeTruthy();
+      expect(samlAttributeInput.hasAttribute('readonly')).toBeTruthy();
+      expect(downloadMetaBtn).toBeVisible();
+      expect(saveBtn).toBeNull();
     });
   });
 });

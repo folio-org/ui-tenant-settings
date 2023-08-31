@@ -56,6 +56,7 @@ class SamlForm extends React.Component {
       }),
     }),
     label: PropTypes.node,
+    readOnly: PropTypes.bool,
   };
 
   updateMetadataInvalidated = () => {
@@ -84,6 +85,7 @@ class SamlForm extends React.Component {
       label,
       validateIdpUrl,
       values,
+      readOnly,
     } = this.props;
 
     const identifierOptions = (optionLists.identifierOptions || []).map(i => (
@@ -93,7 +95,7 @@ class SamlForm extends React.Component {
       { id: i.key, label: i.label, value: i.key, selected: initialValues.samlBinding === i.key }
     ));
 
-    const footer = (
+    const footer = !readOnly && (
       <PaneFooter
         renderEnd={(
           <Button
@@ -122,6 +124,7 @@ class SamlForm extends React.Component {
           <Row>
             <Col xs={12} id="fill_idpUrl">
               <Field
+                readOnly={readOnly}
                 label={<FormattedMessage id="ui-tenant-settings.settings.saml.idpUrl" />}
                 name="idpUrl"
                 id="samlconfig_idpUrl"
@@ -147,6 +150,7 @@ class SamlForm extends React.Component {
           <Row>
             <Col id="select_samlBinding">
               <Field
+                readOnly={readOnly}
                 label={<FormattedMessage id="ui-tenant-settings.settings.saml.binding" />}
                 name="samlBinding"
                 id="samlconfig_samlBinding"
@@ -161,6 +165,7 @@ class SamlForm extends React.Component {
           <Row>
             <Col id="fill_attribute">
               <Field
+                readOnly={readOnly}
                 label={<FormattedMessage id="ui-tenant-settings.settings.saml.attribute" />}
                 name="samlAttribute"
                 id="samlconfig_samlAttribute"
@@ -173,6 +178,7 @@ class SamlForm extends React.Component {
           <Row>
             <Col id="select_userProperty">
               <Field
+                readOnly={readOnly}
                 label={<FormattedMessage id="ui-tenant-settings.settings.saml.userProperty" />}
                 name="userProperty"
                 id="samlconfig_userProperty"
