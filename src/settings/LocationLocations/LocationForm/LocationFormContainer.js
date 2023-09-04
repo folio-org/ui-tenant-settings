@@ -5,9 +5,9 @@ import React, {
   useContext,
 } from 'react';
 import { cloneDeep } from 'lodash';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
-import { CalloutContext } from '@folio/stripes/core';
+import { CalloutContext, TitleManager } from '@folio/stripes/core';
 
 import LocationForm from './LocationForm';
 import { useRemoteStorageApi } from '../RemoteStorage';
@@ -21,6 +21,7 @@ const LocationFormContainer = ({
   ...rest
 }) => {
   const [initialValues, setInitialValues] = useState(location);
+  const intl = useIntl();
 
   useEffect(() => {
     setInitialValues(location);
@@ -85,12 +86,14 @@ const LocationFormContainer = ({
   }, [onSave, servicePointsByName, saveData]);
 
   return (
-    <LocationForm
-      {...rest}
-      parentMutator={parentMutator}
-      initialValues={initialValues}
-      onSubmit={saveLocation}
-    />
+    <TitleManager page={intl.formatMessage({ id: 'ui-tenant-settings.settings.location.creatNew.title' })}>
+      <LocationForm
+        {...rest}
+        parentMutator={parentMutator}
+        initialValues={initialValues}
+        onSubmit={saveLocation}
+      />
+    </TitleManager>
   );
 };
 

@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-import { stripesShape } from '@folio/stripes/core';
+import { FormattedMessage, injectIntl } from 'react-intl';
+import { stripesShape, TitleManager } from '@folio/stripes/core';
 import {
   Callout,
   Layout,
@@ -58,6 +58,7 @@ class SSOSettings extends React.Component {
         reset: PropTypes.func.isRequired,
       }),
     }).isRequired,
+    intl: PropTypes.object
   };
 
   constructor(props) {
@@ -113,28 +114,29 @@ class SSOSettings extends React.Component {
     const isReadOnly = !this.props.stripes.hasPerm('ui-tenant-settings.settings.sso');
 
     return (
-      <Layout className="full">
-        <SamlForm
-          label={this.props.label}
-          initialValues={samlFormData}
-          onSubmit={(record) => { this.updateSettings(record); }}
-          optionLists={{ identifierOptions: patronIdentifierTypes, samlBindingOptions: samlBindingTypes }}
-          parentMutator={this.props.mutator}
-          validateIdpUrl={this.validateIdpUrl}
-          stripes={this.props.stripes}
-          readOnly={isReadOnly}
-        />
-        <a // eslint-disable-line jsx-a11y/anchor-is-valid
-          hidden
-          ref={(reference) => { this.downloadButton = reference; return reference; }}
-        >
-          <FormattedMessage id="ui-tenant-settings.settings.hiddenDownloadLink" />
-        </a>
-        <Callout ref={(ref) => { this.callout = ref; }} />
-
-      </Layout>
+      <TitleManager stripes={this.props.stripes} page={this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.sso.title' })}>
+        <Layout className="full">
+          <SamlForm
+            label={this.props.label}
+            initialValues={samlFormData}
+            onSubmit={(record) => { this.updateSettings(record); }}
+            optionLists={{ identifierOptions: patronIdentifierTypes, samlBindingOptions: samlBindingTypes }}
+            parentMutator={this.props.mutator}
+            validateIdpUrl={this.validateIdpUrl}
+            stripes={this.props.stripes}
+            readOnly={isReadOnly}
+          />
+          <a // eslint-disable-line jsx-a11y/anchor-is-valid
+            hidden
+            ref={(reference) => { this.downloadButton = reference; return reference; }}
+          >
+            <FormattedMessage id="ui-tenant-settings.settings.hiddenDownloadLink" />
+          </a>
+          <Callout ref={(ref) => { this.callout = ref; }} />
+        </Layout>
+      </TitleManager>
     );
   }
 }
 
-export default SSOSettings;
+export default injectIntl(SSOSettings);

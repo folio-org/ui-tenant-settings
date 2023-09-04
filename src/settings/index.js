@@ -1,8 +1,9 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { Settings } from '@folio/stripes/smart-components';
-import { stripesShape } from '@folio/stripes/core';
+import { stripesShape, TitleManager } from '@folio/stripes/core';
 
+import PropTypes from 'prop-types';
 import Addresses from './Addresses';
 import Locale from './Locale';
 import Plugins from './Plugins';
@@ -16,6 +17,7 @@ import ServicePoints from './ServicePoints';
 class Organization extends React.Component {
   static propTypes = {
     stripes: stripesShape.isRequired,
+    intl: PropTypes.object,
   }
 
   constructor(props) {
@@ -23,7 +25,12 @@ class Organization extends React.Component {
 
     this.sections = [
       {
-        label: <FormattedMessage id="ui-tenant-settings.settings.general.label" />,
+        label:
+            (
+              <TitleManager page={this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.title' })}>
+                <FormattedMessage id="ui-tenant-settings.settings.general.label" />
+              </TitleManager>
+            ),
         pages: [
           {
             route: 'addresses',
@@ -112,4 +119,4 @@ class Organization extends React.Component {
   }
 }
 
-export default Organization;
+export default injectIntl(Organization);

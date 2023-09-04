@@ -8,6 +8,7 @@ import {
 import { ControlledVocab } from '@folio/stripes/smart-components';
 
 import { TextLink } from '@folio/stripes-components';
+import { TitleManager } from '@folio/stripes/core';
 import composeValidators from '../util/composeValidators';
 import locationCodeValidator from './locationCodeValidator';
 import css from './LocationInstitutions.css';
@@ -92,29 +93,31 @@ class LocationInstitutions extends React.Component {
     };
 
     return (
-      <this.connectedControlledVocab
-        {...this.props}
+      <TitleManager stripes={this.props.stripes} page={this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.location.institutions.title' })}>
+        <this.connectedControlledVocab
+          {...this.props}
         // We have to unset the dataKey to prevent the props.resources in
         // <ControlledVocab> from being overwritten by the props.resources here.
-        dataKey={undefined}
-        baseUrl="location-units/institutions"
-        records="locinsts"
-        label={this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.location.institutions' })}
-        translations={translations}
-        objectLabel={<FormattedMessage id="ui-tenant-settings.settings.location.campuses" />}
-        visibleFields={['name', 'code']}
-        columnMapping={{
-          name: <FormattedMessage id="ui-tenant-settings.settings.location.institutions.institution" />,
-          code: <FormattedMessage id="ui-tenant-settings.settings.location.code" />,
-        }}
-        formatter={formatter}
-        nameKey="name"
-        id="institutions"
-        sortby="name"
-        validate={composeValidators(locationCodeValidator.validate)}
-        editable={this.hasAllLocationPerms}
-        canCreate={this.hasAllLocationPerms}
-      />
+          dataKey={undefined}
+          baseUrl="location-units/institutions"
+          records="locinsts"
+          label={this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.location.institutions' })}
+          translations={translations}
+          objectLabel={<FormattedMessage id="ui-tenant-settings.settings.location.campuses" />}
+          visibleFields={['name', 'code']}
+          columnMapping={{
+            name: <FormattedMessage id="ui-tenant-settings.settings.location.institutions.institution" />,
+            code: <FormattedMessage id="ui-tenant-settings.settings.location.code" />,
+          }}
+          formatter={formatter}
+          nameKey="name"
+          id="institutions"
+          sortby="name"
+          validate={composeValidators(locationCodeValidator.validate)}
+          editable={this.hasAllLocationPerms}
+          canCreate={this.hasAllLocationPerms}
+        />
+      </TitleManager>
     );
   }
 }

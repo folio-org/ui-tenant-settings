@@ -9,6 +9,7 @@ import { Field } from 'redux-form';
 import { ControlledVocab } from '@folio/stripes/smart-components';
 import { TextArea, TextField } from '@folio/stripes/components';
 
+import { TitleManager } from '@folio/stripes/core';
 import css from './Addresses.css';
 
 const moduleName = 'TENANT';
@@ -140,27 +141,29 @@ class Addresses extends Component {
 
   render() {
     return (
-      <ControlledVocab
-        {...this.props}
-        dataKey={undefined}
-        baseUrl="configurations/entries"
-        records="configs"
-        parseRow={parseRow}
-        label={this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.addresses.label' })}
-        translations={translations}
-        objectLabel={objectLabel}
-        visibleFields={visibleFields}
-        columnMapping={columnMapping}
-        hiddenFields={hiddenFields}
-        fieldComponents={fieldComponents}
-        nameKey="name"
-        id="addresses"
-        sortby="name"
-        preCreateHook={this.onCreate}
-        preUpdateHook={this.onUpdate}
-        formatter={formatter}
-        editable={this.props.stripes.hasPerm('ui-tenant-settings.settings.addresses')}
-      />
+      <TitleManager page={this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.address.title' })}>
+        <ControlledVocab
+          {...this.props}
+          dataKey={undefined}
+          baseUrl="configurations/entries"
+          records="configs"
+          parseRow={parseRow}
+          label={this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.addresses.label' })}
+          translations={translations}
+          objectLabel={objectLabel}
+          visibleFields={visibleFields}
+          columnMapping={columnMapping}
+          hiddenFields={hiddenFields}
+          fieldComponents={fieldComponents}
+          nameKey="name"
+          id="addresses"
+          sortby="name"
+          preCreateHook={this.onCreate}
+          preUpdateHook={this.onUpdate}
+          formatter={formatter}
+          editable={this.props.stripes.hasPerm('ui-tenant-settings.settings.addresses')}
+        />
+      </TitleManager>
     );
   }
 }

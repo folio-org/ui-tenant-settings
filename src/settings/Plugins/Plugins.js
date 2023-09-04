@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { map, omit } from 'lodash';
 
 import { modules } from 'stripes-config'; // eslint-disable-line import/no-unresolved, import/no-extraneous-dependencies
@@ -9,6 +9,7 @@ import {
   Layout,
 } from '@folio/stripes/components';
 
+import { TitleManager } from '@folio/stripes/core';
 import PluginForm from './PluginForm';
 
 class Plugins extends React.Component {
@@ -50,6 +51,7 @@ class Plugins extends React.Component {
         PUT: PropTypes.func.isRequired,
       }),
     }).isRequired,
+    intl: PropTypes.object,
   };
 
   constructor(props) {
@@ -111,17 +113,19 @@ class Plugins extends React.Component {
 
     return (
       <Layout className="full">
-        <PluginForm
-          label={this.props.label}
-          pluginTypes={this.pluginTypes}
-          initialValues={{ plugins }}
-          onSubmit={this.save}
-          readOnly={isReadOnly}
-        />
+        <TitleManager page={this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.plugins.title' })}>
+          <PluginForm
+            label={this.props.label}
+            pluginTypes={this.pluginTypes}
+            initialValues={{ plugins }}
+            onSubmit={this.save}
+            readOnly={isReadOnly}
+          />
+        </TitleManager>
         <Callout ref={(ref) => { this.callout = ref; }} />
       </Layout>
     );
   }
 }
 
-export default Plugins;
+export default injectIntl(Plugins);

@@ -5,7 +5,9 @@ const buildStripes = (otherProperties = {}) => ({
   actionNames: [],
   clone: buildStripes,
   connect: component => component,
-  config: {},
+  config: {
+    platform: 'tenant-settings'
+  },
   currency: 'USD',
   hasInterface: () => true,
   hasPerm: jest.fn(() => true),
@@ -100,6 +102,9 @@ jest.mock('@folio/stripes/core', () => {
 
   // eslint-disable-next-line react/prop-types
   const AppContextMenu = props => <>{props.children()}</>;
+  const TitleManager = jest.fn(({ children, ...rest }) => (
+    <span {...rest}>{children}</span>
+  ));
 
   STRIPES.connect = stripesConnect;
 
@@ -110,6 +115,7 @@ jest.mock('@folio/stripes/core', () => {
     IfPermission,
     AppContextMenu,
     useStripes,
+    TitleManager
   };
 }, { virtual: true });
 
