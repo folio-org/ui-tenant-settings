@@ -24,7 +24,10 @@ jest.mock(
     IfPermission : ({ children }) => <>{children}</>,
     useStripes: () => ({
       hasPerm: () => true
-    })
+    }),
+    TitleManager: jest.fn(({ children, ...rest }) => (
+      <span {...rest}>{children}</span>
+    ))
   }),
 );
 

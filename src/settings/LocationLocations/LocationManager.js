@@ -33,6 +33,7 @@ import {
   Callout,
 } from '@folio/stripes/components';
 
+import { TitleManager } from '@folio/stripes/core';
 import {
   LOCATION_CAMPUS_ID_KEY,
   LOCATION_INSTITUTION_ID_KEY,
@@ -598,20 +599,22 @@ class LocationManager extends React.Component {
           <SearchAndSortQuery>
             {() => (
               <>
-                {this.renderFilter()}
-                <MultiColumnList
-                  id="locations-list"
-                  contentData={contentData}
-                  visibleColumns={this.locationListVisibleColumns}
-                  columnMapping={this.locationListColumnMapping}
-                  formatter={this.locationListFormatter}
-                  selectedRow={selectedItem}
-                  sortOrder={sort}
-                  sortDirection={sortDir}
-                  isEmptyMessage={null}
-                  onHeaderClick={this.onSort}
-                  onRowClick={this.onSelectRow}
-                />
+                <TitleManager page={this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.location.locations.title' })}>
+                  {this.renderFilter()}
+                  <MultiColumnList
+                    id="locations-list"
+                    contentData={contentData}
+                    visibleColumns={this.locationListVisibleColumns}
+                    columnMapping={this.locationListColumnMapping}
+                    formatter={this.locationListFormatter}
+                    selectedRow={selectedItem}
+                    sortOrder={sort}
+                    sortDirection={sortDir}
+                    isEmptyMessage={null}
+                    onHeaderClick={this.onSort}
+                    onRowClick={this.onSelectRow}
+                  />
+                </TitleManager>
               </>
             )}
           </SearchAndSortQuery>

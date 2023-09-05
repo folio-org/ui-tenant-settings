@@ -8,6 +8,7 @@ import {
 import { Accordion, Col, ExpandAllButton, KeyValue, Row } from '@folio/stripes/components';
 import { ViewMetaData } from '@folio/stripes/smart-components';
 
+import { TitleManager } from '@folio/stripes/core';
 import LocationList from './LocationList';
 import StaffSlipList from './StaffSlipList';
 import { intervalPeriods } from '../../constants';
@@ -88,100 +89,102 @@ class ServicePointDetail extends React.Component {
     const { duration, intervalId } = holdShelfExpiryPeriod;
 
     return (
-      <div data-test-service-point-details>
-        <Row end="xs">
-          <Col xs>
-            <ExpandAllButton accordionStatus={sections} onToggle={this.handleExpandAll} />
-          </Col>
-        </Row>
-        <Accordion
-          open={sections.generalInformation}
-          id="generalInformation"
-          onToggle={this.handleSectionToggle}
-          label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.generalInformation" />}
-        >
-          {servicePoint.metadata && servicePoint.metadata.createdDate &&
+      <TitleManager page={this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.items.title' }, { item: servicePoint?.name })}>
+        <div data-test-service-point-details>
+          <Row end="xs">
+            <Col xs>
+              <ExpandAllButton accordionStatus={sections} onToggle={this.handleExpandAll} />
+            </Col>
+          </Row>
+          <Accordion
+            open={sections.generalInformation}
+            id="generalInformation"
+            onToggle={this.handleSectionToggle}
+            label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.generalInformation" />}
+          >
+            {servicePoint.metadata && servicePoint.metadata.createdDate &&
+              <Row>
+                <Col xs={12}>
+                  <this.cViewMetaData metadata={servicePoint.metadata} />
+                </Col>
+              </Row>
+          }
             <Row>
-              <Col xs={12}>
-                <this.cViewMetaData metadata={servicePoint.metadata} />
+              <Col xs={4}>
+                <KeyValue
+                  label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.name" />}
+                  value={servicePoint.name}
+                />
+                <KeyValue
+                  label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.code" />}
+                  value={servicePoint.code}
+                />
+                <KeyValue
+                  label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.discoveryDisplayName" />}
+                  value={servicePoint.discoveryDisplayName}
+                />
               </Col>
             </Row>
-          }
-          <Row>
-            <Col xs={4}>
-              <KeyValue
-                label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.name" />}
-                value={servicePoint.name}
-              />
-              <KeyValue
-                label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.code" />}
-                value={servicePoint.code}
-              />
-              <KeyValue
-                label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.discoveryDisplayName" />}
-                value={servicePoint.discoveryDisplayName}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={8}>
-              <KeyValue
-                label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.description" />}
-                value={servicePoint.description}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={8}>
-              <KeyValue
-                label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.shelvingLagTime" />}
-                value={servicePoint.shelvingLagTime}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={8}>
-              <KeyValue label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.pickupLocation" />}>
-                { servicePoint.pickupLocation
-                  ? <FormattedMessage id="ui-tenant-settings.settings.servicePoints.pickupLocation.yes" />
-                  : <FormattedMessage id="ui-tenant-settings.settings.servicePoints.pickupLocation.no" />
+            <Row>
+              <Col xs={8}>
+                <KeyValue
+                  label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.description" />}
+                  value={servicePoint.description}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={8}>
+                <KeyValue
+                  label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.shelvingLagTime" />}
+                  value={servicePoint.shelvingLagTime}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={8}>
+                <KeyValue label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.pickupLocation" />}>
+                  { servicePoint.pickupLocation
+                    ? <FormattedMessage id="ui-tenant-settings.settings.servicePoints.pickupLocation.yes" />
+                    : <FormattedMessage id="ui-tenant-settings.settings.servicePoints.pickupLocation.no" />
                 }
-              </KeyValue>
-            </Col>
-          </Row>
-          { servicePoint.pickupLocation && (
-            <>
-              <Row>
-                <Col xs={8} data-test-hold-shelf-expiry-period>
-                  <KeyValue
-                    label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.expirationPeriod" />}
-                    value={`${duration} ${this.intervalPeriodMap[intervalId].label}`}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col xs={8} data-test-closed-library-date-management-menu>
-                  <KeyValue label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.holdShelfClosedLibraryDateManagement" />}>
-                    <FormattedMessage id={`ui-tenant-settings.settings.servicePoints.holdShelfClosedLibraryDateManagement.${closedLibraryDateManagementMapping[holdShelfClosedLibraryDateManagement]}`} />
-                  </KeyValue>
-                </Col>
-              </Row>
-            </>
-          )
+                </KeyValue>
+              </Col>
+            </Row>
+            { servicePoint.pickupLocation && (
+              <>
+                <Row>
+                  <Col xs={8} data-test-hold-shelf-expiry-period>
+                    <KeyValue
+                      label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.expirationPeriod" />}
+                      value={`${duration} ${this.intervalPeriodMap[intervalId].label}`}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={8} data-test-closed-library-date-management-menu>
+                    <KeyValue label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.holdShelfClosedLibraryDateManagement" />}>
+                      <FormattedMessage id={`ui-tenant-settings.settings.servicePoints.holdShelfClosedLibraryDateManagement.${closedLibraryDateManagementMapping[holdShelfClosedLibraryDateManagement]}`} />
+                    </KeyValue>
+                  </Col>
+                </Row>
+              </>
+            )
           }
-          <StaffSlipList
-            servicePoint={servicePoint}
-            staffSlips={staffSlips}
-          />
-        </Accordion>
+            <StaffSlipList
+              servicePoint={servicePoint}
+              staffSlips={staffSlips}
+            />
+          </Accordion>
 
-        <LocationList
-          locations={locations}
-          servicePoint={servicePoint}
-          expanded={sections.locationSection}
-          onToggle={this.handleSectionToggle}
-        />
-      </div>
+          <LocationList
+            locations={locations}
+            servicePoint={servicePoint}
+            expanded={sections.locationSection}
+            onToggle={this.handleSectionToggle}
+          />
+        </div>
+      </TitleManager>
     );
   }
 }

@@ -8,6 +8,7 @@ import { ControlledVocab } from '@folio/stripes/smart-components';
 import { Select } from '@folio/stripes/components';
 
 import { TextLink } from '@folio/stripes-components';
+import { TitleManager } from '@folio/stripes/core';
 import locationCodeValidator from './locationCodeValidator';
 import composeValidators from '../util/composeValidators';
 import css from './LocationInstitutions.css';
@@ -158,34 +159,36 @@ class LocationCampuses extends React.Component {
     );
 
     return (
-      <this.connectedControlledVocab
-        {...this.props}
+      <TitleManager page={this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.location.campuses.title' })}>
+        <this.connectedControlledVocab
+          {...this.props}
         // We have to unset the dataKey to prevent the props.resources in
         // <ControlledVocab> from being overwritten by the props.resources here.
-        dataKey={undefined}
-        baseUrl="location-units/campuses"
-        records="loccamps"
-        rowFilter={rowFilter}
-        rowFilterFunction={(row) => row.institutionId === this.state.institutionId}
-        label={this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.location.campuses' })}
-        translations={translations}
-        objectLabel={<FormattedMessage id="ui-tenant-settings.settings.location.libraries" />}
-        visibleFields={['name', 'code']}
-        columnMapping={{
-          name: <FormattedMessage id="ui-tenant-settings.settings.location.campuses.campus" />,
-          code: <FormattedMessage id="ui-tenant-settings.settings.location.code" />,
-        }}
-        formatter={{ numberOfObjects: this.numberOfObjectsFormatter }}
-        nameKey="group"
-        id="campuses"
-        preCreateHook={(item) => ({ ...item, institutionId: this.state.institutionId })}
-        listSuppressor={() => !this.state.institutionId}
-        listSuppressorText={<FormattedMessage id="ui-tenant-settings.settings.location.campuses.missingSelection" />}
-        sortby="name"
-        validate={composeValidators(locationCodeValidator.validate)}
-        editable={this.hasAllLocationPerms}
-        canCreate={this.hasAllLocationPerms}
-      />
+          dataKey={undefined}
+          baseUrl="location-units/campuses"
+          records="loccamps"
+          rowFilter={rowFilter}
+          rowFilterFunction={(row) => row.institutionId === this.state.institutionId}
+          label={this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.location.campuses' })}
+          translations={translations}
+          objectLabel={<FormattedMessage id="ui-tenant-settings.settings.location.libraries" />}
+          visibleFields={['name', 'code']}
+          columnMapping={{
+            name: <FormattedMessage id="ui-tenant-settings.settings.location.campuses.campus" />,
+            code: <FormattedMessage id="ui-tenant-settings.settings.location.code" />,
+          }}
+          formatter={{ numberOfObjects: this.numberOfObjectsFormatter }}
+          nameKey="group"
+          id="campuses"
+          preCreateHook={(item) => ({ ...item, institutionId: this.state.institutionId })}
+          listSuppressor={() => !this.state.institutionId}
+          listSuppressorText={<FormattedMessage id="ui-tenant-settings.settings.location.campuses.missingSelection" />}
+          sortby="name"
+          validate={composeValidators(locationCodeValidator.validate)}
+          editable={this.hasAllLocationPerms}
+          canCreate={this.hasAllLocationPerms}
+        />
+      </TitleManager>
     );
   }
 }

@@ -25,6 +25,9 @@ jest.mock('@folio/stripes-smart-components/lib/ControlledVocab', () => jest.fn((
 const stripesMock = {
   connect: component => component,
   hasPerm: jest.fn().mockResolvedValue(true),
+  config: {
+    platform: 'tenant-settings'
+  },
 };
 
 const resourcesMock = {

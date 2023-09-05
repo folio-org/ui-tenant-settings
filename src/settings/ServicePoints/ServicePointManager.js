@@ -3,6 +3,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { EntryManager } from '@folio/stripes/smart-components';
 
+import { TitleManager } from '@folio/stripes/core';
+import { injectIntl } from 'react-intl';
 import ServicePointDetail from './ServicePointDetail';
 import ServicePointFormContainer from './ServicePointFormContainer';
 
@@ -69,6 +71,7 @@ class ServicePointManager extends React.Component {
       connect: PropTypes.func.isRequired,
       hasPerm: PropTypes.func.isRequired,
     }),
+    intl: PropTypes.object,
   };
 
   parseInitialValues = (values = {}) => {
@@ -99,23 +102,25 @@ class ServicePointManager extends React.Component {
     const isEditable = Object.values(permissions).some(p => this.props.stripes.hasPerm(p));
 
     return (
-      <EntryManager
-        {...this.props}
-        parentMutator={this.props.mutator}
-        parentResources={this.props.resources}
-        entryList={entryList}
-        detailComponent={ServicePointDetail}
-        parseInitialValues={this.parseInitialValues}
-        paneTitle={this.props.label}
-        entryLabel={this.props.label}
-        entryFormComponent={ServicePointFormContainer}
-        onSelect={this.onSelect}
-        nameKey="name"
-        editable={isEditable}
-        permissions={permissions}
-      />
+      <TitleManager stripes={this.props.stripes} page={this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.service.title' })}>
+        <EntryManager
+          {...this.props}
+          parentMutator={this.props.mutator}
+          parentResources={this.props.resources}
+          entryList={entryList}
+          detailComponent={ServicePointDetail}
+          parseInitialValues={this.parseInitialValues}
+          paneTitle={this.props.label}
+          entryLabel={this.props.label}
+          entryFormComponent={ServicePointFormContainer}
+          onSelect={this.onSelect}
+          nameKey="name"
+          editable={isEditable}
+          permissions={permissions}
+        />
+      </TitleManager>
     );
   }
 }
 
-export default ServicePointManager;
+export default injectIntl(ServicePointManager);

@@ -11,6 +11,8 @@ import {
   omit,
 } from 'lodash';
 
+import { TitleManager } from '@folio/stripes/core';
+import { useIntl } from 'react-intl';
 import ServicePointForm from './ServicePointForm';
 
 const ServicePointFormContainer = ({
@@ -30,6 +32,7 @@ const ServicePointFormContainer = ({
   }, [servicePoint]);
 
   const [initialValues, setInitialValues] = useState(getServicePoint());
+  const intl = useIntl();
 
   useEffect(() => {
     setInitialValues(getServicePoint());
@@ -68,12 +71,14 @@ const ServicePointFormContainer = ({
   }, [onSave, transformStaffSlipsData]);
 
   return (
-    <ServicePointForm
-      {...rest}
-      onSubmit={onSubmit}
-      parentResources={parentResources}
-      initialValues={initialValues}
-    />
+    <TitleManager page={intl.formatMessage({ id: 'ui-tenant-settings.settings.newService.title' })}>
+      <ServicePointForm
+        {...rest}
+        onSubmit={onSubmit}
+        parentResources={parentResources}
+        initialValues={initialValues}
+      />
+    </TitleManager>
   );
 };
 

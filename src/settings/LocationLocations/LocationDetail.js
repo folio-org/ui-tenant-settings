@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import PropTypes from 'prop-types';
 import {
   get,
@@ -21,7 +21,7 @@ import {
 import { ViewMetaData } from '@folio/stripes/smart-components';
 import {
   stripesConnect,
-  IfPermission, useStripes,
+  IfPermission, useStripes, TitleManager,
 } from '@folio/stripes/core';
 
 import LocationInUseModal from './LocationInUseModal';
@@ -46,6 +46,7 @@ const LocationDetail = ({
     locationDetails: true,
   });
   const stripes = useStripes();
+  const intl = useIntl();
   const hasAllLocationPerms = stripes.hasPerm('ui-tenant-settings.settings.location');
   const [isDeleteLocationModalOpened, setIsDeleteLocationModalOpened] = useState(false);
   const [isLocationInUseModalOpened, setIsLocationInUseModalOpened] = useState(false);
@@ -202,109 +203,111 @@ const LocationDetail = ({
       actionMenu={renderActionMenu(loc)}
       onClose={onClose}
     >
-      <Row end="xs">
-        <Col xs>
-          <ExpandAllButton accordionStatus={sections} onToggle={handleExpandAll} />
-        </Col>
-      </Row>
-      <Accordion
-        open={sections.generalInformation}
-        id="generalInformation"
-        onToggle={handleSectionToggle}
-        label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.generalInformation" />}
-      >
-        {loc.metadata && loc.metadata.createdDate &&
+      <TitleManager page={intl.formatMessage({ id: 'ui-tenant-settings.settings.items.title' }, { item: locationName })}>
+
+        <Row end="xs">
+          <Col xs>
+            <ExpandAllButton accordionStatus={sections} onToggle={handleExpandAll} />
+          </Col>
+        </Row>
+        <Accordion
+          open={sections.generalInformation}
+          id="generalInformation"
+          onToggle={handleSectionToggle}
+          label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.generalInformation" />}
+        >
+          {loc.metadata && loc.metadata.createdDate &&
+            <Row>
+              <Col xs={12}>
+                <ViewMetaData metadata={loc.metadata} />
+              </Col>
+            </Row>
+        }
           <Row>
             <Col xs={12}>
-              <ViewMetaData metadata={loc.metadata} />
+              <KeyValue
+                label={<FormattedMessage id="ui-tenant-settings.settings.location.institutions.institution" />}
+                value={get(institution, ['name'])}
+              />
             </Col>
           </Row>
-        }
-        <Row>
-          <Col xs={12}>
-            <KeyValue
-              label={<FormattedMessage id="ui-tenant-settings.settings.location.institutions.institution" />}
-              value={get(institution, ['name'])}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={12}>
-            <KeyValue
-              label={<FormattedMessage id="ui-tenant-settings.settings.location.campuses.campus" />}
-              value={get(campus, ['name'])}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={12}>
-            <KeyValue
-              label={<FormattedMessage id="ui-tenant-settings.settings.location.libraries.library" />}
-              value={get(library, ['name'])}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={12}>
-            <KeyValue
-              label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.name" />}
-              value={loc.name}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={12}>
-            <KeyValue
-              label={<FormattedMessage id="ui-tenant-settings.settings.location.code" />}
-              value={loc.code}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={12}>
-            <KeyValue
-              label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.discoveryDisplayName" />}
-              value={loc.discoveryDisplayName}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={12}>
-            <KeyValue
-              label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.servicePoints" />}
-            >
-              {renderServicePoints()}
-            </KeyValue>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={12}>
-            <KeyValue
-              label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.status" />}
-              value={<FormattedMessage id={`ui-tenant-settings.settings.location.${loc.isActive ? 'locations.active' : 'locations.inactive'}`} />}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={12}>
-            <KeyValue
-              label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.description" />}
-              value={loc.description}
-            />
-          </Col>
-        </Row>
-        <RemoteStorageDetails locationId={loc.id} />
-      </Accordion>
-      <Accordion
-        open={sections.locationDetails}
-        id="locationDetails"
-        onToggle={handleSectionToggle}
-        label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.locationDetails" />}
-      >
-        {details}
-      </Accordion>
+          <Row>
+            <Col xs={12}>
+              <KeyValue
+                label={<FormattedMessage id="ui-tenant-settings.settings.location.campuses.campus" />}
+                value={get(campus, ['name'])}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12}>
+              <KeyValue
+                label={<FormattedMessage id="ui-tenant-settings.settings.location.libraries.library" />}
+                value={get(library, ['name'])}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12}>
+              <KeyValue
+                label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.name" />}
+                value={loc.name}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12}>
+              <KeyValue
+                label={<FormattedMessage id="ui-tenant-settings.settings.location.code" />}
+                value={loc.code}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12}>
+              <KeyValue
+                label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.discoveryDisplayName" />}
+                value={loc.discoveryDisplayName}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12}>
+              <KeyValue
+                label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.servicePoints" />}
+              >
+                {renderServicePoints()}
+              </KeyValue>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12}>
+              <KeyValue
+                label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.status" />}
+                value={<FormattedMessage id={`ui-tenant-settings.settings.location.${loc.isActive ? 'locations.active' : 'locations.inactive'}`} />}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12}>
+              <KeyValue
+                label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.description" />}
+                value={loc.description}
+              />
+            </Col>
+          </Row>
+          <RemoteStorageDetails locationId={loc.id} />
+        </Accordion>
+        <Accordion
+          open={sections.locationDetails}
+          id="locationDetails"
+          onToggle={handleSectionToggle}
+          label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.locationDetails" />}
+        >
+          {details}
+        </Accordion>
 
-      {
+        {
         isDeleteLocationModalOpened && (
           <ConfirmationModal
             id="deletelocation-confirmation"
@@ -318,11 +321,12 @@ const LocationDetail = ({
         )
       }
 
-      {
+        {
         isLocationInUseModalOpened && (
           <LocationInUseModal toggleModal={toggleLocationInUseModal} />
         )
       }
+      </TitleManager>
     </Pane>
   );
 };
