@@ -86,7 +86,7 @@ const LocationFormContainer = ({
   }, [onSave, servicePointsByName, saveData]);
 
   return (
-    <TitleManager page={intl.formatMessage({ id: 'ui-tenant-settings.settings.location.creatNew.title' })}>
+    <TitleManager page={intl.formatMessage({ id: 'ui-tenant-settings.settings.location.createNew.title' })}>
       <LocationForm
         {...rest}
         parentMutator={parentMutator}

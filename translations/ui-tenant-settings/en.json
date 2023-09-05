@@ -13,7 +13,7 @@
   "settings.location.locations.title": "Tenant settings - Locations",
   "settings.newService.title": "Tenant settings - Create new service point",
   "settings.items.title": "Tenant settings - {item}",
-  "settings.location.creatNew.title": "Tenant settings - create new location",
+  "settings.location.createNew.title": "Tenant settings - Create new location",
 
 
   "settings.general.label": "General",
