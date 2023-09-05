@@ -124,7 +124,7 @@ class SamlForm extends React.Component {
           <Row>
             <Col xs={12} id="fill_idpUrl">
               <Field
-                readOnly={readOnly}
+                disabled={readOnly}
                 label={<FormattedMessage id="ui-tenant-settings.settings.saml.idpUrl" />}
                 name="idpUrl"
                 id="samlconfig_idpUrl"
@@ -150,7 +150,7 @@ class SamlForm extends React.Component {
           <Row>
             <Col id="select_samlBinding">
               <Field
-                readOnly={readOnly}
+                disabled={readOnly}
                 label={<FormattedMessage id="ui-tenant-settings.settings.saml.binding" />}
                 name="samlBinding"
                 id="samlconfig_samlBinding"
@@ -165,12 +165,12 @@ class SamlForm extends React.Component {
           <Row>
             <Col id="fill_attribute">
               <Field
-                readOnly={readOnly}
+                disabled={readOnly}
                 label={<FormattedMessage id="ui-tenant-settings.settings.saml.attribute" />}
                 name="samlAttribute"
                 id="samlconfig_samlAttribute"
                 component={TextField}
-                required
+                required={!readOnly}
                 fullWidth
               />
             </Col>
@@ -178,7 +178,7 @@ class SamlForm extends React.Component {
           <Row>
             <Col id="select_userProperty">
               <Field
-                readOnly={readOnly}
+                disabled={readOnly}
                 label={<FormattedMessage id="ui-tenant-settings.settings.saml.userProperty" />}
                 name="userProperty"
                 id="samlconfig_userProperty"

@@ -158,8 +158,8 @@ describe('SSOSettings', () => {
 
       setInputsAndButtons();
 
-      expect(identityProviderUrlInput).toHaveAttribute('readonly');
-      expect(samlAttributeInput).toHaveAttribute('readonly');
+      expect(identityProviderUrlInput).toBeDisabled();
+      expect(samlAttributeInput).toBeDisabled();
       expect(downloadMetaBtn).toBeVisible();
       expect(saveBtn).toBeNull();
     });

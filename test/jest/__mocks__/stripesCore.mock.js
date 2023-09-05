@@ -90,6 +90,9 @@ jest.mock('@folio/stripes/core', () => {
   };
 
   const useStripes = ({ ...STRIPES, connect: Component => stripesConnect(Component) });
+  const TitleManager = jest.fn(({ children, ...rest }) => (
+    <span {...rest}>{children}</span>
+  ));
 
   return {
     ...jest.requireActual('@folio/stripes/core'),
@@ -99,6 +102,7 @@ jest.mock('@folio/stripes/core', () => {
     // eslint-disable-next-line react/prop-types
     Pluggable: props => <>{props.children}</>,
     IfPermission: ({ children }) => <>{children}</>,
+    TitleManager,
     supportedLocales: ['ar', 'en', 'fr-FR'],
     supportedNumberingSystems: ['latn', 'arab'],
   };
