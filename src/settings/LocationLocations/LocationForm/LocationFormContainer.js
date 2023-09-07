@@ -84,7 +84,7 @@ const LocationFormContainer = ({
       .then(onSave)
       .catch(showSubmitErrorCallout);
   }, [onSave, servicePointsByName, saveData]);
-  const titleManagerLabel = initialValues.name ? intl.formatMessage({ id:'ui-tenant-settings.settings.items.edit.title' }, { item: initialValues?.name })
+  const titleManagerLabel = initialValues?.name ? intl.formatMessage({ id:'ui-tenant-settings.settings.items.edit.title' }, { item: initialValues?.name })
     :
     intl.formatMessage({ id:'ui-tenant-settings.settings.location.createNew.title' });
 
