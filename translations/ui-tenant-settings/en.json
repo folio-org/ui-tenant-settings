@@ -12,6 +12,7 @@
   "settings.location.campuses.title": "Tenant settings - Campuses",
   "settings.location.locations.title": "Tenant settings - Locations",
   "settings.newService.title": "Tenant settings - New service point",
+  "settings.items.edit.title": "Tenant settings - Edit: {item}",
   "settings.items.title": "Tenant settings - {item}",
   "settings.location.createNew.title": "Tenant settings - New location",
 
