@@ -70,8 +70,13 @@ const ServicePointFormContainer = ({
     });
   }, [onSave, transformStaffSlipsData]);
 
+  const titleManagerLabel = initialValues.name ? intl.formatMessage({ id:'ui-tenant-settings.settings.items.edit.title' }, { item: initialValues?.name })
+    :
+    intl.formatMessage({ id:'ui-tenant-settings.settings.newService.title' });
+
   return (
-    <TitleManager page={intl.formatMessage({ id: 'ui-tenant-settings.settings.newService.title' })}>
+    <TitleManager page={titleManagerLabel}>
+
       <ServicePointForm
         {...rest}
         onSubmit={onSubmit}

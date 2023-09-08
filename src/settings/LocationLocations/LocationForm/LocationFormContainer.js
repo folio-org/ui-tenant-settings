@@ -84,9 +84,12 @@ const LocationFormContainer = ({
       .then(onSave)
       .catch(showSubmitErrorCallout);
   }, [onSave, servicePointsByName, saveData]);
+  const titleManagerLabel = initialValues?.name ? intl.formatMessage({ id:'ui-tenant-settings.settings.items.edit.title' }, { item: initialValues?.name })
+    :
+    intl.formatMessage({ id:'ui-tenant-settings.settings.location.createNew.title' });
 
   return (
-    <TitleManager page={intl.formatMessage({ id: 'ui-tenant-settings.settings.location.createNew.title' })}>
+    <TitleManager page={titleManagerLabel}>
       <LocationForm
         {...rest}
         parentMutator={parentMutator}
