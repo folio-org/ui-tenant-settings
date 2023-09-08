@@ -198,5 +198,6 @@
     "settings.location.locations.title": "Configurações de locatário – Localizações",
     "settings.newService.title": "Configurações de locatário – Criar novo ponto de serviço",
     "settings.items.title": "Configurações de locatário – {item}",
-    "settings.location.createNew.title": "Configurações do locatário – Criar novo localização"
+    "settings.location.createNew.title": "Configurações do locatário – Criar novo localização",
+    "settings.items.edit.title": "Tenant settings - Edit: {item}"
 }
