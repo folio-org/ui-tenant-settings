@@ -355,7 +355,6 @@ LocationDetail.propTypes = {
     institutions: PropTypes.object,
     campuses: PropTypes.object,
     libraries: PropTypes.object,
-    mappings: PropTypes.array,
   }).isRequired,
   servicePointsById: PropTypes.object,
   onEdit: PropTypes.func.isRequired,

@@ -77,6 +77,11 @@ Provider.manifest = Object.freeze({
 Provider.propTypes = {
   mutator: PropTypes.object.isRequired,
   stripes: PropTypes.object,
+  resources: PropTypes.shape({
+    mappings: PropTypes.shape({
+      records: PropTypes.arrayOf(PropTypes.object)
+    })
+  })
 };
 
 export const RemoteStorageApiProvider = stripesConnect(Provider);
