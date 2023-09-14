@@ -185,5 +185,19 @@
     "permission.settings.plugins.view": "Nastavení (nájemce): Může zobrazit preferované pluginy",
     "permission.settings.sso.view": "Nastavení (nájemce): Může zobrazit nastavení SSO",
     "permission.settings.location.view": "Nastavení (nájemce): Zobrazení umístění",
-    "permission.settings.servicepoints.view": "Nastavení (tenant): Může zobrazit pulty služeb"
+    "permission.settings.servicepoints.view": "Nastavení (tenant): Může zobrazit pulty služeb",
+    "settings.title": "Tenant settings",
+    "settings.address.title": "Tenant settings - Addresses",
+    "settings.locale.title": "Tenant settings - Language and localization",
+    "settings.plugins.title": "Tenant settings - Preferred plugins",
+    "settings.sso.title": "Tenant settings - SSO settings",
+    "settings.service.title": "Tenant settings - Service points",
+    "settings.location.institutions.title": "Tenant settings - Institutions",
+    "settings.location.libraries.title": "Tenant settings - Libraries",
+    "settings.location.campuses.title": "Tenant settings - Campuses",
+    "settings.location.locations.title": "Tenant settings - Locations",
+    "settings.newService.title": "Tenant settings - New service point",
+    "settings.items.title": "Tenant settings - {item}",
+    "settings.location.createNew.title": "Tenant settings - New location",
+    "settings.items.edit.title": "Tenant settings - Edit: {item}"
 }

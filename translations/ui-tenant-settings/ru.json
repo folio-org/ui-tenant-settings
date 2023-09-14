@@ -185,5 +185,19 @@
     "permission.settings.plugins.view": "Settings (tenant): Can view preferred plugins",
     "permission.settings.sso.view": "Settings (tenant): Can view SSO settings",
     "permission.settings.location.view": "Settings (Tenant): View locations",
-    "permission.settings.servicepoints.view": "Settings (tenant): Can view service points"
+    "permission.settings.servicepoints.view": "Settings (tenant): Can view service points",
+    "settings.title": "Tenant settings",
+    "settings.address.title": "Tenant settings - Addresses",
+    "settings.locale.title": "Tenant settings - Language and localization",
+    "settings.plugins.title": "Tenant settings - Preferred plugins",
+    "settings.sso.title": "Tenant settings - SSO settings",
+    "settings.service.title": "Tenant settings - Service points",
+    "settings.location.institutions.title": "Tenant settings - Institutions",
+    "settings.location.libraries.title": "Tenant settings - Libraries",
+    "settings.location.campuses.title": "Tenant settings - Campuses",
+    "settings.location.locations.title": "Tenant settings - Locations",
+    "settings.newService.title": "Tenant settings - New service point",
+    "settings.items.title": "Tenant settings - {item}",
+    "settings.location.createNew.title": "Tenant settings - New location",
+    "settings.items.edit.title": "Tenant settings - Edit: {item}"
 }
