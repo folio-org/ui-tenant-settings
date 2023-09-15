@@ -7,7 +7,7 @@ import {
 
 import { ControlledVocab } from '@folio/stripes/smart-components';
 
-import { TextLink } from '@folio/stripes-components';
+import { TextLink } from '@folio/stripes/components';
 import { TitleManager } from '@folio/stripes/core';
 import composeValidators from '../util/composeValidators';
 import locationCodeValidator from './locationCodeValidator';

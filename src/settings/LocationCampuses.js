@@ -5,9 +5,11 @@ import {
   injectIntl,
 } from 'react-intl';
 import { ControlledVocab } from '@folio/stripes/smart-components';
-import { Select } from '@folio/stripes/components';
+import {
+  Select,
+  TextLink,
+} from '@folio/stripes/components';
 
-import { TextLink } from '@folio/stripes-components';
 import { TitleManager } from '@folio/stripes/core';
 import locationCodeValidator from './locationCodeValidator';
 import composeValidators from '../util/composeValidators';
