@@ -12,9 +12,5 @@
         "jest": true
       }
     }
-  ],
-  "rules": {
-    "react-hooks/exhaustive-deps": "off",
-    "import/prefer-default-export": 0
-  }
+  ]
 }
