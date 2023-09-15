@@ -7,7 +7,7 @@ import {
 import { ControlledVocab } from '@folio/stripes/smart-components';
 import {
   Select,
-  TextLink
+  TextLink,
 } from '@folio/stripes/components';
 
 import { TitleManager } from '@folio/stripes/core';
