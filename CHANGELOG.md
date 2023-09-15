@@ -15,6 +15,7 @@
 * [UITEN-256](https://issues.folio.org/browse/UITEN-256) Need new permission(s) to view all Tenant settings in UI - General tab
 * [UITEN-257](https://issues.folio.org/browse/UITEN-257) Tenant settings: Ensure your settings HTML page title follow this format - <<App name>> settings - <<selected page name>> - FOLIO.
 * [UITEN-262](https://issues.folio.org/browse/UITEN-262) *BREAKING* bump `react-intl` to `v6.4.4`.
+* [UITEN-260](https://issues.folio.org/browse/UITEN-260) prefer @folio/stripes exports to private paths when importing components.
 
 ## [7.4.0](https://github.com/folio-org/ui-tenant-settings/tree/v7.4.0)(2023-02-20)
 [Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v7.3.0...v7.4.0)

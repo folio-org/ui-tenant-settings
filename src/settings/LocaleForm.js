@@ -1,6 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { createIntl, createIntlCache, FormattedMessage, injectIntl } from 'react-intl';
+import {
+  createIntl,
+  createIntlCache,
+  FormattedMessage,
+  injectIntl,
+} from 'react-intl';
 import { Field } from 'react-final-form';
 
 import {
@@ -11,8 +16,8 @@ import {
   PaneFooter,
   Row,
   Select,
+  TextLink,
 } from '@folio/stripes/components';
-import { TextLink } from '@folio/stripes-components';
 import stripesFinalForm from '@folio/stripes/final-form';
 import {
   IfPermission,
