@@ -51,10 +51,10 @@ class BindingsForm extends React.Component {
     const { handleSubmit, label, stripes } = this.props;
     const actionList = stripes.actionNames.map((name, index) => (
       <span key={name}>
-       <>
-         <tt>{name}</tt>
-         {index < stripes.actionNames.length - 1 ? ', ' : '.'}
-       </>
+        <>
+          <tt>{name}</tt>
+          {index < stripes.actionNames.length - 1 ? ', ' : '.'}
+        </>
       </span>
     ));
 

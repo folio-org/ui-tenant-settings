@@ -13,7 +13,7 @@ export const parseSerializedLocale = (settings) => {
   let config;
 
   try {
-    config = Object.assign({}, defaultConfig, JSON.parse(value));
+    config = { ...defaultConfig, ...JSON.parse(value) };
 
     // a numbering system may be glommed onto the locale.
     // separate it if so, allowing the locale and numbering system

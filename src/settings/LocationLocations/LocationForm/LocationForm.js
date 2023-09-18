@@ -41,6 +41,7 @@ class LocationForm extends React.Component {
       institutions: PropTypes.object,
       campuses: PropTypes.object,
       libraries: PropTypes.object,
+      servicePoints: PropTypes.object,
     }),
     parentMutator: PropTypes.object.isRequired,
     initialValues: PropTypes.object,

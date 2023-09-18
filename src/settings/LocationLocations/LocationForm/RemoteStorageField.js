@@ -3,6 +3,7 @@ import { useField } from 'react-final-form';
 
 import { useStripes } from '@folio/stripes/core';
 
+import PropTypes from 'prop-types';
 import { Control, useRemoteStorageApi } from '../RemoteStorage';
 
 export const RemoteStorageField = ({ initialValues, checkLocationHasHoldingsOrItems }) => {
@@ -53,4 +54,11 @@ export const RemoteStorageField = ({ initialValues, checkLocationHasHoldingsOrIt
       {...field}
     />
   );
+};
+
+RemoteStorageField.propTypes = {
+  initialValues: PropTypes.shape({
+    id: PropTypes.string,
+  }),
+  checkLocationHasHoldingsOrItems: PropTypes.func
 };

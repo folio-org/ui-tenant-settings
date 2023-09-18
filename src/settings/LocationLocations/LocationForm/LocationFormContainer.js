@@ -9,6 +9,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 import { CalloutContext, TitleManager } from '@folio/stripes/core';
 
+import PropTypes from 'prop-types';
 import LocationForm from './LocationForm';
 import { useRemoteStorageApi } from '../RemoteStorage';
 
@@ -98,6 +99,20 @@ const LocationFormContainer = ({
       />
     </TitleManager>
   );
+};
+
+LocationFormContainer.propTypes = {
+  onSave: PropTypes.func,
+  servicePointsByName: PropTypes.string,
+  initialValues: PropTypes.shape({
+    id: PropTypes.string,
+  }),
+  parentMutator: PropTypes.shape({
+    entries: PropTypes.shape({
+      POST: PropTypes.func,
+      PUT: PropTypes.func,
+    })
+  }),
 };
 
 export default LocationFormContainer;
