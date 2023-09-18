@@ -196,8 +196,8 @@
     "settings.location.libraries.title": "Configurações de locatário – Bibliotecas",
     "settings.location.campuses.title": "Configurações de locatário - Campi",
     "settings.location.locations.title": "Configurações de locatário – Localizações",
-    "settings.newService.title": "Configurações de locatário – Criar novo ponto de serviço",
+    "settings.newService.title": "Configurações do locatário - Novo ponto de serviço",
     "settings.items.title": "Configurações de locatário – {item}",
-    "settings.location.createNew.title": "Configurações do locatário – Criar novo localização",
-    "settings.items.edit.title": "Tenant settings - Edit: {item}"
+    "settings.location.createNew.title": "Configurações do locatário - Nova localização",
+    "settings.items.edit.title": "Configurações do locatário - Editar: {item}"
 }
