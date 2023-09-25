@@ -1,9 +1,7 @@
 import React from 'react';
 import { Select, Tooltip } from '@folio/stripes/components';
-import childrenOf from '@folio/stripes-components/util/childrenOf';
 
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
 
 import { useRemoteStorageApi } from './Provider';
 
@@ -56,7 +54,7 @@ export const Control = ({ disabled, readOnly, message, ...rest }) => {
 Control.propTypes = {
   message: PropTypes.oneOfType([
     PropTypes.string,
-    childrenOf(FormattedMessage)
+    PropTypes.element,
   ]),
   disabled: PropTypes.bool,
   readOnly: PropTypes.bool,
@@ -65,17 +63,17 @@ Control.propTypes = {
 CustomSelect.propTypes = {
   message: PropTypes.oneOfType([
     PropTypes.string,
-    childrenOf(FormattedMessage)
+    PropTypes.element,
   ]),
 };
 
 SelectWithTooltip.propTypes = {
   sub: PropTypes.oneOfType([
     PropTypes.string,
-    childrenOf(FormattedMessage)
+    PropTypes.element,
   ]),
   label: PropTypes.oneOfType([
     PropTypes.string.isRequired,
-    childrenOf(FormattedMessage).isRequired
+    PropTypes.element.isRequired
   ]).isRequired,
 };
