@@ -1,10 +1,10 @@
 import React from 'react';
 import { Select, Tooltip } from '@folio/stripes/components';
+import childrenOf from '@folio/stripes-components/util/childrenOf';
 
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-import { childrenOf } from '../../../util/childrenOf';
 import { useRemoteStorageApi } from './Provider';
 
 const SelectWithTooltip = ({ label, sub, ...rest }) => (
