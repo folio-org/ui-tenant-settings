@@ -5,7 +5,7 @@ import React, {
   useContext,
 } from 'react';
 import { cloneDeep } from 'lodash';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 import { CalloutContext } from '@folio/stripes/core';
 
@@ -22,7 +22,6 @@ const LocationFormContainer = ({
   ...rest
 }) => {
   const [initialValues, setInitialValues] = useState(location);
-  const intl = useIntl();
 
   useEffect(() => {
     setInitialValues(location);

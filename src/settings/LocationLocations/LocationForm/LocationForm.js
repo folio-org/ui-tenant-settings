@@ -161,8 +161,7 @@ class LocationForm extends React.Component {
       locationResources,
       intl: { formatMessage },
       form,
-      parentMutator,
-      cloning,
+      parentMutator
     } = this.props;
     const loc = initialValues || {};
     const { sections } = this.state;
