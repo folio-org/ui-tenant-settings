@@ -7,7 +7,7 @@ import React, {
 import { cloneDeep } from 'lodash';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { CalloutContext, TitleManager } from '@folio/stripes/core';
+import { CalloutContext } from '@folio/stripes/core';
 
 import PropTypes from 'prop-types';
 import LocationForm from './LocationForm';
@@ -85,19 +85,14 @@ const LocationFormContainer = ({
       .then(onSave)
       .catch(showSubmitErrorCallout);
   }, [onSave, servicePointsByName, saveData]);
-  const titleManagerLabel = initialValues?.name ? intl.formatMessage({ id:'ui-tenant-settings.settings.items.edit.title' }, { item: initialValues?.name })
-    :
-    intl.formatMessage({ id:'ui-tenant-settings.settings.location.createNew.title' });
 
   return (
-    <TitleManager page={titleManagerLabel}>
-      <LocationForm
-        {...rest}
-        parentMutator={parentMutator}
-        initialValues={initialValues}
-        onSubmit={saveLocation}
-      />
-    </TitleManager>
+    <LocationForm
+      {...rest}
+      parentMutator={parentMutator}
+      initialValues={initialValues}
+      onSubmit={saveLocation}
+    />
   );
 };
 
