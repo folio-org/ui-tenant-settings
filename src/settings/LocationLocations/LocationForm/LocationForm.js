@@ -5,6 +5,7 @@ import { Field } from 'react-final-form';
 import { FormattedMessage, injectIntl } from 'react-intl';
 
 import {
+  TitleManager,
   withStripes,
 } from '@folio/stripes/core';
 import {
@@ -160,7 +161,7 @@ class LocationForm extends React.Component {
       locationResources,
       intl: { formatMessage },
       form,
-      parentMutator,
+      parentMutator
     } = this.props;
     const loc = initialValues || {};
     const { sections } = this.state;
@@ -179,219 +180,225 @@ class LocationForm extends React.Component {
 
     const formValues = form.getState().values;
 
+    const titleManagerLabel = initialValues?.name && initialValues?.id ? formatMessage({ id:'ui-tenant-settings.settings.items.edit.title' }, { item: initialValues?.name })
+      :
+      formatMessage({ id:'ui-tenant-settings.settings.location.createNew.title' });
+
     return (
-      <form
-        id="form-locations"
-        onSubmit={handleSubmit}
-        noValidate
-      >
-        <Paneset isRoot>
-          <Pane
-            id="location-form-pane"
-            defaultWidth="100%"
-            firstMenu={this.addFirstMenu()}
-            footer={this.renderFooter()}
-            paneTitle={this.renderPaneTitle()}
-          >
-            <Row end="xs">
-              <Col xs>
-                <ExpandAllButton accordionStatus={sections} onToggle={this.handleExpandAll} />
-              </Col>
-            </Row>
-            <Accordion
-              open={sections.generalSection}
-              id="generalSection"
-              onToggle={this.handleSectionToggle}
-              label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.generalInformation" />}
+      <TitleManager page={titleManagerLabel}>
+        <form
+          id="form-locations"
+          onSubmit={handleSubmit}
+          noValidate
+        >
+          <Paneset isRoot>
+            <Pane
+              id="location-form-pane"
+              defaultWidth="100%"
+              firstMenu={this.addFirstMenu()}
+              footer={this.renderFooter()}
+              paneTitle={this.renderPaneTitle()}
             >
-              {loc.metadata && loc.metadata.createdDate &&
+              <Row end="xs">
+                <Col xs>
+                  <ExpandAllButton accordionStatus={sections} onToggle={this.handleExpandAll} />
+                </Col>
+              </Row>
+              <Accordion
+                open={sections.generalSection}
+                id="generalSection"
+                onToggle={this.handleSectionToggle}
+                label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.generalInformation" />}
+              >
+                {loc.metadata && loc.metadata.createdDate &&
+                  <Row>
+                    <Col xs={12}>
+                      <this.cViewMetaData metadata={loc.metadata} />
+                    </Col>
+                  </Row>
+              }
                 <Row>
                   <Col xs={12}>
-                    <this.cViewMetaData metadata={loc.metadata} />
+                    <Field
+                      label={
+                        <>
+                          <FormattedMessage id="ui-tenant-settings.settings.location.institutions.institution" />
+                        </>
+                    }
+                      name="institutionId"
+                      id="input-location-institution"
+                      component={Select}
+                      required
+                      disabled={disabled}
+                      dataOptions={[
+                        { label: formatMessage({ id: 'ui-tenant-settings.settings.location.institutions.selectInstitution' }) },
+                        ...institutions
+                      ]}
+                      onChange={form.mutators.changeInstitution}
+                    />
                   </Col>
                 </Row>
-              }
-              <Row>
-                <Col xs={12}>
-                  <Field
-                    label={
-                      <>
-                        <FormattedMessage id="ui-tenant-settings.settings.location.institutions.institution" />
-                      </>
+                <Row>
+                  <Col xs={12}>
+                    <FilteredSelect
+                      list={(locationResources.campuses || {}).records || []}
+                      institutionId={formValues.institutionId}
+                      filterFieldId="institutionId"
+                      formatter={(i) => `${i.name}${i.code ? ` (${i.code})` : ''}`}
+                      initialOption={{ label: formatMessage({ id: 'ui-tenant-settings.settings.location.campuses.selectCampus' }) }}
+                      label={
+                        <>
+                          <FormattedMessage id="ui-tenant-settings.settings.location.campuses.campus" />
+                        </>
                     }
-                    name="institutionId"
-                    id="input-location-institution"
-                    component={Select}
-                    required
-                    disabled={disabled}
-                    dataOptions={[
-                      { label: formatMessage({ id: 'ui-tenant-settings.settings.location.institutions.selectInstitution' }) },
-                      ...institutions
-                    ]}
-                    onChange={form.mutators.changeInstitution}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col xs={12}>
-                  <FilteredSelect
-                    list={(locationResources.campuses || {}).records || []}
-                    institutionId={formValues.institutionId}
-                    filterFieldId="institutionId"
-                    formatter={(i) => `${i.name}${i.code ? ` (${i.code})` : ''}`}
-                    initialOption={{ label: formatMessage({ id: 'ui-tenant-settings.settings.location.campuses.selectCampus' }) }}
-                    label={
-                      <>
-                        <FormattedMessage id="ui-tenant-settings.settings.location.campuses.campus" />
-                      </>
+                      name="campusId"
+                      id="input-location-campus"
+                      component={Select}
+                      required
+                      disabled={disabled}
+                      onChange={form.mutators.changeCampus}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={12}>
+                    <FilteredSelect
+                      list={(locationResources.libraries || {}).records || []}
+                      campusId={formValues.campusId}
+                      filterFieldId="campusId"
+                      formatter={(i) => `${i.name}${i.code ? ` (${i.code})` : ''}`}
+                      initialOption={{ label: formatMessage({ id: 'ui-tenant-settings.settings.location.libraries.selectLibrary' }) }}
+                      label={
+                        <>
+                          <FormattedMessage id="ui-tenant-settings.settings.location.libraries.library" />
+                        </>
                     }
-                    name="campusId"
-                    id="input-location-campus"
-                    component={Select}
-                    required
-                    disabled={disabled}
-                    onChange={form.mutators.changeCampus}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col xs={12}>
-                  <FilteredSelect
-                    list={(locationResources.libraries || {}).records || []}
-                    campusId={formValues.campusId}
-                    filterFieldId="campusId"
-                    formatter={(i) => `${i.name}${i.code ? ` (${i.code})` : ''}`}
-                    initialOption={{ label: formatMessage({ id: 'ui-tenant-settings.settings.location.libraries.selectLibrary' }) }}
-                    label={
-                      <>
-                        <FormattedMessage id="ui-tenant-settings.settings.location.libraries.library" />
-                      </>
-                    }
-                    name="libraryId"
-                    id="input-location-library"
-                    component={Select}
-                    required
-                    disabled={disabled}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col
-                  xs={8}
-                  data-test-location-name
-                >
-                  <Field
-                    label={
-                      <>
-                        <FormattedMessage id="ui-tenant-settings.settings.location.locations.name" />
-                      </>
-                    }
-                    name="name"
-                    id="input-location-name"
-                    component={TextField}
-                    required
-                    fullWidth
-                    disabled={disabled}
-                    validate={getUniquenessValidation('name', parentMutator.uniquenessValidator, initialValues?.id)}
-                    validateFields={[]}
-                  />
-                </Col>
-                <Col xs={4}>
-                  <RemoteStorageField {...this.props} />
-                </Col>
-              </Row>
-              <Row>
-                <Col xs={8}>
-                  <Field
-                    label={
-                      <>
-                        <FormattedMessage id="ui-tenant-settings.settings.location.code" />
-                      </>
-                    }
-                    name="code"
-                    id="input-location-code"
-                    component={TextField}
-                    required
-                    fullWidth
-                    disabled={disabled}
-                    validate={getUniquenessValidation('code', parentMutator.uniquenessValidator, initialValues?.id)}
-                    validateFields={[]}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col xs={8}>
-                  <Field
-                    label={
-                      <>
-                        <FormattedMessage id="ui-tenant-settings.settings.location.locations.discoveryDisplayName" />
-                      </>
-                    }
-                    name="discoveryDisplayName"
-                    id="input-location-discovery-display-name"
-                    component={TextField}
-                    required
-                    fullWidth
-                    disabled={disabled}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col xs={8}>
-                  <ServicePointsFields
-                    servicePoints={servicePoints}
-                    formValues={formValues}
-                    changePrimary={form.mutators.changeServicePointPrimary}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col xs={12}>
-                  <Field
-                    label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.status" />}
-                    name="isActive"
-                    id="input-location-status"
-                    component={Select}
-                    disabled={disabled}
-                    format={String}
+                      name="libraryId"
+                      id="input-location-library"
+                      component={Select}
+                      required
+                      disabled={disabled}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col
+                    xs={8}
+                    data-test-location-name
                   >
-                    <FormattedMessage id="ui-tenant-settings.settings.location.locations.active">
-                      { label => (
-                        <option value="true">{label}</option>
-                      )}
-                    </FormattedMessage>
-                    <FormattedMessage id="ui-tenant-settings.settings.location.locations.inactive">
-                      { label => (
-                        <option value="false">{label}</option>
-                      )}
-                    </FormattedMessage>
-                  </Field>
-                </Col>
-              </Row>
-              <Row>
-                <Col xs={8}>
-                  <Field
-                    label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.description" />}
-                    name="description"
-                    id="input-location-description"
-                    component={TextArea}
-                    fullWidth
-                    disabled={disabled}
-                  />
-                </Col>
-              </Row>
-            </Accordion>
-            <Accordion
-              open={sections.detailsSection}
-              id="detailsSection"
-              onToggle={this.handleSectionToggle}
-              label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.locationDetails" />}
-            >
-              <this.cDetailsField />
-            </Accordion>
-          </Pane>
-        </Paneset>
-      </form>
+                    <Field
+                      label={
+                        <>
+                          <FormattedMessage id="ui-tenant-settings.settings.location.locations.name" />
+                        </>
+                    }
+                      name="name"
+                      id="input-location-name"
+                      component={TextField}
+                      required
+                      fullWidth
+                      disabled={disabled}
+                      validate={getUniquenessValidation('name', parentMutator.uniquenessValidator, initialValues?.id)}
+                      validateFields={[]}
+                    />
+                  </Col>
+                  <Col xs={4}>
+                    <RemoteStorageField {...this.props} />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={8}>
+                    <Field
+                      label={
+                        <>
+                          <FormattedMessage id="ui-tenant-settings.settings.location.code" />
+                        </>
+                    }
+                      name="code"
+                      id="input-location-code"
+                      component={TextField}
+                      required
+                      fullWidth
+                      disabled={disabled}
+                      validate={getUniquenessValidation('code', parentMutator.uniquenessValidator, initialValues?.id)}
+                      validateFields={[]}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={8}>
+                    <Field
+                      label={
+                        <>
+                          <FormattedMessage id="ui-tenant-settings.settings.location.locations.discoveryDisplayName" />
+                        </>
+                    }
+                      name="discoveryDisplayName"
+                      id="input-location-discovery-display-name"
+                      component={TextField}
+                      required
+                      fullWidth
+                      disabled={disabled}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={8}>
+                    <ServicePointsFields
+                      servicePoints={servicePoints}
+                      formValues={formValues}
+                      changePrimary={form.mutators.changeServicePointPrimary}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={12}>
+                    <Field
+                      label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.status" />}
+                      name="isActive"
+                      id="input-location-status"
+                      component={Select}
+                      disabled={disabled}
+                      format={String}
+                    >
+                      <FormattedMessage id="ui-tenant-settings.settings.location.locations.active">
+                        { label => (
+                          <option value="true">{label}</option>
+                        )}
+                      </FormattedMessage>
+                      <FormattedMessage id="ui-tenant-settings.settings.location.locations.inactive">
+                        { label => (
+                          <option value="false">{label}</option>
+                        )}
+                      </FormattedMessage>
+                    </Field>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={8}>
+                    <Field
+                      label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.description" />}
+                      name="description"
+                      id="input-location-description"
+                      component={TextArea}
+                      fullWidth
+                      disabled={disabled}
+                    />
+                  </Col>
+                </Row>
+              </Accordion>
+              <Accordion
+                open={sections.detailsSection}
+                id="detailsSection"
+                onToggle={this.handleSectionToggle}
+                label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.locationDetails" />}
+              >
+                <this.cDetailsField />
+              </Accordion>
+            </Pane>
+          </Paneset>
+        </form>
+      </TitleManager>
     );
   }
 }
