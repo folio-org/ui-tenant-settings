@@ -36,7 +36,7 @@ class LocationInstitutions extends React.Component {
     intl: PropTypes.object,
     stripes: PropTypes.shape({
       connect: PropTypes.func.isRequired,
-      hasPerm: PropTypes.bool.isRequired,
+      hasPerm: PropTypes.func.isRequired,
     }).isRequired,
     resources: PropTypes.shape({
       campuses: PropTypes.object,
