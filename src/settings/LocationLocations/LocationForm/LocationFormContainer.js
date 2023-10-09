@@ -97,7 +97,7 @@ const LocationFormContainer = ({
 
 LocationFormContainer.propTypes = {
   onSave: PropTypes.func,
-  servicePointsByName: PropTypes.string,
+  servicePointsByName: PropTypes.object,
   initialValues: PropTypes.shape({
     id: PropTypes.string,
   }),
