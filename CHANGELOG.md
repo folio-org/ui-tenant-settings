@@ -2,7 +2,8 @@
 
 ## IN PROGRESS
 
-## [8.0.0](https://github.com/folio-org/ui-tenant-settings/tree/v8.0.0)(2023-10-12)
+## [8.0.0](https://github.com/folio-org/ui-tenant-settings/tree/v8.0.0)(2023-10-13)
+[Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v7.4.0...v8.0.0)
 
 * [UITEN-232](https://issues.folio.org/browse/UITEN-232) Remember value in Institutions dropdown on Campuses settings page (Settings > Tenant > Campuses) when navigating away from page and returning
 * [UITEN-247](https://issues.folio.org/browse/UITEN-247) Improve "Number of locations" on Institutions page
