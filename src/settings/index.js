@@ -61,6 +61,7 @@ class Organization extends React.Component {
             label: <FormattedMessage id="ui-tenant-settings.settings.servicePoints.label" />,
             component: ServicePoints,
             perm: 'ui-tenant-settings.settings.servicepoints.view',
+            iface: 'service-points',
           },
         ],
       },
@@ -72,24 +73,28 @@ class Organization extends React.Component {
             label: <FormattedMessage id="ui-tenant-settings.settings.location.institutions" />,
             component: LocationInstitutions,
             perm: 'ui-tenant-settings.settings.location.view',
+            iface: 'location-units',
           },
           {
             route: 'location-campuses',
             label: <FormattedMessage id="ui-tenant-settings.settings.location.campuses" />,
             component: LocationCampuses,
             perm: 'ui-tenant-settings.settings.location.view',
+            iface: 'location-units',
           },
           {
             route: 'location-libraries',
             label: <FormattedMessage id="ui-tenant-settings.settings.location.libraries" />,
             component: LocationLibraries,
             perm: 'ui-tenant-settings.settings.location.view',
+            iface: 'location-units',
           },
           {
             route: 'location-locations',
             label: <FormattedMessage id="ui-tenant-settings.settings.location.locations" />,
             component: LocationLocations,
             perm: 'ui-tenant-settings.settings.location.view',
+            iface: 'location-units',
           },
         ],
       }
@@ -109,10 +114,18 @@ class Organization extends React.Component {
   */
 
   render() {
+    // If this PR is accepted, we will not need to do this filtering by hand:
+    // https://github.com/folio-org/stripes-smart-components/pull/1401#issuecomment-1771334495
+    // But for now ...
+    const sections = this.sections.map(section => ({
+      label: section.label,
+      pages: section.pages.filter(page => !page.iface || this.props.stripes.hasInterface(page.iface)),
+    }));
+
     return (
       <Settings
         {...this.props}
-        sections={this.sections}
+        sections={sections}
         paneTitle={<FormattedMessage id="ui-tenant-settings.settings.index.paneTitle" />}
       />
     );

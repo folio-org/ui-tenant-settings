@@ -1,6 +1,8 @@
 # Change history for ui-tenant-settings
 
-## IN PROGRESS
+## 8.0.1 (IN PROGRESS)
+
+* [UITEN-266](https://issues.folio.org/browse/UITEN-266) No longer displays non-working inventory-related pages when the inventory interfaces are not present.
 
 ## [8.0.0](https://github.com/folio-org/ui-tenant-settings/tree/v8.0.0)(2023-10-13)
 [Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v7.4.0...v8.0.0)
