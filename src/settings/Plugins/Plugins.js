@@ -109,7 +109,7 @@ class Plugins extends React.Component {
 
   render() {
     const plugins = this.getPlugins();
-    const isReadOnly = !this.props.stripes.hasPerm('ui-tenant-settings.settings.sso');
+    const isReadOnly = !this.props.stripes.hasPerm('ui-tenant-settings.settings.plugins');
 
     return (
       <Layout className="full">
