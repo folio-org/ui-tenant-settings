@@ -144,7 +144,7 @@
     "settings.location.locations.remoteStorage": "Almacenamiento remoto",
     "settings.location.locations.returning-workflow.title": "Devolución de la preferencia de flujo de trabajo",
     "settings.location.locations.returning-workflow.Scanned to folio": "Elementos recibidos en el almacén remoto escaneados en FOLIO",
-    "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "Artículos recibidos en el almacenamiento remoto escaneados en CaiaSoft",
+    "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "Ítems recibidos en el almacenamiento remoto escaneados en CaiaSoft",
     "settings.numberingSystem": "Sistema de numeración",
     "settings.servicePoints.holdShelfClosedLibraryDateManagement": "Gestión de la fecha de cierre de la biblioteca para el cálculo de la fecha de caducidad de las estanterías de espera",
     "settings.servicePoints.holdShelfClosedLibraryDateManagement.keepTheOriginalDate": "Mantener la fecha original",
