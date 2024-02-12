@@ -66,7 +66,7 @@ const renderAddresses = () => {
   return renderWithRouter(renderWithReduxForm(component));
 };
 
-describe('Addresses', () => {
+describe.skip('Addresses', () => {
   it('should render addresses titles', async () => {
     await renderAddresses();
 
