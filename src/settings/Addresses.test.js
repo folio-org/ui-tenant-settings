@@ -67,6 +67,10 @@ const renderAddresses = () => {
 };
 
 describe('Addresses', () => {
+  beforeEach(() => {
+    jest.useFakeTimers();
+  });
+
   it('should render addresses titles', async () => {
     renderAddresses();
 
