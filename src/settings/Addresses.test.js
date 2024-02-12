@@ -14,6 +14,8 @@ import Addresses from './Addresses';
 
 const STRIPES = buildStripes();
 
+jest.useFakeTimers();
+
 const mutatorPostMock = jest.fn(() => Promise.resolve());
 
 const mutatorPutMock = jest.fn(() => Promise.resolve());
