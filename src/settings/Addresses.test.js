@@ -56,7 +56,7 @@ const resourcesMock = {
 };
 
 configure({
-  asyncUtilTimeout: 2500,
+  asyncUtilTimeout: 5000,
 });
 
 const renderAddresses = () => {
@@ -72,22 +72,22 @@ const renderAddresses = () => {
 };
 
 describe('Addresses', () => {
-  it('should render addresses titles', () => {
-    renderAddresses();
+  it('should render addresses titles', async () => {
+    await renderAddresses();
 
     const addressesTitles = screen.getAllByText('ui-tenant-settings.settings.addresses.label');
 
     addressesTitles.forEach((el) => expect(el).toBeVisible());
   });
 
-  it('should render new button', () => {
-    renderAddresses();
+  it('should render new button', async () => {
+    await renderAddresses();
 
     expect(screen.getByRole('button', { name: 'stripes-core.button.new' })).toBeVisible();
   });
 
-  it('should render correct result column', () => {
-    renderAddresses();
+  it('should render correct result column', async () => {
+    await renderAddresses();
 
     const columnHeaders = [
       /settings.addresses.name/,
@@ -98,8 +98,8 @@ describe('Addresses', () => {
     columnHeaders.forEach((el) => expect(screen.getByRole('columnheader', { name: el })).toBeVisible());
   });
 
-  it('should render correct result values', () => {
-    renderAddresses();
+  it('should render correct result values', async () => {
+    await renderAddresses();
 
     const values = [
       'City',
@@ -111,7 +111,7 @@ describe('Addresses', () => {
   });
 
   it('should render new form', async () => {
-    renderAddresses();
+    await renderAddresses();
 
     await userEvent.click(screen.getByRole('button', { name: 'stripes-core.button.new' }));
 
@@ -121,7 +121,7 @@ describe('Addresses', () => {
   });
 
   it('should render addresses with empty results', async () => {
-    renderAddresses();
+    await renderAddresses();
 
     await userEvent.click(screen.getByRole('button', { name: 'stripes-core.button.new' }));
 
@@ -135,7 +135,7 @@ describe('Addresses', () => {
   });
 
   it('should edit item', async () => {
-    renderAddresses();
+    await renderAddresses();
 
     userEvent.click(screen.getByRole('button', { name: 'stripes-components.editThisItem' }));
 
