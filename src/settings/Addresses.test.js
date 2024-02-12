@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { screen } from '@testing-library/react';
+import { configure } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
 
 import '../../test/jest/__mocks__';
@@ -54,6 +55,10 @@ const resourcesMock = {
   },
 };
 
+configure({
+  asyncUtilTimeout: 2500,
+});
+
 const renderAddresses = () => {
   const component = () => (
     <Addresses
@@ -67,10 +72,6 @@ const renderAddresses = () => {
 };
 
 describe('Addresses', () => {
-  beforeEach(() => {
-    jest.useFakeTimers();
-  });
-
   it('should render addresses titles', () => {
     renderAddresses();
 
@@ -121,7 +122,6 @@ describe('Addresses', () => {
 
   it('should render addresses with empty results', async () => {
     renderAddresses();
-    jest.setTimeout(30000);
 
     await userEvent.click(screen.getByRole('button', { name: 'stripes-core.button.new' }));
 
@@ -136,7 +136,6 @@ describe('Addresses', () => {
 
   it('should edit item', async () => {
     renderAddresses();
-    jest.setTimeout(30000);
 
     userEvent.click(screen.getByRole('button', { name: 'stripes-components.editThisItem' }));
 
