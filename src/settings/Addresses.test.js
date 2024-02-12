@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { screen } from '@testing-library/react';
-import { configure } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
 
 import '../../test/jest/__mocks__';
@@ -13,8 +12,6 @@ import {
 import Addresses from './Addresses';
 
 const STRIPES = buildStripes();
-
-jest.useFakeTimers();
 
 const mutatorPostMock = jest.fn(() => Promise.resolve());
 
@@ -57,10 +54,6 @@ const resourcesMock = {
   },
 };
 
-configure({
-  asyncUtilTimeout: 5000,
-});
-
 const renderAddresses = () => {
   const component = () => (
     <Addresses
@@ -80,13 +73,13 @@ describe('Addresses', () => {
     const addressesTitles = screen.getAllByText('ui-tenant-settings.settings.addresses.label');
 
     addressesTitles.forEach((el) => expect(el).toBeVisible());
-  });
+  }, 5000);
 
   it('should render new button', async () => {
     await renderAddresses();
 
     expect(screen.getByRole('button', { name: 'stripes-core.button.new' })).toBeVisible();
-  });
+  }, 5000);
 
   it('should render correct result column', async () => {
     await renderAddresses();
@@ -98,7 +91,7 @@ describe('Addresses', () => {
     ];
 
     columnHeaders.forEach((el) => expect(screen.getByRole('columnheader', { name: el })).toBeVisible());
-  });
+  }, 5000);
 
   it('should render correct result values', async () => {
     await renderAddresses();
@@ -110,7 +103,7 @@ describe('Addresses', () => {
     ];
 
     values.forEach((el) => expect(screen.getByRole('gridcell', { name: el })).toBeVisible());
-  });
+  }, 5000);
 
   it('should render new form', async () => {
     await renderAddresses();
@@ -120,7 +113,7 @@ describe('Addresses', () => {
     const textBoxex = screen.getAllByRole('textbox');
 
     textBoxex.forEach((el) => expect(el).toHaveValue(''));
-  });
+  }, 5000);
 
   it('should render addresses with empty results', async () => {
     await renderAddresses();
@@ -134,7 +127,7 @@ describe('Addresses', () => {
     userEvent.click(screen.getByRole('button', { name: 'stripes-core.button.save' }));
 
     expect(mutatorPostMock).toHaveBeenCalled();
-  });
+  }, 5000);
 
   it('should edit item', async () => {
     await renderAddresses();
@@ -148,5 +141,5 @@ describe('Addresses', () => {
     userEvent.click(screen.getByRole('button', { name: 'stripes-core.button.save' }));
 
     expect(mutatorPutMock).toHaveBeenCalled();
-  });
+  }, 5000);
 });
