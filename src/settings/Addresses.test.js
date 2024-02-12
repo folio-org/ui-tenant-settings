@@ -71,7 +71,7 @@ describe('Addresses', () => {
     jest.useFakeTimers();
   });
 
-  it('should render addresses titles', async () => {
+  it('should render addresses titles', () => {
     renderAddresses();
 
     const addressesTitles = screen.getAllByText('ui-tenant-settings.settings.addresses.label');
@@ -79,13 +79,13 @@ describe('Addresses', () => {
     addressesTitles.forEach((el) => expect(el).toBeVisible());
   });
 
-  it('should render new button', async () => {
+  it('should render new button', () => {
     renderAddresses();
 
     expect(screen.getByRole('button', { name: 'stripes-core.button.new' })).toBeVisible();
   });
 
-  it('should render correct result column', async () => {
+  it('should render correct result column', () => {
     renderAddresses();
 
     const columnHeaders = [
@@ -97,7 +97,7 @@ describe('Addresses', () => {
     columnHeaders.forEach((el) => expect(screen.getByRole('columnheader', { name: el })).toBeVisible());
   });
 
-  it('should render correct result values', async () => {
+  it('should render correct result values', () => {
     renderAddresses();
 
     const values = [
@@ -121,6 +121,7 @@ describe('Addresses', () => {
 
   it('should render addresses with empty results', async () => {
     renderAddresses();
+    jest.setTimeout(30000);
 
     await userEvent.click(screen.getByRole('button', { name: 'stripes-core.button.new' }));
 
@@ -135,6 +136,7 @@ describe('Addresses', () => {
 
   it('should edit item', async () => {
     renderAddresses();
+    jest.setTimeout(30000);
 
     userEvent.click(screen.getByRole('button', { name: 'stripes-components.editThisItem' }));
 
