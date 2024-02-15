@@ -17,6 +17,7 @@ import {
   Row,
   Select,
   TextLink,
+  timezones,
 } from '@folio/stripes/components';
 import stripesFinalForm from '@folio/stripes/final-form';
 import {
@@ -25,8 +26,6 @@ import {
   supportedNumberingSystems,
   withStripes,
 } from '@folio/stripes/core';
-import timezones from '../util/timezones';
-
 
 import styles from './Locale.css';
 
