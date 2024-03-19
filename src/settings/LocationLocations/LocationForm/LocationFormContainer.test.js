@@ -241,7 +241,7 @@ describe('LocationFormContainer', () => {
 
     inputs.forEach((el) => expect(screen.getByRole('textbox', { name: el })).toHaveValue('Test value'));
 
-    userEvent.click(screen.getByRole('button', { name: /settings.general.saveAndClose/ }));
+    userEvent.click(screen.getByRole('button', { name: /stripes-components.saveAndClose/ }));
   });
 
   it('should render expand buttons', () => {
@@ -253,7 +253,7 @@ describe('LocationFormContainer', () => {
 
     userEvent.click(screen.getByRole('button', { name: /stripes-components.expandAll/ }));
 
-    userEvent.click(screen.getByRole('button', { name: /settings.general.saveAndClose/ }));
+    userEvent.click(screen.getByRole('button', { name: /stripes-components.saveAndClose/ }));
   });
 
   it('should render Service point combobox', () => {
@@ -325,6 +325,6 @@ describe('LocationFormContainer', () => {
       selectLibrary,
       libraryOption
     );
-    userEvent.click(screen.getByRole('button', { name: /settings.general.saveAndClose/ }));
+    userEvent.click(screen.getByRole('button', { name: /stripes-components.saveAndClose/ }));
   });
 });

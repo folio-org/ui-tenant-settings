@@ -211,7 +211,7 @@ describe('LocationManager', () => {
       /stripes-components.collapseAll/,
       /Icon ui-tenant-settings.settings.location.locations.generalInformation/,
       /Icon ui-tenant-settings.settings.location.locations.locationDetails/,
-      /ui-tenant-settings.settings.general.saveAndClose/
+      /stripes-components.saveAndClose/
     ];
 
     buttons.forEach((el) => userEvent.click(screen.getByRole('button', { name: el })));
