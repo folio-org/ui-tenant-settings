@@ -7,6 +7,7 @@
 
 * [UITEN-266](https://issues.folio.org/browse/UITEN-266) No longer displays non-working inventory-related pages when the inventory interfaces are not present.
 * [UITEN-269](https://issues.folio.org/browse/UITEN-269) User without "Settings (tenant): Can maintain preferred plugins" permission can edit preferred plugins.
+* [UITEN-273](https://issues.folio.org/browse/UITEN-273) Use Save & close button label stripes-component translation key
 
 ## [8.0.0](https://github.com/folio-org/ui-tenant-settings/tree/v8.0.0)(2023-10-13)
 [Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v7.4.0...v8.0.0)

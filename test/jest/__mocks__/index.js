@@ -7,3 +7,4 @@ import './stripesIcon.mock';
 import './stripesSmartComponents.mock';
 import './intl.mock';
 import './stripesComponents.mock';
+import './resizeObserver.mock';
