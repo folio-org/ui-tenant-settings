@@ -1,6 +1,9 @@
 # Change history for ui-tenant-settings
 
-## 8.0.1 (IN PROGRESS)
+## 8.2.0 (IN PROGRESS)
+
+## [8.1.0](https://github.com/folio-org/ui-tenant-settings/tree/v8.1.0)(2024-03-19)
+[Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v8.0.0...v8.1.0)
 
 * [UITEN-266](https://issues.folio.org/browse/UITEN-266) No longer displays non-working inventory-related pages when the inventory interfaces are not present.
 * [UITEN-269](https://issues.folio.org/browse/UITEN-269) User without "Settings (tenant): Can maintain preferred plugins" permission can edit preferred plugins.
