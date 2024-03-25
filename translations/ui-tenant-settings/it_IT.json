@@ -110,7 +110,6 @@
     "settings.save.error.network": "Record non salvato",
     "settings.locale.localeWarning": "Le impostazioni in questa pagina cambieranno in modo PERMANENTE le impostazioni di localizzazione (inclusa la visualizzazione della lingua, il formato della data e il formato dei numeri) per tutti gli utenti. Sei fortemente scoraggiato dal cambiare le impostazioni di localizzazione qui a meno che tu non sia assolutamente sicuro che sia l'azione corretta. Per modificare TEMPORANEAMENTE le impostazioni di localizzazione solo per la sessione, fai clic sul pulsante \" {label} \".",
     "settings.locale.changeSessionLocale": "Cambia la localizzazione della sessione",
-    "settings.general.saveAndClose": "Salva e chiudi",
     "settings.pluginNames.create-inventory-records": "Crea record di inventory",
     "settings.pluginNames.find-user": "Cerca utente",
     "settings.pluginNames.find-instance": "Cerca istanza",

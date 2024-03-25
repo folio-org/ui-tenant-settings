@@ -110,7 +110,6 @@
     "settings.save.error.network": "Posten er ikke gemt",
     "settings.locale.localeWarning": "The settings on this page will PERMANENTLY change the locale (including language display, date format, and number format) for all users. You are strongly discouraged from changing the locale here unless you are absolutely certain it is the correct action. To TEMPORARILY change the locale for your session only, click the \"{label}\" button instead.",
     "settings.locale.changeSessionLocale": "Change session locale",
-    "settings.general.saveAndClose": "Gem & luk",
     "settings.pluginNames.create-inventory-records": "Opret registeringer i katalogen",
     "settings.pluginNames.find-user": "Find user",
     "settings.pluginNames.find-instance": "Find instance",
