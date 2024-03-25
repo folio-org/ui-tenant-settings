@@ -110,7 +110,6 @@
     "settings.save.error.network": "紀錄未儲存",
     "settings.locale.localeWarning": "此頁面上的設置將永久更改所有用戶的區域設置（包括語言顯示、日期格式和數字格式）。除非您絕對確定這是正確的操作，否則強烈建議您不要在此處更改語言環境。要僅為您的會話臨時更改區域設置，請改為單擊“ {label} ”按鈕。",
     "settings.locale.changeSessionLocale": "更改工作階段語系",
-    "settings.general.saveAndClose": "儲存並關閉",
     "settings.pluginNames.create-inventory-records": "建立館藏庫紀錄",
     "settings.pluginNames.find-user": "查詢使用者",
     "settings.pluginNames.find-instance": "查找實例",
