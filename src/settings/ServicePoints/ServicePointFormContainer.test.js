@@ -78,7 +78,7 @@ describe('ServicePointFormContainer', () => {
 
     textboxes.forEach((el) => expect(screen.getByRole('textbox', { name: el })).toHaveValue('new value'));
 
-    userEvent.click(screen.getByRole('button', { name: /settings.general.saveAndClose/ }));
+    userEvent.click(screen.getByRole('button', { name: /saveAndClose/ }));
   });
 
   it('should render ServicePointFormContainer select with changed options', () => {

@@ -138,7 +138,7 @@ const ServicePointForm = ({
         buttonStyle="primary mega"
         disabled={(pristine || submitting)}
       >
-        <FormattedMessage id="ui-tenant-settings.settings.general.saveAndClose" />
+        <FormattedMessage id="stripes-components.saveAndClose" />
       </Button>
     );
 
