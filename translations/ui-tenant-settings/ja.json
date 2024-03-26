@@ -110,7 +110,6 @@
     "settings.save.error.network": "Record not saved",
     "settings.locale.localeWarning": "このページの設定により、すべてのユーザーのロケール（言語表示、日付形式、数値形式を含む）が**恒久的に**変更されます。ここでのロケール変更が絶対に正しい場合以外、ここでロケールを変更しないでください。セッションのみのロケールを一時的に変更するには、代わりに「{label} 」ボタンをクリックします。",
     "settings.locale.changeSessionLocale": "セッションロケールを変更する",
-    "settings.general.saveAndClose": "保存して閉じる",
     "settings.pluginNames.create-inventory-records": "Create inventory records",
     "settings.pluginNames.find-user": "Find user",
     "settings.pluginNames.find-instance": "Find instance",

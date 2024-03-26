@@ -110,7 +110,6 @@
     "settings.save.error.network": "Datensatz nicht gespeichert",
     "settings.locale.localeWarning": "Die Einstellungen auf dieser Seite ändern PERMANENT das Gebietsschema (einschließlich Sprachanzeige, Datumsformat und Zahlenformat) für alle Benutzer. Es wird dringend davon abgeraten, das Gebietsschema hier zu ändern, es sei denn, Sie sind absolut sicher, dass dies die richtige Aktion ist. Um das Gebietsschema nur für Ihre Sitzung VORÜBERGEHEND zu ändern, klicken Sie stattdessen auf die Schaltfläche \"{label}\".",
     "settings.locale.changeSessionLocale": "Gebietsschema für diese Session ändern",
-    "settings.general.saveAndClose": "Speichern & schließen",
     "settings.pluginNames.create-inventory-records": "Katalogdatensätze erstellen",
     "settings.pluginNames.find-user": "Person finden",
     "settings.pluginNames.find-instance": "Instanz finden",

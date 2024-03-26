@@ -110,7 +110,6 @@
     "settings.save.error.network": "Záznam nebyl uložen",
     "settings.locale.localeWarning": "Nastavení na této stránce TRVALE změní místní prostředí (včetně zobrazení jazyka, formátu data a formátu čísel) pro všechny uživatele. Důrazně nedoporučujeme měnit zde místní nastavení, pokud si nejste naprosto jisti, že je to správná akce. Chcete-li DOČASNĚ změnit místní prostředí pouze pro svou relaci, klikněte místo toho na tlačítko \"{label}\".",
     "settings.locale.changeSessionLocale": "Změnit národní prostředí relace",
-    "settings.general.saveAndClose": "Uložit a zavřít",
     "settings.pluginNames.create-inventory-records": "Vytvoření záznamů o zásobách",
     "settings.pluginNames.find-user": "Najít uživatele",
     "settings.pluginNames.find-instance": "Najít titul",

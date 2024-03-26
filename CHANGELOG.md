@@ -4,6 +4,8 @@
 * [UITEN-277](https://issues.folio.org/browse/UITEN-277) Ensure Reading Room Access settings page is wrapped by `Title Manager`.
 * [UITEN-276](https://issues.folio.org/browse/UITEN-276) Reading Room Access (settings): Basic Layout.
 
+* [UITEN-274](https://folio-org.atlassian.net/browse/UITEN-274) Use Save & close button label stripes-component translation key.
+
 ## [8.1.0](https://github.com/folio-org/ui-tenant-settings/tree/v8.1.0)(2024-03-19)
 [Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v8.0.0...v8.1.0)
 
