@@ -4,7 +4,8 @@ import '../../../test/jest/__mocks__';
 import buildStripes from '../../../test/jest/__new_mocks__/stripesCore.mock';
 
 import {
-  renderWithRouter, renderWithReduxForm
+  renderWithRouter,
+  renderWithReduxForm,
 } from '../../../test/jest/helpers';
 
 import ReadingRoomAccess from './ReadingRoomAccess';
@@ -33,6 +34,10 @@ describe('Reading Room Access', () => {
       expect(screen.getByLabelText('ui-tenant-settings.settings.reading-room-access.label')).toBeInTheDocument();
     });
 
+    /**
+     * TODO: Uncomment this test once the mock data is removed from the js file, and pass the
+     * associated props.
+     */
     // it('should render text "There are no Reading room access"', () => {
     //   expect(screen.getByText('stripes-smart-components.cv.noExistingTerms')).toBeInTheDocument();
     // });
