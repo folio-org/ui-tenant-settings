@@ -17,12 +17,12 @@
     "route": "/tenant-settings",
     "okapiInterfaces": {
       "configuration": "2.0",
-      "login-saml": "2.0",
       "users": "15.0 16.0"
     },
     "optionalOkapiInterfaces": {
       "location-units": "2.0",
       "locations": "3.0",
+      "login-saml": "2.0",
       "remote-storage-configurations": "1.0",
       "remote-storage-mappings": "1.0 2.0",
       "service-points": "3.0"

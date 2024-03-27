@@ -55,6 +55,7 @@ class Organization extends React.Component {
             label: <FormattedMessage id="ui-tenant-settings.settings.ssoSettings.label" />,
             component: SSOSettings,
             perm: 'ui-tenant-settings.settings.sso.view',
+            disabled: !this.props.stripes.discovery?.interfaces?.['login-saml']
           },
           {
             route: 'servicePoints',
@@ -119,7 +120,7 @@ class Organization extends React.Component {
     // But for now ...
     const sections = this.sections.map(section => ({
       label: section.label,
-      pages: section.pages.filter(page => !page.iface || this.props.stripes.hasInterface(page.iface)),
+      pages: section.pages.filter(page => (!page.iface || this.props.stripes.hasInterface(page.iface)) && !page.disabled),
     }));
 
     return (
