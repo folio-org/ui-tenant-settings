@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import Addresses from './Addresses';
 import Locale from './Locale';
 import Plugins from './Plugins';
+import ReadingRoomAccess from './ReadingRoomAccess';
 import SSOSettings from './SSOSettings';
 import LocationCampuses from './LocationCampuses';
 import LocationInstitutions from './LocationInstitutions';
@@ -55,6 +56,12 @@ class Organization extends React.Component {
             label: <FormattedMessage id="ui-tenant-settings.settings.ssoSettings.label" />,
             component: SSOSettings,
             perm: 'ui-tenant-settings.settings.sso.view',
+          },
+          {
+            route: 'reading-room',
+            label: <FormattedMessage id="ui-tenant-settings.settings.reading-room-access.label" />,
+            component: ReadingRoomAccess,
+            // perm: 'ui-tenant-settings.settings.sso.view', # TO BE UPDATED
           },
           {
             route: 'servicePoints',
