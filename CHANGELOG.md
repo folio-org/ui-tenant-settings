@@ -3,6 +3,7 @@
 ## 8.2.0 (IN PROGRESS)
 
 * [UITEN-274](https://folio-org.atlassian.net/browse/UITEN-274) Use Save & close button label stripes-component translation key.
+* [UITEN-280](https://folio-org.atlassian.net/browse/UITEN-280) Conditionally include SSO Settings based on login-saml interface.
 
 ## [8.1.0](https://github.com/folio-org/ui-tenant-settings/tree/v8.1.0)(2024-03-19)
 [Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v8.0.0...v8.1.0)
