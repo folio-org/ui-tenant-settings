@@ -8,13 +8,13 @@ import buildStripes from '../../test/jest/__new_mocks__/stripesCore.mock';
 
 import Organization from './index';
 
-let stripes = buildStripes();
+const stripes = buildStripes();
 
 const intl = {
   formatMessage: jest.fn()
 };
 
-let props = {
+const props = {
   stripes,
   intl,
   history: {},
@@ -35,11 +35,11 @@ describe('Organization', () => {
       interfaces: {}
     };
     stripes.setIsAuthenticated = jest.fn();
-    stripes.discovery.interfaces['login-saml'] = null;
+    stripes.hasInterface = jest.fn().mockReturnValue(false);
   });
 
   it('should render SSO Settings when login-saml interface is present', () => {
-    stripes.discovery.interfaces['login-saml'] = '1.0.0';
+    stripes.hasInterface = jest.fn().mockReturnValue(true);
     const { queryByText } = renderWithRouter(<Organization {...props} />);
     expect(queryByText('ui-tenant-settings.settings.ssoSettings.label')).toBeTruthy();
   });
