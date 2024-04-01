@@ -55,6 +55,7 @@ class Organization extends React.Component {
             label: <FormattedMessage id="ui-tenant-settings.settings.ssoSettings.label" />,
             component: SSOSettings,
             perm: 'ui-tenant-settings.settings.sso.view',
+            iface: 'login-saml'
           },
           {
             route: 'servicePoints',
