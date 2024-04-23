@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useIntl } from 'react-intl';
 import { Field } from 'redux-form';
 import _ from 'lodash';
@@ -142,5 +143,10 @@ ReadingRoomAccess.manifest = Object.freeze({
     path: 'service-points?limit=200',
   },
 });
+
+ReadingRoomAccess.propTypes = {
+  resources: PropTypes.object,
+  mutator: PropTypes.object
+};
 
 export default ReadingRoomAccess;
