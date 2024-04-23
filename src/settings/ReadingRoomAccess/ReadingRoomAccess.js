@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useIntl } from 'react-intl';
-import { Field } from 'redux-form';
+import { Field } from 'react-final-form';
 import _ from 'lodash';
 
 import { TitleManager, useStripes } from '@folio/stripes/core';
@@ -80,6 +80,7 @@ const ReadingRoomAccess = (props) => {
         {...fieldProps}
         component={Checkbox}
         type="checkbox"
+        initialValue={false}
       />
     ),
     servicePoints: ({ fieldProps }) => {
@@ -122,6 +123,7 @@ const ReadingRoomAccess = (props) => {
           edit: () => true,
           delete: () => true,
         }}
+        formType="final-form"
       />
     </TitleManager>
   );
