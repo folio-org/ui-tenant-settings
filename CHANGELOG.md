@@ -1,6 +1,8 @@
 # Change history for ui-tenant-settings
 
 ## 8.2.0 (IN PROGRESS)
+* [UITEN-277](https://issues.folio.org/browse/UITEN-277) Ensure Reading Room Access settings page is wrapped by `Title Manager`.
+* [UITEN-276](https://issues.folio.org/browse/UITEN-276) Reading Room Access (settings): Basic Layout.
 
 * [UITEN-274](https://folio-org.atlassian.net/browse/UITEN-274) Use Save & close button label stripes-component translation key.
 * [UITEN-280](https://folio-org.atlassian.net/browse/UITEN-280) Conditionally include SSO Settings based on login-saml interface.
