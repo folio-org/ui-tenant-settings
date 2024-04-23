@@ -139,6 +139,7 @@
   "settings.servicePoints.code": "Code",
   "settings.servicePoints.discoveryDisplayName": "Discovery display name",
   "settings.servicePoints.description": "Description",
+  "settings.servicePoints.ecsRequestRouting": "Routing service point",
   "settings.servicePoints.shelvingLagTime": "Shelving lag time (minutes)",
   "settings.servicePoints.pickupLocation": "Pickup location",
   "settings.servicePoints.feeFineOwner": "Fee fine owner",
@@ -164,8 +165,8 @@
   "settings.servicePoints.validation.numeric": "Please enter a number to continue",
   "settings.servicePoints.validation.name.unique": "Service point name must be unique",
   "settings.servicePoints.validation.code.unique": "Code must be unique",
-  "settings.servicePoints.pickupLocation.yes": "Yes",
-  "settings.servicePoints.pickupLocation.no": "No",
+  "settings.servicePoints.value.yes": "Yes",
+  "settings.servicePoints.value.no": "No",
   "settings.intervalPeriod.minutes": "Minutes",
   "settings.intervalPeriod.hours": "Hours",
   "settings.intervalPeriod.days": "Days",
@@ -231,6 +232,6 @@
 
   "settings.confirmPickupLocationChangeModal.title": "Confirm Pickup location change",
   "settings.confirmPickupLocationChangeModal.message": "Changing this Pickup location from \"Yes\" to \"No\" will remove it from existing Request policies and affect all Circulation rules using the policies.",
-  "settings.confirmPickupLocationChangeModal.button.confirm": "Confirm",
-  "settings.confirmPickupLocationChangeModal.button.cancel": "Back"
+  "settings.modal.button.confirm": "Confirm",
+  "settings.modal.button.cancel": "Back"
 }

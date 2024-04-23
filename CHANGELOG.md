@@ -11,6 +11,7 @@
 * [UITEN-278] (https://issues.folio.org/browse/UITEN-278) Reading Room Access (settings): Create new reading room.
 * [UITEN-282] (https://issues.folio.org/browse/UITEN-282) Reading Room Access (settings): Update reading room.
 * [UITEN-283] (https://issues.folio.org/browse/UITEN-283) Reading Room Access (settings): Delete reading room.
+* [UITEN-281](https://folio-org.atlassian.net/browse/UITEN-281) Add Routing service point option to Service point page(ECS only).
 
 ## [8.1.0](https://github.com/folio-org/ui-tenant-settings/tree/v8.1.0)(2024-03-19)
 [Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v8.0.0...v8.1.0)

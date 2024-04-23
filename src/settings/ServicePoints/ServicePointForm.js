@@ -39,6 +39,8 @@ import { intervalPeriods } from '../../constants';
 import {
   validateServicePointForm,
   getUniquenessValidation,
+  isEcsRequestRoutingVisible,
+  isEcsRequestRoutingAssociatedFieldsVisible,
 } from './utils';
 
 import {
@@ -49,6 +51,7 @@ import {
 
 import styles from './ServicePoints.css';
 
+export const SELECTED_ROUTING_SERVICE_POINT_VALUE = 'true';
 export const SELECTED_PICKUP_LOCATION_VALUE = 'true';
 export const UNSELECTED_PICKUP_LOCATION_VALUE = 'false';
 export const LAYER_EDIT = 'layer=edit';
@@ -88,11 +91,11 @@ const ServicePointForm = ({
 
   const selectOptions = [
     {
-      label: intl.formatMessage({ id: 'ui-tenant-settings.settings.servicePoints.pickupLocation.no' }),
+      label: intl.formatMessage({ id: 'ui-tenant-settings.settings.servicePoints.value.no' }),
       value: false
     },
     {
-      label: intl.formatMessage({ id: 'ui-tenant-settings.settings.servicePoints.pickupLocation.yes' }),
+      label: intl.formatMessage({ id: 'ui-tenant-settings.settings.servicePoints.value.yes' }),
       value: true
     }
   ];
@@ -200,6 +203,12 @@ const ServicePointForm = ({
     )));
   };
 
+  const handleEcsRequestRoutingChange = (e) => {
+    const value = e.target.value;
+
+    form.change('ecsRequestRouting', value === SELECTED_ROUTING_SERVICE_POINT_VALUE);
+  };
+
   const handleChange = (e) => {
     const value = e.target.value;
 
@@ -290,67 +299,88 @@ const ServicePointForm = ({
                 />
               </Col>
             </Row>
-            <Row>
-              <Col xs={4}>
-                <Field
-                  label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.shelvingLagTime" />}
-                  name="shelvingLagTime"
-                  id="input-service-shelvingLagTime"
-                  component={TextField}
-                  fullWidth
-                  disabled={disabled}
-                />
-              </Col>
-            </Row>
-            <Row>
-              <Col xs={2}>
-                <Field
-                  data-test-pickup-location
-                  label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.pickupLocation" />}
-                  name="pickupLocation"
-                  id="input-service-pickupLocation"
-                  component={Select}
-                  dataOptions={selectOptions}
-                  onChange={handleChange}
-                  disabled={disabled}
-                />
-              </Col>
-            </Row>
-            {
-              formValues.pickupLocation && (
-                <>
-                  <div data-test-holdshelfexpiry>
-                    <Period
-                      fieldLabel="ui-tenant-settings.settings.servicePoints.expirationPeriod"
-                      selectPlaceholder="ui-tenant-settings.settings.servicePoints.selectInterval"
-                      inputValuePath="holdShelfExpiryPeriod.duration"
-                      selectValuePath="holdShelfExpiryPeriod.intervalId"
-                      entity={formValues}
-                      intervalPeriods={periods}
-                      changeFormValue={form.mutators.changeFormValue}
-                      dependentValuePath="holdShelfClosedLibraryDateManagement"
-                    />
-                  </div>
-                  <div data-test-closed-library-date-managemnet>
+            {isEcsRequestRoutingVisible(stripes) && (
+              <Row>
+                <Col xs={2}>
+                  <Field
+                    label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.ecsRequestRouting" />}
+                    name="ecsRequestRouting"
+                    id="input-service-ecsRequestRouting"
+                    component={Select}
+                    dataOptions={selectOptions}
+                    onChange={handleEcsRequestRoutingChange}
+                    disabled={disabled}
+                  />
+                </Col>
+              </Row>
+            )}
+            {isEcsRequestRoutingAssociatedFieldsVisible(stripes, formValues.ecsRequestRouting) && (
+              <>
+                <Row>
+                  <Col xs={4}>
                     <Field
-                      id="input-service-closed-library-date-management"
-                      label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.holdShelfClosedLibraryDateManagement" />}
-                      name="holdShelfClosedLibraryDateManagement"
-                      component={Select}
-                      dataOptions={getClosedLibraryDateManagementOptions()}
+                      label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.shelvingLagTime" />}
+                      name="shelvingLagTime"
+                      id="input-service-shelvingLagTime"
+                      component={TextField}
+                      fullWidth
+                      disabled={disabled}
                     />
-                  </div>
-                </>
-              )
-            }
-            <StaffSlipEditList staffSlips={staffSlips} />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={2}>
+                    <Field
+                      data-test-pickup-location
+                      label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.pickupLocation" />}
+                      name="pickupLocation"
+                      id="input-service-pickupLocation"
+                      component={Select}
+                      dataOptions={selectOptions}
+                      onChange={handleChange}
+                      disabled={disabled}
+                    />
+                  </Col>
+                </Row>
+                {
+                  formValues.pickupLocation && (
+                    <>
+                      <div data-test-holdshelfexpiry>
+                        <Period
+                          fieldLabel="ui-tenant-settings.settings.servicePoints.expirationPeriod"
+                          selectPlaceholder="ui-tenant-settings.settings.servicePoints.selectInterval"
+                          inputValuePath="holdShelfExpiryPeriod.duration"
+                          selectValuePath="holdShelfExpiryPeriod.intervalId"
+                          entity={formValues}
+                          intervalPeriods={periods}
+                          changeFormValue={form.mutators.changeFormValue}
+                          dependentValuePath="holdShelfClosedLibraryDateManagement"
+                        />
+                      </div>
+                      <div data-test-closed-library-date-managemnet>
+                        <Field
+                          id="input-service-closed-library-date-management"
+                          label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.holdShelfClosedLibraryDateManagement" />}
+                          name="holdShelfClosedLibraryDateManagement"
+                          component={Select}
+                          dataOptions={getClosedLibraryDateManagementOptions()}
+                        />
+                      </div>
+                    </>
+                  )
+                }
+                <StaffSlipEditList staffSlips={staffSlips} />
+              </>
+            )}
           </Accordion>
-          <LocationList
-            locations={locations}
-            servicePoint={servicePoint}
-            expanded={sections.locationSection}
-            onToggle={handleSectionToggle}
-          />
+          {isEcsRequestRoutingAssociatedFieldsVisible(stripes, formValues.ecsRequestRouting) && (
+            <LocationList
+              locations={locations}
+              servicePoint={servicePoint}
+              expanded={sections.locationSection}
+              onToggle={handleSectionToggle}
+            />
+          )}
           <ConfirmPickupLocationChangeModal
             open={isConfirmPickupLocationChangeModal}
             onConfirm={onConfirmConfirmPickupLocationChangeModal}
@@ -373,6 +403,10 @@ ServicePointForm.propTypes = {
     search: PropTypes.string.isRequired,
   }).isRequired,
   submitting: PropTypes.bool,
+  stripes: PropTypes.shape({
+    hasInterface: PropTypes.func.isRequired,
+    hasPerm: PropTypes.func.isRequired,
+  }).isRequired,
   form: PropTypes.object.isRequired,
 };
 

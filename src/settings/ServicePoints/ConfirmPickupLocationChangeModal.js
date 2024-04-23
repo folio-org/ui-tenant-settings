@@ -20,13 +20,13 @@ const ConfirmPickupLocationChangeModal = ({
         autoFocus
         onClick={onConfirm}
       >
-        <FormattedMessage id="ui-tenant-settings.settings.confirmPickupLocationChangeModal.button.confirm" />
+        <FormattedMessage id="ui-tenant-settings.settings.modal.button.confirm" />
       </Button>
       <Button
         data-testid="cancelButton"
         onClick={onCancel}
       >
-        <FormattedMessage id="ui-tenant-settings.settings.confirmPickupLocationChangeModal.button.cancel" />
+        <FormattedMessage id="ui-tenant-settings.settings.modal.button.cancel" />
       </Button>
     </ModalFooter>
   );
