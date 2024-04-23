@@ -17,13 +17,8 @@
     "route": "/tenant-settings",
     "okapiInterfaces": {
       "configuration": "2.0",
-<<<<<<< Updated upstream
-      "users": "15.0 16.0"
-=======
-      "login-saml": "2.0",
       "users": "15.0 16.0",
       "reading-room": "1.0"
->>>>>>> Stashed changes
     },
     "optionalOkapiInterfaces": {
       "location-units": "2.0",
