@@ -1,5 +1,5 @@
-import { screen } from '@testing-library/react';
-
+import { screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import '../../../test/jest/__mocks__';
 import buildStripes from '../../../test/jest/__new_mocks__/stripesCore.mock';
 
@@ -90,33 +90,49 @@ const renderReadingRoomAccess = (props) => {
 };
 
 describe('Reading Room Access', () => {
-  describe('when records exist', () => {
-    const props = {
-      mutator: mutatorMock,
-      resources: resourcesMock,
-      stripes:{ STRIPES }
-    };
+  const props = {
+    mutator: mutatorMock,
+    resources: resourcesMock,
+    stripes:{ STRIPES }
+  };
 
-    beforeEach(() => {
-      renderReadingRoomAccess(props);
+  beforeEach(() => {
+    renderReadingRoomAccess(props);
+  });
+
+  it('should render a Pane with title "Reading room access"', () => {
+    expect(screen.getByLabelText('ui-tenant-settings.settings.reading-room-access.label')).toBeInTheDocument();
+  });
+
+  it('should render new button', () => {
+    expect(screen.getByRole('button', { name: 'stripes-core.button.new' })).toBeVisible();
+  });
+
+  it('should render correct result column', () => {
+    const columnHeaders = [
+      /settings.reading-room-access.name/,
+      /settings.reading-room-access.public/,
+      /settings.reading-room-access.asp/
+    ];
+
+    columnHeaders.forEach((el) => expect(screen.getByRole('columnheader', { name: el })).toBeVisible());
+  });
+
+  it('create reading room', async () => {
+    const newButton = screen.getByRole('button', { name: 'stripes-core.button.new' });
+    await userEvent.click(newButton);
+    await waitFor(() => {
+      expect(screen.getByText('stripes-core.button.save')).toBeInTheDocument();
+      expect(document.querySelector('[name="items[0].name"]')).toBeInTheDocument();
     });
 
-    it('should render a Pane with title "Reading room access"', () => {
-      expect(screen.getByLabelText('ui-tenant-settings.settings.reading-room-access.label')).toBeInTheDocument();
-    });
+    await userEvent.type(document.querySelector('[name="items[0].name"]'), 'test');
+    await userEvent.click(document.querySelectorAll("[class^='multiSelectToggleButton']")[0]);
+    await userEvent.click(document.querySelectorAll('[class^="multiSelectOption"]')[0]);
+    await userEvent.click(screen.getByText('stripes-core.button.save'));
 
-    it('should render new button', () => {
-      expect(screen.getByRole('button', { name: 'stripes-core.button.new' })).toBeVisible();
-    });
-
-    it('should render correct result column', () => {
-      const columnHeaders = [
-        /settings.reading-room-access.name/,
-        /settings.reading-room-access.public/,
-        /settings.reading-room-access.asp/
-      ];
-
-      columnHeaders.forEach((el) => expect(screen.getByRole('columnheader', { name: el })).toBeVisible());
+    await waitFor(() => {
+      expect(screen.queryByText('stripes-core.button.save')).not.toBeInTheDocument();
     });
   });
 });
