@@ -67,41 +67,43 @@ const ReadingRoomAccess = (props) => {
       </Label>),
     isPublic: intl.formatMessage({ id:'ui-tenant-settings.settings.reading-room-access.public' }),
     servicePoints: (
-      <Label tagName="span" required>
+      <Label tagName="span" id="associated-service-point-label" required>
         {
           intl.formatMessage({ id:'ui-tenant-settings.settings.reading-room-access.asp' })
         }
       </Label>),
   };
 
+  const isPublicField = ({ fieldProps }) => (
+    <Field
+      {...fieldProps}
+      component={Checkbox}
+      type="checkbox"
+      initialValue={false}
+    />
+  );
+
+  const servicePointsField = ({ fieldProps }) => (
+    <Field
+      {...fieldProps}
+      id="rra-service-point"
+      component={MultiSelection}
+      aria-labelledby="associated-service-point-label"
+      dataOptions={options}
+      renderToOverlay
+      marginBottom0
+      validationEnabled
+      onBlur={e => e.preventDefault()}
+    />
+  );
+
   const fieldComponents = {
-    isPublic: ({ fieldProps }) => (
-      <Field
-        {...fieldProps}
-        component={Checkbox}
-        type="checkbox"
-        initialValue={false}
-      />
-    ),
-    servicePoints: ({ fieldProps }) => {
-      return (
-        <Field
-          {...fieldProps}
-          id="rra-service-point"
-          component={MultiSelection}
-          aria-labelledby="associated-service-point-label"
-          dataOptions={options}
-          renderToOverlay
-          marginBottom0
-          validationEnabled
-          onBlur={e => e.preventDefault()}
-        />
-      );
-    }
+    isPublic: isPublicField,
+    servicePoints: servicePointsField,
   };
 
-  const editable = true; // stripes.hasPerm('ui-users.settings.reading-room-access.all');
-
+  // TODO: this hard coded value for editable will be replaced by stripes.hasPerm('ui-users.settings.reading-room-access.all') in the scope of another ticket
+  const editable = true;
   return (
     <TitleManager page={intl.formatMessage({ id: 'ui-tenant-settings.settings.reading-room.title' })}>
       <ControlledVocab
