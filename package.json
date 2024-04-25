@@ -1,6 +1,6 @@
 {
   "name": "@folio/tenant-settings",
-  "version": "8.1.0",
+  "version": "9.0.0",
   "description": "Tenant settings",
   "main": "src/index.js",
   "repository": "folio-org/ui-tenant-settings",
@@ -206,6 +206,15 @@
           "inventory-storage.service-points.item.post",
           "inventory-storage.service-points.item.put",
           "inventory-storage.service-points.item.delete"
+        ],
+        "visible": true
+      },
+      {
+        "permissionName": "ui-tenant-settings.settings.reading-room-access.view",
+        "displayName": "Settings (tenant): Can view reading room access",
+        "subPermissions": [
+          "reading-room.collection.get",
+          "settings.tenant-settings.enabled"
         ],
         "visible": true
       }
