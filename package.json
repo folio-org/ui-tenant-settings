@@ -225,8 +225,7 @@
           "ui-tenant-settings.settings.reading-room-access.view",
           "reading-room.item.put",
           "reading-room.item.post",
-          "reading-room.item.delete",
-          "settings.tenant-settings.enabled"
+          "reading-room.item.delete"
         ],
         "visible": true
       }
