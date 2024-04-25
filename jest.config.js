@@ -19,6 +19,7 @@ module.exports = {
   moduleNameMapper: {
     '^.+\\.(css)$': 'identity-obj-proxy',
     '^.+\\.(svg)$': 'identity-obj-proxy',
+    '^.+\\.(png)$': 'identity-obj-proxy',
     'ky': 'ky/umd',
   },
   testMatch: ['**/(lib|src)/**/?(*.)test.{js,jsx}'],
