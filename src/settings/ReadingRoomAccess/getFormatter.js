@@ -1,7 +1,7 @@
 import { Checkbox } from '@folio/stripes/components';
 import { readingRoomAccessColumns } from './constant';
 
-/* eslint-disable react/prop-types, import/prefer-default-export */
+/* eslint-disable import/prefer-default-export, react/prop-types */
 export const getFormatter = ({ fieldLabels }) => ({
   [readingRoomAccessColumns.ISPUBLIC]: ({ isPublic }) => (
     <Checkbox
