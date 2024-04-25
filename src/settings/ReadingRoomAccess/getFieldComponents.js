@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types, import/prefer-default-export */
 import { Field } from 'react-final-form';
 
 import {
@@ -9,6 +8,7 @@ import {
 
 import { readingRoomAccessColumns } from './constant';
 
+/* eslint-disable react/prop-types, import/prefer-default-export */
 export const getFieldComponents = (fieldLabels, options) => ({
   [readingRoomAccessColumns.NAME]: ({ fieldProps, name, rowIndex, fieldIndex }) => (
     <Field

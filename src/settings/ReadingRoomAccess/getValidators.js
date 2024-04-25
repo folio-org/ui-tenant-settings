@@ -9,7 +9,7 @@ const validators = {
       return <FormattedMessage id="stripes-core.label.missingRequiredField" />;
     }
 
-    const allOtherNames = items.filter(r => item.id !== id).map(r => r.name);
+    const allOtherNames = items.filter(r => r.id !== id).map(r => r.name);
 
     if (allOtherNames.some(itemName => itemName === name)) {
       return <FormattedMessage id="ui-marc-authorities.settings.manageAuthoritySourceFiles.error.name.unique" />;
