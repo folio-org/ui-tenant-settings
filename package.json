@@ -217,6 +217,17 @@
           "settings.tenant-settings.enabled"
         ],
         "visible": true
+      },
+      {
+        "permissionName": "ui-tenant-settings.settings.reading-room-access.all",
+        "displayName": "Settings (tenant): Can create, edit and remove reading room access",
+        "subPermissions": [
+          "ui-tenant-settings.settings.reading-room-access.view",
+          "reading-room.item.put",
+          "reading-room.item.post",
+          "reading-room.item.delete"
+        ],
+        "visible": true
       }
     ]
   },
