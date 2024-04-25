@@ -1,17 +1,17 @@
 import { Checkbox } from '@folio/stripes/components';
 import { readingRoomAccessColumns } from './constant';
 
-/* eslint-disable import/prefer-default-export, react/prop-types */
+/* eslint-disable import/prefer-default-export */
 export const getFormatter = ({ fieldLabels }) => ({
-  [readingRoomAccessColumns.ISPUBLIC]: ({ isPublic }) => (
+  [readingRoomAccessColumns.ISPUBLIC]: (record) => (
     <Checkbox
-      checked={isPublic}
+      checked={record.isPublic}
       disabled
       aria-label={fieldLabels[readingRoomAccessColumns.ISPUBLIC]}
     />
   ),
-  [readingRoomAccessColumns.SERVICEPOINTS]: ({ servicePoints }) => {
-    const asp = servicePoints || [];
+  [readingRoomAccessColumns.SERVICEPOINTS]: (record) => {
+    const asp = record.servicePoints || [];
     const items = asp.map(a => <li key={a.label}>{a.label}</li>);
     return (
       <ul
