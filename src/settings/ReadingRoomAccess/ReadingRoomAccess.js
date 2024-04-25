@@ -1,27 +1,18 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useIntl } from 'react-intl';
-import { Field } from 'react-final-form';
 import _ from 'lodash';
 
 import { TitleManager, useStripes } from '@folio/stripes/core';
-import {
-  Checkbox,
-  Label,
-  MultiSelection,
-} from '@folio/stripes/components';
+import { Label } from '@folio/stripes/components';
 import { ControlledVocab } from '@folio/stripes/smart-components';
 
+import { readingRoomAccessColumns } from './constant';
+import { getFormatter } from './getFormatter';
+import { getFieldComponents } from './getFieldComponents';
+import { getValidators } from './getValidators';
+
 const hiddenFields = ['numberOfObjects', 'lastUpdated'];
-const visibleFields = ['name', 'isPublic', 'servicePoints'];
-const formatter = {
-  'isPublic': (record) => <Checkbox checked={record.isPublic} disabled />,
-  'servicePoints': (record) => {
-    const asp = record.servicePoints || [];
-    const items = asp.map(a => <li key={a.label}>{a.label}</li>);
-    return <ul className="marginBottom0">{items}</ul>;
-  }
-};
 const translations = {
   cannotDeleteTermHeader: 'ui-tenant-settings.settings.addresses.cannotDeleteTermHeader',
   cannotDeleteTermMessage: 'ui-tenant-settings.settings.addresses.cannotDeleteTermMessage',
@@ -58,52 +49,55 @@ const ReadingRoomAccess = (props) => {
     }
   });
 
-  const columnMapping = {
-    name: (
-      <Label tagName="span" required>
-        {
-        intl.formatMessage({ id:'ui-tenant-settings.settings.reading-room-access.name' })
+  const getRequiredLabel = useCallback(columnLabel => (
+    <Label required>
+      {columnLabel}
+    </Label>
+  ), []);
+
+  const fieldLabels = useMemo(() => ({
+    [readingRoomAccessColumns.NAME]: intl.formatMessage({ id: 'ui-tenant-settings.settings.reading-room-access.name' }),
+    [readingRoomAccessColumns.ISPUBLIC]: intl.formatMessage({ id: 'ui-tenant-settings.settings.reading-room-access.public' }),
+    [readingRoomAccessColumns.SERVICEPOINTS]: intl.formatMessage({ id: 'ui-tenant-settings.settings.reading-room-access.asp' }),
+  }), [intl]);
+
+  const visibleFields = useMemo(() => ([
+    readingRoomAccessColumns.NAME,
+    readingRoomAccessColumns.ISPUBLIC,
+    readingRoomAccessColumns.SERVICEPOINTS,
+  ]), []);
+
+  const columnMapping = useMemo(() => ({
+    [readingRoomAccessColumns.NAME]: getRequiredLabel(fieldLabels[readingRoomAccessColumns.NAME]),
+    [readingRoomAccessColumns.ISPUBLIC]: fieldLabels[readingRoomAccessColumns.ISPUBLIC],
+    [readingRoomAccessColumns.SERVICEPOINTS]: getRequiredLabel(fieldLabels[readingRoomAccessColumns.SERVICEPOINTS])
+  }), [fieldLabels, getRequiredLabel]);
+
+  const formatter = useMemo(() => getFormatter({ fieldLabels }), [fieldLabels]);
+
+  const validateItem = useCallback((item, items) => {
+    const errors = Object.values(readingRoomAccessColumns).reduce((acc, field) => {
+      const error = getValidators(field)?.(item, items);
+
+      if (error) {
+        acc[field] = error;
       }
-      </Label>),
-    isPublic: intl.formatMessage({ id:'ui-tenant-settings.settings.reading-room-access.public' }),
-    servicePoints: (
-      <Label tagName="span" id="associated-service-point-label" required>
-        {
-          intl.formatMessage({ id:'ui-tenant-settings.settings.reading-room-access.asp' })
-        }
-      </Label>),
-  };
 
-  const isPublicField = ({ fieldProps }) => (
-    <Field
-      {...fieldProps}
-      component={Checkbox}
-      type="checkbox"
-      initialValue={false}
-    />
-  );
+      return acc;
+    }, {});
 
-  const servicePointsField = ({ fieldProps }) => (
-    <Field
-      {...fieldProps}
-      id="rra-service-point"
-      component={MultiSelection}
-      aria-labelledby="associated-service-point-label"
-      dataOptions={options}
-      renderToOverlay
-      marginBottom0
-      validationEnabled
-      onBlur={e => e.preventDefault()}
-    />
-  );
+    return errors;
+  }, []);
 
-  const fieldComponents = {
-    isPublic: isPublicField,
-    servicePoints: servicePointsField,
+  const validate = (item, index, items) => {
+    const itemErrors = validateItem(item, items) || {};
+
+    return itemErrors;
   };
 
   // TODO: this hard coded value for editable will be replaced by stripes.hasPerm('ui-users.settings.reading-room-access.all') in the scope of another ticket
   const editable = true;
+
   return (
     <TitleManager page={intl.formatMessage({ id: 'ui-tenant-settings.settings.reading-room.title' })}>
       <ControlledVocab
@@ -120,7 +114,8 @@ const ReadingRoomAccess = (props) => {
         formatter={formatter}
         translations={translations}
         editable={editable}
-        fieldComponents={fieldComponents}
+        fieldComponents={getFieldComponents(fieldLabels, options)}
+        validate={validate}
         actionSuppressor={{
           edit: () => true,
           delete: () => true,

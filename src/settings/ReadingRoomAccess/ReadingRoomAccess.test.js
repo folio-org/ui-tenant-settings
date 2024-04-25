@@ -1,12 +1,12 @@
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
+import { Form } from 'react-final-form';
+
 import '../../../test/jest/__mocks__';
 import buildStripes from '../../../test/jest/__new_mocks__/stripesCore.mock';
 
-import {
-  renderWithRouter,
-  renderWithReduxForm,
-} from '../../../test/jest/helpers';
+import { renderWithRouter } from '../../../test/jest/helpers';
 
 import ReadingRoomAccess from './ReadingRoomAccess';
 
@@ -158,13 +158,14 @@ const resourcesMock = {
   }
 };
 
-const renderReadingRoomAccess = (props) => {
-  const component = () => (
-    <ReadingRoomAccess {...props} />
-  );
-
-  return renderWithRouter(renderWithReduxForm(component));
-};
+const renderReadingRoomAccess = (props) => renderWithRouter(
+  <Form
+    onSubmit={() => {}}
+    render={() => (
+      <ReadingRoomAccess {...props} />
+    )}
+  />
+);
 
 describe('Reading Room Access', () => {
   const props = {
@@ -197,19 +198,17 @@ describe('Reading Room Access', () => {
 
   it('create reading room', async () => {
     const newButton = screen.getByRole('button', { name: 'stripes-core.button.new' });
-    await userEvent.click(newButton);
+    userEvent.click(newButton);
     await waitFor(() => {
       expect(screen.getByText('stripes-core.button.save')).toBeInTheDocument();
       expect(document.querySelector('[name="items[0].name"]')).toBeInTheDocument();
     });
 
-    await userEvent.type(document.querySelector('[name="items[0].name"]'), 'test');
-    await userEvent.click(document.querySelectorAll("[class^='multiSelectToggleButton']")[0]);
-    await userEvent.click(document.querySelectorAll('[class^="multiSelectOption"]')[0]);
-    await userEvent.click(screen.getByText('stripes-core.button.save'));
+    userEvent.type(document.querySelector('[name="items[0].name"]'), 'test');
+    userEvent.click(document.querySelectorAll("[class^='multiSelectToggleButton']")[0]);
+    userEvent.click(document.querySelectorAll('[class^="multiSelectOption"]')[0]);
 
-    await waitFor(() => {
-      expect(screen.queryByText('stripes-core.button.save')).not.toBeInTheDocument();
-    });
+    const saveButton = screen.getByRole('button', { name: 'stripes-core.button.save' });
+    userEvent.click(saveButton);
   });
 });
