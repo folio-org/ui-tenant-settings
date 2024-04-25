@@ -5,6 +5,7 @@
 * [UITEN-274](https://folio-org.atlassian.net/browse/UITEN-274) Use Save & close button label stripes-component translation key.
 * [UITEN-280](https://folio-org.atlassian.net/browse/UITEN-280) Conditionally include SSO Settings based on login-saml interface.
 * [UITEN-286](https://folio-org.atlassian.net/browse/UITEN-286) *BREAKING* Add new interface. Add new permission to view reading room access in tenant settings.
+* [UITEN-287](https://folio-org.atlassian.net/browse/UITEN-287) Add new permission to create, edit and remove reading room access in tenant settings.
 * [UITEN-277](https://issues.folio.org/browse/UITEN-277) Ensure Reading Room Access settings page is wrapped by `Title Manager`.
 * [UITEN-276](https://issues.folio.org/browse/UITEN-276) Reading Room Access (settings): Basic Layout.
 

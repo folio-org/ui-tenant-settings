@@ -227,6 +227,7 @@
   "permission.settings.servicepoints.view": "Settings (tenant): Can view service points",
   "permission.settings.bursar-exports": "Settings (tenant): Bursar admin",
   "permission.settings.reading-room-access.view": "Settings (tenant): Can view reading room access",
+  "permission.settings.reading-room-access.all": "Settings (tenant): Can create, edit and remove reading room access",
 
   "settings.confirmPickupLocationChangeModal.title": "Confirm Pickup location change",
   "settings.confirmPickupLocationChangeModal.message": "Changing this Pickup location from \"Yes\" to \"No\" will remove it from existing Request policies and affect all Circulation rules using the policies.",
