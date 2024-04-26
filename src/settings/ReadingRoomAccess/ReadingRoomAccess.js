@@ -25,6 +25,7 @@ const ReadingRoomAccess = (props) => {
   const intl = useIntl();
   const stripes = useStripes();
   const { resources } = props;
+
   // service points defined in the tenant
   const servicePoints = _.get(resources, ['RRAServicePoints', 'records', 0, 'servicepoints'], []);
   /**
@@ -49,12 +50,6 @@ const ReadingRoomAccess = (props) => {
     }
   });
 
-  const getRequiredLabel = useCallback(columnLabel => (
-    <Label required>
-      {columnLabel}
-    </Label>
-  ), []);
-
   const fieldLabels = useMemo(() => ({
     [readingRoomAccessColumns.NAME]: intl.formatMessage({ id: 'ui-tenant-settings.settings.reading-room-access.name' }),
     [readingRoomAccessColumns.ISPUBLIC]: intl.formatMessage({ id: 'ui-tenant-settings.settings.reading-room-access.public' }),
@@ -66,6 +61,10 @@ const ReadingRoomAccess = (props) => {
     readingRoomAccessColumns.ISPUBLIC,
     readingRoomAccessColumns.SERVICEPOINTS,
   ]), []);
+
+  const getRequiredLabel = useCallback(columnLabel => (
+    <Label required>{columnLabel}</Label>
+  ), []);
 
   const columnMapping = useMemo(() => ({
     [readingRoomAccessColumns.NAME]: getRequiredLabel(fieldLabels[readingRoomAccessColumns.NAME]),
@@ -95,8 +94,7 @@ const ReadingRoomAccess = (props) => {
     return itemErrors;
   };
 
-  // TODO: this hard coded value for editable will be replaced by stripes.hasPerm('ui-users.settings.reading-room-access.all') in the scope of another ticket
-  const editable = true;
+  const editable = stripes.hasPerm('ui-tenant-settings.settings.reading-room-access.all');
 
   return (
     <TitleManager page={intl.formatMessage({ id: 'ui-tenant-settings.settings.reading-room.title' })}>
@@ -116,7 +114,7 @@ const ReadingRoomAccess = (props) => {
         editable={editable}
         fieldComponents={getFieldComponents(fieldLabels, options)}
         validate={validate}
-        actionSuppressor={{
+        actionSuppressor={{ // TODO: action suppressor will be removed in the scope of another ticket
           edit: () => true,
           delete: () => true,
         }}

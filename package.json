@@ -214,6 +214,7 @@
         "displayName": "Settings (tenant): Can view reading room access",
         "subPermissions": [
           "reading-room.collection.get",
+          "inventory-storage.service-points.collection.get",
           "settings.tenant-settings.enabled"
         ],
         "visible": true
