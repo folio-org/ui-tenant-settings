@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { readingRoomAccessColumns } from './constant';
 
 const validators = {
-  [readingRoomAccessColumns.NAME]: function validateName(item) {
+  [readingRoomAccessColumns.NAME]: (item) => {
     const { name } = item;
     if (!name) {
       return <FormattedMessage id="stripes-core.label.missingRequiredField" />;
@@ -11,7 +11,7 @@ const validators = {
 
     return undefined;
   },
-  [readingRoomAccessColumns.SERVICEPOINTS]: function validateServicePoints(item) {
+  [readingRoomAccessColumns.SERVICEPOINTS]: (item) => {
     const { servicePoints } = item;
     if (!servicePoints) {
       return <FormattedMessage id="stripes-core.label.missingRequiredField" />;

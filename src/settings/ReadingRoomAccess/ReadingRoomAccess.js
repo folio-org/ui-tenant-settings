@@ -34,6 +34,7 @@ const ReadingRoomAccess = (props) => {
   */
   const sps = [];
   const rrs = _.get(resources, ['values', 'records']);
+
   rrs.forEach(rr => {
     const asp = rr.servicePoints || [];
     asp.forEach(s => {
@@ -43,12 +44,12 @@ const ReadingRoomAccess = (props) => {
     });
   });
 
-  const options = [];
-  servicePoints.forEach(s => {
+  const options = servicePoints.reduce((acc, s) => {
     if (!sps.includes(s.id) || s.name === 'None') {
-      options.push({ value: s.id, label: s.name });
+      acc.push({ value: s.id, label: s.name });
     }
-  });
+    return acc;
+  }, []);
 
   const fieldLabels = useMemo(() => ({
     [readingRoomAccessColumns.NAME]: intl.formatMessage({ id: 'ui-tenant-settings.settings.reading-room-access.name' }),
@@ -88,11 +89,7 @@ const ReadingRoomAccess = (props) => {
     return errors;
   }, []);
 
-  const validate = (item, index, items) => {
-    const itemErrors = validateItem(item, items) || {};
-
-    return itemErrors;
-  };
+  const validate = (item, index, items) => validateItem(item, items) || {};
 
   const editable = stripes.hasPerm('ui-tenant-settings.settings.reading-room-access.all');
 
