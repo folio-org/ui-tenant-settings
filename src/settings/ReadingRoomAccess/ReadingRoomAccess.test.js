@@ -1,7 +1,8 @@
-import { screen, waitFor } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-
 import { Form } from 'react-final-form';
+
+import { runAxeTest } from '@folio/stripes-testing';
 
 import '../../../test/jest/__mocks__';
 import buildStripes from '../../../test/jest/__new_mocks__/stripesCore.mock';
@@ -10,14 +11,21 @@ import { renderWithRouter } from '../../../test/jest/helpers';
 
 import ReadingRoomAccess from './ReadingRoomAccess';
 
-const STRIPES = buildStripes();
+const stripes = buildStripes();
 
+const mutatorPutMock = jest.fn(() => Promise.resolve());
 const mutatorMock = {
   values: {
-    // PUT: jest.fn(() => Promise.resolve()),
-    // DELETE: jest.fn(() => Promise.resolve()),
+    path: 'reading-room',
+    PUT: mutatorPutMock,
     GET: jest.fn(() => Promise.resolve()),
     POST: jest.fn(() => Promise.resolve()),
+  },
+  activeRecord: {
+    update: jest.fn()
+  },
+  updaterIds: {
+    replace: jest.fn()
   },
 };
 
@@ -171,44 +179,94 @@ describe('Reading Room Access', () => {
   const props = {
     mutator: mutatorMock,
     resources: resourcesMock,
-    stripes:{ STRIPES }
+    stripes,
   };
 
-  beforeEach(() => {
-    renderReadingRoomAccess(props);
-  });
-
-  it('should render a Pane with title "Reading room access"', () => {
-    expect(screen.getByLabelText('ui-tenant-settings.settings.reading-room-access.label')).toBeInTheDocument();
-  });
-
-  it('should render new button', () => {
-    expect(screen.getByRole('button', { name: 'stripes-core.button.new' })).toBeVisible();
-  });
-
-  it('should render correct result column', () => {
-    const columnHeaders = [
-      /settings.reading-room-access.name/,
-      /settings.reading-room-access.public/,
-      /settings.reading-room-access.asp/
-    ];
-
-    columnHeaders.forEach((el) => expect(screen.getByRole('columnheader', { name: el })).toBeVisible());
-  });
-
-  it('create reading room', async () => {
-    const newButton = screen.getByRole('button', { name: 'stripes-core.button.new' });
-    userEvent.click(newButton);
-    await waitFor(() => {
-      expect(screen.getByText('stripes-core.button.save')).toBeInTheDocument();
-      expect(document.querySelector('[name="items[0].name"]')).toBeInTheDocument();
+  describe('when all permissions are available', () => {
+    beforeEach(() => {
+      stripes.hasPerm = jest.fn().mockReturnValue(true);
+      renderReadingRoomAccess(props);
     });
 
-    userEvent.type(document.querySelector('[name="items[0].name"]'), 'test');
-    userEvent.click(document.querySelectorAll("[class^='multiSelectToggleButton']")[0]);
-    userEvent.click(document.querySelectorAll('[class^="multiSelectOption"]')[0]);
+    it('should render with no axe errors', async () => {
+      await runAxeTest({
+        rootNode: document.body,
+      });
+    });
 
-    const saveButton = screen.getByRole('button', { name: 'stripes-core.button.save' });
-    userEvent.click(saveButton);
+    it('should render a Pane with title "Reading room access"', () => {
+      expect(screen.getByLabelText('ui-tenant-settings.settings.reading-room-access.label')).toBeInTheDocument();
+    });
+
+    it('should render new button', () => {
+      expect(screen.getByRole('button', { name: 'stripes-core.button.new' })).toBeVisible();
+    });
+
+    it('should render correct result column', () => {
+      const columnHeaders = [
+        /settings.reading-room-access.name/,
+        /settings.reading-room-access.public/,
+        /settings.reading-room-access.asp/
+      ];
+
+      columnHeaders.forEach((el) => expect(screen.getByRole('columnheader', { name: el })).toBeVisible());
+    });
+
+    it('create reading room', async () => {
+      const newButton = screen.getByRole('button', { name: 'stripes-core.button.new' });
+      userEvent.click(newButton);
+      await waitFor(() => {
+        expect(screen.getByText('stripes-core.button.save')).toBeInTheDocument();
+        expect(document.querySelector('[name="items[0].name"]')).toBeInTheDocument();
+      });
+
+      userEvent.type(document.querySelector('[name="items[0].name"]'), 'test');
+      userEvent.click(document.querySelectorAll("[class^='multiSelectToggleButton']")[0]);
+      userEvent.click(document.querySelectorAll('[class^="multiSelectOption"]')[0]);
+
+      const saveButton = screen.getByRole('button', { name: 'stripes-core.button.save' });
+      userEvent.click(saveButton);
+    });
+
+    it('edit reading room', async () => {
+      const editButton = document.querySelectorAll('[id^="clickable-edit-reading-room-access-settings-"]')[0];
+      userEvent.click(editButton);
+
+      await waitFor(() => {
+        expect(screen.getByText('stripes-core.button.save')).toBeInTheDocument();
+      });
+
+      fireEvent.change(document.querySelector('[name="items[0].name"]'), 'reading room test');
+      const saveButton = screen.getByRole('button', { name: 'stripes-core.button.save' });
+      userEvent.click(saveButton);
+
+      expect(mutatorPutMock).toHaveBeenCalled();
+    });
+
+    it('delete reading room', async () => {
+      const deleteButton = document.querySelectorAll('[id^="clickable-delete-reading-room-access-settings-"]')[0];
+      userEvent.click(deleteButton);
+
+      expect(screen.getByText('ui-tenant-settings.settings.reading-room-access.termWillBeDeleted')).toBeDefined();
+    });
+  });
+
+  describe('when permissions are not available', () => {
+    beforeEach(() => {
+      stripes.hasPerm = jest.fn().mockReturnValue(false);
+      renderReadingRoomAccess(props);
+    });
+
+    it('should not render new button', () => {
+      expect(screen.queryByText('stripes-core.button.new')).toBeNull();
+    });
+
+    it('should not render edit button', () => {
+      expect(document.querySelectorAll('[id^="clickable-edit-reading-room-access-settings-"]').length).toBe(0);
+    });
+
+    it('should not render delete button', () => {
+      expect(document.querySelectorAll('[id^="clickable-delete-reading-room-access-settings-"]').length).toBe(0);
+    });
   });
 });

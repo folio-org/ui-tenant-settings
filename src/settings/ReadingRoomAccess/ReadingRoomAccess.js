@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import { useIntl } from 'react-intl';
 import _ from 'lodash';
 
-import { TitleManager, useStripes } from '@folio/stripes/core';
+import {
+  TitleManager,
+  withStripes,
+  stripesShape
+} from '@folio/stripes/core';
 import { Label } from '@folio/stripes/components';
 import { ControlledVocab } from '@folio/stripes/smart-components';
 
@@ -23,8 +27,7 @@ const translations = {
 
 const ReadingRoomAccess = (props) => {
   const intl = useIntl();
-  const stripes = useStripes();
-  const { resources } = props;
+  const { resources, stripes } = props;
 
   // service points defined in the tenant
   const servicePoints = _.get(resources, ['RRAServicePoints', 'records', 0, 'servicepoints'], []);
@@ -34,7 +37,6 @@ const ReadingRoomAccess = (props) => {
   */
   const sps = [];
   const rrs = _.get(resources, ['values', 'records']);
-
   rrs.forEach(rr => {
     const asp = rr.servicePoints || [];
     asp.forEach(s => {
@@ -111,10 +113,6 @@ const ReadingRoomAccess = (props) => {
         editable={editable}
         fieldComponents={getFieldComponents(fieldLabels, options)}
         validate={validate}
-        actionSuppressor={{ // TODO: action suppressor will be removed in the scope of another ticket
-          edit: () => true,
-          delete: () => true,
-        }}
         formType="final-form"
       />
     </TitleManager>
@@ -131,6 +129,7 @@ ReadingRoomAccess.manifest = Object.freeze({
     }
   },
   updaterIds: [],
+  activeRecord: {},
   RRAServicePoints: {
     type: 'okapi',
     resource: 'service-points',
@@ -140,7 +139,8 @@ ReadingRoomAccess.manifest = Object.freeze({
 
 ReadingRoomAccess.propTypes = {
   resources: PropTypes.object,
-  mutator: PropTypes.object
+  mutator: PropTypes.object,
+  stripes: stripesShape.isRequired,
 };
 
-export default ReadingRoomAccess;
+export default withStripes(ReadingRoomAccess);
