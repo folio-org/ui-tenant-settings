@@ -111,7 +111,7 @@ const ReadingRoomAccess = (props) => {
         formatter={formatter}
         translations={translations}
         editable={editable}
-        fieldComponents={getFieldComponents(fieldLabels, options)}
+        fieldComponents={getFieldComponents(fieldLabels, options, resources?.values?.records)}
         validate={validate}
         formType="final-form"
       />
