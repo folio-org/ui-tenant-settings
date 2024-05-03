@@ -10,7 +10,7 @@ import {
 import { readingRoomAccessColumns } from './constant';
 
 /* eslint-disable import/prefer-default-export */
-export const getFieldComponents = (fieldLabels, options) => ({
+export const getFieldComponents = (fieldLabels, options, rraData) => ({
   [readingRoomAccessColumns.NAME]: Object.assign(
     ({ fieldProps, name, rowIndex, fieldIndex }) => (
       <Field
@@ -30,7 +30,7 @@ export const getFieldComponents = (fieldLabels, options) => ({
         {...fieldProps}
         aria-label={`${fieldLabels[name]} ${rowIndex}`}
         component={Checkbox}
-        initialValue={false}
+        initialValue={rraData[rowIndex].isPublic}
         type="checkbox"
         marginBottom0
       />
