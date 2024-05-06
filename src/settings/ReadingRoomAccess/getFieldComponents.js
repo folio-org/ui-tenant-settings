@@ -30,7 +30,7 @@ export const getFieldComponents = (fieldLabels, options, rraData) => ({
         {...fieldProps}
         aria-label={`${fieldLabels[name]} ${rowIndex}`}
         component={Checkbox}
-        initialValue={rraData[rowIndex].isPublic}
+        initialValue={rraData[rowIndex]?.isPublic || false}
         type="checkbox"
         marginBottom0
       />
