@@ -13,7 +13,7 @@ const validators = {
   },
   [readingRoomAccessColumns.SERVICEPOINTS]: (item) => {
     const { servicePoints } = item;
-    if (!servicePoints.length) {
+    if (!servicePoints?.length) {
       return <FormattedMessage id="stripes-core.label.missingRequiredField" />;
     }
     return undefined;
