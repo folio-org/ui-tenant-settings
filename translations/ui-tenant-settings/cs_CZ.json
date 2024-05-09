@@ -198,5 +198,17 @@
     "settings.newService.title": "Nastavení nájemce - Nový pult služeb",
     "settings.items.title": "Nastavení nájemce – {item}",
     "settings.location.createNew.title": "Nastavení nájemce – Nová lokace",
-    "settings.items.edit.title": "Nastavení nájemce – Upravit: {item}"
+    "settings.items.edit.title": "Nastavení nájemce – Upravit: {item}",
+    "permission.settings.reading-room-access.view": "Nastavení (Nájemce): Může zobrazit přístup do čítárny",
+    "permission.settings.reading-room-access.all": "Nastavení (Nájemce): Může vytvářet, upravovat a odebírat přístup do čítárny",
+    "settings.reading-room.title": "Nastavení nájemce - přístup do čítárny",
+    "settings.reading-room-access.label": "Přístup do čítárny",
+    "settings.reading-room-access.name": "Název místnosti",
+    "settings.reading-room-access.public": "Veřejný",
+    "settings.reading-room-access.asp": "Přidružené pulty služeb",
+    "settings.reading-room-access.cannotDeleteTermHeader": "Nelze smazat přístup do čítárny",
+    "settings.reading-room-access.cannotDeleteTermMessage": "Tento přístup do čítárny nelze smazat, protože jej využívá jeden nebo více záznamů.",
+    "settings.reading-room-access.deleteEntry": "Smazat přístup do čítárny",
+    "settings.reading-room-access.termDeleted": "Přístup do čítárny <b>{term}</b> byl úspěšně <b>smazán</b>",
+    "settings.reading-room-access.termWillBeDeleted": "Čítárna <b>{term}</b> bude <b>smazána</b>"
 }
