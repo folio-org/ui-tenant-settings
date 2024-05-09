@@ -198,5 +198,17 @@
     "settings.newService.title": "Configurações do locatário - Novo ponto de serviço",
     "settings.items.title": "Configurações de locatário – {item}",
     "settings.location.createNew.title": "Configurações do locatário - Nova localização",
-    "settings.items.edit.title": "Configurações do locatário - Editar: {item}"
+    "settings.items.edit.title": "Configurações do locatário - Editar: {item}",
+    "permission.settings.reading-room-access.view": "Configurações (locatário): Pode visualizar o acesso à sala de leitura",
+    "permission.settings.reading-room-access.all": "Configurações (locatário): Pode criar, editar e remover o acesso à sala de leitura",
+    "settings.reading-room.title": "Configurações do locatário – Acesso à sala de leitura",
+    "settings.reading-room-access.label": "Acesso à sala de leitura",
+    "settings.reading-room-access.name": "Nome da sala",
+    "settings.reading-room-access.public": "Público",
+    "settings.reading-room-access.asp": "Pontos de serviço associados",
+    "settings.reading-room-access.cannotDeleteTermHeader": "Não é possível excluir o acesso à sala de leitura",
+    "settings.reading-room-access.cannotDeleteTermMessage": "Este acesso à sala de leitura não pode ser excluído, pois está em uso por um ou mais registros.",
+    "settings.reading-room-access.deleteEntry": "Excluir o acesso à sala de leitura",
+    "settings.reading-room-access.termDeleted": "O acesso à sala de leitura <b>{term}</b> foi <b>excluído com sucesso</b>",
+    "settings.reading-room-access.termWillBeDeleted": "A sala de leitura <b>{term} </b> será <b>excluída</b>"
 }

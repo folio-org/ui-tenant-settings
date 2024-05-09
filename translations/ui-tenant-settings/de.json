@@ -198,5 +198,17 @@
     "settings.newService.title": "Mandant-Einstellungen - Neue Servicestelle",
     "settings.items.title": "Mandant-Einstellungen - {item}",
     "settings.location.createNew.title": "Mandant-Einstellungen - Neuer Standort",
-    "settings.items.edit.title": "Mandant-Einstellungen - Bearbeiten: {item}"
+    "settings.items.edit.title": "Mandant-Einstellungen - Bearbeiten: {item}",
+    "permission.settings.reading-room-access.view": "Settings (tenant): Can view reading room access",
+    "permission.settings.reading-room-access.all": "Settings (tenant): Can create, edit and remove reading room access",
+    "settings.reading-room.title": "Tenant settings - Reading room access",
+    "settings.reading-room-access.label": "Reading room access",
+    "settings.reading-room-access.name": "Room name",
+    "settings.reading-room-access.public": "Public",
+    "settings.reading-room-access.asp": "Associated service points",
+    "settings.reading-room-access.cannotDeleteTermHeader": "Cannot delete reading room access",
+    "settings.reading-room-access.cannotDeleteTermMessage": "This reading room access cannot be deleted, as it is in use by one or more records.",
+    "settings.reading-room-access.deleteEntry": "Delete reading room access",
+    "settings.reading-room-access.termDeleted": "The reading room access <b>{term}</b> was successfully <b>deleted</b>",
+    "settings.reading-room-access.termWillBeDeleted": "The reading room <b>{term}</b> will be <b>deleted</b>"
 }
