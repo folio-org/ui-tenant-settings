@@ -55,6 +55,9 @@ export const SELECTED_ROUTING_SERVICE_POINT_VALUE = 'true';
 export const SELECTED_PICKUP_LOCATION_VALUE = 'true';
 export const UNSELECTED_PICKUP_LOCATION_VALUE = 'false';
 export const LAYER_EDIT = 'layer=edit';
+export const isEcsRequestRoutingDisable = (search) => (
+  search.includes(LAYER_EDIT)
+);
 export const isConfirmPickupLocationChangeModalShouldBeVisible = (search, value) => (
   search.includes(LAYER_EDIT) && value === UNSELECTED_PICKUP_LOCATION_VALUE
 );
@@ -309,7 +312,7 @@ const ServicePointForm = ({
                     component={Select}
                     dataOptions={selectOptions}
                     onChange={handleEcsRequestRoutingChange}
-                    disabled={disabled}
+                    disabled={disabled || isEcsRequestRoutingDisable(search)}
                   />
                 </Col>
               </Row>
