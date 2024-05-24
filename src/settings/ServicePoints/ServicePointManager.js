@@ -13,7 +13,7 @@ class ServicePointManager extends React.Component {
     entries: {
       type: 'okapi',
       records: 'servicepoints',
-      path: 'service-points?query=cql.allRecords=1 sortby name&limit=1000',
+      path: 'service-points?query=cql.allRecords=1 sortby name&limit=1000&includeRoutingServicePoints=true',
       resourceShouldRefresh: true,
       throwErrors: false,
       POST: {
