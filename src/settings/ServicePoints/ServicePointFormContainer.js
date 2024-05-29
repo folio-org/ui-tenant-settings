@@ -62,12 +62,18 @@ const ServicePointFormContainer = ({
       unset(data, 'holdShelfClosedLibraryDateManagement');
     }
 
+    if (data.ecsRequestRouting) {
+      unset(data, 'pickupLocation');
+      unset(data, 'holdShelfExpiryPeriod');
+      unset(data, 'holdShelfClosedLibraryDateManagement');
+      unset(data, 'staffSlips');
+    } else {
+      data.staffSlips = transformStaffSlipsData(staffSlips);
+    }
+
     unset(data, 'location');
 
-    onSave({
-      ...data,
-      staffSlips: transformStaffSlipsData(staffSlips)
-    });
+    onSave(data);
   }, [onSave, transformStaffSlipsData]);
 
   const titleManagerLabel = initialValues.name ? intl.formatMessage({ id:'ui-tenant-settings.settings.items.edit.title' }, { item: initialValues?.name })
@@ -76,7 +82,6 @@ const ServicePointFormContainer = ({
 
   return (
     <TitleManager page={titleManagerLabel}>
-
       <ServicePointForm
         {...rest}
         onSubmit={onSubmit}

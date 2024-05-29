@@ -53,3 +53,11 @@ export const getUniquenessValidation = (field, mutator) => {
       });
   };
 };
+
+export const isEcsRequestRoutingVisible = (stripes) => (
+  stripes.hasInterface('consortia') && stripes.hasInterface('ecs-tlr')
+);
+
+export const isEcsRequestRoutingAssociatedFieldsVisible = (stripes, ecsRequestRouting) => (
+  (isEcsRequestRoutingVisible(stripes) && !ecsRequestRouting) || !isEcsRequestRoutingVisible(stripes)
+);

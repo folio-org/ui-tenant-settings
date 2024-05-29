@@ -1,16 +1,18 @@
-import { cloneDeep, keyBy, orderBy } from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
   injectIntl,
   FormattedMessage,
 } from 'react-intl';
+import { cloneDeep, keyBy, orderBy } from 'lodash';
+
 import { Accordion, Col, ExpandAllButton, KeyValue, Row } from '@folio/stripes/components';
 import { ViewMetaData } from '@folio/stripes/smart-components';
-
 import { TitleManager } from '@folio/stripes/core';
+
 import LocationList from './LocationList';
 import StaffSlipList from './StaffSlipList';
+import { isEcsRequestRoutingVisible, isEcsRequestRoutingAssociatedFieldsVisible } from './utils';
 import { intervalPeriods } from '../../constants';
 import { closedLibraryDateManagementMapping } from './constants';
 
@@ -19,6 +21,7 @@ class ServicePointDetail extends React.Component {
     intl: PropTypes.object,
     stripes: PropTypes.shape({
       connect: PropTypes.func.isRequired,
+      hasInterface: PropTypes.func.isRequired,
     }).isRequired,
     initialValues: PropTypes.object,
     parentResources: PropTypes.object,
@@ -80,7 +83,7 @@ class ServicePointDetail extends React.Component {
   }
 
   render() {
-    const { initialValues, parentResources } = this.props;
+    const { initialValues, parentResources, stripes } = this.props;
     const locations = (parentResources.locations || {}).records || [];
     const staffSlips = orderBy((parentResources.staffSlips || {}).records || [], 'name');
     const servicePoint = initialValues;
@@ -133,56 +136,74 @@ class ServicePointDetail extends React.Component {
                 />
               </Col>
             </Row>
-            <Row>
-              <Col xs={8}>
-                <KeyValue
-                  label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.shelvingLagTime" />}
-                  value={servicePoint.shelvingLagTime}
-                />
-              </Col>
-            </Row>
-            <Row>
-              <Col xs={8}>
-                <KeyValue label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.pickupLocation" />}>
-                  { servicePoint.pickupLocation
-                    ? <FormattedMessage id="ui-tenant-settings.settings.servicePoints.pickupLocation.yes" />
-                    : <FormattedMessage id="ui-tenant-settings.settings.servicePoints.pickupLocation.no" />
-                }
-                </KeyValue>
-              </Col>
-            </Row>
-            { servicePoint.pickupLocation && (
+            {isEcsRequestRoutingVisible(stripes) && (
+              <Row>
+                <Col xs={8}>
+                  <KeyValue label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.ecsRequestRouting" />}>
+                    { servicePoint.ecsRequestRouting
+                      ? <FormattedMessage id="ui-tenant-settings.settings.servicePoints.value.yes" />
+                      : <FormattedMessage id="ui-tenant-settings.settings.servicePoints.value.no" />
+                    }
+                  </KeyValue>
+                </Col>
+              </Row>
+            )}
+            {isEcsRequestRoutingAssociatedFieldsVisible(stripes, servicePoint.ecsRequestRouting) && (
               <>
                 <Row>
-                  <Col xs={8} data-test-hold-shelf-expiry-period>
+                  <Col xs={8}>
                     <KeyValue
-                      label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.expirationPeriod" />}
-                      value={`${duration} ${this.intervalPeriodMap[intervalId].label}`}
+                      label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.shelvingLagTime" />}
+                      value={servicePoint.shelvingLagTime}
                     />
                   </Col>
                 </Row>
                 <Row>
-                  <Col xs={8} data-test-closed-library-date-management-menu>
-                    <KeyValue label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.holdShelfClosedLibraryDateManagement" />}>
-                      <FormattedMessage id={`ui-tenant-settings.settings.servicePoints.holdShelfClosedLibraryDateManagement.${closedLibraryDateManagementMapping[holdShelfClosedLibraryDateManagement]}`} />
+                  <Col xs={8}>
+                    <KeyValue label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.pickupLocation" />}>
+                      { servicePoint.pickupLocation
+                        ? <FormattedMessage id="ui-tenant-settings.settings.servicePoints.value.yes" />
+                        : <FormattedMessage id="ui-tenant-settings.settings.servicePoints.value.no" />
+                      }
                     </KeyValue>
                   </Col>
                 </Row>
+                { servicePoint.pickupLocation && (
+                  <>
+                    <Row>
+                      <Col xs={8} data-test-hold-shelf-expiry-period>
+                        <KeyValue
+                          label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.expirationPeriod" />}
+                          value={`${duration} ${this.intervalPeriodMap[intervalId].label}`}
+                        />
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col xs={8} data-test-closed-library-date-management-menu>
+                        <KeyValue label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.holdShelfClosedLibraryDateManagement" />}>
+                          <FormattedMessage id={`ui-tenant-settings.settings.servicePoints.holdShelfClosedLibraryDateManagement.${closedLibraryDateManagementMapping[holdShelfClosedLibraryDateManagement]}`} />
+                        </KeyValue>
+                      </Col>
+                    </Row>
+                  </>
+                )
+              }
+                <StaffSlipList
+                  servicePoint={servicePoint}
+                  staffSlips={staffSlips}
+                />
               </>
-            )
-          }
-            <StaffSlipList
-              servicePoint={servicePoint}
-              staffSlips={staffSlips}
-            />
+            )}
           </Accordion>
 
-          <LocationList
-            locations={locations}
-            servicePoint={servicePoint}
-            expanded={sections.locationSection}
-            onToggle={this.handleSectionToggle}
-          />
+          {isEcsRequestRoutingAssociatedFieldsVisible(stripes, servicePoint.ecsRequestRouting) && (
+            <LocationList
+              locations={locations}
+              servicePoint={servicePoint}
+              expanded={sections.locationSection}
+              onToggle={this.handleSectionToggle}
+            />
+          )}
         </div>
       </TitleManager>
     );
