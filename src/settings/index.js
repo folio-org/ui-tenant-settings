@@ -62,7 +62,8 @@ class Organization extends React.Component {
             route: 'reading-room',
             label: <FormattedMessage id="ui-tenant-settings.settings.reading-room-access.label" />,
             component: ReadingRoomAccess,
-            perm: 'ui-tenant-settings.settings.reading-room-access.view'
+            perm: 'ui-tenant-settings.settings.reading-room-access.view',
+            iface: 'reading-room'
           },
           {
             route: 'servicePoints',
