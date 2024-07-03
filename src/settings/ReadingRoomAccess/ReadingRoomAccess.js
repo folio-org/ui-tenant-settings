@@ -18,8 +18,8 @@ import { getValidators } from './getValidators';
 
 const hiddenFields = ['numberOfObjects', 'lastUpdated'];
 const translations = {
-  cannotDeleteTermHeader: 'ui-tenant-settings.settings.addresses.cannotDeleteTermHeader',
-  cannotDeleteTermMessage: 'ui-tenant-settings.settings.addresses.cannotDeleteTermMessage',
+  cannotDeleteTermHeader: 'ui-tenant-settings.settings.reading-room-access.cannotDeleteTermHeader',
+  cannotDeleteTermMessage: 'ui-tenant-settings.settings.reading-room-access.cannotDeleteTermMessage',
   deleteEntry: 'ui-tenant-settings.settings.reading-room-access.deleteEntry',
   termDeleted: 'ui-tenant-settings.settings.reading-room-access.termDeleted',
   termWillBeDeleted: 'ui-tenant-settings.settings.reading-room-access.termWillBeDeleted',
