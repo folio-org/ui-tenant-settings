@@ -110,7 +110,7 @@
     "settings.save.error.network": "Enregistrement non sauvegardé",
     "settings.locale.localeWarning": "Les paramètres de cette page modifieront de manière PERMANENTE les paramètres régionaux (y compris l'affichage de la langue, le format de la date et le format des nombres) pour tous les utilisateurs. Il est fortement déconseillé de modifier les paramètres régionaux ici, sauf si vous êtes absolument certain que c'est la bonne action. Pour modifier TEMPORAIREMENT les paramètres régionaux de votre session uniquement, cliquez sur le bouton \" {label} \" à la place.",
     "settings.locale.changeSessionLocale": "Changer langue et les paramètres régionaux de la session",
-    "settings.pluginNames.create-inventory-records": "Créer des enregistrements d'inventaire / de catalogue",
+    "settings.pluginNames.create-inventory-records": "Créer des notices de catalogue",
     "settings.pluginNames.find-user": "Rechercher un utilisateur",
     "settings.pluginNames.find-instance": "Rechercher une instance",
     "settings.pluginNames.find-import-profile": "Rechercher un profil d'importation",
