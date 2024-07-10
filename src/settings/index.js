@@ -52,18 +52,18 @@ class Organization extends React.Component {
             perm: 'ui-tenant-settings.settings.plugins.view',
           },
           {
-            route: 'ssosettings',
-            label: <FormattedMessage id="ui-tenant-settings.settings.ssoSettings.label" />,
-            component: SSOSettings,
-            perm: 'ui-tenant-settings.settings.sso.view',
-            iface: 'login-saml'
-          },
-          {
             route: 'reading-room',
             label: <FormattedMessage id="ui-tenant-settings.settings.reading-room-access.label" />,
             component: ReadingRoomAccess,
             perm: 'ui-tenant-settings.settings.reading-room-access.view',
             iface: 'reading-room'
+          },
+          {
+            route: 'ssosettings',
+            label: <FormattedMessage id="ui-tenant-settings.settings.ssoSettings.label" />,
+            component: SSOSettings,
+            perm: 'ui-tenant-settings.settings.sso.view',
+            iface: 'login-saml'
           },
           {
             route: 'servicePoints',

@@ -36,10 +36,12 @@ describe('Organization', () => {
     };
     stripes.setIsAuthenticated = jest.fn();
     stripes.hasInterface = jest.fn().mockReturnValue(false);
+    stripes.hasPerm = jest.fn().mockReturnValue(false);
   });
 
   it('should render SSO Settings when login-saml interface is present', () => {
     stripes.hasInterface = jest.fn().mockReturnValue(true);
+    stripes.hasPerm = jest.fn().mockReturnValue(true);
     const { queryByText } = renderWithRouter(<Organization {...props} />);
     expect(queryByText('ui-tenant-settings.settings.ssoSettings.label')).toBeTruthy();
   });
@@ -47,5 +49,24 @@ describe('Organization', () => {
   it('should not render SSO Settings when login-saml interface is not present', () => {
     const { queryByText } = renderWithRouter(<Organization {...props} />);
     expect(queryByText('ui-tenant-settings.settings.ssoSettings.label')).toBeNull();
+  });
+
+  it('should render Reading room access when associated permission and interface are present', () => {
+    stripes.hasInterface = jest.fn().mockReturnValue(true);
+    stripes.hasPerm = jest.fn().mockReturnValue(true);
+    const { queryByText } = renderWithRouter(<Organization {...props} />);
+    expect(queryByText('ui-tenant-settings.settings.reading-room-access.label')).toBeTruthy();
+  });
+
+  it('should not render Reading room access when ui-tenant-settings.settings.reading-room-access.view permission is not present', () => {
+    stripes.hasInterface = jest.fn().mockReturnValue(true);
+    const { queryByText } = renderWithRouter(<Organization {...props} />);
+    expect(queryByText('ui-tenant-settings.settings.reading-room-access.label')).toBeNull();
+  });
+
+  it('should not render Reading room access when reading-room interface is not present', () => {
+    stripes.hasPerm = jest.fn().mockReturnValue(true);
+    const { queryByText } = renderWithRouter(<Organization {...props} />);
+    expect(queryByText('ui-tenant-settings.settings.reading-room-access.label')).toBeNull();
   });
 });
