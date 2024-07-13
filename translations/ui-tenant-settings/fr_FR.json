@@ -175,7 +175,7 @@
     "settings.addresses.termDeleted": "L'adresse <b>{term}</b> a été <b>supprimée</b> avec succès",
     "settings.addresses.termWillBeDeleted": "L'adresse <b>{term}</b> sera <b>supprimée.</b>",
     "settings.confirmPickupLocationChangeModal.title": "Confirm Pickup location change",
-    "settings.confirmPickupLocationChangeModal.message": "Changing this Pickup location from \"Yes\" to \"No\" will remove it from existing Request policies and affect all Circulation rules using the policies.",
+    "settings.confirmPickupLocationChangeModal.message": "Changer ce point de retrait de \"Oui\" à \"Non\" le supprimera des politiques de réservations existantes et s'appliquera à toutes les règles de circulation utilisant ces politiques.",
     "settings.confirmPickupLocationChangeModal.button.confirm": "Confirm",
     "settings.confirmPickupLocationChangeModal.button.cancel": "Back",
     "permission.settings.tenant-settings.view": "Settings (tenant): View",
