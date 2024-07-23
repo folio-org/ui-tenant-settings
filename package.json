@@ -204,7 +204,7 @@
         "subPermissions": [
           "ui-tenant-settings.settings.servicepoints.view",
           "inventory-storage.service-points.item.post",
-          "inventory-storage.service-points.item.put",
+          "inventory-storage.service-points.item.put"
         ],
         "visible": true
       },
