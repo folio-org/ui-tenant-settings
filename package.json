@@ -200,12 +200,11 @@
       },
       {
         "permissionName": "ui-tenant-settings.settings.servicepoints",
-        "displayName": "Settings (tenant): Can create, edit and remove service points",
+        "displayName": "Settings (tenant): Can create and edit service points",
         "subPermissions": [
           "ui-tenant-settings.settings.servicepoints.view",
           "inventory-storage.service-points.item.post",
-          "inventory-storage.service-points.item.put",
-          "inventory-storage.service-points.item.delete"
+          "inventory-storage.service-points.item.put"
         ],
         "visible": true
       },
