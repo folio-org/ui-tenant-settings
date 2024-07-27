@@ -133,7 +133,7 @@
     "permission.settings.plugins": "Configurações (locatário): Pode manter os plugins preferidos",
     "permission.settings.sso": "Configurações (locatário): Pode manter as configurações de SSO",
     "permission.settings.location": "Configurações (locatário): Pode criar, editar e remover locais",
-    "permission.settings.servicepoints": "Configurações (locatário): Pode criar, editar e remover pontos de serviço",
+    "permission.settings.servicepoints": "Configurações (locatário): Pode criar e editar pontos de serviço",
     "settings.location.remotes.remote": "Armazenamento externo",
     "settings.location.remotes.no": "Não (padrão)",
     "settings.location.remotes.loading": "carregando...",
