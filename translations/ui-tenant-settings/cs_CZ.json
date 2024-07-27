@@ -133,7 +133,7 @@
     "permission.settings.plugins": "Nastavení (nájemce): Může udržovat preferované pluginy",
     "permission.settings.sso": "Nastavení (nájemce): Může udržovat nastavení SSO",
     "permission.settings.location": "Nastavení (nájemce): Může vytvářet, upravovat a odstraňovat lokace",
-    "permission.settings.servicepoints": "Nastavení (nájemce):  Může vytvářet, upravovat a odebírat pulty služeb",
+    "permission.settings.servicepoints": "Nastavení (nájemce): Může vytvářet a upravovat pulty služeb",
     "settings.location.remotes.remote": "Vzdálené úložiště",
     "settings.location.remotes.no": "Ne (výchozí)",
     "settings.location.remotes.loading": "načítání...",
