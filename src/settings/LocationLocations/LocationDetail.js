@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import PropTypes from 'prop-types';
 import {
@@ -20,21 +20,21 @@ import {
 } from '@folio/stripes/components';
 import { ViewMetaData } from '@folio/stripes/smart-components';
 import {
-  stripesConnect,
-  IfPermission, useStripes, TitleManager,
+  IfPermission,
+  useStripes,
+  TitleManager,
 } from '@folio/stripes/core';
 
 import LocationInUseModal from './LocationInUseModal';
 import { useRemoteStorageApi } from './RemoteStorage';
 import RemoteStorageDetails from './RemoteStorageDetails';
+import { useCampusDetails } from '../../hooks/useCampusDetails';
+import { useInstitutionDetails } from '../../hooks/useInstitutionDetails';
+import { useLibraryDetails } from '../../hooks/useLibraryDetails';
+
 
 const LocationDetail = ({
   initialValues: loc,
-  resources: {
-    institutions,
-    campuses,
-    libraries,
-  },
   servicePointsById,
   onEdit,
   onClone,
@@ -51,11 +51,16 @@ const LocationDetail = ({
   const [isDeleteLocationModalOpened, setIsDeleteLocationModalOpened] = useState(false);
   const [isLocationInUseModalOpened, setIsLocationInUseModalOpened] = useState(false);
 
+  const { campus } = useCampusDetails({ id: loc.campusId });
+  const { institution } = useInstitutionDetails({ id: loc.institutionId });
+  const { library } = useLibraryDetails({ id: loc.libraryId });
   const { setMapping } = useRemoteStorageApi();
 
-  const handleExpandAll = setSections;
+  const handleExpandAll = (newSections) => {
+    setSections(newSections);
+  };
 
-  const renderServicePoint = useCallback((sp, index) => {
+  const renderServicePoint = (sp, index) => {
     return (
       index === 0 ?
         <li key={index}>
@@ -65,9 +70,9 @@ const LocationDetail = ({
           {sp}
         </li>
     );
-  }, []);
+  };
 
-  const renderServicePoints = useCallback(() => {
+  const renderServicePoints = () => {
     const itemsList = [];
     // as primary servicePoint surely exists and servicePointsById shouldn't be empty, its index would be at the 0th position of itemsList array
     if (!isEmpty(servicePointsById) && loc.servicePointIds.length !== 0) {
@@ -85,19 +90,19 @@ const LocationDetail = ({
         isEmptyMessage="No servicePoints found"
       />
     );
-  }, [loc, renderServicePoint, servicePointsById]);
+  };
 
-  const handleSectionToggle = useCallback(({ id }) => {
+  const handleSectionToggle = ({ id }) => {
     setSections(prevSections => ({ ...prevSections, [id]: !prevSections[id] }));
-  }, []);
+  };
 
-  const toggleDeleteLocationConfirmation = useCallback(() => {
+  const toggleDeleteLocationConfirmation = () => {
     setIsDeleteLocationModalOpened(prevState => !prevState);
-  }, []);
+  };
 
-  const toggleLocationInUseModal = useCallback(() => {
+  const toggleLocationInUseModal = () => {
     setIsLocationInUseModalOpened(prevState => !prevState);
-  }, []);
+  };
 
   const removeLocation = () => {
     toggleDeleteLocationConfirmation();
@@ -112,6 +117,7 @@ const LocationDetail = ({
       });
   };
 
+  // eslint-disable-next-line react/prop-types
   const renderActionMenu = item => ({ onToggle }) => {
     if (!hasAllLocationPerms) return null;
 
@@ -161,15 +167,6 @@ const LocationDetail = ({
       </>
     );
   };
-
-  const institutionList = institutions?.records || [];
-  const institution = institutionList.length === 1 ? institutionList[0] : null;
-
-  const campusList = campuses?.records || [];
-  const campus = campusList.length === 1 ? campusList[0] : null;
-
-  const libraryList = libraries?.records || [];
-  const library = libraryList.length === 1 ? libraryList[0] : null;
 
   // massage the "details" property which is represented in the API as
   // an object but displayed on the details page as an array of
@@ -222,7 +219,7 @@ const LocationDetail = ({
                 <ViewMetaData metadata={loc.metadata} />
               </Col>
             </Row>
-        }
+          }
           <Row>
             <Col xs={12}>
               <KeyValue
@@ -308,54 +305,34 @@ const LocationDetail = ({
         </Accordion>
 
         {
-        isDeleteLocationModalOpened && (
-          <ConfirmationModal
-            id="deletelocation-confirmation"
-            open
-            heading={<FormattedMessage id="ui-tenant-settings.settings.location.locations.deleteLocation" />}
-            message={confirmationMessage}
-            onConfirm={removeLocation}
-            onCancel={toggleDeleteLocationConfirmation}
-            confirmLabel={<FormattedMessage id="stripes-core.button.delete" />}
-          />
-        )
-      }
+          isDeleteLocationModalOpened && (
+            <ConfirmationModal
+              id="deletelocation-confirmation"
+              open
+              heading={<FormattedMessage id="ui-tenant-settings.settings.location.locations.deleteLocation" />}
+              message={confirmationMessage}
+              onConfirm={removeLocation}
+              onCancel={toggleDeleteLocationConfirmation}
+              confirmLabel={<FormattedMessage id="stripes-core.button.delete" />}
+            />
+          )
+        }
 
         {
-        isLocationInUseModalOpened && (
-          <LocationInUseModal toggleModal={toggleLocationInUseModal} />
-        )
-      }
+          isLocationInUseModalOpened && (
+            <LocationInUseModal toggleModal={toggleLocationInUseModal} />
+          )
+        }
       </TitleManager>
     </Pane>
   );
 };
 
-LocationDetail.manifest = Object.freeze({
-  institutions: {
-    type: 'okapi',
-    path: 'location-units/institutions/!{initialValues.institutionId}',
-  },
-  campuses: {
-    type: 'okapi',
-    path: 'location-units/campuses/!{initialValues.campusId}',
-  },
-  libraries: {
-    type: 'okapi',
-    path: 'location-units/libraries/!{initialValues.libraryId}',
-  },
-});
-
 LocationDetail.propTypes = {
-  stripes: PropTypes.shape({
-    connect: PropTypes.func.isRequired,
-  }).isRequired,
   initialValues: PropTypes.object,
-  resources: PropTypes.shape({
-    institutions: PropTypes.object,
-    campuses: PropTypes.object,
-    libraries: PropTypes.object,
-  }).isRequired,
+  institutions: PropTypes.arrayOf(PropTypes.object),
+  campuses: PropTypes.arrayOf(PropTypes.object),
+  libraries: PropTypes.arrayOf(PropTypes.object),
   servicePointsById: PropTypes.object,
   onEdit: PropTypes.func.isRequired,
   onClone: PropTypes.func.isRequired,
@@ -363,4 +340,4 @@ LocationDetail.propTypes = {
   onRemove: PropTypes.func.isRequired,
 };
 
-export default stripesConnect(LocationDetail);
+export default LocationDetail;

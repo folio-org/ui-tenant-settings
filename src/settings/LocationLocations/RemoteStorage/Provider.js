@@ -1,37 +1,62 @@
 import React, {
-  useEffect,
-  useState,
   useContext,
   createContext,
   useMemo,
 } from 'react';
-import PropTypes from 'prop-types';
 import { useIntl } from 'react-intl';
 
-import { stripesConnect } from '@folio/stripes/core';
+import { useStripes } from '@folio/stripes/core';
+
+import { useRemoteStorageConfigurations } from '../../../hooks/useRemoteStorageConfigurations';
+import { useRemoteStorageMappingUpdate } from '../../../hooks/useRemoteStorageMappingUpdate';
+import { useRemoteStorageMappingDelete } from '../../../hooks/useRemoteStorageMappingDelete';
+import { useRemoteStorageMappings } from '../../../hooks/useRemoteStorageMappings';
+
 
 const Context = createContext({});
 
 export const useRemoteStorageApi = () => useContext(Context);
 
-const Provider = ({ resources, mutator, stripes, ...rest }) => {
-  const [persistentMutator] = useState(mutator);
+export const RemoteStorageApiProvider = (props) => {
+  const stripes = useStripes();
 
-  useEffect(() => {
-    if (stripes.hasInterface('remote-storage-configurations')) {
-      persistentMutator.configurations.reset();
-      persistentMutator.configurations.GET();
+  const {
+    configurations,
+    isConfigurationsLoading,
+    isConfigurationsError
+  } = useRemoteStorageConfigurations({
+    searchParams: {
+      limit: 10000
+    },
+    options: {
+      enabled: stripes.hasInterface('remote-storage-configurations'),
     }
-  }, [persistentMutator.configurations, stripes]);
+  });
+
+  const {
+    mappings,
+    isMappingsLoading,
+    isMappingsError
+  } = useRemoteStorageMappings({
+    searchParams: {
+      limit: 10000
+    },
+    options: {
+      enabled: stripes.hasInterface('remote-storage-mappings'),
+    }
+  });
+
+  const { updateMapping } = useRemoteStorageMappingUpdate();
+  const { deleteMapping } = useRemoteStorageMappingDelete();
 
   const { formatMessage } = useIntl();
   const translate = key => formatMessage({ id: `ui-tenant-settings.settings.location.remotes.${key}` });
 
   const remoteMap = useMemo(
-    () => Object.fromEntries(resources.mappings.records.map(
+    () => Object.fromEntries(mappings.map(
       ({ folioLocationId, configurationId }) => [folioLocationId, configurationId]
     )),
-    [resources.mappings.records]
+    [mappings]
   );
 
   const setMapping = ({ folioLocationId, configurationId }) => {
@@ -39,49 +64,26 @@ const Provider = ({ resources, mutator, stripes, ...rest }) => {
       return Promise.resolve();
     }
 
-    if (configurationId) return persistentMutator.mappings.POST({ folioLocationId, configurationId });
+    if (configurationId) {
+      return updateMapping({
+        data: { folioLocationId, configurationId }
+      });
+    }
 
-    return persistentMutator.mappings.DELETE({ folioLocationId });
+    return deleteMapping({ folioLocationId });
   };
 
   const context = {
-    ...resources,
     remoteMap,
+    mappings,
+    isMappingsLoading,
+    isMappingsError,
+    configurations,
+    isConfigurationsLoading,
+    isConfigurationsError,
     setMapping,
     translate,
   };
 
-  return <Context.Provider value={context} {...rest} />;
+  return <Context.Provider value={context} {...props} />;
 };
-
-Provider.manifest = Object.freeze({
-  configurations: {
-    type: 'okapi',
-    path: 'remote-storage/configurations?limit=10000',
-    accumulate: true,
-    records: 'configurations',
-    throwErrors: false,
-  },
-  mappings: {
-    type: 'okapi',
-    path: 'remote-storage/mappings',
-    perRequest: 10000,
-    records: 'mappings',
-    pk: 'folioLocationId',
-    clientGeneratePk: false, // because we use POST instead of PUT for modification here (there's no PUT)
-    throwErrors: false,
-    fetch: ({ stripes }) => stripes.hasInterface('remote-storage-mappings'),
-  },
-});
-
-Provider.propTypes = {
-  mutator: PropTypes.object.isRequired,
-  stripes: PropTypes.object,
-  resources: PropTypes.shape({
-    mappings: PropTypes.shape({
-      records: PropTypes.arrayOf(PropTypes.object)
-    })
-  })
-};
-
-export const RemoteStorageApiProvider = stripesConnect(Provider);

@@ -1,9 +1,12 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
-import LocacationLibraries from './LocationLibraries';
+import LocationLibraries from './LocationLibraries';
 import { renderWithRouter } from '../../test/jest/helpers';
+import { useInstitutions } from '../hooks/useInstitutions';
+
 
 jest.mock('@folio/stripes-smart-components/lib/ControlledVocab', () => jest.fn(({
   rowFilter,
@@ -36,39 +39,40 @@ jest.mock('@folio/stripes-smart-components/lib/ControlledVocab', () => jest.fn((
   </>
 )));
 
-const stripesMock = {
-  connect: component => component,
-  hasPerm: jest.fn().mockResolvedValue(true),
-  config: {
-    platform: 'tenant-settings'
-  },
-};
+jest.mock('../hooks/useCampuses', () => ({
+  useCampuses: jest.fn(() => ({
+    campuses: [
+      {
+        code: 'CC',
+        id: '62cf76b7-cca5-4d33-9217-edf42ce1a848',
+        institutionId: '40ee00ca-a518-4b49-be01-0638d0a4ac57',
+        name: 'City Campus',
+      },
+      {
+        code: 'E',
+        id: '470ff1dd-937a-4195-bf9e-06bcfcd135df',
+        institutionId: '40ee00ca-a518-4b49-be01-0638d0a4ac57',
+        name: 'Online'
+      }
+    ],
+  })),
+}));
 
-const mutatorMock = {
-  locationsPerLibrary: {
-    GET: jest.fn(() => Promise.resolve()),
-    reset: jest.fn(() => Promise.resolve()),
-  },
-  institutions: {
-    GET: jest.fn(() => Promise.resolve()),
-    reset: jest.fn(() => Promise.resolve()),
-  },
-  campuses: {
-    GET: jest.fn(() => Promise.resolve()),
-    reset: jest.fn(() => Promise.resolve()),
-  },
-};
-
-const resourcesMock = {
-  institutions: {
-    records: [
-      { code: 'KU',
+jest.mock('../hooks/useInstitutions', () => ({
+  useInstitutions: jest.fn(() => ({
+    institutions: [
+      {
+        code: 'KU',
         id: '40ee00ca-a518-4b49-be01-0638d0a4ac57',
-        name: 'Københavns Universitet' }
+        name: 'Københavns Universitet'
+      }
     ]
-  },
-  locationsPerLibrary: {
-    records: [
+  })),
+}));
+
+jest.mock('../hooks/useLocations', () => ({
+  useLocations: jest.fn(() => ({
+    locations: [
       {
         campusId: '62cf76b7-cca5-4d33-9217-edf42ce1a848',
         code: 'KU/CC/DI/A',
@@ -87,49 +91,36 @@ const resourcesMock = {
         name: 'Dematic',
       }
     ]
-  },
-  campuses: {
-    records: [{
-      code: 'CC',
-      id: '62cf76b7-cca5-4d33-9217-edf42ce1a848',
-      institutionId: '40ee00ca-a518-4b49-be01-0638d0a4ac57',
-      name: 'City Campus',
-    },
-    {
-      code: 'E',
-      id: '470ff1dd-937a-4195-bf9e-06bcfcd135df',
-      institutionId: '40ee00ca-a518-4b49-be01-0638d0a4ac57',
-      name: 'Online'
-    }
-    ]
-  },
-};
+  })),
+}));
 
-const renderLocationLibaries = (resources = {}) => renderWithRouter(
-  <LocacationLibraries
-    mutator={mutatorMock}
-    resources={resources}
-    stripes={stripesMock}
-  />
+
+const renderLocationLibaries = () => renderWithRouter(
+  <QueryClientProvider client={new QueryClient()}>
+    <LocationLibraries />
+  </QueryClientProvider>
 );
 
 
 describe('LocationLibraries', () => {
   it('should render LocationLibraries with empty resources', async () => {
+    useInstitutions.mockImplementationOnce(() => ({ institutions: [] }));
+
     renderLocationLibaries();
 
     expect(screen.getByTestId('libraries-empty')).toBeVisible();
   });
+
   it('should render LocationLibraries with resourses', async () => {
-    renderLocationLibaries(resourcesMock);
+    renderLocationLibaries();
 
     expect(renderLocationLibaries).toBeDefined();
   });
 
   it('should render LocationLibraries changed option value', async () => {
-    renderLocationLibaries(resourcesMock);
+    renderLocationLibaries();
 
-    const checkboxInstitution = screen.getByRole('combobox');
+    const checkboxInstitution = screen.getAllByRole('combobox')[0];
 
     await userEvent.selectOptions(checkboxInstitution, 'Københavns Universitet (KU)');
 
@@ -139,7 +130,7 @@ describe('LocationLibraries', () => {
   });
 
   it('should render LocationLibraries with filled form', async () => {
-    renderLocationLibaries(resourcesMock);
+    renderLocationLibaries();
 
     const checkboxInstitution = screen.getByRole('combobox', { name: 'ui-tenant-settings.settings.location.institutions.institution' });
 

@@ -1,9 +1,9 @@
 import React from 'react';
-import { FormattedMessage, injectIntl } from 'react-intl';
-import { Settings } from '@folio/stripes/smart-components';
-import { stripesShape, TitleManager } from '@folio/stripes/core';
+import { FormattedMessage, useIntl } from 'react-intl';
 
-import PropTypes from 'prop-types';
+import { Settings } from '@folio/stripes/smart-components';
+import { TitleManager, useStripes } from '@folio/stripes/core';
+
 import Addresses from './Addresses';
 import Locale from './Locale';
 import Plugins from './Plugins';
@@ -15,130 +15,108 @@ import LocationLibraries from './LocationLibraries';
 import LocationLocations from './LocationLocations';
 import ServicePoints from './ServicePoints';
 
-class Organization extends React.Component {
-  static propTypes = {
-    stripes: stripesShape.isRequired,
-    intl: PropTypes.object,
-  }
 
-  constructor(props) {
-    super(props);
+const Organization = (props) => {
+  const intl = useIntl();
+  const stripes = useStripes();
 
-    this.sections = [
-      {
-        label:
-            (
-              <TitleManager page={this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.title' })}>
-                <FormattedMessage id="ui-tenant-settings.settings.general.label" />
-              </TitleManager>
-            ),
-        pages: [
-          {
-            route: 'addresses',
-            label: <FormattedMessage id="ui-tenant-settings.settings.addresses.label" />,
-            component: Addresses,
-            perm: 'ui-tenant-settings.settings.addresses.view',
-          },
-          {
-            route: 'locale',
-            label: <FormattedMessage id="ui-tenant-settings.settings.language.label" />,
-            component: Locale,
-            perm: 'ui-tenant-settings.settings.locale.view',
-          },
-          {
-            route: 'plugins',
-            label: <FormattedMessage id="ui-tenant-settings.settings.plugins.label" />,
-            component: Plugins,
-            perm: 'ui-tenant-settings.settings.plugins.view',
-          },
-          {
-            route: 'reading-room',
-            label: <FormattedMessage id="ui-tenant-settings.settings.reading-room-access.label" />,
-            component: ReadingRoomAccess,
-            perm: 'ui-tenant-settings.settings.reading-room-access.view',
-            iface: 'reading-room'
-          },
-          {
-            route: 'ssosettings',
-            label: <FormattedMessage id="ui-tenant-settings.settings.ssoSettings.label" />,
-            component: SSOSettings,
-            perm: 'ui-tenant-settings.settings.sso.view',
-            iface: 'login-saml'
-          },
-          {
-            route: 'servicePoints',
-            label: <FormattedMessage id="ui-tenant-settings.settings.servicePoints.label" />,
-            component: ServicePoints,
-            perm: 'ui-tenant-settings.settings.servicepoints.view',
-            iface: 'service-points',
-          },
-        ],
-      },
-      {
-        label: <FormattedMessage id="ui-tenant-settings.settings.location.label" />,
-        pages: [
-          {
-            route: 'location-institutions',
-            label: <FormattedMessage id="ui-tenant-settings.settings.location.institutions" />,
-            component: LocationInstitutions,
-            perm: 'ui-tenant-settings.settings.location.view',
-            iface: 'location-units',
-          },
-          {
-            route: 'location-campuses',
-            label: <FormattedMessage id="ui-tenant-settings.settings.location.campuses" />,
-            component: LocationCampuses,
-            perm: 'ui-tenant-settings.settings.location.view',
-            iface: 'location-units',
-          },
-          {
-            route: 'location-libraries',
-            label: <FormattedMessage id="ui-tenant-settings.settings.location.libraries" />,
-            component: LocationLibraries,
-            perm: 'ui-tenant-settings.settings.location.view',
-            iface: 'location-units',
-          },
-          {
-            route: 'location-locations',
-            label: <FormattedMessage id="ui-tenant-settings.settings.location.locations" />,
-            component: LocationLocations,
-            perm: 'ui-tenant-settings.settings.location.view',
-            iface: 'location-units',
-          },
-        ],
-      }
-    ];
-  }
-  /*
-  <NavList>
-    <NavListSection activeLink={activeLink} label="Settings">
-      {navLinks}
-    </NavListSection>
-  </NavList>
-  <br /><br />
-  <NavListSection label="System information" activeLink={activeLink}>
-    <NavListItem to="/settings/about"><FormattedMessage id="stripes-core.front.about" /></NavListItem>
-  </NavListSection>
+  const sections = [
+    {
+      label: (
+        <TitleManager page={intl.formatMessage({ id: 'ui-tenant-settings.settings.title' })}>
+          <FormattedMessage id="ui-tenant-settings.settings.general.label" />
+        </TitleManager>
+      ),
+      pages: [
+        {
+          route: 'addresses',
+          label: <FormattedMessage id="ui-tenant-settings.settings.addresses.label" />,
+          component: Addresses,
+          perm: 'ui-tenant-settings.settings.addresses.view',
+        },
+        {
+          route: 'locale',
+          label: <FormattedMessage id="ui-tenant-settings.settings.language.label" />,
+          component: Locale,
+          perm: 'ui-tenant-settings.settings.locale.view',
+        },
+        {
+          route: 'plugins',
+          label: <FormattedMessage id="ui-tenant-settings.settings.plugins.label" />,
+          component: Plugins,
+          perm: 'ui-tenant-settings.settings.plugins.view',
+        },
+        {
+          route: 'reading-room',
+          label: <FormattedMessage id="ui-tenant-settings.settings.reading-room-access.label" />,
+          component: ReadingRoomAccess,
+          perm: 'ui-tenant-settings.settings.reading-room-access.view',
+          iface: 'reading-room'
+        },
+        {
+          route: 'ssosettings',
+          label: <FormattedMessage id="ui-tenant-settings.settings.ssoSettings.label" />,
+          component: SSOSettings,
+          perm: 'ui-tenant-settings.settings.sso.view',
+          iface: 'login-saml'
+        },
+        {
+          route: 'servicePoints',
+          label: <FormattedMessage id="ui-tenant-settings.settings.servicePoints.label" />,
+          component: ServicePoints,
+          perm: 'ui-tenant-settings.settings.servicepoints.view',
+          iface: 'service-points',
+        },
+      ],
+    },
+    {
+      label: <FormattedMessage id="ui-tenant-settings.settings.location.label" />,
+      pages: [
+        {
+          route: 'location-institutions',
+          label: <FormattedMessage id="ui-tenant-settings.settings.location.institutions" />,
+          component: LocationInstitutions,
+          perm: 'ui-tenant-settings.settings.location.view',
+          iface: 'location-units',
+        },
+        {
+          route: 'location-campuses',
+          label: <FormattedMessage id="ui-tenant-settings.settings.location.campuses" />,
+          component: LocationCampuses,
+          perm: 'ui-tenant-settings.settings.location.view',
+          iface: 'location-units',
+        },
+        {
+          route: 'location-libraries',
+          label: <FormattedMessage id="ui-tenant-settings.settings.location.libraries" />,
+          component: LocationLibraries,
+          perm: 'ui-tenant-settings.settings.location.view',
+          iface: 'location-units',
+        },
+        {
+          route: 'location-locations',
+          label: <FormattedMessage id="ui-tenant-settings.settings.location.locations" />,
+          component: LocationLocations,
+          perm: 'ui-tenant-settings.settings.location.view',
+          iface: 'location-units',
+        },
+      ],
+    }
+  ];
 
-  */
+  const filteredSections = sections.map(section => ({
+    label: section.label,
+    pages: section.pages.filter(page => !page.iface || stripes.hasInterface(page.iface)),
+  }));
 
-  render() {
-    // If this PR is accepted, we will not need to do this filtering by hand:
-    // https://github.com/folio-org/stripes-smart-components/pull/1401#issuecomment-1771334495
-    // But for now ...
-    const sections = this.sections.map(section => ({
-      label: section.label,
-      pages: section.pages.filter(page => !page.iface || this.props.stripes.hasInterface(page.iface)),
-    }));
+  return (
+    <Settings
+      {...props}
+      stripes={stripes}
+      sections={filteredSections}
+      paneTitle={<FormattedMessage id="ui-tenant-settings.settings.index.paneTitle" />}
+    />
+  );
+};
 
-    return (
-      <Settings
-        {...this.props}
-        sections={sections}
-        paneTitle={<FormattedMessage id="ui-tenant-settings.settings.index.paneTitle" />}
-      />
-    );
-  }
-}
-
-export default injectIntl(Organization);
+export default Organization;

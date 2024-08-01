@@ -1,39 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { ConfigManager } from '@folio/stripes/smart-components';
+import { useStripes } from '@folio/stripes/core';
 
 import BindingsForm from './BindingsForm';
 
-class Bindings extends React.Component {
-  static propTypes = {
-    stripes: PropTypes.shape({
-      setBindings: PropTypes.func.isRequired,
-      connect: PropTypes.func.isRequired,
-    }).isRequired,
-    label: PropTypes.node.isRequired,
+
+const Bindings = ({ label }) => {
+  const stripes = useStripes();
+  const ConnectedConfigManager = stripes.connect(ConfigManager);
+
+  const setBindings = (config) => {
+    stripes.setBindings(JSON.parse(config.value));
   };
 
-  constructor(props) {
-    super(props);
-    this.configManager = props.stripes.connect(ConfigManager);
-    this.setBindings = this.setBindings.bind(this);
-  }
+  return (
+    <ConnectedConfigManager
+      label={label}
+      moduleName="ORG"
+      configName="bindings"
+      onAfterSave={setBindings}
+      configFormComponent={BindingsForm}
+    />
+  );
+};
 
-  setBindings(config) {
-    this.props.stripes.setBindings(JSON.parse(config.value));
-  }
-
-  render() {
-    return (
-      <this.configManager
-        label={this.props.label}
-        moduleName="ORG"
-        configName="bindings"
-        onAfterSave={this.setBindings}
-        configFormComponent={BindingsForm}
-      />
-    );
-  }
-}
+Bindings.propTypes = {
+  label: PropTypes.node.isRequired,
+};
 
 export default Bindings;

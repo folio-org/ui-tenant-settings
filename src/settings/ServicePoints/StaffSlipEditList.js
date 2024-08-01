@@ -6,13 +6,9 @@ import { FieldArray } from 'react-final-form-arrays';
 
 import { Col, Row, Checkbox } from '@folio/stripes/components';
 
-class StaffSlipEditList extends React.Component {
-  static propTypes = {
-    staffSlips: PropTypes.arrayOf(PropTypes.object),
-  };
 
-  renderList = () => {
-    const { staffSlips } = this.props;
+const StaffSlipEditList = ({ staffSlips }) => {
+  const renderList = () => {
     const items = staffSlips.map((staffSlip, index) => (
       <Row key={`staff-slip-row-${index}`}>
         <Col xs={12}>
@@ -30,24 +26,24 @@ class StaffSlipEditList extends React.Component {
     return (
       <>
         <p>
-          <FormattedMessage
-            id="ui-tenant-settings.settings.servicePoints.printByDefault"
-          />
+          <FormattedMessage id="ui-tenant-settings.settings.servicePoints.printByDefault" />
         </p>
         {items}
       </>
     );
-  }
+  };
 
-  render() {
-    return (
-      <FieldArray
-        data-test-staff-slip-edit-list
-        name="staffSlips"
-        component={this.renderList}
-      />
-    );
-  }
-}
+  return (
+    <FieldArray
+      data-test-staff-slip-edit-list
+      name="staffSlips"
+      component={renderList}
+    />
+  );
+};
+
+StaffSlipEditList.propTypes = {
+  staffSlips: PropTypes.arrayOf(PropTypes.object),
+};
 
 export default StaffSlipEditList;

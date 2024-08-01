@@ -57,18 +57,16 @@ export const validate = values => {
   return errors;
 };
 
-export const getUniquenessValidation = (field, mutator, id) => {
+export const getUniquenessValidation = (field, ky, id) => {
   return (value, allValues, meta) => {
     if (!value) return Promise.resolve();
 
     if (id && !meta.dirty) return Promise.resolve();
 
-    mutator.reset();
-
     const query = `(${field}=="${value.replace(/"/gi, '\\"')}")`;
 
-    return mutator.GET({ params: { query } })
-      .then((locations) => {
+    return ky.get('locations', { searchParams: { query } }).json()
+      .then(({ locations }) => {
         if (locations.length !== 0) return Promise.reject();
 
         return undefined;

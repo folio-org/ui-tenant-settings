@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { map, omit } from 'lodash';
 
 import { modules } from 'stripes-config'; // eslint-disable-line import/no-unresolved, import/no-extraneous-dependencies
@@ -8,124 +8,97 @@ import {
   Callout,
   Layout,
 } from '@folio/stripes/components';
+import { TitleManager, useStripes } from '@folio/stripes/core';
 
-import { TitleManager } from '@folio/stripes/core';
 import PluginForm from './PluginForm';
+import { useConfigurationsCreate } from '../../hooks/useConfigurationsCreate';
+import { useConfigurationsUpdate } from '../../hooks/useConfigurationsUpdate';
+import { useConfigurations } from '../../hooks/useConfigurations';
 
-class Plugins extends React.Component {
-  static manifest = Object.freeze({
-    recordId: {},
-    settings: {
-      type: 'okapi',
-      records: 'configs',
-      path: 'configurations/entries?query=(module==PLUGINS) sortby configName&limit=1000',
-      POST: {
-        path: 'configurations/entries',
-      },
-      PUT: {
-        path: 'configurations/entries/%{recordId}',
-      },
+
+const Plugins = ({ label }) => {
+  const intl = useIntl();
+  const stripes = useStripes();
+  const callout = useRef(null);
+
+  const { configs } = useConfigurations({
+    searchParams: {
+      query: '(module==PLUGINS) sortby configName',
+      limit: '1000',
     },
   });
+  const { createConfiguration } = useConfigurationsCreate();
+  const { updateConfiguration } = useConfigurationsUpdate();
 
-  static propTypes = {
-    label: PropTypes.node.isRequired,
-    stripes: PropTypes.shape({
-      logger: PropTypes.shape({
-        log: PropTypes.func.isRequired,
-      }).isRequired,
-      setSinglePlugin: PropTypes.func.isRequired,
-      hasPerm: PropTypes.func.isRequired,
-    }).isRequired,
-    resources: PropTypes.shape({
-      settings: PropTypes.shape({
-        records: PropTypes.arrayOf(PropTypes.object),
-      }),
-    }).isRequired,
-    mutator: PropTypes.shape({
-      recordId: PropTypes.shape({
-        replace: PropTypes.func,
-      }),
-      settings: PropTypes.shape({
-        POST: PropTypes.func.isRequired,
-        PUT: PropTypes.func.isRequired,
-      }),
-    }).isRequired,
-    intl: PropTypes.object,
-  };
-
-  constructor(props) {
-    super(props);
-
+  const pluginTypes = (() => {
     const plugins = modules.plugin || [];
-    this.pluginTypes = plugins.reduce((pt, plugin) => {
+    return plugins.reduce((pt, plugin) => {
       const type = plugin.pluginType;
-      // eslint-disable-next-line no-param-reassign
       pt[type] = pt[type] || [];
       pt[type].push(plugin);
       return pt;
     }, {});
+  })();
 
-    this.save = this.save.bind(this);
-  }
-
-  getPlugins() {
-    const settings = ((this.props.resources.settings || {}).records || []);
+  const getPlugins = (settings) => {
     const pluginsByType = settings.reduce((memo, setting) => {
-      // eslint-disable-next-line no-param-reassign
       memo[setting.configName] = setting;
       return memo;
     }, {});
 
-    return map(this.pluginTypes, (types, key) => {
+    return map(pluginTypes, (types, key) => {
       const plugin = pluginsByType[key];
       return plugin || { configName: key };
     });
-  }
+  };
 
-  savePlugin(plugin) {
+  const savePlugin = (plugin) => {
     const value = plugin.value;
     if (plugin.id) {
-      // Setting has been set previously: replace it
-      this.props.mutator.recordId.replace(plugin.id);
-      this.props.mutator.settings.PUT(omit(plugin, ['metadata']));
+      updateConfiguration({
+        id: plugin.id,
+        data: omit(plugin, ['metadata']),
+      });
     } else {
-      // No setting: create a new one
-      this.props.mutator.settings.POST({
-        module: 'PLUGINS',
-        configName: plugin.configName,
-        value,
+      createConfiguration({
+        data: {
+          module: 'PLUGINS',
+          configName: plugin.configName,
+          value,
+        },
       });
     }
 
-    this.props.stripes.setSinglePlugin(plugin.configName, value);
-  }
+    stripes.setSinglePlugin(plugin.configName, value);
+  };
 
-  save(data) {
-    data.plugins.forEach(p => this.savePlugin(p));
+  const save = (data) => {
+    data.plugins.forEach(p => savePlugin(p));
     const updateMsg = <FormattedMessage id="ui-tenant-settings.settings.updated" />;
-    this.callout.sendCallout({ message: updateMsg });
-  }
+    callout.current.sendCallout({ message: updateMsg });
+  };
 
-  render() {
-    const plugins = this.getPlugins();
-    const isReadOnly = !this.props.stripes.hasPerm('ui-tenant-settings.settings.plugins');
+  const plugins = getPlugins(configs);
+  const isReadOnly = !stripes.hasPerm('ui-tenant-settings.settings.plugins');
 
-    return (
-      <Layout className="full">
-        <TitleManager page={this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.plugins.title' })}>
-          <PluginForm
-            label={this.props.label}
-            pluginTypes={this.pluginTypes}
-            initialValues={{ plugins }}
-            onSubmit={this.save}
-            readOnly={isReadOnly}
-          />
-        </TitleManager>
-        <Callout ref={(ref) => { this.callout = ref; }} />
-      </Layout>
-    );
-  }
-}
+  return (
+    <Layout className="full">
+      <TitleManager page={intl.formatMessage({ id: 'ui-tenant-settings.settings.plugins.title' })}>
+        <PluginForm
+          label={label}
+          pluginTypes={pluginTypes}
+          initialValues={{ plugins }}
+          onSubmit={save}
+          readOnly={isReadOnly}
+        />
+      </TitleManager>
+      <Callout ref={callout} />
+    </Layout>
+  );
+};
 
-export default injectIntl(Plugins);
+Plugins.propTypes = {
+  label: PropTypes.node.isRequired,
+};
+
+export default Plugins;
