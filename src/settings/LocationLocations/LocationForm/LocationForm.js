@@ -57,7 +57,13 @@ const LocationForm = ({
     detailsSection: true,
   });
 
-  const mappedInstitutions = institutions.map(i => ({ value: i.id, label: `${i.name} ${i.code ? `(${i.code})` : ''}` }));
+  const mappedInstitutions = institutions.map(i => {
+    let label = i.name;
+    if (i.code) {
+      label += ` (${i.code})`;
+    }
+    return { value: i.id, label };
+  });
   const mappedServicePoints = sortBy(servicePoints, ['name']).map(i => ({ label: `${i.name}` }));
 
   const handleExpandAll = (newSections) => {

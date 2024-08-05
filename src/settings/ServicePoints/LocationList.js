@@ -8,7 +8,7 @@ import {
 const LocationList = ({ locations, expanded, servicePoint, onToggle }) => {
   const intl = useIntl();
 
-  const renderLocation = (location) => {
+  const renderLocation = (location, index) => {
     if (!location) return (<div />);
 
     const { name, code, primaryServicePoint } = location;
@@ -16,14 +16,14 @@ const LocationList = ({ locations, expanded, servicePoint, onToggle }) => {
       ? intl.formatMessage({ id: 'ui-tenant-settings.settings.servicePoints.primary' }) :
       '';
     const title = `${name} - ${code} ${primary}`;
-    return (<li key={title}>{title}</li>);
+    return (<li key={index}>{title}</li>);
   };
 
   const renderLocations = () => {
     return (
       <List
         items={locations}
-        itemFormatter={location => renderLocation(location)}
+        itemFormatter={renderLocation}
         isEmptyMessage={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.noLocationsFound" />}
       />
     );

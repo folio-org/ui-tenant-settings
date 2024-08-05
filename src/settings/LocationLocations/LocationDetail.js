@@ -330,9 +330,6 @@ const LocationDetail = ({
 
 LocationDetail.propTypes = {
   initialValues: PropTypes.object,
-  institutions: PropTypes.arrayOf(PropTypes.object),
-  campuses: PropTypes.arrayOf(PropTypes.object),
-  libraries: PropTypes.arrayOf(PropTypes.object),
   servicePointsById: PropTypes.object,
   onEdit: PropTypes.func.isRequired,
   onClone: PropTypes.func.isRequired,

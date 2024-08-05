@@ -24,28 +24,23 @@ const LocationFormContainer = ({
 
   const callout = useContext(CalloutContext);
 
-  function showSubmitErrorCallout(error) {
+  const showSubmitErrorCallout = (error) => {
     callout.sendCallout({
       type: 'error',
       message: error.message || error.statusText || <FormattedMessage id="ui-tenant-settings.settings.save.error.network" />,
     });
-  }
+  };
 
   const { setMapping } = useRemoteStorageApi();
-
-  const { createLocation } = useLocationCreate({
+  const sharedOptions = {
     onSuccess: () => {
       queryClient.invalidateQueries(SERVICE_POINTS);
       queryClient.invalidateQueries(LOCATIONS);
     },
-  });
+  };
 
-  const { updateLocation } = useLocationUpdate({
-    onSuccess: () => {
-      queryClient.invalidateQueries(SERVICE_POINTS);
-      queryClient.invalidateQueries(LOCATIONS);
-    },
-  });
+  const { createLocation } = useLocationCreate(sharedOptions);
+  const { updateLocation } = useLocationUpdate(sharedOptions);
 
   const initiateSetMapping = (...args) => setMapping(...args).catch(showSubmitErrorCallout);
 

@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { map, omit } from 'lodash';
+import { useQueryClient } from 'react-query';
 
 import { modules } from 'stripes-config'; // eslint-disable-line import/no-unresolved, import/no-extraneous-dependencies
 import {
@@ -13,12 +14,13 @@ import { TitleManager, useStripes } from '@folio/stripes/core';
 import PluginForm from './PluginForm';
 import { useConfigurationsCreate } from '../../hooks/useConfigurationsCreate';
 import { useConfigurationsUpdate } from '../../hooks/useConfigurationsUpdate';
-import { useConfigurations } from '../../hooks/useConfigurations';
+import { CONFIGURATIONS, useConfigurations } from '../../hooks/useConfigurations';
 
 
 const Plugins = ({ label }) => {
   const intl = useIntl();
   const stripes = useStripes();
+  const queryClient = useQueryClient();
   const callout = useRef(null);
 
   const { configs } = useConfigurations({
@@ -27,8 +29,15 @@ const Plugins = ({ label }) => {
       limit: '1000',
     },
   });
-  const { createConfiguration } = useConfigurationsCreate();
-  const { updateConfiguration } = useConfigurationsUpdate();
+
+  const sharedOptions = {
+    onSuccess: () => {
+      queryClient.invalidateQueries(CONFIGURATIONS);
+    },
+  };
+
+  const { createConfiguration } = useConfigurationsCreate(sharedOptions);
+  const { updateConfiguration } = useConfigurationsUpdate(sharedOptions);
 
   const pluginTypes = (() => {
     const plugins = modules.plugin || [];

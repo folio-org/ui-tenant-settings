@@ -33,7 +33,7 @@ const PluginForm = ({
 
     const options = [{ value: '@@', label: '(none)' }].concat(pluginType.map(p => ({
       value: p.module,
-      label: `${intl.formatMessage({ id: `ui-tenant-settings.settings.pluginNames.${p.pluginType}` })} ${p.version}`,
+      label: intl.formatMessage({ id: `ui-tenant-settings.settings.pluginNames.${p.pluginType}` }) + ' ' + p.version,
     })));
 
     const lbl = <FormattedMessage id={`ui-tenant-settings.settings.pluginNames.${plugin.configName}`} />;

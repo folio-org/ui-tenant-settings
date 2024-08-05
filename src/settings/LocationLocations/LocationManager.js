@@ -160,7 +160,13 @@ const LocationManager = ({ label }) => {
   };
 
   const formatLocationDisplayName = (loc) => {
-    return `${loc.name}${loc.code ? ` (${loc.code})` : ''}`;
+    let lbl = loc.name;
+
+    if (loc.code) {
+      lbl += ` (${loc.code})`;
+    }
+
+    return lbl;
   };
 
   const onSort = (e, { name: fieldName }) => {
@@ -292,7 +298,8 @@ const LocationManager = ({ label }) => {
 
   const parseInitialValues = (loc, cloning = false) => {
     if (!loc) return loc;
-    loc.detailsArray = Object.keys(loc.details || []).map(name => ({ name, value: loc.details[name] })).sort();
+    loc.detailsArray = Object.keys(loc.details || []).map(name => ({ name, value: loc.details[name] }))
+      .sort((a, b) => a.name.localeCompare(b.name));
     return cloning ? omit(loc, 'id') : loc;
   };
 
