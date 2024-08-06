@@ -70,6 +70,21 @@ const initialSort = (location) => {
   return { sort, sortDir };
 };
 
+const locationListVisibleColumns = ['isActive', 'name', 'code'];
+
+const locationListColumnMapping = {
+  isActive: <FormattedMessage id="ui-tenant-settings.settings.location.locations.status" />,
+  name: <FormattedMessage id="ui-tenant-settings.settings.location.locations.detailsName" />,
+  code: <FormattedMessage id="ui-tenant-settings.settings.location.code" />,
+};
+
+const locationListFormatter = {
+  isActive: item => {
+    const locationId = item.isActive ? 'active' : 'inactive';
+    return <FormattedMessage id={`ui-tenant-settings.settings.location.locations.${locationId}`} />;
+  }
+};
+
 const LocationManager = ({ label }) => {
   const intl = useIntl();
   const stripes = useStripes();
@@ -81,18 +96,6 @@ const LocationManager = ({ label }) => {
   const match = useRouteMatch();
 
   const entryLabel = intl.formatMessage({ id: 'ui-tenant-settings.settings.location.locations.location' });
-  const locationListVisibleColumns = ['isActive', 'name', 'code'];
-  const locationListColumnMapping = {
-    isActive: intl.formatMessage({ id: 'ui-tenant-settings.settings.location.locations.status' }),
-    name: intl.formatMessage({ id: 'ui-tenant-settings.settings.location.locations.detailsName' }),
-    code: intl.formatMessage({ id: 'ui-tenant-settings.settings.location.code' }),
-  };
-  const locationListFormatter = {
-    isActive: item => {
-      const locationId = item.isActive ? 'active' : 'inactive';
-      return intl.formatMessage({ id: `ui-tenant-settings.settings.location.locations.${locationId}` });
-    }
-  };
   const hasAllLocationPerms = stripes.hasPerm('ui-tenant-settings.settings.location');
 
   const showCalloutMessage = (name) => {
@@ -135,10 +138,12 @@ const LocationManager = ({ label }) => {
     query: 'cql.allRecords=1 sortby name',
   } });
 
-  const { locations: locationEntries } = useLocations({ searchParams: {
-    limit: 3000,
-    query: 'cql.allRecords=1 sortby name'
-  } });
+  const { locations: locationEntries, refetch: refetchLocationEntries } = useLocations({
+    searchParams: {
+      limit: 3000,
+      query: 'cql.allRecords=1 sortby name'
+    },
+  });
 
   const { deleteLocation } = useLocationDelete({
     onSuccess: () => {
@@ -306,6 +311,7 @@ const LocationManager = ({ label }) => {
   const handleDetailClose = () => {
     transitionToParams({ _path: match.path });
     setSelectedId(null);
+    refetchLocationEntries();
   };
 
   const prepareLocationsData = () => {

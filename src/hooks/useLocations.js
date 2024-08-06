@@ -7,7 +7,7 @@ export const useLocations = ({ searchParams }) => {
   const ky = useOkapiKy();
   const [namespaceKey] = useNamespace({ key: LOCATIONS });
 
-  const { data, isLoading: isLocationsLoading } = useQuery({
+  const { data, isLoading: isLocationsLoading, refetch } = useQuery({
     queryKey: [LOCATIONS, namespaceKey, searchParams],
     queryFn: () => ky.get('locations', { searchParams }).json(),
   });
@@ -15,5 +15,6 @@ export const useLocations = ({ searchParams }) => {
   return {
     locations: data?.locations || [],
     isLocationsLoading,
+    refetch,
   };
 };
