@@ -23,7 +23,7 @@ const Locale = ({ label, ...rest }) => {
       if (locale) stripes.setLocale(locale);
       if (timezone) stripes.setTimezone(timezone);
       if (currency) stripes.setCurrency(currency);
-    }, 500);
+    }, 2000);
   };
 
   return (
