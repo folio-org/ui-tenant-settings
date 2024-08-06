@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { useQueryClient } from 'react-query';
 
 import { TitleManager, useOkapiKy, useStripes } from '@folio/stripes/core';
 import {
@@ -10,13 +11,14 @@ import {
 
 import { patronIdentifierTypes, samlBindingTypes } from '../../constants';
 import SamlForm from './SamlForm';
-import { useSamlConfiguration } from '../../hooks/useSamlConfiguration';
+import { SAML_CONFIGURATION, useSamlConfiguration } from '../../hooks/useSamlConfiguration';
 import { useSamlConfigurationUpdate } from '../../hooks/useSamlConfigurationUpdate';
 
 
 const SSOSettings = ({ label }) => {
   const intl = useIntl();
   const stripes = useStripes();
+  const queryClient = useQueryClient();
   const ky = useOkapiKy();
   const callout = useRef(null);
   const downloadButton = useRef(null);
@@ -26,6 +28,7 @@ const SSOSettings = ({ label }) => {
   const { updateSamlConfiguration } = useSamlConfigurationUpdate({
     onSuccess: () => {
       callout.current.sendCallout({ message: <FormattedMessage id="ui-tenant-settings.settings.updated" /> });
+      queryClient.invalidateQueries(SAML_CONFIGURATION);
     }
   });
 
