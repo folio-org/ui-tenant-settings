@@ -1,70 +1,27 @@
 import React from 'react';
 import { act, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
 import SSOSettings from './SSOSettings';
-import buildStripes from '../../../test/jest/__new_mocks__/stripesCore.mock';
 import { renderWithRouter } from '../../../test/jest/helpers';
 
-
-const hasPermMock = jest.fn().mockReturnValue(true);
-
-const STRIPES = {
-  ...buildStripes(),
-  hasPerm: hasPermMock,
-  config: {
-    platform: 'tenant-settings'
-  },
-};
-
-const resourcesMock = {
-  values: {
-    failed: false,
-    hasLoaded: true,
-    httpStatus: 200,
-    isPending: false,
-    module: '@folio/tenant-settings',
-  },
-};
-
-const samlconfigCallback = jest.fn(() => Promise.resolve());
-const urlValidatorCallback = jest.fn(() => Promise.resolve({ valid: true }));
-
-const mutatorMock = {
-  recordId: {
-    replace: jest.fn(() => Promise.resolve()),
-  },
-  samlconfig: {
-    PUT: samlconfigCallback,
-  },
-  downloadFile: {
-    GET: jest.fn(() => Promise.resolve()),
-    reset: jest.fn(() => Promise.resolve()),
-  },
-  urlValidator: {
-    GET: urlValidatorCallback,
-    reset: jest.fn(() => Promise.resolve()),
-  }
-};
-
+import '../../../test/jest/__mocks__';
+import { mockHasPerm } from '../../../test/jest/__mocks__/stripesCore.mock';
 
 const SSOSettingsLabel = 'SSOSettings label';
 
 const renderSSOSettings = () => {
   renderWithRouter(
-    <SSOSettings
-      label={<h2>{SSOSettingsLabel}</h2>}
-      stripes={STRIPES}
-      resources={resourcesMock}
-      mutator={mutatorMock}
-    />
+    <QueryClientProvider client={new QueryClient()}>
+      <SSOSettings
+        label={<h2>{SSOSettingsLabel}</h2>}
+      />
+    </QueryClientProvider>
   );
 };
 
 describe('SSOSettings', () => {
-  afterEach(() => {
-    hasPermMock.mockClear();
-  });
-
   it('should render SSOSettings label', () => {
     renderSSOSettings();
 
@@ -152,7 +109,7 @@ describe('SSOSettings', () => {
     });
 
     it('should render SSOSettings form elements "read-only mode"', async () => {
-      hasPermMock.mockReturnValue(false);
+      mockHasPerm.mockReturnValue(false);
 
       renderSSOSettings();
 

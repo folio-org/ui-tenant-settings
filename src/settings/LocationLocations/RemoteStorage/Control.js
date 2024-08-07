@@ -30,15 +30,20 @@ const CustomSelect = ({ message, ...rest }) => (
 );
 
 export const Control = ({ disabled, readOnly, message, ...rest }) => {
-  const { configurations, translate: t } = useRemoteStorageApi();
+  const {
+    configurations,
+    isConfigurationsLoading,
+    isConfigurationsError,
+    translate: t
+  } = useRemoteStorageApi();
 
-  const errorMessage = configurations.failed && t('failed');
-  const loadingMessage = configurations.isPending && t('loading');
-  const isDisabled = disabled || !configurations.hasLoaded;
+  const errorMessage = isConfigurationsError && t('failed');
+  const loadingMessage = isConfigurationsLoading && t('loading');
+  const isDisabled = disabled || isConfigurationsLoading;
 
-  const configurationOptions = configurations.records.map(c => ({ label: c.name, value: c.id }));
+  const configurationOptions = configurations.map(c => ({ label: c.name, value: c.id }));
   const defaultOption = { label: t('no'), value: '' };
-  const options = configurations.hasLoaded ? [defaultOption, ...configurationOptions] : undefined;
+  const options = !isConfigurationsLoading ? [defaultOption, ...configurationOptions] : undefined;
 
   return (
     <CustomSelect

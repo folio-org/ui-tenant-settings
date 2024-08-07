@@ -1,8 +1,18 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 
+import { QueryClient, QueryClientProvider } from 'react-query';
 import LocationInstitutions from './LocationInstitutions';
 import { renderWithRouter } from '../../test/jest/helpers';
+
+
+const mockCampuses = [
+  {
+    'id' : '1',
+    'name' : 'Københavns Universitet',
+    'code' : 'KU',
+  }
+];
 
 jest.mock('@folio/stripes-smart-components/lib/ControlledVocab', () => jest.fn(({
   formatter,
@@ -11,16 +21,16 @@ jest.mock('@folio/stripes-smart-components/lib/ControlledVocab', () => jest.fn((
   <>
     <span>{label}</span>
     <span>
-      {formatter.numberOfObjects(
-        {
-          'id' : '1',
-          'name' : 'Københavns Universitet',
-          'code' : 'KU',
-        }
-      )}
+      {formatter.numberOfObjects(mockCampuses[0])}
     </span>
   </>
 )));
+
+jest.mock('../hooks/useCampuses', () => ({
+  useCampuses: jest.fn(() => ({
+    campuses: mockCampuses,
+  })),
+}));
 
 const stripesMock = {
   connect: component => component,
@@ -30,39 +40,14 @@ const stripesMock = {
   },
 };
 
-const resourcesMock = {
-  locationsPerInstitution: {
-    records: [
-      {
-        'id' : '1',
-        'name' : 'Annex',
-        'code' : 'KU/CC/DI/A',
-        'isActive' : true,
-        'institutionId' : '1',
-        'campusId' : '1',
-        'libraryId' : '1',
-        'primaryServicePoint' : '1',
-        'servicePointIds' : ['1'],
-        'servicePoints' : [],
-      },
-    ]
-  },
-};
-
-const mutatorMock = {
-  campuses: {
-    GET: jest.fn(),
-    reset: jest.fn(),
-  }
-};
-
 const renderLocationInstitutions = () => (
   renderWithRouter(
-    <LocationInstitutions
-      mutator={mutatorMock}
-      stripes={stripesMock}
-      resources={resourcesMock}
-    />
+    <QueryClientProvider client={new QueryClient()}>
+      <LocationInstitutions
+        stripes={stripesMock}
+      />
+    </QueryClientProvider>
+
   )
 );
 
@@ -71,8 +56,6 @@ describe('LocationInstitutions', () => {
     renderLocationInstitutions();
     const numbersOfObjectsCells = screen.getAllByText('ui-tenant-settings.settings.location.institutions');
 
-    expect(mutatorMock.campuses.GET).toBeCalled();
-    expect(mutatorMock.campuses.reset).toBeCalled();
     numbersOfObjectsCells.forEach((el) => {
       expect(el).toBeVisible();
     });

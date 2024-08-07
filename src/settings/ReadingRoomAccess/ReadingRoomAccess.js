@@ -5,8 +5,7 @@ import _ from 'lodash';
 
 import {
   TitleManager,
-  withStripes,
-  stripesShape
+  useStripes
 } from '@folio/stripes/core';
 import { Label } from '@folio/stripes/components';
 import { ControlledVocab } from '@folio/stripes/smart-components';
@@ -15,6 +14,7 @@ import { readingRoomAccessColumns } from './constant';
 import { getFormatter } from './getFormatter';
 import { getFieldComponents } from './getFieldComponents';
 import { getValidators } from './getValidators';
+
 
 const hiddenFields = ['numberOfObjects', 'lastUpdated'];
 const translations = {
@@ -27,14 +27,15 @@ const translations = {
 
 const ReadingRoomAccess = (props) => {
   const intl = useIntl();
-  const { resources, stripes } = props;
+  const stripes = useStripes();
+  const { resources } = props;
 
   // service points defined in the tenant
   const servicePoints = _.get(resources, ['RRAServicePoints', 'records', 0, 'servicepoints'], []);
   /**
    * A reading room can have more than one service points assigned to it.
    * but a servicepoint cannot be mapped to more than one reading room
-  */
+   */
   const sps = [];
   const rrs = _.get(resources, ['values', 'records']);
   rrs.forEach(rr => {
@@ -78,7 +79,7 @@ const ReadingRoomAccess = (props) => {
   const formatter = useMemo(() => getFormatter({ fieldLabels }), [fieldLabels]);
 
   const validateItem = useCallback((item, items) => {
-    const errors = Object.values(readingRoomAccessColumns).reduce((acc, field) => {
+    return Object.values(readingRoomAccessColumns).reduce((acc, field) => {
       const error = getValidators(field)?.(item, items);
 
       if (error) {
@@ -87,8 +88,6 @@ const ReadingRoomAccess = (props) => {
 
       return acc;
     }, {});
-
-    return errors;
   }, []);
 
   const validate = (item, index, items) => validateItem(item, items) || {};
@@ -140,7 +139,6 @@ ReadingRoomAccess.manifest = Object.freeze({
 ReadingRoomAccess.propTypes = {
   resources: PropTypes.object,
   mutator: PropTypes.object,
-  stripes: stripesShape.isRequired,
 };
 
-export default withStripes(ReadingRoomAccess);
+export default ReadingRoomAccess;

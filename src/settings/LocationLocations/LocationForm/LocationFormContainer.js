@@ -1,42 +1,46 @@
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  useContext,
-} from 'react';
+import React, { useContext } from 'react';
 import { cloneDeep } from 'lodash';
 import { FormattedMessage } from 'react-intl';
+import PropTypes from 'prop-types';
+import { useQueryClient } from 'react-query';
 
 import { CalloutContext } from '@folio/stripes/core';
 
-import PropTypes from 'prop-types';
 import LocationForm from './LocationForm';
 import { useRemoteStorageApi } from '../RemoteStorage';
+import { useLocationCreate } from '../../../hooks/useLocationCreate';
+import { useLocationUpdate } from '../../../hooks/useLocationUpdate';
+import { LOCATIONS } from '../../../hooks/useLocations';
+import { SERVICE_POINTS } from '../../../hooks/useServicePoints';
 
 
 const LocationFormContainer = ({
   onSave,
   servicePointsByName,
   initialValues: location,
-  parentMutator,
   ...rest
 }) => {
-  const [initialValues, setInitialValues] = useState(location);
-
-  useEffect(() => {
-    setInitialValues(location);
-  }, [location?.id]);
+  const queryClient = useQueryClient();
 
   const callout = useContext(CalloutContext);
 
-  function showSubmitErrorCallout(error) {
+  const showSubmitErrorCallout = (error) => {
     callout.sendCallout({
       type: 'error',
       message: error.message || error.statusText || <FormattedMessage id="ui-tenant-settings.settings.save.error.network" />,
     });
-  }
+  };
 
   const { setMapping } = useRemoteStorageApi();
+  const sharedOptions = {
+    onSuccess: () => {
+      queryClient.invalidateQueries(SERVICE_POINTS);
+      queryClient.invalidateQueries(LOCATIONS);
+    },
+  };
+
+  const { createLocation } = useLocationCreate(sharedOptions);
+  const { updateLocation } = useLocationUpdate(sharedOptions);
 
   const initiateSetMapping = (...args) => setMapping(...args).catch(showSubmitErrorCallout);
 
@@ -44,7 +48,7 @@ const LocationFormContainer = ({
     const { remoteId: configurationId, ...locationData } = formData;
 
     if (locationData.id === undefined) {
-      const newLocation = await parentMutator.entries.POST(locationData);
+      const newLocation = await createLocation({ data: locationData });
       initiateSetMapping({ folioLocationId: newLocation?.id, configurationId });
 
       return newLocation;
@@ -52,10 +56,11 @@ const LocationFormContainer = ({
 
     initiateSetMapping({ folioLocationId: locationData.id, configurationId });
 
-    return parentMutator.entries.PUT(locationData);
+    return updateLocation({ locationId: locationData.id, data: locationData })
+      .then(() => locationData);
   };
 
-  const saveLocation = useCallback((updatedLocation) => {
+  const saveLocation = (updatedLocation) => {
     const data = cloneDeep(updatedLocation);
 
     const servicePointsObject = {};
@@ -83,13 +88,12 @@ const LocationFormContainer = ({
     saveData(data)
       .then(onSave)
       .catch(showSubmitErrorCallout);
-  }, [onSave, servicePointsByName, saveData]);
+  };
 
   return (
     <LocationForm
       {...rest}
-      parentMutator={parentMutator}
-      initialValues={initialValues}
+      initialValues={location}
       onSubmit={saveLocation}
     />
   );
@@ -100,12 +104,6 @@ LocationFormContainer.propTypes = {
   servicePointsByName: PropTypes.object,
   initialValues: PropTypes.shape({
     id: PropTypes.string,
-  }),
-  parentMutator: PropTypes.shape({
-    entries: PropTypes.shape({
-      POST: PropTypes.func,
-      PUT: PropTypes.func,
-    })
   }),
 };
 

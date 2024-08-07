@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { Field } from 'react-final-form';
 import { FieldArray } from 'react-final-form-arrays';
 import PropTypes from 'prop-types';
@@ -35,6 +35,7 @@ class ServicePointsFields extends React.Component {
     servicePoints: PropTypes.arrayOf(PropTypes.object),
     changePrimary: PropTypes.func.isRequired,
     formValues: PropTypes.object.isRequired,
+    intl: PropTypes.object,
   };
 
   constructor(props) {
@@ -74,7 +75,10 @@ class ServicePointsFields extends React.Component {
     this.list = omitUsedOptions(this.props.servicePoints, formValues.servicePointIds, 'selectSP', index);
 
     const sortedList = sortBy(this.list, ['label']);
-    const options = [{ label: 'Select service point', value: '' }, ...sortedList];
+    const options = [{
+      label: this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.servicePoints.placeholder' }),
+      value: ''
+    }, ...sortedList];
 
     return (
       <Layout className={`flex ${css.fieldsLayout}`} key={index}>
@@ -108,7 +112,9 @@ class ServicePointsFields extends React.Component {
     const { formValues } = this.props;
 
     // make the last existing service point to be the primary one
-    if (formValues.servicePointIds && formValues.servicePointIds.length === 1 && !formValues.servicePointIds[0].primary) {
+    const isPrimary = formValues.servicePointIds && formValues.servicePointIds.length === 1 && !formValues.servicePointIds[0].primary;
+
+    if (isPrimary) {
       this.singlePrimary(0);
     }
 
@@ -143,4 +149,4 @@ class ServicePointsFields extends React.Component {
   }
 }
 
-export default ServicePointsFields;
+export default injectIntl(ServicePointsFields);

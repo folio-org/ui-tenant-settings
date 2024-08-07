@@ -1,51 +1,30 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
-
-import '../../../test/jest/__mocks__';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import userEvent from '@testing-library/user-event';
-import buildStripes from '../../../test/jest/__new_mocks__/stripesCore.mock';
+
 import {
   renderWithRouter
 } from '../../../test/jest/helpers';
-
 import LocationManager from './LocationManager';
+
+import '../../../test/jest/__mocks__';
+
 
 jest.mock('./RemoteStorage/Provider', () => ({
   ...jest.requireActual('./RemoteStorage/Provider'),
   useRemoteStorageApi: () => ({
     remoteMap: {},
-    mappings: {
-      failed: false,
-      hasLoaded: true,
-      isPending: false
-    },
-    configurations: {
-      failed: false,
-      hasLoaded: true,
-      isPending: false,
-      records: []
-    },
+    mappings: [],
+    configurations: [],
     translate: () => 'str'
   })
 }));
 
-const STRIPES = buildStripes();
-
-const history = createMemoryHistory();
-
-const locationMock = {
-  pathname: '/settings/tenant-settings/location-locations',
-  search: '',
-  hash: '',
-  key: '00ee83',
-};
-
-const resourcesMock = {
-  campuses: { hasLoaded: true,
-    resource: 'campuses',
-    dataKey: 'location-locations',
-    records:[
+jest.mock('../../hooks/useCampuses', () => ({
+  useCampuses: jest.fn(() => ({
+    campuses: [
       { code: 'DI',
         id: '40ee00ca-a518-4b49-be01-0638d0a4ac57ff',
         institutionId: '40ee00ca-a518-4b49-be01-0638d0a4ac57',
@@ -56,10 +35,38 @@ const resourcesMock = {
         institutionId: '40ee00ca-a518-4b49-be01-0638d0a4ac57',
         name: 'Online'
       }
-    ] },
-  entries:{
-    hasLoaded: true,
-    records:[
+    ],
+  })),
+}));
+
+jest.mock('../../hooks/useInstitutions', () => ({
+  useInstitutions: jest.fn(() => ({
+    institutions: [
+      {
+        code: 'KU',
+        id: '40ee00ca-a518-4b49-be01-0638d0a4ac57',
+        name: 'Københavns Universitet',
+      }
+    ],
+  })),
+}));
+
+jest.mock('../../hooks/useLibraries', () => ({
+  useLibraries: jest.fn(() => ({
+    libraries: [
+      {
+        campusId: '40ee00ca-a518-4b49-be01-0638d0a4ac57ff',
+        code: 'DI',
+        id: '5d78803e-ca04-4b4a-aeae-2c63b924518b',
+        name: 'Datalogisk Institut'
+      }
+    ],
+  })),
+}));
+
+jest.mock('../../hooks/useLocations', () => ({
+  useLocations: jest.fn(() => ({
+    locations: [
       {
         campusId: '62cf76b7-cca5-4d33-9217-edf42ce1a848',
         code: 'KU/CC/DI/2',
@@ -86,113 +93,59 @@ const resourcesMock = {
         servicePointIds: ['3a40852d-49fd-4df2-a1f9-6e2641a6e91f'],
         servicePoints: []
       }
-    ],
-    resource: 'entries'
-  },
-  institutions: {
-    hasLoaded: true,
-    records: [
+    ]
+  })),
+}));
+
+jest.mock('../../hooks/useServicePoints', () => ({
+  useServicePoints: jest.fn(() => ({
+    servicePoints: [
       {
-        code: 'KU',
-        id: '40ee00ca-a518-4b49-be01-0638d0a4ac57',
-        name: 'Københavns Universitet',
+        code: 'cd1',
+        discoveryDisplayName: 'Circulation Desk -- Hallway',
+        holdShelfExpiryPeriod: { duration: 3, intervalId: 'Weeks' },
+        id: '3a40852d-49fd-4df2-a1f9-6e2641a6e91f',
+        name: 'Circ Desk 1',
+        pickupLocation: true,
+        staffSlips: [],
+      },
+      {
+        code: 'Online',
+        discoveryDisplayName: 'Online',
+        id: '7c5abc9f-f3d7-4856-b8d7-6712462ca007',
+        metadata: { createdDate: '2021-11-04T03:24:42.555+00:00', updatedDate: '2021-11-04T03:24:42.555+00:00' },
+        name: 'Online',
+        pickupLocation: false,
+        shelvingLagTime: 0,
+        staffSlips: [],
       }
     ]
-  },
-  libraries:{
-    dataKey: 'location-locations',
-    hasLoaded: true,
-    records: [
-      {
-        campusId: '40ee00ca-a518-4b49-be01-0638d0a4ac57ff',
-        code: 'DI',
-        id: '5d78803e-ca04-4b4a-aeae-2c63b924518b',
-        name: 'Datalogisk Institut'
-      }
-    ]
-  },
-  servicePoints: {
-    hasLoaded: true,
-    records: [{
-      code: 'cd1',
-      discoveryDisplayName: 'Circulation Desk -- Hallway',
-      holdShelfExpiryPeriod: { duration: 3, intervalId: 'Weeks' },
-      id: '3a40852d-49fd-4df2-a1f9-6e2641a6e91f',
-      name: 'Circ Desk 1',
-      pickupLocation: true,
-      staffSlips: [],
-    },
-    {
-      code: 'Online',
-      discoveryDisplayName: 'Online',
-      id: '7c5abc9f-f3d7-4856-b8d7-6712462ca007',
-      metadata: { createdDate: '2021-11-04T03:24:42.555+00:00', updatedDate: '2021-11-04T03:24:42.555+00:00' },
-      name: 'Online',
-      pickupLocation: false,
-      shelvingLagTime: 0,
-      staffSlips: [],
-    }
-    ]
-  }
-};
+  })),
+}));
 
-const mutatorMock = {
-  servicePoints: {
-    POST: jest.fn(() => Promise.resolve()),
-    PUT: jest.fn(() => Promise.resolve()),
-    DELETE: jest.fn(() => Promise.resolve()),
-  },
-  institutions: {
-    GET: jest.fn(() => Promise.resolve()),
-    reset: jest.fn(() => Promise.resolve()),
-  },
-  campuses: {
-    GET: jest.fn(() => Promise.resolve()),
-    reset: jest.fn(() => Promise.resolve()),
-  },
-  libraries: {
-    GET: jest.fn(() => Promise.resolve()),
-    reset: jest.fn(() => Promise.resolve()),
-  },
-  holdingsEntries: {
-    GET: jest.fn(() => Promise.resolve()),
-    reset: jest.fn(() => Promise.resolve()),
-  },
-  itemEntries: {
-    GET: jest.fn(() => Promise.resolve()),
-    reset: jest.fn(() => Promise.resolve()),
-  },
-  entries: {
-    DELETE: jest.fn(() => Promise.resolve()),
-    POST: jest.fn(() => Promise.resolve()),
-    PUT: jest.fn(() => Promise.resolve()),
-  },
-  uniquenessValidator: {
-    DELETE: jest.fn(() => Promise.resolve()),
-    GET: jest.fn(() => Promise.resolve()),
-    POST: jest.fn(() => Promise.resolve()),
-    PUT: jest.fn(() => Promise.resolve()),
-    cancel: jest.fn(() => Promise.resolve()),
-    reset: jest.fn(() => Promise.resolve()),
-  }
-};
+jest.mock('../../hooks/useLocationCreate', () => ({
+  useLocationCreate: jest.fn(() => ({
+    createLocation: jest.fn(),
+    isCreatingLocation: false,
+  })),
+}));
 
-const matchMock = {
-  path: '/settings/tenant-settings/location-locations',
-  isExact: true,
-  params: {}
-};
+jest.mock('../../hooks/useLocationUpdate', () => ({
+  useLocationUpdate: jest.fn(() => ({
+    updateLocation: jest.fn(),
+    isUpdatingLocation: false,
+  })),
+}));
 
-const renderLocationManager = (match = matchMock) => renderWithRouter(
-  <LocationManager
-    stripes={STRIPES}
-    resources={resourcesMock}
-    mutator={mutatorMock}
-    label={<span>ServicePointManager</span>}
-    location={locationMock}
-    history={history}
-    match={match}
-  />
+
+const history = createMemoryHistory();
+
+const renderLocationManager = () => renderWithRouter(
+  <QueryClientProvider client={new QueryClient()}>
+    <LocationManager
+      label={<span>ServicePointManager</span>}
+    />
+  </QueryClientProvider>
 );
 
 describe('LocationManager', () => {
@@ -254,10 +207,6 @@ describe('LocationManager', () => {
     ));
 
     libraryOption.forEach((el) => expect(el.selected).toBe(true));
-    const rowButtons = screen.getAllByRole('button', { name: 'row button' });
-    const headerButton = screen.getByRole('cell', { name: 'ui-tenant-settings.settings.location.locations.status' });
-    userEvent.click(headerButton);
-    userEvent.click(rowButtons[0]);
   });
 
   it('should render select Service points', () => {

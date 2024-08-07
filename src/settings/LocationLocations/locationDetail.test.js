@@ -1,9 +1,13 @@
 import React from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { render, screen, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import user from '@testing-library/user-event';
 
 import LocationDetail from './LocationDetail';
+
+import '../../../test/jest/__mocks__';
+
 
 const mockInitialValues = {
   id: '1',
@@ -15,21 +19,31 @@ const mockInitialValues = {
   ],
 };
 
-const mockSetMapping = jest.fn();
+jest.mock('../../hooks/useCampusDetails', () => ({
+  useCampusDetails: jest.fn(() => ({
+    campus: {},
+  })),
+}));
 
-jest.mock(
-  '@folio/stripes/core',
-  () => ({
-    stripesConnect: Component => props => <Component {...props} />,
-    IfPermission : ({ children }) => <>{children}</>,
-    useStripes: () => ({
-      hasPerm: () => true
-    }),
-    TitleManager: jest.fn(({ children, ...rest }) => (
-      <span {...rest}>{children}</span>
-    ))
+jest.mock('../../hooks/useLibraryDetails', () => ({
+  useLibraryDetails: jest.fn(() => ({
+    library: {},
+  })),
+}));
+
+jest.mock('../../hooks/useInstitutionDetails', () => ({
+  useInstitutionDetails: jest.fn(() => ({
+    institution: {},
+  })),
+}));
+
+jest.mock('./RemoteStorage', () => ({
+  useRemoteStorageApi: () => ({
+    remoteMap: {},
+    configurations: [],
+    setMapping: jest.fn(),
   }),
-);
+}));
 
 jest.mock(
   '@folio/stripes-components/lib/Icon',
@@ -38,20 +52,8 @@ jest.mock(
   },
 );
 
-jest.mock(
-  './RemoteStorage',
-  () => ({
-    useRemoteStorageApi: () => ({ setMapping: mockSetMapping }),
-  }),
-);
-
 const renderLocationDetail = ({
   initialValues = mockInitialValues,
-  resources = {
-    institutions: {},
-    campuses: {},
-    libraries: {},
-  },
   servicePointsById = {
     '1': 'Circ Desk 1'
   },
@@ -64,16 +66,17 @@ const renderLocationDetail = ({
   },
 } = {}) => (render(
   <MemoryRouter>
-    <LocationDetail
-      initialValues={initialValues}
-      resources={resources}
-      servicePointsById={servicePointsById}
-      onEdit={onEdit}
-      onClone={onClone}
-      onClose={onClose}
-      onRemove={onRemove}
-      stripes={stripes}
-    />
+    <QueryClientProvider client={new QueryClient()}>
+      <LocationDetail
+        initialValues={initialValues}
+        servicePointsById={servicePointsById}
+        onEdit={onEdit}
+        onClone={onClone}
+        onClose={onClose}
+        onRemove={onRemove}
+        stripes={stripes}
+      />
+    </QueryClientProvider>
   </MemoryRouter>
 ));
 
@@ -127,7 +130,6 @@ describe('LocationDetail', () => {
 
     user.click(editButton);
     expect(onEdit).toHaveBeenCalled();
-    expect(mockSetMapping).toHaveBeenCalled();
   });
 
   it('should call onClone when duplicate button in action menu clicked', () => {

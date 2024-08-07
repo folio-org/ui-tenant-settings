@@ -1,5 +1,4 @@
 export const shortTermExpiryPeriod = ['Hours', 'Minutes'];
-export const longTermExpiryPeriod = ['Months', 'Weeks', 'Days'];
 
 export const closedLibraryDateManagementMapping = {
   Keep_the_current_due_date_time: 'keepTheOriginalDateTime',

@@ -3,12 +3,11 @@ import React from 'react';
 import { screen, render } from '@testing-library/react';
 
 import '../../../../test/jest/__mocks__';
-import buildStripes from '../../../../test/jest/__new_mocks__/stripesCore.mock';
 
+import { QueryClientProvider, QueryClient } from 'react-query';
 import { RemoteStorageApiProvider } from './Provider';
 import { Control } from './Control';
 
-const STRIPES = buildStripes();
 
 const dataOptionsMock = [
   {
@@ -59,17 +58,18 @@ const resourcesMock = {
 };
 
 const renderControl = () => render(
-  <RemoteStorageApiProvider
-    stripes={STRIPES}
-    mutator={mutatorMock}
-    resources={resourcesMock}
-  >
-    <Control
-      label={<span>Control</span>}
-      sub={<span>SubControl</span>}
-      dataOptions={dataOptionsMock}
-    />
-  </RemoteStorageApiProvider>
+  <QueryClientProvider client={new QueryClient()}>
+    <RemoteStorageApiProvider
+      mutator={mutatorMock}
+      resources={resourcesMock}
+    >
+      <Control
+        label={<span>Control</span>}
+        sub={<span>SubControl</span>}
+        dataOptions={dataOptionsMock}
+      />
+    </RemoteStorageApiProvider>
+  </QueryClientProvider>
 );
 
 describe('Control', () => {

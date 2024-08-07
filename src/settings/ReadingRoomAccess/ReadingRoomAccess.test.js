@@ -4,14 +4,11 @@ import { Form } from 'react-final-form';
 
 import { runAxeTest } from '@folio/stripes-testing';
 
-import '../../../test/jest/__mocks__';
-import buildStripes from '../../../test/jest/__new_mocks__/stripesCore.mock';
-
 import { renderWithRouter } from '../../../test/jest/helpers';
-
 import ReadingRoomAccess from './ReadingRoomAccess';
 
-const stripes = buildStripes();
+import '../../../test/jest/__mocks__';
+import { mockHasPerm } from '../../../test/jest/__mocks__/stripesCore.mock';
 
 const mutatorPutMock = jest.fn(() => Promise.resolve());
 const mutatorMock = {
@@ -28,7 +25,6 @@ const mutatorMock = {
     replace: jest.fn()
   },
 };
-
 const resourcesMock = {
   values: {
     dataKey: 'reading-room',
@@ -179,12 +175,11 @@ describe('Reading Room Access', () => {
   const props = {
     mutator: mutatorMock,
     resources: resourcesMock,
-    stripes,
   };
 
   describe('when all permissions are available', () => {
     beforeEach(() => {
-      stripes.hasPerm = jest.fn().mockReturnValue(true);
+      mockHasPerm.mockReturnValue(true);
       renderReadingRoomAccess(props);
     });
 
@@ -253,7 +248,7 @@ describe('Reading Room Access', () => {
 
   describe('when permissions are not available', () => {
     beforeEach(() => {
-      stripes.hasPerm = jest.fn().mockReturnValue(false);
+      mockHasPerm.mockReturnValue(false);
       renderReadingRoomAccess(props);
     });
 

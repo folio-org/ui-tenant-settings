@@ -10,10 +10,11 @@ import {
 
 import { useRemoteStorageApi } from './RemoteStorage';
 
+
 const RemoteStorageDetails = ({ locationId }) => {
   const { remoteMap, configurations } = useRemoteStorageApi();
 
-  const currentConfig = configurations?.records.find(config => remoteMap[locationId] === config.id);
+  const currentConfig = configurations.find(config => remoteMap[locationId] === config.id);
 
   return (
     <>
