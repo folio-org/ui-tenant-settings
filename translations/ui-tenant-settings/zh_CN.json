@@ -133,7 +133,7 @@
     "permission.settings.plugins": "设置（租户）：可以维护首选插件",
     "permission.settings.sso": "设置（租户）：可以维护SSO设置",
     "permission.settings.location": "设置（租户）：可以创建、编辑和移除馆藏地",
-    "permission.settings.servicepoints": "设置（租户）：可以创建、编辑和移除服务点",
+    "permission.settings.servicepoints": "设置（租户）：可以创建和编辑服务点",
     "settings.location.remotes.remote": "远程存储",
     "settings.location.remotes.no": "否（默认）",
     "settings.location.remotes.loading": "载入中...",
@@ -210,5 +210,6 @@
     "settings.reading-room-access.cannotDeleteTermMessage": "无法删除此阅览室访问，因为它正在被一条或多条记录使用。",
     "settings.reading-room-access.deleteEntry": "删除阅览室访问",
     "settings.reading-room-access.termDeleted": "阅览室访问<b> {term} </b>已成功<b>删除</b>",
-    "settings.reading-room-access.termWillBeDeleted": "阅览室<b> {term} </b>将被<b>删除</b>"
+    "settings.reading-room-access.termWillBeDeleted": "阅览室<b> {term} </b>将被<b>删除</b>",
+    "settings.servicePoints.placeholder": "Select service point"
 }

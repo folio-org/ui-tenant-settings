@@ -210,5 +210,6 @@
     "settings.reading-room-access.cannotDeleteTermMessage": "This reading room access cannot be deleted, as it is in use by one or more records.",
     "settings.reading-room-access.deleteEntry": "Delete reading room access",
     "settings.reading-room-access.termDeleted": "The reading room access <b>{term}</b> was successfully <b>deleted</b>",
-    "settings.reading-room-access.termWillBeDeleted": "Le {type} <b> {term} </b> sera <b> supprimé. </b>"
+    "settings.reading-room-access.termWillBeDeleted": "Le {type} <b> {term} </b> sera <b> supprimé. </b>",
+    "settings.servicePoints.placeholder": "Select service point"
 }
