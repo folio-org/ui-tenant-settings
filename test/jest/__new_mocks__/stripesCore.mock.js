@@ -10,7 +10,7 @@ const buildStripes = (otherProperties = {}) => ({
   },
   currency: 'USD',
   hasInterface: () => true,
-  hasPerm: jest.fn(() => true),
+  hasPerm: () => true,
   locale: 'en-US',
   logger: {
     log: () => { },

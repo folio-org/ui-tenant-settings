@@ -133,7 +133,7 @@
     "permission.settings.plugins": "Settings (tenant): Can maintain preferred plugins",
     "permission.settings.sso": "Settings (tenant): Can maintain SSO settings",
     "permission.settings.location": "Settings (tenant): Can create, edit and remove locations",
-    "permission.settings.servicepoints": "Settings (tenant):  Can create, edit and remove service points",
+    "permission.settings.servicepoints": "Settings (tenant): Can create and edit service points",
     "settings.location.remotes.remote": "Remote storage",
     "settings.location.remotes.no": "No (default)",
     "settings.location.remotes.loading": "loading...",
@@ -210,5 +210,6 @@
     "settings.reading-room-access.cannotDeleteTermMessage": "This reading room access cannot be deleted, as it is in use by one or more records.",
     "settings.reading-room-access.deleteEntry": "Delete reading room access",
     "settings.reading-room-access.termDeleted": "The reading room access <b>{term}</b> was successfully <b>deleted</b>",
-    "settings.reading-room-access.termWillBeDeleted": "The reading room <b>{term}</b> will be <b>deleted</b>"
+    "settings.reading-room-access.termWillBeDeleted": "The reading room <b>{term}</b> will be <b>deleted</b>",
+    "settings.servicePoints.placeholder": "Select service point"
 }

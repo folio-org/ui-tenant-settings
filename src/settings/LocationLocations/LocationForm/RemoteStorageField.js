@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import PropTypes from 'prop-types';
 import { useField } from 'react-final-form';
 
 import { useStripes } from '@folio/stripes/core';
 
-import PropTypes from 'prop-types';
 import { Control, useRemoteStorageApi } from '../RemoteStorage';
+
 
 export const RemoteStorageField = ({ initialValues, checkLocationHasHoldingsOrItems }) => {
   const stripes = useStripes();
@@ -13,7 +14,7 @@ export const RemoteStorageField = ({ initialValues, checkLocationHasHoldingsOrIt
     [stripes]
   );
 
-  const { remoteMap, mappings, translate: t } = useRemoteStorageApi();
+  const { remoteMap, isMappingsError, isMappingsLoading, translate: t } = useRemoteStorageApi();
 
   const [isReadOnly, setIsReadOnly] = useState(true);
 
@@ -40,16 +41,14 @@ export const RemoteStorageField = ({ initialValues, checkLocationHasHoldingsOrIt
 
   if (noInterfaces) return null;
 
-  const message = (mappings.failed && t('failed')) || (mappings.isPending && t('loading')) || (isReadOnly && t('readonly'));
-
-  const isDisabled = !mappings.hasLoaded;
+  const message = (isMappingsError && t('failed')) || (isMappingsLoading && t('loading')) || (isReadOnly && t('readonly'));
 
   return (
     <Control
       label={t('remote')}
       required
-      disabled={isDisabled}
-      readOnly={isReadOnly && !isDisabled}
+      disabled={isMappingsLoading}
+      readOnly={isReadOnly && !isMappingsLoading}
       message={message}
       {...field}
     />

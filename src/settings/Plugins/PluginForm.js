@@ -17,32 +17,27 @@ import stripesFinalForm from '@folio/stripes/final-form';
 
 import styles from './Plugins.css';
 
-class PluginForm extends React.Component {
-  static propTypes = {
-    handleSubmit: PropTypes.func.isRequired,
-    pristine: PropTypes.bool,
-    submitting: PropTypes.bool,
-    label: PropTypes.node,
-    pluginTypes: PropTypes.object,
-    readOnly: PropTypes.bool,
-  };
 
-  constructor(props) {
-    super(props);
-    this.renderPlugins = this.renderPlugins.bind(this);
-  }
+const PluginForm = ({
+  handleSubmit,
+  pristine,
+  submitting,
+  label,
+  pluginTypes,
+  readOnly,
+}) => {
+  const intl = useIntl();
 
-  renderPlugin(field, plugin) {
-    const intl = useIntl();
-    const { pluginTypes, readOnly } = this.props;
-
+  const renderPlugin = (field, plugin) => {
     const pluginType = pluginTypes[plugin.configName];
 
     const options = [{ value: '@@', label: '(none)' }].concat(pluginType.map(p => ({
       value: p.module,
-      label: intl.formatMessage({ id: `ui-tenant-settings.settings.pluginNames.${p.pluginType}` }) + ` ${p.version}`,
+      label: intl.formatMessage({ id: `ui-tenant-settings.settings.pluginNames.${p.pluginType}` }) + ' ' + p.version,
     })));
-    const label = <FormattedMessage id={`ui-tenant-settings.settings.pluginNames.${plugin.configName}`} />;
+
+    const lbl = <FormattedMessage id={`ui-tenant-settings.settings.pluginNames.${plugin.configName}`} />;
+
     return (
       <Row key={plugin.configName}>
         <Col xs={12}>
@@ -50,7 +45,7 @@ class PluginForm extends React.Component {
             readOnly={readOnly}
             id={plugin.configName}
             data-testid={plugin.configName}
-            label={label}
+            label={lbl}
             name={`${field}.value`}
             placeholder="---"
             component={Select}
@@ -59,59 +54,54 @@ class PluginForm extends React.Component {
         </Col>
       </Row>
     );
-  }
+  };
 
-  renderPlugins({ fields }) {
-    const plugins = fields.map((field, index) => (
-      this.renderPlugin(field, fields.value[index])
-    ));
+  const renderPlugins = ({ fields }) => {
+    const plugins = fields.map((field, index) => renderPlugin(field, fields.value[index]));
 
-    return (
-      <div>{plugins}</div>
-    );
-  }
+    return <div>{plugins}</div>;
+  };
 
-  render() {
-    const {
-      handleSubmit,
-      pristine,
-      submitting,
-      label,
-      readOnly,
-    } = this.props;
-
-    const footer = !readOnly && (
-      <PaneFooter
-        renderEnd={(
-          <Button
-            type="submit"
-            disabled={(pristine || submitting)}
-            buttonStyle="primary"
-          >
-            <FormattedMessage id="stripes-core.button.save" />
-          </Button>
-        )}
-      />
-    );
-
-    return (
-      <form
-        id="plugin-form"
-        onSubmit={handleSubmit}
-        className={styles.pluginForm}
-      >
-        <Pane
-          defaultWidth="fill"
-          fluidContentWidth
-          paneTitle={label}
-          footer={footer}
+  const footer = !readOnly && (
+    <PaneFooter
+      renderEnd={(
+        <Button
+          type="submit"
+          disabled={pristine || submitting}
+          buttonStyle="primary"
         >
-          <FieldArray name="plugins" component={this.renderPlugins} />
-        </Pane>
-      </form>
-    );
-  }
-}
+          <FormattedMessage id="stripes-core.button.save" />
+        </Button>
+      )}
+    />
+  );
+
+  return (
+    <form
+      id="plugin-form"
+      onSubmit={handleSubmit}
+      className={styles.pluginForm}
+    >
+      <Pane
+        defaultWidth="fill"
+        fluidContentWidth
+        paneTitle={label}
+        footer={footer}
+      >
+        <FieldArray name="plugins" component={renderPlugins} />
+      </Pane>
+    </form>
+  );
+};
+
+PluginForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  pristine: PropTypes.bool,
+  submitting: PropTypes.bool,
+  label: PropTypes.node,
+  pluginTypes: PropTypes.object,
+  readOnly: PropTypes.bool,
+};
 
 export default stripesFinalForm({
   navigationCheck: true,

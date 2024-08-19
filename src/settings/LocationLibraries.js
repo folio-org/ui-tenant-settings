@@ -1,18 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {
-  FormattedMessage,
-  injectIntl,
-} from 'react-intl';
-import { get } from 'lodash';
+import React, { useState, useEffect, useCallback } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import { ControlledVocab } from '@folio/stripes/smart-components';
-import {
-  Select,
-  TextLink
-} from '@folio/stripes/components';
+import { Select, TextLink } from '@folio/stripes/components';
+import { TitleManager, useStripes } from '@folio/stripes/core';
 
-import { TitleManager } from '@folio/stripes/core';
 import composeValidators from '../util/composeValidators';
 import locationCodeValidator from './locationCodeValidator';
 import {
@@ -23,6 +15,9 @@ import {
   LOCATION_LIBRARY_ID_KEY
 } from '../constants';
 import css from './LocationInstitutions.css';
+import { useInstitutions } from '../hooks/useInstitutions';
+import { useCampuses } from '../hooks/useCampuses';
+import { useLocations } from '../hooks/useLocations';
 
 const translations = {
   cannotDeleteTermHeader: 'ui-tenant-settings.settings.location.libraries.cannotDeleteTermHeader',
@@ -32,97 +27,43 @@ const translations = {
   termWillBeDeleted: 'ui-tenant-settings.settings.location.libraries.termWillBeDeleted',
 };
 
-class LocationLibraries extends React.Component {
-  static manifest = Object.freeze({
-    institutions: {
-      type: 'okapi',
-      records: 'locinsts',
-      path: 'location-units/institutions?query=cql.allRecords=1 sortby name&limit=100',
-      accumulate: true,
-    },
-    campuses: {
-      type: 'okapi',
-      records: 'loccamps',
-      path: 'location-units/campuses?query=cql.allRecords=1 sortby name&limit=100',
-      accumulate: true,
-    },
-    locationsPerLibrary: {
-      type: 'okapi',
-      records: 'locations',
-      path: 'locations',
-      params: {
-        query: 'cql.allRecords=1 sortby name',
-        limit: '10000',
-      },
-      accumulate: true,
-    },
-  });
 
-  static propTypes = {
-    intl: PropTypes.object,
-    stripes: PropTypes.shape({
-      connect: PropTypes.func.isRequired,
-      hasPerm: PropTypes.func.isRequired,
-    }).isRequired,
-    resources: PropTypes.shape({
-      institutions: PropTypes.object,
-      campuses: PropTypes.object,
-      locationsPerLibrary: PropTypes.object,
-    }).isRequired,
-    mutator: PropTypes.shape({
-      institutions: PropTypes.shape({
-        GET: PropTypes.func.isRequired,
-        reset: PropTypes.func.isRequired,
-      }),
-      campuses: PropTypes.shape({
-        GET: PropTypes.func.isRequired,
-        reset: PropTypes.func.isRequired,
-      }),
-      locationsPerLibrary: PropTypes.shape({
-        GET: PropTypes.func.isRequired,
-        reset: PropTypes.func.isRequired,
-      }),
-    }),
-  };
+const LocationLibraries = (props) => {
+  const stripes = useStripes();
+  const { formatMessage } = useIntl();
+  const [institutionId, setInstitutionId] = useState(sessionStorage.getItem(INSTITUTION_ID_LIBRARIES) || null);
+  const [campusId, setCampusId] = useState(sessionStorage.getItem(CAMPUS_ID_LIBRARIES) || null);
 
-  constructor(props) {
-    super(props);
-    this.connectedControlledVocab = props.stripes.connect(ControlledVocab);
-    this.hasAllLocationPerms = props.stripes.hasPerm('ui-tenant-settings.settings.location');
-    this.numberOfObjectsFormatter = this.numberOfObjectsFormatter.bind(this);
+  const hasAllLocationPerms = stripes.hasPerm('ui-tenant-settings.settings.location');
+  const ConnectedControlledVocab = stripes.connect(ControlledVocab);
 
-    this.state = {
-      institutionId: null,
-      campusId: null,
-    };
-  }
+  const { institutions } = useInstitutions({ searchParams: {
+    limit: 100,
+    query: 'cql.allRecords=1 sortby name',
+  } });
 
-  /**
-   * Refresh lookup tables when the component mounts. Fetches in the manifest
-   * will only run once (in the constructor) but because this object may be
-   * unmounted/remounted without being destroyed/recreated, the lookup tables
-   * will be stale if they change between unmounting/remounting.
-   */
-  componentDidMount() {
-    const institutionId = sessionStorage.getItem(INSTITUTION_ID_LIBRARIES);
-    const campusId = sessionStorage.getItem(CAMPUS_ID_LIBRARIES);
-    this.setState({ institutionId, campusId });
-    ['institutions', 'campuses', 'locationsPerLibrary'].forEach(i => {
-      this.props.mutator[i].reset();
-      this.props.mutator[i].GET();
-    });
-  }
+  const { campuses } = useCampuses({ searchParams: {
+    limit: 100,
+    query: 'cql.allRecords=1 sortby name',
+  } });
 
-  numberOfObjectsFormatter = (item) => {
-    const records = (this.props.resources.locationsPerLibrary || {}).records || [];
-    const numberOfObjects = records.reduce((count, loc) => {
-      return loc.libraryId === item.id ? count + 1 : count;
-    }, 0);
+  const { locations } = useLocations({ searchParams: {
+    limit: 10000,
+    query: 'cql.allRecords=1 sortby name',
+  } });
+
+  useEffect(() => {
+    sessionStorage.setItem(INSTITUTION_ID_LIBRARIES, institutionId);
+    sessionStorage.setItem(CAMPUS_ID_LIBRARIES, campusId);
+  }, [institutionId, campusId]);
+
+  const numberOfObjectsFormatter = useCallback((item) => {
+    const numberOfObjects = locations.reduce((count, loc) => (loc.libraryId === item.id ? count + 1 : count), 0);
 
     const onNumberOfObjectsClick = () => {
       sessionStorage.setItem(LOCATION_LIBRARY_ID_KEY, item.id);
-      sessionStorage.setItem(LOCATION_INSTITUTION_ID_KEY, this.state.institutionId);
-      sessionStorage.setItem(LOCATION_CAMPUS_ID_KEY, this.state.campusId);
+      sessionStorage.setItem(LOCATION_INSTITUTION_ID_KEY, institutionId);
+      sessionStorage.setItem(LOCATION_CAMPUS_ID_KEY, campusId);
     };
 
     return (
@@ -133,124 +74,104 @@ class LocationLibraries extends React.Component {
         to="./location-locations"
       >
         {numberOfObjects}
-      </TextLink>);
-  }
+      </TextLink>
+    );
+  }, [locations, institutionId, campusId]);
 
-  onChangeInstitution = (e) => {
+  const onChangeInstitution = useCallback((e) => {
     const value = e.target.value;
-    this.setState({ institutionId: value, campusId: null });
+    setInstitutionId(value);
+    setCampusId(null);
+  }, []);
 
-    sessionStorage.setItem(INSTITUTION_ID_LIBRARIES, value);
-    sessionStorage.setItem(CAMPUS_ID_LIBRARIES, '');
-  }
-
-  onChangeCampus = (e) => {
+  const onChangeCampus = useCallback((e) => {
     const value = e.target.value;
-    this.setState({ campusId: value });
+    setCampusId(value);
+  }, []);
 
-    sessionStorage.setItem(CAMPUS_ID_LIBRARIES, value);
+  const institutionOptions = institutions.map(i => (
+    <option value={i.id} key={i.id}>
+      {i.name}
+      {i.code ? ` (${i.code})` : ''}
+    </option>
+  ));
+
+  const campusOptions = campuses.filter(c => c.institutionId === institutionId).map(c => (
+    <option value={c.id} key={c.id}>
+      {c.name}
+      {c.code ? ` (${c.code})` : ''}
+    </option>
+  ));
+
+  if (!institutionOptions.length) {
+    return <div data-testid="libraries-empty" />;
   }
 
-  render() {
-    const { institutionId, campusId } = this.state;
-    const { resources } = this.props;
-
-    const institutions = get(resources, 'institutions.records', []).map(i => (
-      <option value={i.id} key={i.id}>
-        {i.name}
-        {i.code ? ` (${i.code})` : ''}
-      </option>
-    ));
-
-    if (!institutions.length) {
-      return <div data-testid="libraries-empty" />;
-    }
-
-    const campuses = [];
-
-    get(resources, 'campuses.records', []).forEach(c => {
-      if (c.institutionId === institutionId) {
-        campuses.push(
-          <option value={c.id} key={c.id}>
-            {c.name}
-            {c.code ? ` (${c.code})` : ''}
-          </option>
-        );
-      }
-    });
-
-    const formatter = {
-      numberOfObjects: this.numberOfObjectsFormatter,
-    };
-
-    const filterBlock = (
-      <>
+  const filterBlock = (
+    <>
+      <Select
+        label={<FormattedMessage id="ui-tenant-settings.settings.location.institutions.institution" />}
+        id="institutionSelect"
+        name="institutionSelect"
+        onChange={onChangeInstitution}
+        value={institutionId}
+      >
+        <FormattedMessage id="ui-tenant-settings.settings.location.institutions.selectInstitution">
+          {selectText => (
+            <option value="">{selectText}</option>
+          )}
+        </FormattedMessage>
+        {institutionOptions}
+      </Select>
+      {institutionId && (
         <Select
-          label={<FormattedMessage id="ui-tenant-settings.settings.location.institutions.institution" />}
-          id="institutionSelect"
-          name="institutionSelect"
-          onChange={this.onChangeInstitution}
-          value={this.state.institutionId}
+          label={<FormattedMessage id="ui-tenant-settings.settings.location.campuses.campus" />}
+          id="campusSelect"
+          name="campusSelect"
+          onChange={onChangeCampus}
+          value={campusId}
         >
-          <FormattedMessage id="ui-tenant-settings.settings.location.institutions.selectInstitution">
+          <FormattedMessage id="ui-tenant-settings.settings.location.campuses.selectCampus">
             {selectText => (
-              <option>{selectText}</option>
+              <option value="">{selectText}</option>
             )}
           </FormattedMessage>
-          {institutions}
+          {campusOptions}
         </Select>
-        {institutionId &&
-          <Select
-            label={<FormattedMessage id="ui-tenant-settings.settings.location.campuses.campus" />}
-            id="campusSelect"
-            name="campusSelect"
-            onChange={this.onChangeCampus}
-            value={this.state.campusId}
-          >
-            <FormattedMessage id="ui-tenant-settings.settings.location.campuses.selectCampus">
-              {selectText => (
-                <option>{selectText}</option>
-              )}
-            </FormattedMessage>
-            {campuses}
-          </Select>
-        }
-      </>
-    );
+      )}
+    </>
+  );
 
-    return (
-      <TitleManager stripes={this.props.stripes} page={this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.location.libraries.title' })}>
-        <this.connectedControlledVocab
-          {...this.props}
-        // We have to unset the dataKey to prevent the props.resources in
-        // <ControlledVocab> from being overwritten by the props.resources here.
-          dataKey={undefined}
-          baseUrl="location-units/libraries"
-          records="loclibs"
-          rowFilter={filterBlock}
-          rowFilterFunction={(row) => row.campusId === campusId}
-          label={this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.location.libraries' })}
-          translations={translations}
-          objectLabel={<FormattedMessage id="ui-tenant-settings.settings.location.locations" />}
-          visibleFields={['name', 'code']}
-          columnMapping={{
-            name: <FormattedMessage id="ui-tenant-settings.settings.location.libraries.library" />,
-            code: <FormattedMessage id="ui-tenant-settings.settings.location.code" />,
-          }}
-          formatter={formatter}
-          nameKey="group"
-          id="libraries"
-          preCreateHook={(item) => ({ ...item, campusId })}
-          listSuppressor={() => !(institutionId && campusId)}
-          listSuppressorText={<FormattedMessage id="ui-tenant-settings.settings.location.libraries.missingSelection" />}
-          sortby="name"
-          validate={composeValidators(locationCodeValidator.validate)}
-          editable={this.hasAllLocationPerms}
-          canCreate={this.hasAllLocationPerms}
-        />
-      </TitleManager>
-    );
-  }
-}
+  return (
+    <TitleManager page={formatMessage({ id: 'ui-tenant-settings.settings.location.libraries.title' })}>
+      <ConnectedControlledVocab
+        {...props}
+        dataKey={undefined}
+        baseUrl="location-units/libraries"
+        records="loclibs"
+        rowFilter={filterBlock}
+        rowFilterFunction={(row) => row.campusId === campusId}
+        label={formatMessage({ id: 'ui-tenant-settings.settings.location.libraries' })}
+        translations={translations}
+        objectLabel={<FormattedMessage id="ui-tenant-settings.settings.location.locations" />}
+        visibleFields={['name', 'code']}
+        columnMapping={{
+          name: <FormattedMessage id="ui-tenant-settings.settings.location.libraries.library" />,
+          code: <FormattedMessage id="ui-tenant-settings.settings.location.code" />,
+        }}
+        formatter={{ numberOfObjects: numberOfObjectsFormatter }}
+        nameKey="group"
+        id="libraries"
+        preCreateHook={(item) => ({ ...item, campusId })}
+        listSuppressor={() => !(institutionId && campusId)}
+        listSuppressorText={<FormattedMessage id="ui-tenant-settings.settings.location.libraries.missingSelection" />}
+        sortby="name"
+        validate={composeValidators(locationCodeValidator.validate)}
+        editable={hasAllLocationPerms}
+        canCreate={hasAllLocationPerms}
+      />
+    </TitleManager>
+  );
+};
 
-export default injectIntl(LocationLibraries);
+export default LocationLibraries;

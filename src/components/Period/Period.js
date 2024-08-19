@@ -1,31 +1,24 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-
-import {
-  Field,
-} from 'react-final-form';
-
-import {
-  get,
-  isEmpty,
-  isNumber,
-} from 'lodash';
+import { Field } from 'react-final-form';
+import { get, isEmpty, isNumber } from 'lodash';
 
 import {
   Col,
   Row,
   Select,
   TextField,
-  Label,
+  Label
 } from '@folio/stripes/components';
 
-import css from './Period.css';
 import {
   shortTermExpiryPeriod,
   shortTermClosedDateManagementMenu,
   longTermClosedDateManagementMenu
 } from '../../settings/ServicePoints/constants';
+import css from './Period.css';
+
 
 const validateDuration = value => {
   if (typeof value !== 'number') {
@@ -39,32 +32,19 @@ const validateDuration = value => {
   return undefined;
 };
 
-class Period extends React.Component {
-  static propTypes = {
-    fieldLabel: PropTypes.string.isRequired,
-    selectPlaceholder: PropTypes.string.isRequired,
-    dependentValuePath: PropTypes.string.isRequired,
-    inputValuePath: PropTypes.string.isRequired,
-    selectValuePath: PropTypes.string.isRequired,
-    entity: PropTypes.object.isRequired,
-    intervalPeriods: PropTypes.arrayOf(PropTypes.object),
-    changeFormValue: PropTypes.func.isRequired,
-  };
+const Period = ({
+  fieldLabel,
+  selectPlaceholder,
+  dependentValuePath,
+  inputValuePath,
+  selectValuePath,
+  entity,
+  intervalPeriods,
+  changeFormValue
+}) => {
+  const inputRef = useRef(null);
 
-  constructor(props) {
-    super(props);
-
-    this.inputRef = React.createRef();
-  }
-
-  onInputBlur = () => {
-    const {
-      inputValuePath,
-      selectValuePath,
-      entity,
-      changeFormValue,
-    } = this.props;
-
+  const onInputBlur = () => {
     const inputValue = get(entity, inputValuePath);
 
     if (isNumber(inputValue)) {
@@ -74,22 +54,11 @@ class Period extends React.Component {
     changeFormValue(selectValuePath, '');
   };
 
-  onInputClear = () => {
-    const {
-      inputValuePath,
-      changeFormValue,
-    } = this.props;
-
+  const onInputClear = () => {
     changeFormValue(inputValuePath, '');
   };
 
-  onSelectChange = (e) => {
-    const {
-      selectValuePath,
-      changeFormValue,
-      dependentValuePath,
-    } = this.props;
-
+  const onSelectChange = (e) => {
     changeFormValue(selectValuePath, e.target.value);
     const holdShelfClosedLibraryDateManagementValue =
       shortTermExpiryPeriod.findIndex(item => item === e.target.value) > -1
@@ -97,10 +66,10 @@ class Period extends React.Component {
         : longTermClosedDateManagementMenu[0].value;
     changeFormValue(dependentValuePath, holdShelfClosedLibraryDateManagementValue);
 
-    this.inputRef.current.focus();
+    inputRef.current.focus();
   };
 
-  transformInputValue = (value) => {
+  const transformInputValue = (value) => {
     if (isEmpty(value)) {
       return '';
     }
@@ -108,12 +77,7 @@ class Period extends React.Component {
     return Number(value);
   };
 
-  generateOptions = () => {
-    const {
-      intervalPeriods,
-      selectValuePath,
-    } = this.props;
-
+  const generateOptions = () => {
     return intervalPeriods.map(({ value, label }) => (
       <option value={value} key={`${selectValuePath}-${value}`}>
         {label}
@@ -121,57 +85,59 @@ class Period extends React.Component {
     ));
   };
 
-  render() {
-    const {
-      fieldLabel,
-      selectPlaceholder,
-      inputValuePath,
-      selectValuePath,
-    } = this.props;
+  return (
+    <>
+      <Row className={css.labelRow}>
+        <Col xs={12}>
+          <Label className={css.label} required>
+            <FormattedMessage id={fieldLabel} />
+          </Label>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs={2}>
+          <Field
+            data-test-period-duration
+            type="number"
+            name={inputValuePath}
+            component={TextField}
+            forwardRef
+            inputRef={inputRef}
+            onBlur={onInputBlur}
+            onClearField={onInputClear}
+            parse={transformInputValue}
+            validate={validateDuration}
+          />
+        </Col>
+        <Col xs={2}>
+          <FormattedMessage id={selectPlaceholder}>
+            {placeholder => (
+              <Field
+                data-test-period-interval
+                name={selectValuePath}
+                component={Select}
+                placeholder={placeholder}
+                onChange={onSelectChange}
+              >
+                {generateOptions()}
+              </Field>
+            )}
+          </FormattedMessage>
+        </Col>
+      </Row>
+    </>
+  );
+};
 
-    return (
-      <>
-        <Row className={css.labelRow}>
-          <Col xs={12}>
-            <Label className={css.label} required>
-              <FormattedMessage id={fieldLabel} />
-            </Label>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={2}>
-            <Field
-              data-test-period-duration
-              type="number"
-              name={inputValuePath}
-              component={TextField}
-              forwardRef
-              inputRef={this.inputRef}
-              onBlur={this.onInputBlur}
-              onClearField={this.onInputClear}
-              parse={this.transformInputValue}
-              validate={validateDuration}
-            />
-          </Col>
-          <Col xs={2}>
-            <FormattedMessage id={selectPlaceholder}>
-              {placeholder => (
-                <Field
-                  data-test-period-interval
-                  name={selectValuePath}
-                  component={Select}
-                  placeholder={placeholder}
-                  onChange={this.onSelectChange}
-                >
-                  {this.generateOptions()}
-                </Field>
-              )}
-            </FormattedMessage>
-          </Col>
-        </Row>
-      </>
-    );
-  }
-}
+Period.propTypes = {
+  fieldLabel: PropTypes.string.isRequired,
+  selectPlaceholder: PropTypes.string.isRequired,
+  dependentValuePath: PropTypes.string.isRequired,
+  inputValuePath: PropTypes.string.isRequired,
+  selectValuePath: PropTypes.string.isRequired,
+  entity: PropTypes.object.isRequired,
+  intervalPeriods: PropTypes.arrayOf(PropTypes.object),
+  changeFormValue: PropTypes.func.isRequired,
+};
 
 export default Period;

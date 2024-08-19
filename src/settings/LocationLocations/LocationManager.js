@@ -1,20 +1,24 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { Route } from 'react-router-dom';
-
+import {
+  Route,
+  useHistory,
+  useLocation,
+  useRouteMatch
+} from 'react-router-dom';
 import {
   FormattedMessage,
-  injectIntl,
+  useIntl,
 } from 'react-intl';
 import {
   cloneDeep,
   find,
   isEmpty,
   omit,
-  get,
   forEach,
 } from 'lodash';
 import queryString from 'query-string';
+import { useQueryClient } from 'react-query';
 
 import {
   SearchAndSortQuery,
@@ -32,8 +36,12 @@ import {
   Layer,
   Callout,
 } from '@folio/stripes/components';
+import {
+  TitleManager,
+  useOkapiKy,
+  useStripes
+} from '@folio/stripes/core';
 
-import { TitleManager } from '@folio/stripes/core';
 import {
   LOCATION_CAMPUS_ID_KEY,
   LOCATION_INSTITUTION_ID_KEY,
@@ -43,327 +51,192 @@ import {
 import LocationDetail from './LocationDetail';
 import EditForm from './LocationForm';
 import { RemoteStorageApiProvider } from './RemoteStorage';
+import { useInstitutions } from '../../hooks/useInstitutions';
+import { useLibraries } from '../../hooks/useLibraries';
+import { useCampuses } from '../../hooks/useCampuses';
+import { SERVICE_POINTS, useServicePoints } from '../../hooks/useServicePoints';
+import { LOCATIONS, useLocations } from '../../hooks/useLocations';
+import { useLocationDelete } from '../../hooks/useLocationDelete';
 
-class LocationManager extends React.Component {
-  static manifest = Object.freeze({
-    entries: {
-      type: 'okapi',
-      records: 'locations',
-      path: 'locations',
-      params: {
-        query: 'cql.allRecords=1 sortby name',
-        limit: '3000',
-      },
-    },
-    uniquenessValidator: {
-      type: 'okapi',
-      records: 'locations',
-      accumulate: 'true',
-      path: 'locations',
-      fetch: false,
-    },
-    institutions: {
-      type: 'okapi',
-      path: 'location-units/institutions',
-      params: {
-        query: 'cql.allRecords=1 sortby name',
-        limit: '1000',
-      },
-      records: 'locinsts',
-      accumulate: true,
-    },
-    campuses: {
-      type: 'okapi',
-      path: 'location-units/campuses',
-      params: {
-        query: 'cql.allRecords=1 sortby name',
-        limit: '1000',
-      },
-      records: 'loccamps',
-      accumulate: true,
-    },
-    libraries: {
-      type: 'okapi',
-      path: 'location-units/libraries',
-      params: {
-        query: 'cql.allRecords=1 sortby name',
-        limit: '1000',
-      },
-      records: 'loclibs',
-      accumulate: true,
-    },
-    servicePoints: {
-      type: 'okapi',
-      records: 'servicepoints',
-      path: 'service-points',
-      params: {
-        query: 'cql.allRecords=1 sortby name',
-        limit: '1000',
-      },
-      resourceShouldRefresh: true,
-    },
-    holdingsEntries: {
-      type: 'okapi',
-      path: 'holdings-storage/holdings',
-      records: 'holdingsRecords',
-      accumulate: true,
-    },
-    itemEntries: {
-      type: 'okapi',
-      path: 'inventory/items',
-      records: 'items',
-      accumulate: true,
+
+const initialSelectedLocationId = (location) => {
+  const idFromPathnameRe = '/([^/]+)$';
+  const reMatches = new RegExp(idFromPathnameRe).exec(location.pathname);
+  return reMatches ? reMatches[1] : null;
+};
+
+const initialSort = (location) => {
+  const { sort = 'name', sortDir = SORT_TYPES.ASCENDING } = queryString.parse(location.search.slice(1));
+  return { sort, sortDir };
+};
+
+const locationListVisibleColumns = ['isActive', 'name', 'code'];
+
+const locationListColumnMapping = {
+  isActive: <FormattedMessage id="ui-tenant-settings.settings.location.locations.status" />,
+  name: <FormattedMessage id="ui-tenant-settings.settings.location.locations.detailsName" />,
+  code: <FormattedMessage id="ui-tenant-settings.settings.location.code" />,
+};
+
+const locationListFormatter = {
+  isActive: item => {
+    const locationId = item.isActive ? 'active' : 'inactive';
+    return <FormattedMessage id={`ui-tenant-settings.settings.location.locations.${locationId}`} />;
+  }
+};
+
+const LocationManager = ({ label }) => {
+  const intl = useIntl();
+  const stripes = useStripes();
+  const queryClient = useQueryClient();
+  const ky = useOkapiKy();
+  const callout = useRef(null);
+  const location = useLocation();
+  const history = useHistory();
+  const match = useRouteMatch();
+
+  const entryLabel = intl.formatMessage({ id: 'ui-tenant-settings.settings.location.locations.location' });
+  const hasAllLocationPerms = stripes.hasPerm('ui-tenant-settings.settings.location');
+
+  const showCalloutMessage = (name) => {
+    if (!callout.current) return;
+    const message = (
+      <FormattedMessage
+        id="stripes-core.successfullyDeleted"
+        values={{
+          entry: entryLabel,
+          name: name || '',
+        }}
+      />
+    );
+    callout.current.sendCallout({ message });
+  };
+
+  const [institutionId, setInstitutionId] = useState(sessionStorage.getItem(LOCATION_INSTITUTION_ID_KEY) || '');
+  const [campusId, setCampusId] = useState(sessionStorage.getItem(LOCATION_CAMPUS_ID_KEY) || '');
+  const [libraryId, setLibraryId] = useState(sessionStorage.getItem(LOCATION_LIBRARY_ID_KEY) || '');
+  const [selectedId, setSelectedId] = useState(initialSelectedLocationId(location));
+  const [sortState, setSortState] = useState(initialSort(location));
+
+  const { institutions } = useInstitutions({ searchParams: {
+    limit: 100,
+    query: 'cql.allRecords=1 sortby name',
+  } });
+
+  const { libraries } = useLibraries({ searchParams: {
+    limit: 1000,
+    query: 'cql.allRecords=1 sortby name',
+  } });
+
+  const { campuses } = useCampuses({ searchParams: {
+    limit: 1000,
+    query: 'cql.allRecords=1 sortby name',
+  } });
+
+  const { servicePoints } = useServicePoints({ searchParams: {
+    limit: 1000,
+    query: 'cql.allRecords=1 sortby name',
+  } });
+
+  const { locations: locationEntries, refetch: refetchLocationEntries } = useLocations({
+    searchParams: {
+      limit: 3000,
+      query: 'cql.allRecords=1 sortby name'
     },
   });
 
-  static propTypes = {
-    intl: PropTypes.object,
-    label: PropTypes.node.isRequired,
-    location: PropTypes.shape({
-      search: PropTypes.string,
-      pathname: PropTypes.string,
-    }).isRequired,
-    history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired,
-    match: PropTypes.shape({ path: PropTypes.string.isRequired }).isRequired,
-    resources: PropTypes.shape({
-      entries: PropTypes.shape({ records: PropTypes.arrayOf(PropTypes.object) }),
-      servicePoints: PropTypes.shape({ records: PropTypes.arrayOf(PropTypes.object),
-        hasLoaded: PropTypes.bool }),
-      institutions: PropTypes.shape({ records: PropTypes.arrayOf(PropTypes.object) }),
-      campuses: PropTypes.shape({ records: PropTypes.arrayOf(PropTypes.object) }),
-      libraries: PropTypes.shape({ records: PropTypes.arrayOf(PropTypes.object) }),
-    }).isRequired,
-    mutator: PropTypes.shape({
-      entries: PropTypes.shape({
-        POST: PropTypes.func,
-        PUT: PropTypes.func,
-        DELETE: PropTypes.func,
-      }),
-      servicePoints: PropTypes.shape({
-        POST: PropTypes.func,
-        PUT: PropTypes.func,
-        DELETE: PropTypes.func,
-      }),
-      institutions: PropTypes.shape({
-        GET: PropTypes.func.isRequired,
-        reset: PropTypes.func.isRequired,
-      }),
-      campuses: PropTypes.shape({
-        GET: PropTypes.func.isRequired,
-        reset: PropTypes.func.isRequired,
-      }),
-      libraries: PropTypes.shape({
-        GET: PropTypes.func.isRequired,
-        reset: PropTypes.func.isRequired,
-      }),
-      holdingsEntries: PropTypes.shape({
-        GET: PropTypes.func.isRequired,
-        reset: PropTypes.func.isRequired,
-      }),
-      itemEntries: PropTypes.shape({
-        GET: PropTypes.func.isRequired,
-        reset: PropTypes.func.isRequired,
-      }),
-      uniquenessValidator: PropTypes.object,
-    }).isRequired,
-    stripes: PropTypes.shape({
-      hasPerm: PropTypes.func.isRequired,
-      connect: PropTypes.func.isRequired,
-      hasInterface: PropTypes.func.isRequired,
-    }),
+  const { deleteLocation } = useLocationDelete({
+    onSuccess: () => {
+      queryClient.invalidateQueries(SERVICE_POINTS);
+      queryClient.invalidateQueries(LOCATIONS);
+    }
+  });
+
+  const { servicePointsById, servicePointsByName } = servicePoints.reduce((acc, item) => {
+    acc.servicePointsById[item.id] = item.name;
+    acc.servicePointsByName[item.name] = item.id;
+
+    return acc;
+  }, { servicePointsById: {}, servicePointsByName: {} });
+
+  const transitionToParams = (values) => {
+    const url = buildUrl(location, values);
+    history.push(url);
   };
 
-  constructor(props) {
-    super(props);
+  const formatLocationDisplayName = (loc) => {
+    let lbl = loc.name;
 
-    this.state = {
-      institutionId: sessionStorage.getItem(LOCATION_INSTITUTION_ID_KEY) || '',
-      campusId: sessionStorage.getItem(LOCATION_CAMPUS_ID_KEY) || '',
-      libraryId: sessionStorage.getItem(LOCATION_LIBRARY_ID_KEY) || '',
-      servicePointsById: {},
-      servicePointsByName: {},
-      selectedId: this.initialSelectedLocationId,
-      ...this.initialSort,
-    };
-
-    this.callout = React.createRef();
-
-    const { formatMessage } = props.intl;
-
-    this.entryLabel = formatMessage({ id: 'ui-tenant-settings.settings.location.locations.location' });
-    this.locationListVisibleColumns = ['isActive', 'name', 'code'];
-    this.locationListColumnMapping = {
-      isActive: formatMessage({ id: 'ui-tenant-settings.settings.location.locations.status' }),
-      name: formatMessage({ id: 'ui-tenant-settings.settings.location.locations.detailsName' }),
-      code: formatMessage({ id: 'ui-tenant-settings.settings.location.code' }),
-    };
-    this.locationListFormatter = {
-      isActive: item => {
-        const locationId = item.isActive ? 'active' : 'inactive';
-
-        return formatMessage({ id: `ui-tenant-settings.settings.location.locations.${locationId}` });
-      }
-    };
-    this.hasAllLocationPerms = props.stripes.hasPerm('ui-tenant-settings.settings.location');
-  }
-
-  static getDerivedStateFromProps(nextProps) {
-    const { resources } = nextProps;
-    const servicePointsByName = {};
-    if (resources.servicePoints && resources.servicePoints.hasLoaded) {
-      const servicePointsById = ((resources.servicePoints || {}).records || []).reduce((map, item) => {
-        map[item.id] = item.name;
-        servicePointsByName[item.name] = item.id;
-        return map;
-      }, {});
-      return { servicePointsById, servicePointsByName };
+    if (loc.code) {
+      lbl += ` (${loc.code})`;
     }
-    return null;
-  }
 
-  /**
-   * Refresh lookup tables when the component mounts. Fetches in the manifest
-   * will only run once (in the constructor) but because this object may be
-   * unmounted/remounted without being destroyed/recreated, the lookup tables
-   * will be stale if they change between unmounting/remounting.
-   */
-  componentDidMount() {
-    ['institutions', 'campuses', 'libraries'].forEach(i => {
-      this.props.mutator[i].reset();
-      this.props.mutator[i].GET();
-    });
-  }
+    return lbl;
+  };
 
-  get initialSelectedLocationId() {
-    const { location } = this.props;
-
-    const idFromPathnameRe = '/([^/]+)$';
-    const reMatches = new RegExp(idFromPathnameRe).exec(location.pathname);
-
-    return reMatches ? reMatches[1] : null;
-  }
-
-  get initialSort() {
-    const { location: { search } } = this.props;
-
-    const {
-      sort = 'name',
-      sortDir = SORT_TYPES.ASCENDING,
-    } = queryString.parse(search.slice(1));
-
-    return {
-      sort,
-      sortDir,
-    };
-  }
-
-  onSort = (e, { name: fieldName }) => {
-    const {
-      sort,
-      sortDir,
-    } = this.state;
-
+  const onSort = (e, { name: fieldName }) => {
+    const { sort, sortDir } = sortState;
     const isSameField = sort === fieldName;
     let newSortDir = SORT_TYPES.ASCENDING;
-
     if (isSameField) {
       newSortDir = newSortDir === sortDir ? SORT_TYPES.DESCENDING : newSortDir;
     }
-
-    const sortState = {
-      sort: fieldName,
-      sortDir: newSortDir,
-    };
-
-    this.setState(sortState);
-    this.transitionToParams(sortState);
+    const newSortState = { sort: fieldName, sortDir: newSortDir };
+    setSortState(newSortState);
+    transitionToParams(newSortState);
   };
 
-  onSelectRow = (e, meta) => {
-    const { match: { path } } = this.props;
-
-    this.transitionToParams({ _path: `${path}/${meta.id}` });
-    this.setState({ selectedId: meta.id });
+  const onSelectRow = (e, meta) => {
+    transitionToParams({ _path: `${match.path}/${meta.id}` });
+    setSelectedId(meta.id);
   };
 
-  transitionToParams(values) {
-    const {
-      location,
-      history,
-    } = this.props;
-
-    const url = buildUrl(location, values);
-
-    history.push(url);
-  }
-
-  onChangeInstitution = (e) => {
-    const institutionId = e.target.value;
-
-    sessionStorage.setItem(LOCATION_INSTITUTION_ID_KEY, institutionId);
+  const onChangeInstitution = (e) => {
+    const newInstitutionId = e.target.value;
+    sessionStorage.setItem(LOCATION_INSTITUTION_ID_KEY, newInstitutionId);
     sessionStorage.setItem(LOCATION_CAMPUS_ID_KEY, '');
     sessionStorage.setItem(LOCATION_LIBRARY_ID_KEY, '');
-
-    this.setState({
-      institutionId,
-      campusId: '',
-      libraryId: '',
-    });
+    setInstitutionId(newInstitutionId);
+    setCampusId('');
+    setLibraryId('');
   };
 
-  onChangeCampus = (e) => {
-    const campusId = e.target.value;
-
-    sessionStorage.setItem(LOCATION_CAMPUS_ID_KEY, campusId);
-
-    this.setState({
-      campusId,
-      libraryId: '',
-    });
+  const onChangeCampus = (e) => {
+    const newCampusId = e.target.value;
+    sessionStorage.setItem(LOCATION_CAMPUS_ID_KEY, newCampusId);
+    setCampusId(newCampusId);
+    setLibraryId('');
   };
 
-  onChangeLibrary = (e) => {
-    const libraryId = e.target.value;
-
-    sessionStorage.setItem(LOCATION_LIBRARY_ID_KEY, libraryId);
-
-    this.setState({ libraryId });
+  const onChangeLibrary = (e) => {
+    const newLibraryId = e.target.value;
+    sessionStorage.setItem(LOCATION_LIBRARY_ID_KEY, newLibraryId);
+    setLibraryId(newLibraryId);
   };
 
-  renderFilter() {
-    const {
-      resources,
-      location,
-      intl: { formatMessage },
-    } = this.props;
-    const {
-      institutionId,
-      campusId,
-      libraryId,
-    } = this.state;
-
-    const institutions = get(resources.institutions, 'records', [])
+  const renderFilter = () => {
+    const formattedInstitutions = institutions
       .map(institution => ({
         value: institution.id,
-        label: this.formatLocationDisplayName(institution),
+        label: formatLocationDisplayName(institution),
       }));
 
-    if (isEmpty(institutions)) {
+    if (isEmpty(formattedInstitutions)) {
       return <div />;
     }
 
-    const campuses = get(resources.campuses, 'records', [])
+    const formattedCampuses = campuses
       .filter(campus => campus.institutionId === institutionId)
       .map(campus => ({
         value: campus.id,
-        label: this.formatLocationDisplayName(campus),
+        label: formatLocationDisplayName(campus),
       }));
 
-    const libraries = get(resources.libraries, 'records', [])
+    const formattedLibraries = libraries
       .filter(library => library.campusId === campusId)
       .map(library => ({
         value: library.id,
-        label: this.formatLocationDisplayName(library),
+        label: formatLocationDisplayName(library),
       }));
 
     return (
@@ -374,8 +247,8 @@ class LocationManager extends React.Component {
             id="institutionSelect"
             name="institutionSelect"
             value={institutionId}
-            dataOptions={[{ label: formatMessage({ id: 'ui-tenant-settings.settings.location.institutions.selectInstitution' }), value: '' }, ...institutions]}
-            onChange={this.onChangeInstitution}
+            dataOptions={[{ label: intl.formatMessage({ id: 'ui-tenant-settings.settings.location.institutions.selectInstitution' }), value: '' }, ...formattedInstitutions]}
+            onChange={onChangeInstitution}
           />
         </div>
         <div data-test-campus-select>
@@ -384,25 +257,25 @@ class LocationManager extends React.Component {
             id="campusSelect"
             name="campusSelect"
             value={campusId}
-            dataOptions={[{ label: formatMessage({ id: 'ui-tenant-settings.settings.location.campuses.selectCampus' }), value: '' }, ...campuses]}
-            onChange={this.onChangeCampus}
+            dataOptions={[{ label: intl.formatMessage({ id: 'ui-tenant-settings.settings.location.campuses.selectCampus' }), value: '' }, ...formattedCampuses]}
+            onChange={onChangeCampus}
           />}
         </div>
         <div data-test-library-select>
           {campusId && <Select
             label={<FormattedMessage id="ui-tenant-settings.settings.location.libraries.library" />}
             id="librarySelect"
-            name="campusSelect"
+            name="librarySelect"
             value={libraryId}
-            dataOptions={[{ label: formatMessage({ id: 'ui-tenant-settings.settings.location.libraries.selectLibrary' }), value: '' }, ...libraries]}
-            onChange={this.onChangeLibrary}
+            dataOptions={[{ label: intl.formatMessage({ id: 'ui-tenant-settings.settings.location.libraries.selectLibrary' }), value: '' }, ...formattedLibraries]}
+            onChange={onChangeLibrary}
           />}
         </div>
         <Row between="xs">
           <Col xs>
             <Headline size="medium" margin="none"><FormattedMessage id="ui-tenant-settings.settings.location.locations" /></Headline>
           </Col>
-          {this.hasAllLocationPerms && (
+          {hasAllLocationPerms && (
             <Col xs>
               <Row end="xs">
                 <Col xs>
@@ -426,249 +299,188 @@ class LocationManager extends React.Component {
         }
       </div>
     );
-  }
-
-  formatLocationDisplayName(location) {
-    return `${location.name}${location.code ? ` (${location.code})` : ''}`;
-  }
-
-  parseInitialValues(loc, cloning = false) {
-    if (!loc) return loc;
-
-    loc.detailsArray = Object.keys(loc.details || []).map(name => {
-      return { name, value: loc.details[name] };
-    }).sort();
-
-    return cloning ? omit(loc, 'id') : loc;
-  }
-
-  handleDetailClose = () => {
-    this.transitionToParams({ _path: this.props.match.path });
-    this.setState({ selectedId: null });
   };
 
-  prepareLocationsData() {
-    const { resources } = this.props;
-    const {
-      sort,
-      sortDir,
-    } = this.state;
+  const parseInitialValues = (loc, cloning = false) => {
+    if (!loc) return loc;
+    loc.detailsArray = Object.keys(loc.details || []).map(name => ({ name, value: loc.details[name] }))
+      .sort((a, b) => a.name.localeCompare(b.name));
+    return cloning ? omit(loc, 'id') : loc;
+  };
 
+  const handleDetailClose = () => {
+    transitionToParams({ _path: match.path });
+    setSelectedId(null);
+    refetchLocationEntries();
+  };
+
+  const prepareLocationsData = () => {
+    const { sort, sortDir } = sortState;
     const sortDirValue = sortDir === SORT_TYPES.ASCENDING ? 1 : -1;
-
-    return cloneDeep((resources.entries || {}).records || []).map(location => {
-      location.servicePointIds = (location.servicePointIds || []).map(id => ({
-        selectSP: this.state.servicePointsById[id],
-        primary: (location.primaryServicePoint === id),
+    return cloneDeep((locationEntries)).map(loc => {
+      loc.servicePointIds = (loc.servicePointIds || []).map(id => ({
+        selectSP: servicePointsById[id],
+        primary: (loc.primaryServicePoint === id),
       }));
 
-      return location;
+      return loc;
     }).sort((a, b) => sortDirValue * `${a[sort]}`.localeCompare(`${b[sort]}`));
-  }
+  };
 
-  onCancel = (e) => {
+  const onCancel = (e) => {
     if (e) {
       e.preventDefault();
     }
-
-    this.transitionToParams({ layer: null });
+    transitionToParams({ layer: null });
   };
 
-  handleDetailEdit = location => {
-    this.setState({ selectedId: location.id });
-    this.transitionToParams({ layer: 'edit' });
+  const handleDetailEdit = loc => {
+    setSelectedId(loc.id);
+    transitionToParams({ layer: 'edit' });
   };
 
-  handleDetailClone = location => {
-    this.setState({ selectedId: location.id });
-    this.transitionToParams({ layer: 'clone' });
+  const handleDetailClone = loc => {
+    setSelectedId(loc.id);
+    transitionToParams({ layer: 'clone' });
   };
 
-  checkLocationHasHoldingsOrItems = async (locationId) => {
-    const { mutator } = this.props;
+  const checkLocationHasHoldingsOrItems = async (locationId) => {
     const query = `permanentLocationId=="${locationId}" or temporaryLocationId=="${locationId}"`;
 
-    mutator.holdingsEntries.reset();
-    mutator.itemEntries.reset();
-
     const results = await Promise.all([
-      mutator.holdingsEntries.GET({ params: { query } }),
-      mutator.itemEntries.GET({ params: { query } }),
+      ky.get('inventory/items', { searchParams: { query } }).json(),
+      ky.get('holdings-storage/holdings', { searchParams: { query } }).json(),
     ]);
 
     return results.some(records => records.length > 0);
   };
 
-  onRemove = location => {
-    const {
-      match,
-      mutator,
-    } = this.props;
-
-    return this.checkLocationHasHoldingsOrItems(location.id)
-      .then(hasSomething => !hasSomething && mutator.entries.DELETE(location))
+  const onRemove = loc => {
+    return checkLocationHasHoldingsOrItems(loc.id)
+      .then(hasSomething => !hasSomething && deleteLocation({ locationId: loc.id }))
       .then(result => {
         const isRemoved = (result !== false);
-
         if (isRemoved) {
-          this.showCalloutMessage(location.name);
-          this.transitionToParams({
+          showCalloutMessage(loc.name);
+          transitionToParams({
             _path: `${match.path}`,
             layer: null
           });
         }
-
         return isRemoved;
       });
   };
 
-  updateSelected = location => {
-    this.transitionToParams({
-      _path: `${this.props.match.path}/${location.id}`,
+  const updateSelected = loc => {
+    transitionToParams({
+      _path: `${match.path}/${loc.id}`,
       layer: null,
     });
-    this.setState({ selectedId: location.id });
+    setSelectedId(loc.id);
   };
 
-  showCalloutMessage(name) {
-    if (!this.callout.current) return;
+  const locations = prepareLocationsData();
+  const contentData = locations.filter(row => row.libraryId === libraryId);
+  const query = queryString.parse(location.search);
+  const defaultEntry = { isActive: true, institutionId, campusId, libraryId, servicePointIds: [{ selectSP: '', primary: true }] };
+  const adding = location.search.match('layer=add');
+  const cloning = location.search.match('layer=clone');
 
-    const message = (
-      <FormattedMessage
-        id="stripes-core.successfullyDeleted"
-        values={{
-          entry: this.entryLabel,
-          name: name || '',
+  forEach(contentData, loc => {
+    if (loc.isActive === undefined) {
+      loc.isActive = false;
+    }
+  });
+
+  const selectedItem = (selectedId && !adding) ? find(contentData, entry => entry.id === selectedId) : defaultEntry;
+  const initialValues = parseInitialValues(selectedItem, cloning);
+
+  const container = document.getElementById('ModuleContainer');
+  if (!container) return (<div />);
+
+  return (
+    <Paneset
+      defaultWidth="fill"
+      data-test-entry-manager
+    >
+      <Pane
+        defaultWidth="fill"
+        paneTitle={label}
+      >
+        <SearchAndSortQuery>
+          {() => (
+            <>
+              <TitleManager page={intl.formatMessage({ id: 'ui-tenant-settings.settings.location.locations.title' })}>
+                {renderFilter()}
+                <MultiColumnList
+                  id="locations-list"
+                  contentData={contentData}
+                  visibleColumns={locationListVisibleColumns}
+                  columnMapping={locationListColumnMapping}
+                  formatter={locationListFormatter}
+                  selectedRow={selectedItem}
+                  sortOrder={sortState.sort}
+                  sortDirection={sortState.sortDir}
+                  isEmptyMessage={null}
+                  onHeaderClick={onSort}
+                  onRowClick={onSelectRow}
+                />
+              </TitleManager>
+            </>
+          )}
+        </SearchAndSortQuery>
+      </Pane>
+      <Route
+        path={`${match.path}/:id`}
+        render={() => {
+          if (!selectedItem) return null;
+          return (
+            <RemoteStorageApiProvider>
+              <LocationDetail
+                initialValues={selectedItem}
+                servicePointsById={servicePointsById}
+                onEdit={handleDetailEdit}
+                onClone={handleDetailClone}
+                onClose={handleDetailClose}
+                onRemove={onRemove}
+              />
+            </RemoteStorageApiProvider>
+          );
         }}
       />
-    );
-
-    this.callout.current.sendCallout({ message });
-  }
-
-  render() {
-    const {
-      match,
-      label,
-      location: { search },
-      mutator,
-    } = this.props;
-    const {
-      institutionId,
-      campusId,
-      libraryId,
-      sort,
-      sortDir,
-      selectedId,
-      servicePointsById,
-      servicePointsByName,
-    } = this.state;
-
-    const locations = this.prepareLocationsData();
-    const contentData = locations.filter(row => row.libraryId === libraryId);
-    const query = queryString.parse(search);
-    const defaultEntry = { isActive: true, institutionId, campusId, libraryId, servicePointIds: [{ selectSP: '', primary: true }] };
-    const adding = search.match('layer=add');
-    const cloning = search.match('layer=clone');
-
-    // Providing default 'isActive' value is used here when the 'isActive' property is missing in the 'locations' loaded via the API.
-    forEach(contentData, location => {
-      if (location.isActive === undefined) {
-        location.isActive = false;
-      }
-    });
-
-    const selectedItem = (selectedId && !adding)
-      ? find(contentData, entry => entry.id === selectedId) : defaultEntry;
-
-    const initialValues = this.parseInitialValues(selectedItem, cloning);
-
-    const container = document.getElementById('ModuleContainer');
-
-    if (!container) return (<div />);
-
-    return (
-      <Paneset
-        defaultWidth="fill"
-        data-test-entry-manager
-      >
-        <Pane
-          defaultWidth="fill"
-          paneTitle={label}
+      <RemoteStorageApiProvider>
+        <FormattedMessage
+          id="stripes-core.label.editEntry"
+          values={{ entry: entryLabel }}
         >
-          <SearchAndSortQuery>
-            {() => (
-              <>
-                <TitleManager page={this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.location.locations.title' })}>
-                  {this.renderFilter()}
-                  <MultiColumnList
-                    id="locations-list"
-                    contentData={contentData}
-                    visibleColumns={this.locationListVisibleColumns}
-                    columnMapping={this.locationListColumnMapping}
-                    formatter={this.locationListFormatter}
-                    selectedRow={selectedItem}
-                    sortOrder={sort}
-                    sortDirection={sortDir}
-                    isEmptyMessage={null}
-                    onHeaderClick={this.onSort}
-                    onRowClick={this.onSelectRow}
-                  />
-                </TitleManager>
-              </>
-            )}
-          </SearchAndSortQuery>
-        </Pane>
-        <Route
-          path={`${match.path}/:id`}
-          render={
-            () => {
-              if (!selectedItem) return null;
+          {contentLabelChunks => (
+            <Layer
+              isOpen={Boolean(query.layer)}
+              contentLabel={contentLabelChunks.join()}
+              container={container}
+            >
+              <EditForm
+                servicePointsByName={servicePointsByName}
+                initialValues={initialValues}
+                onSave={updateSelected}
+                onCancel={onCancel}
+                checkLocationHasHoldingsOrItems={checkLocationHasHoldingsOrItems}
+                institutions={institutions}
+                campuses={campuses}
+                libraries={libraries}
+                servicePoints={servicePoints}
+              />
+            </Layer>
+          )}
+        </FormattedMessage>
+      </RemoteStorageApiProvider>
+      <Callout ref={callout} />
+    </Paneset>
+  );
+};
 
-              return (
-                <RemoteStorageApiProvider>
-                  <LocationDetail
-                    initialValues={selectedItem}
-                    servicePointsById={servicePointsById}
-                    onEdit={this.handleDetailEdit}
-                    onClone={this.handleDetailClone}
-                    onClose={this.handleDetailClose}
-                    onRemove={this.onRemove}
-                  />
-                </RemoteStorageApiProvider>
-              );
-            }
-          }
-        />
-        <RemoteStorageApiProvider>
-          <FormattedMessage
-            id="stripes-core.label.editEntry"
-            values={{ entry: this.entryLabel }}
-          >
-            {contentLabelChunks => (
-              <Layer
-                isOpen={Boolean(query.layer)}
-                contentLabel={contentLabelChunks.join()}
-                container={container}
-              >
-                <EditForm
-                  parentMutator={mutator}
-                  locationResources={this.props.resources}
-                  servicePointsByName={servicePointsByName}
-                  initialValues={initialValues}
-                  onSave={this.updateSelected}
-                  onCancel={this.onCancel}
-                  checkLocationHasHoldingsOrItems={this.checkLocationHasHoldingsOrItems}
-                />
-              </Layer>
-            )}
-          </FormattedMessage>
-        </RemoteStorageApiProvider>
-        <Callout ref={this.callout} />
-      </Paneset>
-    );
-  }
-}
+LocationManager.propTypes = {
+  label: PropTypes.node.isRequired,
+};
 
-export default injectIntl(LocationManager);
-// export default LocationManager;
+export default LocationManager;

@@ -1,6 +1,6 @@
 {
   "name": "@folio/tenant-settings",
-  "version": "9.0.0",
+  "version": "8.1.0",
   "description": "Tenant settings",
   "main": "src/index.js",
   "repository": "folio-org/ui-tenant-settings",
@@ -17,8 +17,7 @@
     "route": "/tenant-settings",
     "okapiInterfaces": {
       "configuration": "2.0",
-      "users": "15.0 16.0",
-      "reading-room": "1.0"
+      "users": "15.0 16.0"
     },
     "optionalOkapiInterfaces": {
       "location-units": "2.0",
@@ -26,7 +25,8 @@
       "login-saml": "2.0",
       "remote-storage-configurations": "1.0",
       "remote-storage-mappings": "1.0 2.0",
-      "service-points": "3.0"
+      "service-points": "3.0",
+      "reading-room": "1.0"
     },
     "permissionSets": [
       {
@@ -200,12 +200,11 @@
       },
       {
         "permissionName": "ui-tenant-settings.settings.servicepoints",
-        "displayName": "Settings (tenant): Can create, edit and remove service points",
+        "displayName": "Settings (tenant): Can create and edit service points",
         "subPermissions": [
           "ui-tenant-settings.settings.servicepoints.view",
           "inventory-storage.service-points.item.post",
-          "inventory-storage.service-points.item.put",
-          "inventory-storage.service-points.item.delete"
+          "inventory-storage.service-points.item.put"
         ],
         "visible": true
       },
@@ -305,6 +304,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-intl": "^6.4.4",
+    "react-query": "^3.6.0",
     "react-router-dom": "^5.2.0"
   }
 }

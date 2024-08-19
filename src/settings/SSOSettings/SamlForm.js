@@ -16,6 +16,8 @@ import stripesFinalForm from '@folio/stripes/final-form';
 import { IfPermission } from '@folio/stripes/core';
 
 import styles from './SSOSettings.css';
+import { useSamlDownload } from '../../hooks/useSamlDownload';
+
 
 const validate = (values) => {
   const errors = {};
@@ -32,169 +34,151 @@ const validate = (values) => {
   return errors;
 };
 
-class SamlForm extends React.Component {
-  static propTypes = {
-    validateIdpUrl: PropTypes.func.isRequired,
-    handleSubmit: PropTypes.func.isRequired,
-    reset: PropTypes.func,
-    pristine: PropTypes.bool,
-    submitting: PropTypes.bool,
-    initialValues: PropTypes.object.isRequired, // eslint-disable-line react/no-unused-prop-types
-    values: PropTypes.object,
-    optionLists: PropTypes.shape({
-      identifierOptions: PropTypes.arrayOf(PropTypes.object),
-      samlBindingOptions: PropTypes.arrayOf(PropTypes.object),
-    }),
-    parentMutator: PropTypes.shape({ // eslint-disable-line react/no-unused-prop-types
-      urlValidator: PropTypes.shape({
-        reset: PropTypes.func.isRequired,
-        GET: PropTypes.func.isRequired,
-      }).isRequired,
-      downloadFile: PropTypes.shape({
-        GET: PropTypes.func.isRequired,
-        reset: PropTypes.func.isRequired,
-      }),
-    }),
-    label: PropTypes.node,
-    readOnly: PropTypes.bool,
-  };
 
-  updateMetadataInvalidated = () => {
-    this.props.initialValues.metadataInvalidated = false;
-    this.forceUpdate();
-  }
-
-  downloadMetadata = () => {
-    this.props.parentMutator.downloadFile.reset();
-    this.props.parentMutator.downloadFile.GET().then((result) => {
+const SamlForm = ({
+  validateIdpUrl,
+  handleSubmit,
+  pristine,
+  submitting,
+  initialValues,
+  optionLists,
+  label,
+  values,
+  readOnly,
+}) => {
+  const { downloadFile } = useSamlDownload({
+    onSuccess: (result) => {
       const anchor = document.createElement('a');
-      anchor.href = `data:text/plain;base64,${result.fileContent}`;
+      anchor.href = `data:text/plain;base64,${result?.fileContent}`;
       anchor.download = 'sp-metadata.xml';
       anchor.click();
-      this.updateMetadataInvalidated();
-    });
-  }
 
-  render() {
-    const {
-      handleSubmit,
-      pristine,
-      submitting,
-      initialValues,
-      optionLists,
-      label,
-      validateIdpUrl,
-      values,
-      readOnly,
-    } = this.props;
+      initialValues.metadataInvalidated = false;
+    },
+  });
 
-    const identifierOptions = (optionLists.identifierOptions || []).map(i => (
-      { id: i.key, label: i.label, value: i.key, selected: initialValues.userProperty === i.key }
-    ));
-    const samlBindingOptions = optionLists.samlBindingOptions.map(i => (
-      { id: i.key, label: i.label, value: i.key, selected: initialValues.samlBinding === i.key }
-    ));
+  const identifierOptions = (optionLists.identifierOptions || []).map(i => (
+    { id: i.key, label: i.label, value: i.key, selected: initialValues.userProperty === i.key }
+  ));
 
-    const footer = !readOnly && (
-      <PaneFooter
-        renderEnd={(
-          <Button
-            type="submit"
-            buttonStyle="primary"
-            disabled={(pristine || submitting)}
-          >
-            <FormattedMessage id="stripes-core.button.save" />
-          </Button>
-        )}
-      />
-    );
+  const samlBindingOptions = optionLists.samlBindingOptions.map(i => (
+    { id: i.key, label: i.label, value: i.key, selected: initialValues.samlBinding === i.key }
+  ));
 
-    return (
-      <form
-        id="form-saml"
-        onSubmit={handleSubmit}
-        className={styles.samlForm}
-      >
-        <Pane
-          defaultWidth="fill"
-          fluidContentWidth
-          paneTitle={label}
-          footer={footer}
+  const footer = !readOnly && (
+    <PaneFooter
+      renderEnd={(
+        <Button
+          type="submit"
+          buttonStyle="primary"
+          disabled={(pristine || submitting)}
         >
-          <Row>
-            <Col xs={12} id="fill_idpUrl">
-              <Field
-                disabled={readOnly}
-                label={<FormattedMessage id="ui-tenant-settings.settings.saml.idpUrl" />}
-                name="idpUrl"
-                id="samlconfig_idpUrl"
-                component={TextField}
-                required
-                fullWidth
-                validate={validateIdpUrl}
-              />
-              <div hidden={!this.props.initialValues.metadataInvalidated}>
-                <FormattedMessage id="ui-tenant-settings.settings.saml.idpUrlChanged" />
-              </div>
-              <IfPermission perm="login-saml.all">
-                <Button
-                  id="download-metadata-button"
-                  onClick={this.downloadMetadata}
-                  disabled={!values.idpUrl || !pristine}
-                >
-                  <FormattedMessage id="ui-tenant-settings.settings.saml.downloadMetadata" />
-                </Button>
-              </IfPermission>
-            </Col>
-          </Row>
-          <Row>
-            <Col id="select_samlBinding">
-              <Field
-                disabled={readOnly}
-                label={<FormattedMessage id="ui-tenant-settings.settings.saml.binding" />}
-                name="samlBinding"
-                id="samlconfig_samlBinding"
-                placeholder="---"
-                component={Select}
-                dataOptions={samlBindingOptions}
-                fullWidth
-                required
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col id="fill_attribute">
-              <Field
-                disabled={readOnly}
-                label={<FormattedMessage id="ui-tenant-settings.settings.saml.attribute" />}
-                name="samlAttribute"
-                id="samlconfig_samlAttribute"
-                component={TextField}
-                required={!readOnly}
-                fullWidth
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col id="select_userProperty">
-              <Field
-                disabled={readOnly}
-                label={<FormattedMessage id="ui-tenant-settings.settings.saml.userProperty" />}
-                name="userProperty"
-                id="samlconfig_userProperty"
-                placeholder="---"
-                component={Select}
-                dataOptions={identifierOptions}
-                fullWidth
-                required
-              />
-            </Col>
-          </Row>
-        </Pane>
-      </form>
-    );
-  }
-}
+          <FormattedMessage id="stripes-core.button.save" />
+        </Button>
+      )}
+    />
+  );
+
+  return (
+    <form
+      id="form-saml"
+      onSubmit={handleSubmit}
+      className={styles.samlForm}
+    >
+      <Pane
+        defaultWidth="fill"
+        fluidContentWidth
+        paneTitle={label}
+        footer={footer}
+      >
+        <Row>
+          <Col xs={12} id="fill_idpUrl">
+            <Field
+              disabled={readOnly}
+              label={<FormattedMessage id="ui-tenant-settings.settings.saml.idpUrl" />}
+              name="idpUrl"
+              id="samlconfig_idpUrl"
+              component={TextField}
+              required
+              fullWidth
+              validate={validateIdpUrl}
+            />
+            <div hidden={!initialValues.metadataInvalidated}>
+              <FormattedMessage id="ui-tenant-settings.settings.saml.idpUrlChanged" />
+            </div>
+            <IfPermission perm="login-saml.all">
+              <Button
+                id="download-metadata-button"
+                onClick={downloadFile}
+                disabled={!values.idpUrl || !pristine}
+              >
+                <FormattedMessage id="ui-tenant-settings.settings.saml.downloadMetadata" />
+              </Button>
+            </IfPermission>
+          </Col>
+        </Row>
+        <Row>
+          <Col id="select_samlBinding">
+            <Field
+              disabled={readOnly}
+              label={<FormattedMessage id="ui-tenant-settings.settings.saml.binding" />}
+              name="samlBinding"
+              id="samlconfig_samlBinding"
+              placeholder="---"
+              component={Select}
+              dataOptions={samlBindingOptions}
+              fullWidth
+              required
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col id="fill_attribute">
+            <Field
+              disabled={readOnly}
+              label={<FormattedMessage id="ui-tenant-settings.settings.saml.attribute" />}
+              name="samlAttribute"
+              id="samlconfig_samlAttribute"
+              component={TextField}
+              required={!readOnly}
+              fullWidth
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col id="select_userProperty">
+            <Field
+              disabled={readOnly}
+              label={<FormattedMessage id="ui-tenant-settings.settings.saml.userProperty" />}
+              name="userProperty"
+              id="samlconfig_userProperty"
+              placeholder="---"
+              component={Select}
+              dataOptions={identifierOptions}
+              fullWidth
+              required
+            />
+          </Col>
+        </Row>
+      </Pane>
+    </form>
+  );
+};
+
+SamlForm.propTypes = {
+  validateIdpUrl: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  pristine: PropTypes.bool,
+  submitting: PropTypes.bool,
+  initialValues: PropTypes.object.isRequired, // eslint-disable-line react/no-unused-prop-types
+  values: PropTypes.object,
+  optionLists: PropTypes.shape({
+    identifierOptions: PropTypes.arrayOf(PropTypes.object),
+    samlBindingOptions: PropTypes.arrayOf(PropTypes.object),
+  }),
+  label: PropTypes.node,
+  readOnly: PropTypes.bool,
+};
 
 export default stripesFinalForm({
   validate,

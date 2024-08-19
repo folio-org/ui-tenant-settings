@@ -1,4 +1,5 @@
 import React from 'react';
+import { QueryClientProvider, QueryClient } from 'react-query';
 
 import { render } from '@testing-library/react';
 
@@ -64,9 +65,11 @@ const renderDetailsField = () => render(
     onSubmit={() => {}}
     mutators={{ ...arrayMutators }}
     render={() => (
-      <DetailsField
-        resources={parentResourcesMock}
-      />
+      <QueryClientProvider client={new QueryClient()}>
+        <DetailsField
+          resources={parentResourcesMock}
+        />
+      </QueryClientProvider>
     )}
   />
 );
