@@ -12,6 +12,10 @@ import {
 import ServicePointFormContainer from './ServicePointFormContainer';
 import { parentMutatorMock, parentResourcesMock } from './test/setup';
 
+jest.mock('../../hooks', () => ({
+  useCirculationSettingsEcsTlrFeature: jest.fn().mockReturnValue({ titleLevelRequestsFeatureEnabled: true }),
+}));
+
 const onSave = jest.fn();
 const staffSlips = [true, true, true, true];
 

@@ -1,128 +1,63 @@
 import {
   isEcsRequestRoutingVisible,
   isEcsRequestRoutingAssociatedFieldsVisible,
+  getEcsTlrFeature,
 } from './utils';
 
 describe('isEcsRequestRoutingVisible', () => {
-  it('should return true when both interfaces present', () => {
-    const stripes = {
-      hasInterface: (currentInterface) => {
-        const interfaces = {
-          consortia: true,
-          'ecs-tlr': true,
-        };
-
-        return interfaces[currentInterface];
-      },
-    };
-
-    expect(isEcsRequestRoutingVisible(stripes)).toBe(true);
+  it('should return true when titleLevelRequestsFeatureEnabled true', () => {
+    expect(isEcsRequestRoutingVisible(true)).toBe(true);
   });
 
-  it('should return false when ecs-tlr interface absent', () => {
-    const stripes = {
-      hasInterface: (currentInterface) => {
-        const interfaces = {
-          consortia: true,
-          'ecs-tlr': false,
-        };
-
-        return interfaces[currentInterface];
-      },
-    };
-
-    expect(isEcsRequestRoutingVisible(stripes)).toBe(false);
+  it('should return false when titleLevelRequestsFeatureEnabled false', () => {
+    expect(isEcsRequestRoutingVisible(false)).toBe(false);
   });
 
-  it('should return false when consortia interface absent', () => {
-    const stripes = {
-      hasInterface: (currentInterface) => {
-        const interfaces = {
-          consortia: false,
-          'ecs-tlr': true,
-        };
-
-        return interfaces[currentInterface];
-      },
-    };
-
-    expect(isEcsRequestRoutingVisible(stripes)).toBe(false);
-  });
-
-  it('should return false when both interfaces absent', () => {
-    const stripes = {
-      hasInterface: (currentInterface) => {
-        const interfaces = {
-          consortia: false,
-          'ecs-tlr': false,
-        };
-
-        return interfaces[currentInterface];
-      },
-    };
-
-    expect(isEcsRequestRoutingVisible(stripes)).toBe(false);
+  it('should return false when titleLevelRequestsFeatureEnabled absent', () => {
+    expect(isEcsRequestRoutingVisible(undefined)).toBe(false);
   });
 });
 
 describe('isEcsRequestRoutingAssociatedFieldsVisible', () => {
   it('should return false when both condition true', () => {
-    const stripes = {
-      hasInterface: (currentInterface) => {
-        const interfaces = {
-          consortia: true,
-          'ecs-tlr': true,
-        };
-
-        return interfaces[currentInterface];
-      },
-    };
-
-    expect(isEcsRequestRoutingAssociatedFieldsVisible(stripes, true)).toBe(false);
+    expect(isEcsRequestRoutingAssociatedFieldsVisible(true, true)).toBe(false);
   });
 
   it('should return true when first condition false', () => {
-    const stripes = {
-      hasInterface: (currentInterface) => {
-        const interfaces = {
-          consortia: false,
-          'ecs-tlr': false,
-        };
-
-        return interfaces[currentInterface];
-      },
-    };
-
-    expect(isEcsRequestRoutingAssociatedFieldsVisible(stripes, true)).toBe(true);
+    expect(isEcsRequestRoutingAssociatedFieldsVisible(false, true)).toBe(true);
   });
 
   it('should return true when second condition false', () => {
-    const stripes = {
-      hasInterface: (currentInterface) => {
-        const interfaces = {
-          consortia: true,
-          'ecs-tlr': true,
-        };
-
-        return interfaces[currentInterface];
-      },
-    };
-
-    expect(isEcsRequestRoutingAssociatedFieldsVisible(stripes, false)).toBe(true);
+    expect(isEcsRequestRoutingAssociatedFieldsVisible(true, false)).toBe(true);
   });
 
   it('should return true when both condition false', () => {
-    const stripes = {
-      hasInterface: (currentInterface) => {
-        const interfaces = {
-          consortia: false,
-          'ecs-tlr': false,
-        };
+    expect(isEcsRequestRoutingAssociatedFieldsVisible(false, false)).toBe(true);
+  });
+});
 
-        return interfaces[currentInterface];
+describe('getEcsTlrFeature', () => {
+  it('should return true when ecsTlrFeature true', () => {
+    const data = [{
+      value: {
+        enabled: true,
       },
-    };
+    }];
 
-    expect(isEcsRequestRoutingAssociatedFieldsVisible(stripes, false)).toBe(true);
+    expect(getEcsTlrFeature(data)).toBe(true);
+  });
+
+  it('should return false when ecsTlrFeature false', () => {
+    const data = [{
+      value: {
+        enabled: false,
+      },
+    }];
+
+    expect(getEcsTlrFeature(data)).toBe(false);
+  });
+
+  it('should return false when ecsTlrFeature absent', () => {
+    expect(getEcsTlrFeature(undefined)).toBe(false);
   });
 });
