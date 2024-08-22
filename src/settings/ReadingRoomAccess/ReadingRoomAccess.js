@@ -1,7 +1,8 @@
 import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useIntl } from 'react-intl';
-import _ from 'lodash';
+import sortBy from 'lodash/sortBy';
+import get from 'lodash/get';
 
 import {
   TitleManager,
@@ -31,13 +32,13 @@ const ReadingRoomAccess = (props) => {
   const { resources } = props;
 
   // service points defined in the tenant
-  const servicePoints = _.get(resources, ['RRAServicePoints', 'records', 0, 'servicepoints'], []);
+  const servicePoints = get(resources, ['RRAServicePoints', 'records', 0, 'servicepoints'], []);
   /**
    * A reading room can have more than one service points assigned to it.
    * but a servicepoint cannot be mapped to more than one reading room
    */
   const sps = [];
-  const rrs = _.get(resources, ['values', 'records']);
+  const rrs = get(resources, ['values', 'records']);
   rrs.forEach(rr => {
     const asp = rr.servicePoints || [];
     asp.forEach(s => {
@@ -110,7 +111,7 @@ const ReadingRoomAccess = (props) => {
         formatter={formatter}
         translations={translations}
         editable={editable}
-        fieldComponents={getFieldComponents(fieldLabels, options, resources?.values?.records)}
+        fieldComponents={getFieldComponents(fieldLabels, options, sortBy(resources?.values?.records, [t => t.name && t.name.toLowerCase()]))}
         validate={validate}
         formType="final-form"
       />
