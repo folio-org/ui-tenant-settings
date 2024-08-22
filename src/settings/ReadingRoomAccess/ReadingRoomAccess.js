@@ -11,11 +11,11 @@ import {
 import { Label } from '@folio/stripes/components';
 import { ControlledVocab } from '@folio/stripes/smart-components';
 
-import { readingRoomAccessColumns } from './constant';
+import { useServicePoints } from '../../hooks/useServicePoints';
+import { readingRoomAccessColumns, readingRoomsLimit } from './constant';
 import { getFormatter } from './getFormatter';
 import { getFieldComponents } from './getFieldComponents';
 import { getValidators } from './getValidators';
-
 
 const hiddenFields = ['numberOfObjects', 'lastUpdated'];
 const translations = {
@@ -31,29 +31,37 @@ const ReadingRoomAccess = (props) => {
   const stripes = useStripes();
   const { resources } = props;
 
-  // service points defined in the tenant
-  const servicePoints = get(resources, ['RRAServicePoints', 'records', 0, 'servicepoints'], []);
-  /**
-   * A reading room can have more than one service points assigned to it.
-   * but a servicepoint cannot be mapped to more than one reading room
-   */
-  const sps = [];
-  const rrs = get(resources, ['values', 'records']);
-  rrs.forEach(rr => {
-    const asp = rr.servicePoints || [];
-    asp.forEach(s => {
-      if (!sps.includes(s.value)) {
-        sps.push(s.value);
-      }
-    });
-  });
+  const { servicePoints } = useServicePoints({ searchParams: {
+    limit: 1000,
+    query: 'cql.allRecords=1 sortby name',
+  } });
 
-  const options = servicePoints.reduce((acc, s) => {
-    if (!sps.includes(s.id) || s.name === 'None') {
-      acc.push({ value: s.id, label: s.name });
-    }
-    return acc;
-  }, []);
+  const getOptions = useCallback(() => {
+  /* *******************************************************************
+  * A reading room can have more than one service points assigned to it.
+  * but a servicepoint cannot be mapped to more than one reading room
+  ******************************************************************* */
+    const sps = [];
+    const rrs = get(resources, ['values', 'records']);
+    rrs.forEach(rr => {
+      const asp = rr.servicePoints || [];
+      asp.forEach(s => {
+        if (!sps.includes(s.value)) {
+          sps.push(s.value);
+        }
+      });
+    });
+
+    const options = servicePoints.reduce((acc, s) => {
+      if (!sps.includes(s.id) || s.name === 'None') {
+        acc.push({ value: s.id, label: s.name });
+      }
+      return acc;
+    }, []);
+
+    return options;
+  }, [resources, servicePoints]);
+
 
   const fieldLabels = useMemo(() => ({
     [readingRoomAccessColumns.NAME]: intl.formatMessage({ id: 'ui-tenant-settings.settings.reading-room-access.name' }),
@@ -111,7 +119,7 @@ const ReadingRoomAccess = (props) => {
         formatter={formatter}
         translations={translations}
         editable={editable}
-        fieldComponents={getFieldComponents(fieldLabels, options, sortBy(resources?.values?.records, [t => t.name && t.name.toLowerCase()]))}
+        fieldComponents={getFieldComponents(fieldLabels, getOptions(), sortBy(resources?.values?.records, [t => t?.name.toLowerCase()]))}
         validate={validate}
         formType="final-form"
       />
@@ -125,16 +133,11 @@ ReadingRoomAccess.manifest = Object.freeze({
     records: 'readingRooms',
     path: 'reading-room',
     GET: {
-      path: 'reading-room?query=cql.allRecords=1 sortby name&limit=100'
+      path: `reading-room?query=cql.allRecords=1 sortby name&limit=${readingRoomsLimit}`
     }
   },
   updaterIds: [],
   activeRecord: {},
-  RRAServicePoints: {
-    type: 'okapi',
-    resource: 'service-points',
-    path: 'service-points?limit=200',
-  },
 });
 
 ReadingRoomAccess.propTypes = {
