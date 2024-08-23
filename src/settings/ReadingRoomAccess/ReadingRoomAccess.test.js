@@ -1,6 +1,7 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Form } from 'react-final-form';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { runAxeTest } from '@folio/stripes-testing';
 
@@ -10,6 +11,77 @@ import ReadingRoomAccess from './ReadingRoomAccess';
 import '../../../test/jest/__mocks__';
 import { mockHasPerm } from '../../../test/jest/__mocks__/stripesCore.mock';
 
+jest.mock('../../hooks/useServicePoints', () => ({
+  useServicePoints: jest.fn(() => ({
+    servicePoints: [
+      {
+        'id': 'c4c90014-c8c9-4ade-8f24-b5e313319f4b',
+        'name': 'Circ Desk 2',
+        'code': 'cd2',
+        'discoveryDisplayName': 'Circulation Desk -- Back Entrance',
+        'pickupLocation': true,
+        'holdShelfExpiryPeriod': {
+          'duration': 5,
+          'intervalId': 'Days'
+        },
+        'holdShelfClosedLibraryDateManagement': 'Keep_the_current_due_date',
+        'staffSlips': [],
+        'metadata': {
+          'createdDate': '2024-04-23T01:53:59.590+00:00',
+          'updatedDate': '2024-04-23T01:53:59.590+00:00'
+        }
+      },
+      {
+        'id': '3a40852d-49fd-4df2-a1f9-6e2641a6e91f',
+        'name': 'Circ Desk 1',
+        'code': 'cd1',
+        'discoveryDisplayName': 'Circulation Desk -- Hallway',
+        'pickupLocation': true,
+        'holdShelfExpiryPeriod': {
+          'duration': 3,
+          'intervalId': 'Weeks'
+        },
+        'holdShelfClosedLibraryDateManagement': 'Keep_the_current_due_date',
+        'staffSlips': [],
+        'metadata': {
+          'createdDate': '2024-04-23T01:53:59.598+00:00',
+          'updatedDate': '2024-04-23T01:53:59.598+00:00'
+        }
+      },
+      {
+        'id': '7c5abc9f-f3d7-4856-b8d7-6712462ca007',
+        'name': 'Online',
+        'code': 'Online',
+        'discoveryDisplayName': 'Online',
+        'shelvingLagTime': 0,
+        'pickupLocation': false,
+        'holdShelfClosedLibraryDateManagement': 'Keep_the_current_due_date',
+        'staffSlips': [],
+        'metadata': {
+          'createdDate': '2024-04-23T01:53:59.593+00:00',
+          'updatedDate': '2024-04-23T01:53:59.593+00:00'
+        }
+      },
+      {
+        'id': '9d1b77e8-f02e-4b7f-b296-3f2042ddac54',
+        'name': 'DCB',
+        'code': '000',
+        'discoveryDisplayName': 'DCB',
+        'pickupLocation': true,
+        'holdShelfExpiryPeriod': {
+          'duration': 3,
+          'intervalId': 'Days'
+        },
+        'holdShelfClosedLibraryDateManagement': 'Keep_the_current_due_date',
+        'staffSlips': [],
+        'metadata': {
+          'createdDate': '2024-04-23T01:56:03.899+00:00',
+          'updatedDate': '2024-04-23T01:56:03.899+00:00'
+        }
+      }
+    ]
+  })),
+}));
 const mutatorPutMock = jest.fn(() => Promise.resolve());
 const mutatorMock = {
   values: {
@@ -83,92 +155,17 @@ const resourcesMock = {
       }
     ],
   },
-  RRAServicePoints: {
-    'hasLoaded': true,
-    'isPending': false,
-    'failed': false,
-    'records': [
-      {
-        'servicepoints': [
-          {
-            'id': 'c4c90014-c8c9-4ade-8f24-b5e313319f4b',
-            'name': 'Circ Desk 2',
-            'code': 'cd2',
-            'discoveryDisplayName': 'Circulation Desk -- Back Entrance',
-            'pickupLocation': true,
-            'holdShelfExpiryPeriod': {
-              'duration': 5,
-              'intervalId': 'Days'
-            },
-            'holdShelfClosedLibraryDateManagement': 'Keep_the_current_due_date',
-            'staffSlips': [],
-            'metadata': {
-              'createdDate': '2024-04-23T01:53:59.590+00:00',
-              'updatedDate': '2024-04-23T01:53:59.590+00:00'
-            }
-          },
-          {
-            'id': '3a40852d-49fd-4df2-a1f9-6e2641a6e91f',
-            'name': 'Circ Desk 1',
-            'code': 'cd1',
-            'discoveryDisplayName': 'Circulation Desk -- Hallway',
-            'pickupLocation': true,
-            'holdShelfExpiryPeriod': {
-              'duration': 3,
-              'intervalId': 'Weeks'
-            },
-            'holdShelfClosedLibraryDateManagement': 'Keep_the_current_due_date',
-            'staffSlips': [],
-            'metadata': {
-              'createdDate': '2024-04-23T01:53:59.598+00:00',
-              'updatedDate': '2024-04-23T01:53:59.598+00:00'
-            }
-          },
-          {
-            'id': '7c5abc9f-f3d7-4856-b8d7-6712462ca007',
-            'name': 'Online',
-            'code': 'Online',
-            'discoveryDisplayName': 'Online',
-            'shelvingLagTime': 0,
-            'pickupLocation': false,
-            'holdShelfClosedLibraryDateManagement': 'Keep_the_current_due_date',
-            'staffSlips': [],
-            'metadata': {
-              'createdDate': '2024-04-23T01:53:59.593+00:00',
-              'updatedDate': '2024-04-23T01:53:59.593+00:00'
-            }
-          },
-          {
-            'id': '9d1b77e8-f02e-4b7f-b296-3f2042ddac54',
-            'name': 'DCB',
-            'code': '000',
-            'discoveryDisplayName': 'DCB',
-            'pickupLocation': true,
-            'holdShelfExpiryPeriod': {
-              'duration': 3,
-              'intervalId': 'Days'
-            },
-            'holdShelfClosedLibraryDateManagement': 'Keep_the_current_due_date',
-            'staffSlips': [],
-            'metadata': {
-              'createdDate': '2024-04-23T01:56:03.899+00:00',
-              'updatedDate': '2024-04-23T01:56:03.899+00:00'
-            }
-          }
-        ],
-        'totalRecords': 4
-      }
-    ],
-  }
 };
 
 const renderReadingRoomAccess = (props) => renderWithRouter(
-  <Form
-    onSubmit={() => {}}
-    render={() => (
-      <ReadingRoomAccess {...props} />
-    )}
-  />
+  <QueryClientProvider client={new QueryClient()}>
+    <Form
+      onSubmit={() => {}}
+      render={() => (
+        <ReadingRoomAccess {...props} />
+      )}
+    />
+  </QueryClientProvider>
 );
 
 describe('Reading Room Access', () => {
