@@ -19,6 +19,7 @@
 * [UITEN-301] (https://issues.folio.org/browse/UITEN-301) Display Reading room access in alphabetical order on settings page.
 * [UITEN-212](https://folio-org.atlassian.net/browse/UITEN-212) Permission changes for service point management.
 * [UITEN-299](https://folio-org.atlassian.net/browse/UITEN-299) Rewrite class components to functional ones (ui-tenant-settings module).
+* [UITEN-292](https://folio-org.atlassian.net/browse/UITEN-292) Change visibility rules for routing service points.
 
 ## [8.1.0](https://github.com/folio-org/ui-tenant-settings/tree/v8.1.0)(2024-03-19)
 [Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v8.0.0...v8.1.0)

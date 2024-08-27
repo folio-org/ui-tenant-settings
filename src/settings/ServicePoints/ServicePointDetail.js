@@ -21,11 +21,11 @@ class ServicePointDetail extends React.Component {
     intl: PropTypes.object,
     stripes: PropTypes.shape({
       connect: PropTypes.func.isRequired,
-      hasInterface: PropTypes.func.isRequired,
     }).isRequired,
     initialValues: PropTypes.object,
     parentResources: PropTypes.object,
-    parentMutator: PropTypes.object
+    parentMutator: PropTypes.object,
+    titleLevelRequestsFeatureEnabled: PropTypes.bool,
   };
 
   constructor(props) {
@@ -83,7 +83,7 @@ class ServicePointDetail extends React.Component {
   }
 
   render() {
-    const { initialValues, parentResources, stripes } = this.props;
+    const { initialValues, parentResources, titleLevelRequestsFeatureEnabled } = this.props;
     const locations = (parentResources.locations || {}).records || [];
     const staffSlips = orderBy((parentResources.staffSlips || {}).records || [], 'name');
     const servicePoint = initialValues;
@@ -136,7 +136,7 @@ class ServicePointDetail extends React.Component {
                 />
               </Col>
             </Row>
-            {isEcsRequestRoutingVisible(stripes) && (
+            {isEcsRequestRoutingVisible(titleLevelRequestsFeatureEnabled) && (
               <Row>
                 <Col xs={8}>
                   <KeyValue label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.ecsRequestRouting" />}>
@@ -148,7 +148,7 @@ class ServicePointDetail extends React.Component {
                 </Col>
               </Row>
             )}
-            {isEcsRequestRoutingAssociatedFieldsVisible(stripes, servicePoint.ecsRequestRouting) && (
+            {isEcsRequestRoutingAssociatedFieldsVisible(titleLevelRequestsFeatureEnabled, servicePoint.ecsRequestRouting) && (
               <>
                 <Row>
                   <Col xs={8}>
@@ -196,7 +196,7 @@ class ServicePointDetail extends React.Component {
             )}
           </Accordion>
 
-          {isEcsRequestRoutingAssociatedFieldsVisible(stripes, servicePoint.ecsRequestRouting) && (
+          {isEcsRequestRoutingAssociatedFieldsVisible(titleLevelRequestsFeatureEnabled, servicePoint.ecsRequestRouting) && (
             <LocationList
               locations={locations}
               servicePoint={servicePoint}

@@ -194,7 +194,8 @@
           "inventory-storage.location-units.libraries.collection.get",
           "inventory-storage.service-points.collection.get",
           "inventory-storage.service-points.item.get",
-          "circulation-storage.staff-slips.collection.get"
+          "circulation-storage.staff-slips.collection.get",
+          "circulation.settings.collection.get"
         ],
         "visible": false
       },
@@ -284,6 +285,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-intl": "^6.4.4",
+    "react-query": "^3.6.0",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.0",

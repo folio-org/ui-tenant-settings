@@ -44,6 +44,10 @@ import {
 } from './utils';
 
 import {
+  useCirculationSettingsEcsTlrFeature,
+} from '../../hooks';
+
+import {
   shortTermExpiryPeriod,
   shortTermClosedDateManagementMenu,
   longTermClosedDateManagementMenu
@@ -75,6 +79,7 @@ const ServicePointForm = ({
   handleSubmit,
   onCancel,
 }) => {
+  const { titleLevelRequestsFeatureEnabled } = useCirculationSettingsEcsTlrFeature(true);
   const [sections, setSections] = useState({
     generalSection: true,
     locationSection: true
@@ -302,7 +307,7 @@ const ServicePointForm = ({
                 />
               </Col>
             </Row>
-            {isEcsRequestRoutingVisible(stripes) && (
+            {isEcsRequestRoutingVisible(titleLevelRequestsFeatureEnabled) && (
               <Row>
                 <Col xs={2}>
                   <Field
@@ -317,7 +322,7 @@ const ServicePointForm = ({
                 </Col>
               </Row>
             )}
-            {isEcsRequestRoutingAssociatedFieldsVisible(stripes, formValues.ecsRequestRouting) && (
+            {isEcsRequestRoutingAssociatedFieldsVisible(titleLevelRequestsFeatureEnabled, formValues.ecsRequestRouting) && (
               <>
                 <Row>
                   <Col xs={4}>
@@ -376,7 +381,7 @@ const ServicePointForm = ({
               </>
             )}
           </Accordion>
-          {isEcsRequestRoutingAssociatedFieldsVisible(stripes, formValues.ecsRequestRouting) && (
+          {isEcsRequestRoutingAssociatedFieldsVisible(titleLevelRequestsFeatureEnabled, formValues.ecsRequestRouting) && (
             <LocationList
               locations={locations}
               servicePoint={servicePoint}
@@ -407,7 +412,6 @@ ServicePointForm.propTypes = {
   }).isRequired,
   submitting: PropTypes.bool,
   stripes: PropTypes.shape({
-    hasInterface: PropTypes.func.isRequired,
     hasPerm: PropTypes.func.isRequired,
   }).isRequired,
   form: PropTypes.object.isRequired,
