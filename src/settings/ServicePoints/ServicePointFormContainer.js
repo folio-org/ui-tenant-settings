@@ -63,6 +63,7 @@ const ServicePointFormContainer = ({
     }
 
     if (data.ecsRequestRouting) {
+      unset(data, 'shelvingLagTime');
       unset(data, 'pickupLocation');
       unset(data, 'holdShelfExpiryPeriod');
       unset(data, 'holdShelfClosedLibraryDateManagement');
