@@ -4,3 +4,5 @@ export const readingRoomAccessColumns = {
   ISPUBLIC: 'isPublic',
   SERVICEPOINTS: 'servicePoints',
 };
+
+export const readingRoomsLimit = 25;
