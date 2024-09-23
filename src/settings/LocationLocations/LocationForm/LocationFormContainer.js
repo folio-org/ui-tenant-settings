@@ -63,6 +63,8 @@ const LocationFormContainer = ({
   const saveLocation = (updatedLocation) => {
     const data = cloneDeep(updatedLocation);
 
+    delete data.locationId;
+
     const servicePointsObject = {};
 
     servicePointsObject.servicePointIds = [];

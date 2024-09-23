@@ -49,7 +49,7 @@ const DetailsField = () => {
           label: <FormattedMessage id="ui-tenant-settings.settings.location.locations.detailsName" />,
           component: AutoSuggest,
           items: detailNames,
-          renderValue: item => item || '',
+          renderValue: item => item.value || '',
           withFinalForm: true,
         },
         {

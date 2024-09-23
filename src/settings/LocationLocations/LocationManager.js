@@ -305,6 +305,12 @@ const LocationManager = ({ label }) => {
     if (!loc) return loc;
     loc.detailsArray = Object.keys(loc.details || []).map(name => ({ name, value: loc.details[name] }))
       .sort((a, b) => a.name.localeCompare(b.name));
+
+    if (cloning) {
+      loc.locationId = loc.id;
+      delete loc.id;
+    }
+
     return cloning ? omit(loc, 'id') : loc;
   };
 
@@ -317,6 +323,7 @@ const LocationManager = ({ label }) => {
   const prepareLocationsData = () => {
     const { sort, sortDir } = sortState;
     const sortDirValue = sortDir === SORT_TYPES.ASCENDING ? 1 : -1;
+
     return cloneDeep((locationEntries)).map(loc => {
       loc.servicePointIds = (loc.servicePointIds || []).map(id => ({
         selectSP: servicePointsById[id],

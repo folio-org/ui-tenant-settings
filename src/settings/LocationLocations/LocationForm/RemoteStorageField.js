@@ -18,7 +18,7 @@ export const RemoteStorageField = ({ initialValues, checkLocationHasHoldingsOrIt
 
   const [isReadOnly, setIsReadOnly] = useState(true);
 
-  const locationId = initialValues?.id;
+  const locationId = initialValues?.locationId || initialValues?.id;
 
   const field = useField('remoteId', { initialValue: remoteMap[locationId] });
 
@@ -58,6 +58,7 @@ export const RemoteStorageField = ({ initialValues, checkLocationHasHoldingsOrIt
 RemoteStorageField.propTypes = {
   initialValues: PropTypes.shape({
     id: PropTypes.string,
+    locationId: PropTypes.string,
   }),
   checkLocationHasHoldingsOrItems: PropTypes.func
 };
