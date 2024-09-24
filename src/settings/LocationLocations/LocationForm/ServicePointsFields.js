@@ -86,15 +86,16 @@ class ServicePointsFields extends React.Component {
         <Layout className={`display-flex ${css.selectLayout}`}>
           <FormattedMessage id="ui-tenant-settings.settings.location.locations.servicePoints">
             {labelChunks => (
-              <Field
-                component={Select}
-                name={`${field}.selectSP`}
-                id="servicePointSelect"
-                dataOptions={options}
-                className={css.selectField}
-                marginBottom0
-                aria-label={labelChunks.join()}
-              />
+              <div className={css.selectField}>
+                <Field
+                  component={Select}
+                  name={`${field}.selectSP`}
+                  id="servicePointSelect"
+                  dataOptions={options}
+                  marginBottom0
+                  aria-label={labelChunks.join()}
+                />
+              </div>
             )}
           </FormattedMessage>
         </Layout>
