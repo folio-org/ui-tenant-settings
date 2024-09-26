@@ -140,11 +140,7 @@ class ServicePointsFields extends React.Component {
     return (
       <>
         <FieldArray
-          addLabel={
-                canAddMoreServicePoints ?
-                  <Icon icon="plus-sign">Add service point</Icon> :
-                  ''
-              }
+          addLabel={canAddMoreServicePoints ? <Icon icon="plus-sign">Add service point</Icon> : ''}
           legend={legend}
           emptyMessage={<span className={css.emptyMessage}>Location must have at least one service point</span>}
           component={RepeatableField}
