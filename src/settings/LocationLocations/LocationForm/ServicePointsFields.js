@@ -61,7 +61,9 @@ class ServicePointsFields extends React.Component {
   radioButtonComp({ input, ...props }) {
     return (
       <RadioButton
-        onChange={() => { this.singlePrimary(props.fieldIndex); }}
+        onChange={() => {
+          this.singlePrimary(props.fieldIndex);
+        }}
         checked={input.value}
         name={input.name}
         aria-label={`servicePoint use as primary ${props.fieldIndex}`}
@@ -72,9 +74,8 @@ class ServicePointsFields extends React.Component {
   renderFields(field, index) {
     const { formValues } = this.props;
 
-    this.list = omitUsedOptions(this.props.servicePoints, formValues.servicePointIds, 'selectSP', index);
-
-    const sortedList = sortBy(this.list, ['label']);
+    const list = omitUsedOptions(this.props.servicePoints, formValues.servicePointIds, 'selectSP', index);
+    const sortedList = sortBy(list, ['label']);
     const options = [{
       label: this.props.intl.formatMessage({ id: 'ui-tenant-settings.settings.servicePoints.placeholder' }),
       value: ''
@@ -85,15 +86,16 @@ class ServicePointsFields extends React.Component {
         <Layout className={`display-flex ${css.selectLayout}`}>
           <FormattedMessage id="ui-tenant-settings.settings.location.locations.servicePoints">
             {labelChunks => (
-              <Field
-                component={Select}
-                name={`${field}.selectSP`}
-                id="servicePointSelect"
-                dataOptions={options}
-                className={css.selectField}
-                marginBottom0
-                aria-label={labelChunks.join()}
-              />
+              <div className={css.selectField}>
+                <Field
+                  component={Select}
+                  name={`${field}.selectSP`}
+                  id="servicePointSelect"
+                  dataOptions={options}
+                  marginBottom0
+                  aria-label={labelChunks.join()}
+                />
+              </div>
             )}
           </FormattedMessage>
         </Layout>
@@ -108,10 +110,15 @@ class ServicePointsFields extends React.Component {
     );
   }
 
-  render() {
-    const { formValues } = this.props;
 
-    // make the last existing service point to be the primary one
+  render() {
+    const { formValues, servicePoints } = this.props;
+
+    const availableServicePoints = omitUsedOptions(servicePoints, formValues.servicePointIds, 'selectSP');
+    const sortedList = sortBy(availableServicePoints, ['label']);
+
+    const canAddMoreServicePoints = sortedList.length > 0;
+
     const isPrimary = formValues.servicePointIds && formValues.servicePointIds.length === 1 && !formValues.servicePointIds[0].primary;
 
     if (isPrimary) {
@@ -133,11 +140,7 @@ class ServicePointsFields extends React.Component {
     return (
       <>
         <FieldArray
-          addLabel={
-            Object.keys(this.list).length > 1 ?
-              <Icon icon="plus-sign">Add service point</Icon> :
-              ''
-          }
+          addLabel={canAddMoreServicePoints ? <Icon icon="plus-sign">Add service point</Icon> : ''}
           legend={legend}
           emptyMessage={<span className={css.emptyMessage}>Location must have at least one service point</span>}
           component={RepeatableField}
