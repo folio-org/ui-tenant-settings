@@ -22,6 +22,7 @@
 * [UITEN-292](https://folio-org.atlassian.net/browse/UITEN-292) Change visibility rules for routing service points.
 * [UITEN-304](https://folio-org.atlassian.net/browse/UITEN-304) Provide case insensitive sorted data to edit record, field components.
 * [UITEN-306](https://folio-org.atlassian.net/browse/UITEN-306) Fix saving problem for routing service point(ECS only).
+* [UITEN-302](https://folio-org.atlassian.net/browse/UITEN-302) Address existing UI issues on Settings > Tenant > Locations
 
 ## [8.1.0](https://github.com/folio-org/ui-tenant-settings/tree/v8.1.0)(2024-03-19)
 [Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v8.0.0...v8.1.0)
