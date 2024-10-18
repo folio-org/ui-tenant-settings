@@ -121,7 +121,7 @@
     "settings.pluginNames.find-interface": "Rechercher une interface",
     "settings.pluginNames.find-license": "Rechercher une licence",
     "settings.pluginNames.find-agreement": "Rechercher un accord",
-    "settings.pluginNames.find-po-line": "Rechercher la ligne de commande",
+    "settings.pluginNames.find-po-line": "Rechercher la ligne de bon de commande",
     "settings.pluginNames.find-package-title": "Rechercher le titre du bouquet",
     "settings.pluginNames.find-finc-metadata-collection": "Find finance metadata collection",
     "settings.pluginNames.find-erm-usage-data-provider": "Rechercher un fournisseur de métadonnées d'utilisation ERM",
@@ -137,7 +137,7 @@
     "settings.location.remotes.remote": "Stockage à distance",
     "settings.location.remotes.no": "Non (par défaut)",
     "settings.location.remotes.loading": "Chargement...",
-    "settings.location.remotes.readonly": "ne peut être modifié que s'il n'y a pas de collections ou d'exemplaires permanents associés à cet emplacement",
+    "settings.location.remotes.readonly": "ne peut être modifié que s'il n'y a pas de localisations ou d'exemplaires permanents associés à cet emplacement",
     "settings.location.remotes.failed": "Échec du chargement",
     "permission.settings.bursar-exports": "Paramètres (Gestion/administration) : intendant",
     "settings.location.locations.remoteStorage": "Stockage à distance",
@@ -210,6 +210,6 @@
     "settings.reading-room-access.cannotDeleteTermMessage": "This reading room access cannot be deleted, as it is in use by one or more records.",
     "settings.reading-room-access.deleteEntry": "Delete reading room access",
     "settings.reading-room-access.termDeleted": "The reading room access <b>{term}</b> was successfully <b>deleted</b>",
-    "settings.reading-room-access.termWillBeDeleted": "Le {type} <b> {term} </b> sera <b> supprimé. </b>",
+    "settings.reading-room-access.termWillBeDeleted": "The reading room <b>{term}</b> will be <b>deleted</b>",
     "settings.servicePoints.placeholder": "Select service point"
 }
