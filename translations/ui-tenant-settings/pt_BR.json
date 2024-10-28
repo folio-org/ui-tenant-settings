@@ -175,7 +175,7 @@
     "settings.addresses.termDeleted": "O endereço <b> {term} </b> foi <b> excluído </b> com sucesso",
     "settings.addresses.termWillBeDeleted": "O endereço <b> {term} </b> será <b> excluído. </b>",
     "settings.confirmPickupLocationChangeModal.title": "Confirmar alteração do local de retirada",
-    "settings.confirmPickupLocationChangeModal.message": "Alterar esse local de retirada de \"Sim\" para \"Não\" o removerá das políticas de solicitação existentes e afetará todas as regras de circulação que usam as políticas.",
+    "settings.confirmPickupLocationChangeModal.message": "Alterar esse local de retirada de \"Sim\" para \"Não\" o removerá das políticas de requisição existentes e afetará todas as regras de circulação que usam as políticas.",
     "settings.confirmPickupLocationChangeModal.button.confirm": "Confirmar",
     "settings.confirmPickupLocationChangeModal.button.cancel": "Voltar",
     "permission.settings.tenant-settings.view": "Configurações (locatário): Ver",
