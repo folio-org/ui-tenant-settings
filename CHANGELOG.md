@@ -1,6 +1,8 @@
 # Change history for ui-tenant-settings
 
-## 8.2.0 (IN PROGRESS)
+## 9.1.0 (IN PROGRESS)
+
+## [9.0.0](https://github.com/folio-org/ui-tenant-settings/tree/v9.0.0)(2024-10-30)
 
 * [UITEN-274](https://folio-org.atlassian.net/browse/UITEN-274) Use Save & close button label stripes-component translation key.
 * [UITEN-280](https://folio-org.atlassian.net/browse/UITEN-280) Conditionally include SSO Settings based on login-saml interface.
