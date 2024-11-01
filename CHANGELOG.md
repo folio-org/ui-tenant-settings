@@ -20,6 +20,7 @@
 * [UITEN-299](https://folio-org.atlassian.net/browse/UITEN-299) Rewrite class components to functional ones (ui-tenant-settings module).
 * [UITEN-304](https://folio-org.atlassian.net/browse/UITEN-304) Provide case insensitive sorted data to edit record, field components.
 * [UITEN-302](https://folio-org.atlassian.net/browse/UITEN-302) Address existing UI issues on Settings > Tenant > Locations
+* [UITEN-305](https://folio-org.atlassian.net/browse/UITEN-305) Permission changes for service point management (ECS environment)
 
 ## [8.1.0](https://github.com/folio-org/ui-tenant-settings/tree/v8.1.0)(2024-03-19)
 [Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v8.0.0...v8.1.0)
