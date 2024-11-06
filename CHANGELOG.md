@@ -1,6 +1,10 @@
 # Change history for ui-tenant-settings
 
 ## 9.1.0 (IN PROGRESS)
+* [UITEN-281](https://folio-org.atlassian.net/browse/UITEN-281) Add Routing service point option to Service point page(ECS only).
+* [UITEN-285](https://folio-org.atlassian.net/browse/UITEN-285) Disable edit of Routing service point field (ECS only).
+* [UITEN-294](https://folio-org.atlassian.net/browse/UITEN-294) Show routing service points on settings -> tenant -> servicePoints.
+* [UITEN-292](https://folio-org.atlassian.net/browse/UITEN-292) Change visibility rules for routing service points.
 
 ## [9.0.0](https://github.com/folio-org/ui-tenant-settings/tree/v9.0.0)(2024-10-30)
 
@@ -13,15 +17,11 @@
 * [UITEN-278] (https://issues.folio.org/browse/UITEN-278) Reading Room Access (settings): Create new reading room.
 * [UITEN-282] (https://issues.folio.org/browse/UITEN-282) Reading Room Access (settings): Update reading room.
 * [UITEN-283] (https://issues.folio.org/browse/UITEN-283) Reading Room Access (settings): Delete reading room.
-* [UITEN-281](https://folio-org.atlassian.net/browse/UITEN-281) Add Routing service point option to Service point page(ECS only).
-* [UITEN-285](https://folio-org.atlassian.net/browse/UITEN-285) Disable edit of Routing service point field (ECS only).
-* [UITEN-294](https://folio-org.atlassian.net/browse/UITEN-294) Show routing service points on settings -> tenant -> servicePoints.
 * [UITEN-290] (https://issues.folio.org/browse/UITEN-290) Make dependency on mod-reading-rooms optional.
 * [UITEN-298] (https://issues.folio.org/browse/UITEN-298) Update translation ids for reading room.
 * [UITEN-301] (https://issues.folio.org/browse/UITEN-301) Display Reading room access in alphabetical order on settings page.
 * [UITEN-212](https://folio-org.atlassian.net/browse/UITEN-212) Permission changes for service point management.
 * [UITEN-299](https://folio-org.atlassian.net/browse/UITEN-299) Rewrite class components to functional ones (ui-tenant-settings module).
-* [UITEN-292](https://folio-org.atlassian.net/browse/UITEN-292) Change visibility rules for routing service points.
 * [UITEN-304](https://folio-org.atlassian.net/browse/UITEN-304) Provide case insensitive sorted data to edit record, field components.
 * [UITEN-306](https://folio-org.atlassian.net/browse/UITEN-306) Fix saving problem for routing service point(ECS only).
 * [UITEN-302](https://folio-org.atlassian.net/browse/UITEN-302) Address existing UI issues on Settings > Tenant > Locations
