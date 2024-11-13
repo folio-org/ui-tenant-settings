@@ -37,7 +37,7 @@
     "settings.location.locations.name": "Nazwa w FOLIO",
     "settings.location.locations.discoveryDisplayName": "Wyświetlana nazwa w katalogu discovery",
     "settings.location.locations.status": "Status",
-    "settings.location.locations.active": "Aktywne",
+    "settings.location.locations.active": "Aktywny",
     "settings.location.locations.inactive": "Nieaktywne",
     "settings.location.locations.description": "Opis",
     "settings.location.locations.locationDetails": "Szczegóły lokalizacji",
