@@ -22,8 +22,8 @@ const testIds = {
 const messageIds = {
   title: 'ui-tenant-settings.settings.confirmPickupLocationChangeModal.title',
   message: 'ui-tenant-settings.settings.confirmPickupLocationChangeModal.message',
-  buttonConfirm: 'ui-tenant-settings.settings.confirmPickupLocationChangeModal.button.confirm',
-  buttonCancel: 'ui-tenant-settings.settings.confirmPickupLocationChangeModal.button.cancel',
+  buttonConfirm: 'ui-tenant-settings.settings.modal.button.confirm',
+  buttonCancel: 'ui-tenant-settings.settings.modal.button.cancel',
 };
 
 describe('ConfirmPickupLocationChangeModal', () => {
