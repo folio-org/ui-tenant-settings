@@ -12,6 +12,10 @@ import {
 import ServicePointFormContainer from './ServicePointFormContainer';
 import { parentMutatorMock, parentResourcesMock } from './test/setup';
 
+jest.mock('../../hooks', () => ({
+  useCirculationSettingsEcsTlrFeature: jest.fn().mockReturnValue({ titleLevelRequestsFeatureEnabled: true }),
+}));
+
 const onSave = jest.fn();
 const staffSlips = [true, true, true, true];
 
@@ -86,7 +90,25 @@ describe('ServicePointFormContainer', () => {
 
     userEvent.selectOptions(screen.getByRole('combobox', { name: /settings.servicePoints.pickupLocation/ }), 'true');
 
-    expect(screen.getByRole('option', { name: /settings.servicePoints.pickupLocation.yes/ }).selected).toBe(true);
+    expect(screen.getAllByRole('option', { name: /settings.servicePoints.value.yes/ })[1].selected).toBe(true);
+  });
+
+  describe('ecs request routing', () => {
+    beforeEach(() => {
+      renderServicePointFormContainer();
+    });
+
+    it('should not render pick location', () => {
+      userEvent.selectOptions(screen.getByRole('combobox', { name: /settings.servicePoints.ecsRequestRouting/ }), 'true');
+
+      expect(screen.queryByText(/settings.servicePoints.pickupLocation/)).not.toBeInTheDocument();
+    });
+
+    it('should not render pick location', () => {
+      userEvent.selectOptions(screen.getByRole('combobox', { name: /settings.servicePoints.ecsRequestRouting/ }), 'false');
+
+      expect(screen.queryByText(/settings.servicePoints.pickupLocation/)).toBeInTheDocument();
+    });
   });
 
   describe('when pick location is yes', () => {
@@ -97,7 +119,7 @@ describe('ServicePointFormContainer', () => {
 
     describe('when hold shelf expiry interval id is short term period Days', () => {
       beforeEach(() => {
-        userEvent.selectOptions(screen.getAllByRole('combobox')[1], 'Days');
+        userEvent.selectOptions(screen.getAllByRole('combobox')[2], 'Days');
       });
 
       it('should render ServicePointFormContainer closed library date management select with changed options ', () => {
