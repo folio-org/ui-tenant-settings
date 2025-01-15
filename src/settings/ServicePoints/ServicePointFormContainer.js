@@ -36,7 +36,7 @@ const ServicePointFormContainer = ({
 
   useEffect(() => {
     setInitialValues(getServicePoint());
-  }, [servicePoint.id, parentResources.staffSlips.hasLoaded]);
+  }, [servicePoint.id, parentResources.staffSlips.hasLoaded]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const transformStaffSlipsData = useCallback((staffSlips) => {
     const currentSlips = parentResources?.staffSlips?.records || [];
