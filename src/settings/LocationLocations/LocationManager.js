@@ -70,19 +70,21 @@ const initialSort = (location) => {
   return { sort, sortDir };
 };
 
-const locationListVisibleColumns = ['isActive', 'name', 'code'];
+const locationListVisibleColumns = ['isActive', 'name', 'code', 'isFloatingCollection'];
 
 const locationListColumnMapping = {
   isActive: <FormattedMessage id="ui-tenant-settings.settings.location.locations.status" />,
   name: <FormattedMessage id="ui-tenant-settings.settings.location.locations.detailsName" />,
   code: <FormattedMessage id="ui-tenant-settings.settings.location.code" />,
+  isFloatingCollection: <FormattedMessage id="ui-tenant-settings.settings.location.floating" />,
 };
 
 const locationListFormatter = {
   isActive: item => {
     const locationId = item.isActive ? 'active' : 'inactive';
     return <FormattedMessage id={`ui-tenant-settings.settings.location.locations.${locationId}`} />;
-  }
+  },
+  isFloatingCollection: r => (r.isFloatingCollection ? '✓' : ''),
 };
 
 const LocationManager = ({ label }) => {
