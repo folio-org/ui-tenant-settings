@@ -61,6 +61,7 @@
 
   "settings.location.label": "Location setup",
   "settings.location.code": "Code",
+  "settings.location.floating": "Floating collection",
 
   "settings.location.institutions": "Institutions",
   "settings.location.institutions.institution": "Institution",
@@ -104,6 +105,7 @@
   "settings.location.locations.discoveryDisplayName": "Discovery display name",
   "settings.location.locations.servicePoints": "Service point(s)",
   "settings.location.locations.primary": "Primary",
+  "settings.location.locations.floating": "Enable floating collection",
   "settings.location.locations.status": "Status",
   "settings.location.locations.active": "Active",
   "settings.location.locations.inactive": "Inactive",
