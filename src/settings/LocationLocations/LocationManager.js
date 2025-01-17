@@ -84,7 +84,7 @@ const locationListFormatter = {
     const locationId = item.isActive ? 'active' : 'inactive';
     return <FormattedMessage id={`ui-tenant-settings.settings.location.locations.${locationId}`} />;
   },
-  isFloatingCollection: r => r.isFloatingCollection ? '✓' : '',
+  isFloatingCollection: r => (r.isFloatingCollection ? '✓' : ''),
 };
 
 const LocationManager = ({ label }) => {
