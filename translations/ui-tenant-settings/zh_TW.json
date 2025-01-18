@@ -211,5 +211,7 @@
     "settings.reading-room-access.deleteEntry": "刪除借用研讀室",
     "settings.reading-room-access.termDeleted": "研讀室 <b>{term}</b> 已被 <b>刪除</b>",
     "settings.reading-room-access.termWillBeDeleted": "研讀室 <b>{term}</b> 將被 <b>刪除</b>",
-    "settings.servicePoints.placeholder": "Select service point"
+    "settings.servicePoints.placeholder": "Select service point",
+    "settings.location.floating": "Floating collection",
+    "settings.location.locations.floating": "Enable floating collection"
 }
