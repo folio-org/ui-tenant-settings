@@ -211,5 +211,7 @@
     "settings.reading-room-access.deleteEntry": "Smazat přístup do čítárny",
     "settings.reading-room-access.termDeleted": "Přístup do čítárny <b>{term}</b> byl úspěšně <b>smazán</b>",
     "settings.reading-room-access.termWillBeDeleted": "Čítárna <b>{term}</b> bude <b>smazána</b>",
-    "settings.servicePoints.placeholder": "Výběr pultu služeb"
+    "settings.servicePoints.placeholder": "Výběr pultu služeb",
+    "settings.location.floating": "Floating collection",
+    "settings.location.locations.floating": "Enable floating collection"
 }

@@ -211,5 +211,7 @@
     "settings.reading-room-access.deleteEntry": "Excluir o acesso à sala de leitura",
     "settings.reading-room-access.termDeleted": "O acesso à sala de leitura <b>{term}</b> foi <b>excluído com sucesso</b>",
     "settings.reading-room-access.termWillBeDeleted": "A sala de leitura <b>{term} </b> será <b>excluída</b>",
-    "settings.servicePoints.placeholder": "Selecione o ponto de serviço"
+    "settings.servicePoints.placeholder": "Selecione o ponto de serviço",
+    "settings.location.floating": "Floating collection",
+    "settings.location.locations.floating": "Enable floating collection"
 }
