@@ -14,6 +14,7 @@ import {
   KeyValue,
   Row,
   List,
+  NoValue,
   Pane,
   Button,
   Icon,
@@ -282,7 +283,10 @@ const LocationDetail = ({
               <KeyValue
                 label={<FormattedMessage id="ui-tenant-settings.settings.location.floating" />}
               >
-                <FormattedMessage id={`ui-tenant-settings.settings.location.floating.${loc.isFloatingCollection ? 'enabled' : 'disabled'}`} />
+                {loc.isFloatingCollection ?
+                  <FormattedMessage id="ui-tenant-settings.settings.location.floating.enabled" /> :
+                  <NoValue />
+                }
               </KeyValue>
             </Col>
           </Row>
