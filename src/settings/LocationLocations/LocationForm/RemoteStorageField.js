@@ -36,7 +36,7 @@ export const RemoteStorageField = ({ initialValues, checkLocationHasHoldingsOrIt
       setIsReadOnly(true);
       checkLocationHasHoldingsOrItems(locationId).then(setIsReadOnly);
     },
-    [locationId, noInterfaces]
+    [locationId, noInterfaces] // eslint-disable-line react-hooks/exhaustive-deps
   );
 
   if (noInterfaces) return null;

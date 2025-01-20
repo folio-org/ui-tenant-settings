@@ -211,5 +211,7 @@
     "settings.reading-room-access.deleteEntry": "Leeszaaltoegang verwijderen",
     "settings.reading-room-access.termDeleted": "De leeszaaltoegang <b>{term}</b> is <b>verwijderd</b>",
     "settings.reading-room-access.termWillBeDeleted": "De leeszaaltoegang <b>{term}</b> wordt <b>verwijderd</b>",
-    "settings.servicePoints.placeholder": "Servicepunt selecteren"
+    "settings.servicePoints.placeholder": "Servicepunt selecteren",
+    "settings.location.floating": "Floating collection",
+    "settings.location.locations.floating": "Enable floating collection"
 }

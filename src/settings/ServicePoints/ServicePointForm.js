@@ -87,7 +87,7 @@ const ServicePointForm = ({
   const [isConfirmPickupLocationChangeModal, setIsConfirmPickupLocationChangeModal] = useState(false);
   const stripes = useStripes();
   const intl = useIntl();
-  const CViewMetaData = useMemo(() => stripes.connect(ViewMetaData), []);
+  const CViewMetaData = useMemo(() => stripes.connect(ViewMetaData), []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const servicePoint = initialValues || {};
   const locations = servicePoint.id

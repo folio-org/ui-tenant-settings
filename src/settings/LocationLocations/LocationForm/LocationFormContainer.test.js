@@ -123,6 +123,7 @@ const initialValuesMock = {
   detailsArray: [],
   institutionId: '',
   isActive: true,
+  isFloatingCollection: false,
   metadata: {
     createdDate: '2021-10-28T03:23:16.718+00:00',
     updatedDate: '2021-10-28T03:23:16.718+00:00',
@@ -224,6 +225,17 @@ describe('LocationFormContainer', () => {
     userEvent.click(checkbox);
 
     expect(checkbox).toBeChecked();
+  });
+
+  it('should render floating collection checkbox', () => {
+    const { container } = renderLocationFormContainer();
+
+    const elem = container.querySelector('#input-location-floating');
+    expect(elem).not.toBeChecked();
+    userEvent.click(elem);
+    expect(elem).toBeChecked();
+    userEvent.click(elem);
+    expect(elem).not.toBeChecked();
   });
 
   it('should render ', () => {

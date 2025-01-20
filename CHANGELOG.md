@@ -6,6 +6,9 @@
 * [UITEN-294](https://folio-org.atlassian.net/browse/UITEN-294) Show routing service points on settings -> tenant -> servicePoints.
 * [UITEN-292](https://folio-org.atlassian.net/browse/UITEN-292) Change visibility rules for routing service points.
 
+* [UITEN-316](https://folio-org.atlassian.net/browse/UITEN-316) Fix code to pass ESLint successfully.
+* [UITEN-314](https://folio-org.atlassian.net/browse/UITEN-314) Settings > Tenant > Locations setup > Locations. Enable and Display floating collection.
+
 ## [9.0.0](https://github.com/folio-org/ui-tenant-settings/tree/v9.0.0)(2024-10-30)
 
 * [UITEN-274](https://folio-org.atlassian.net/browse/UITEN-274) Use Save & close button label stripes-component translation key.

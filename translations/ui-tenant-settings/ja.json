@@ -211,5 +211,7 @@
     "settings.reading-room-access.deleteEntry": "Delete reading room access",
     "settings.reading-room-access.termDeleted": "The reading room access <b>{term}</b> was successfully <b>deleted</b>",
     "settings.reading-room-access.termWillBeDeleted": "The reading room <b>{term}</b> will be <b>deleted</b>",
-    "settings.servicePoints.placeholder": "サービスポイントの選択"
+    "settings.servicePoints.placeholder": "サービスポイントの選択",
+    "settings.location.floating": "Floating collection",
+    "settings.location.locations.floating": "Enable floating collection"
 }

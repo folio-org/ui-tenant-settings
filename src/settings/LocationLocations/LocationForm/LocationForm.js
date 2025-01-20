@@ -12,6 +12,7 @@ import {
 import {
   Accordion,
   Button,
+  Checkbox,
   Col,
   ExpandAllButton,
   IconButton,
@@ -286,6 +287,19 @@ const LocationForm = ({
                     formValues={formValues}
                     changePrimary={form.mutators.changeServicePointPrimary}
                   />
+                </Col>
+              </Row>
+              <h3>Floating collection</h3>
+              <Row>
+                <Col xs={12}>
+                  <Field
+                    label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.floating" />}
+                    name="isFloatingCollection"
+                    id="input-location-floating"
+                    component={Checkbox}
+                    type="checkbox"
+                  />
+                  <br />
                 </Col>
               </Row>
               <Row>
