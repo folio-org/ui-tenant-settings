@@ -280,6 +280,15 @@ const LocationDetail = ({
           <Row>
             <Col xs={12}>
               <KeyValue
+                label={<FormattedMessage id="ui-tenant-settings.settings.location.floating" />}
+              >
+                <FormattedMessage id={`ui-tenant-settings.settings.location.floating.${loc.isFloatingCollection ? 'enabled' : 'disabled'}`} />
+              </KeyValue>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12}>
+              <KeyValue
                 label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.status" />}
                 value={<FormattedMessage id={`ui-tenant-settings.settings.location.${loc.isActive ? 'locations.active' : 'locations.inactive'}`} />}
               />
