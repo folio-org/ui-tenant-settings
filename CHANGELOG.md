@@ -4,6 +4,7 @@
 
 * [UITEN-316](https://folio-org.atlassian.net/browse/UITEN-316) Fix code to pass ESLint successfully.
 * [UITEN-314](https://folio-org.atlassian.net/browse/UITEN-314) Settings > Tenant > Locations setup > Locations. Enable and Display floating collection.
+* [UITEN-317](https://folio-org.atlassian.net/browse/UITEN-317) Settings > Tenant > Locations setup > Locations. Display in detailed view when floating collection is enabled or not enabled.
 
 ## [9.0.0](https://github.com/folio-org/ui-tenant-settings/tree/v9.0.0)(2024-10-30)
 
