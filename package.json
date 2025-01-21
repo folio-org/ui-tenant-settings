@@ -182,6 +182,22 @@
         "visible": true
       },
       {
+        "permissionName": "ui-tenant-settings.settings.location.floating.view",
+        "displayName": "Settings (tenant): Can view floating collection flag",
+        "subPermissions": [
+          "ui-tenant-settings.settings.location.view"
+        ],
+        "visible": true
+      },
+      {
+        "permissionName": "ui-tenant-settings.settings.location.floating.edit",
+        "displayName": "Settings (tenant): Can view and edit floating collection flag",
+        "subPermissions": [
+          "ui-tenant-settings.settings.location"
+        ],
+        "visible": true
+      },
+      {
         "permissionName": "ui-tenant-settings.settings.servicepoints.view",
         "displayName": "Settings (tenant): Can view service points",
         "subPermissions": [

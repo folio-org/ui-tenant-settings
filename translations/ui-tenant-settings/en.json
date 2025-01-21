@@ -227,6 +227,8 @@
   "permission.settings.sso.view": "Settings (tenant): Can view SSO settings",
   "permission.settings.location": "Settings (tenant): Can create, edit and remove locations",
   "permission.settings.location.view": "Settings (Tenant): View locations",
+  "permission.settings.location.floating.view": "Settings (tenant): Can view floating collection flag",
+  "permission.settings.location.floating.edit": "Settings (tenant): Can view and edit floating collection flag",
   "permission.settings.servicepoints": "Settings (tenant): Can create and edit service points",
   "permission.settings.servicepoints.view": "Settings (tenant): Can view service points",
   "permission.settings.bursar-exports": "Settings (tenant): Bursar admin",
