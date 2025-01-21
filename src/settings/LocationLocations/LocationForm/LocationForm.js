@@ -8,6 +8,7 @@ import {
   TitleManager,
   useOkapiKy,
   useStripes,
+  IfPermission,
 } from '@folio/stripes/core';
 import {
   Accordion,
@@ -289,19 +290,21 @@ const LocationForm = ({
                   />
                 </Col>
               </Row>
-              <h3>Floating collection</h3>
-              <Row>
-                <Col xs={12}>
-                  <Field
-                    label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.floating" />}
-                    name="isFloatingCollection"
-                    id="input-location-floating"
-                    component={Checkbox}
-                    type="checkbox"
-                  />
-                  <br />
-                </Col>
-              </Row>
+              <IfPermission perm="ui-tenant-settings.settings.location.floating.edit">
+                <h3>Floating collection</h3>
+                <Row>
+                  <Col xs={12}>
+                    <Field
+                      label={<FormattedMessage id="ui-tenant-settings.settings.location.locations.floating" />}
+                      name="isFloatingCollection"
+                      id="input-location-floating"
+                      component={Checkbox}
+                      type="checkbox"
+                    />
+                    <br />
+                  </Col>
+                </Row>
+              </IfPermission>
               <Row>
                 <Col xs={12}>
                   <Field

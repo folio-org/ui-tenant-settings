@@ -278,18 +278,20 @@ const LocationDetail = ({
               </KeyValue>
             </Col>
           </Row>
-          <Row>
-            <Col xs={12}>
-              <KeyValue
-                label={<FormattedMessage id="ui-tenant-settings.settings.location.floating" />}
-              >
-                {loc.isFloatingCollection ?
-                  <FormattedMessage id="ui-tenant-settings.settings.location.floating.enabled" /> :
-                  <NoValue />
-                }
-              </KeyValue>
-            </Col>
-          </Row>
+          <IfPermission perm="ui-tenant-settings.settings.location.floating.view">
+            <Row>
+              <Col xs={12}>
+                <KeyValue
+                  label={<FormattedMessage id="ui-tenant-settings.settings.location.floating" />}
+                >
+                  {loc.isFloatingCollection ?
+                    <FormattedMessage id="ui-tenant-settings.settings.location.floating.enabled" /> :
+                    <NoValue />
+                  }
+                </KeyValue>
+              </Col>
+            </Row>
+          </IfPermission>
           <Row>
             <Col xs={12}>
               <KeyValue
