@@ -211,7 +211,8 @@
           "inventory-storage.location-units.libraries.collection.get",
           "inventory-storage.service-points.collection.get",
           "inventory-storage.service-points.item.get",
-          "circulation-storage.staff-slips.collection.get"
+          "circulation-storage.staff-slips.collection.get",
+          "circulation.settings.collection.get"
         ],
         "visible": false
       },
@@ -277,6 +278,7 @@
     "@testing-library/dom": "^7.26.3",
     "@testing-library/jest-dom": "^5.11.1",
     "@testing-library/react": "^11.0.2",
+    "@testing-library/react-hooks": "^7.0.1",
     "@testing-library/user-event": "^12.1.10",
     "babel-eslint": "^9.0.0",
     "babel-jest": "^26.3.0",
@@ -301,6 +303,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-intl": "^6.4.4",
+    "react-query": "^3.6.0",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.0",
