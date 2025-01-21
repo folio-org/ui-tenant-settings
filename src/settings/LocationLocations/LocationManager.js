@@ -70,8 +70,6 @@ const initialSort = (location) => {
   return { sort, sortDir };
 };
 
-const locationListVisibleColumns = ['isActive', 'name', 'code', 'isFloatingCollection'];
-
 const locationListColumnMapping = {
   isActive: <FormattedMessage id="ui-tenant-settings.settings.location.locations.status" />,
   name: <FormattedMessage id="ui-tenant-settings.settings.location.locations.detailsName" />,
@@ -406,6 +404,11 @@ const LocationManager = ({ label }) => {
 
   const container = document.getElementById('ModuleContainer');
   if (!container) return (<div />);
+
+  const locationListVisibleColumns = ['isActive', 'name', 'code'];
+  if (stripes.hasPerm('ui-tenant-settings.settings.location.floating.view')) {
+    locationListVisibleColumns.push('isFloatingCollection');
+  }
 
   return (
     <Paneset

@@ -193,7 +193,8 @@
         "permissionName": "ui-tenant-settings.settings.location.floating.edit",
         "displayName": "Settings (tenant): Can view and edit floating collection flag",
         "subPermissions": [
-          "ui-tenant-settings.settings.location"
+          "ui-tenant-settings.settings.location",
+          "ui-tenant-settings.settings.location.floating.view"
         ],
         "visible": true
       },
