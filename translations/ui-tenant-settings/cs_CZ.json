@@ -212,6 +212,9 @@
     "settings.reading-room-access.termDeleted": "Přístup do čítárny <b>{term}</b> byl úspěšně <b>smazán</b>",
     "settings.reading-room-access.termWillBeDeleted": "Čítárna <b>{term}</b> bude <b>smazána</b>",
     "settings.servicePoints.placeholder": "Výběr pultu služeb",
-    "settings.location.floating": "Floating collection",
-    "settings.location.locations.floating": "Enable floating collection"
+    "settings.location.floating": "Výměnný fond",
+    "settings.location.locations.floating": "Povolit Výměnný fond",
+    "settings.location.floating.enabled": "Povoleno",
+    "permission.settings.location.floating.view": "Nastavení (Nájemce): Může zobrazit příznak Výměnný fond",
+    "permission.settings.location.floating.edit": "Nastavení (Nájemce): Může zobrazit a upravit příznak Výměnný fond"
 }
