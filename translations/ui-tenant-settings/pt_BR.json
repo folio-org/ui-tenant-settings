@@ -212,6 +212,9 @@
     "settings.reading-room-access.termDeleted": "O acesso à sala de leitura <b>{term}</b> foi <b>excluído com sucesso</b>",
     "settings.reading-room-access.termWillBeDeleted": "A sala de leitura <b>{term} </b> será <b>excluída</b>",
     "settings.servicePoints.placeholder": "Selecione o ponto de serviço",
-    "settings.location.floating": "Floating collection",
-    "settings.location.locations.floating": "Enable floating collection"
+    "settings.location.floating": "Coleção flutuante",
+    "settings.location.locations.floating": "Habilitar coleção flutuante",
+    "settings.location.floating.enabled": "Habilitado",
+    "permission.settings.location.floating.view": "Configurações (tenant): Pode visualizar o sinalizador de coleção flutuante",
+    "permission.settings.location.floating.edit": "Configurações (tenant): Pode visualizar e editar o sinalizador de coleção flutuante"
 }
