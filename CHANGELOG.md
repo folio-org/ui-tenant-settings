@@ -26,6 +26,7 @@
 * [UITEN-304](https://folio-org.atlassian.net/browse/UITEN-304) Provide case insensitive sorted data to edit record, field components.
 * [UITEN-302](https://folio-org.atlassian.net/browse/UITEN-302) Address existing UI issues on Settings > Tenant > Locations
 * [UITEN-305](https://folio-org.atlassian.net/browse/UITEN-305) Permission changes for service point management (ECS environment)
+* [UITEN-319](https://folio-org.atlassian.net/browse/UITEN-319) Migrate to shared GA workflows
 
 ## [8.1.0](https://github.com/folio-org/ui-tenant-settings/tree/v8.1.0)(2024-03-19)
 [Full Changelog](https://github.com/folio-org/ui-tenant-settings/compare/v8.0.0...v8.1.0)
