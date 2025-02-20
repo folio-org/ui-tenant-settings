@@ -1,6 +1,10 @@
 # Change history for ui-tenant-settings
 
 ## 9.1.0 (IN PROGRESS)
+* [UITEN-281](https://folio-org.atlassian.net/browse/UITEN-281) Add Routing service point option to Service point page(ECS only).
+* [UITEN-285](https://folio-org.atlassian.net/browse/UITEN-285) Disable edit of Routing service point field (ECS only).
+* [UITEN-294](https://folio-org.atlassian.net/browse/UITEN-294) Show routing service points on settings -> tenant -> servicePoints.
+* [UITEN-292](https://folio-org.atlassian.net/browse/UITEN-292) Change visibility rules for routing service points.
 
 * [UITEN-316](https://folio-org.atlassian.net/browse/UITEN-316) Fix code to pass ESLint successfully.
 * [UITEN-314](https://folio-org.atlassian.net/browse/UITEN-314) Settings > Tenant > Locations setup > Locations. Enable and Display floating collection.
@@ -24,6 +28,7 @@
 * [UITEN-212](https://folio-org.atlassian.net/browse/UITEN-212) Permission changes for service point management.
 * [UITEN-299](https://folio-org.atlassian.net/browse/UITEN-299) Rewrite class components to functional ones (ui-tenant-settings module).
 * [UITEN-304](https://folio-org.atlassian.net/browse/UITEN-304) Provide case insensitive sorted data to edit record, field components.
+* [UITEN-306](https://folio-org.atlassian.net/browse/UITEN-306) Fix saving problem for routing service point(ECS only).
 * [UITEN-302](https://folio-org.atlassian.net/browse/UITEN-302) Address existing UI issues on Settings > Tenant > Locations
 * [UITEN-305](https://folio-org.atlassian.net/browse/UITEN-305) Permission changes for service point management (ECS environment)
 * [UITEN-319](https://folio-org.atlassian.net/browse/UITEN-319) Migrate to shared GA workflows

@@ -7,13 +7,14 @@ import { TitleManager } from '@folio/stripes/core';
 import { injectIntl } from 'react-intl';
 import ServicePointDetail from './ServicePointDetail';
 import ServicePointFormContainer from './ServicePointFormContainer';
+import { getEcsTlrFeature } from './utils';
 
 class ServicePointManager extends React.Component {
   static manifest = Object.freeze({
     entries: {
       type: 'okapi',
       records: 'servicepoints',
-      path: 'service-points?query=cql.allRecords=1 sortby name&limit=1000',
+      path: 'service-points?query=cql.allRecords=1 sortby name&limit=1000&includeRoutingServicePoints=true',
       resourceShouldRefresh: true,
       throwErrors: false,
       POST: {
@@ -49,12 +50,20 @@ class ServicePointManager extends React.Component {
         limit: '1000',
       },
     },
+    settings: {
+      type: 'okapi',
+      path: 'circulation/settings?query=(name==ecsTlrFeature)',
+      records: 'circulationSettings',
+    },
   });
 
   static propTypes = {
     label: PropTypes.node.isRequired,
     resources: PropTypes.shape({
       entries: PropTypes.shape({
+        records: PropTypes.arrayOf(PropTypes.object),
+      }),
+      settings: PropTypes.shape({
         records: PropTypes.arrayOf(PropTypes.object),
       }),
       staffSlips: PropTypes.object,
@@ -87,6 +96,8 @@ class ServicePointManager extends React.Component {
   }
 
   render() {
+    const { resources } = this.props;
+    const titleLevelRequestsFeatureEnabled = getEcsTlrFeature(resources?.settings?.records);
     let entryList = sortBy((this.props.resources.entries || {}).records || [], ['name']);
     entryList = entryList.map(item => {
       item.pickupLocation = item.pickupLocation || false;
@@ -117,6 +128,7 @@ class ServicePointManager extends React.Component {
           nameKey="name"
           editable={isEditable}
           permissions={permissions}
+          titleLevelRequestsFeatureEnabled={titleLevelRequestsFeatureEnabled}
         />
       </TitleManager>
     );

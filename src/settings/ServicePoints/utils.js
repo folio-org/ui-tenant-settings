@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { get } from 'lodash';
 
 export const validateServicePointForm = (values) => {
   const errors = {};
@@ -53,3 +54,15 @@ export const getUniquenessValidation = (field, mutator) => {
       });
   };
 };
+
+export const isEcsRequestRoutingVisible = (titleLevelRequestsFeatureEnabled) => (
+  !!titleLevelRequestsFeatureEnabled
+);
+
+export const isEcsRequestRoutingAssociatedFieldsVisible = (titleLevelRequestsFeatureEnabled, ecsRequestRouting) => (
+  (isEcsRequestRoutingVisible(titleLevelRequestsFeatureEnabled) && !ecsRequestRouting) || !isEcsRequestRoutingVisible(titleLevelRequestsFeatureEnabled)
+);
+
+export const getEcsTlrFeature = (data = []) => (
+  get(data, '[0].value.enabled', false)
+);
