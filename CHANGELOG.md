@@ -1,11 +1,13 @@
 # Change history for ui-tenant-settings
 
-## 9.1.0 (IN PROGRESS)
+## 10.0.0 (IN PROGRESS)
 
 * [UITEN-316](https://folio-org.atlassian.net/browse/UITEN-316) Fix code to pass ESLint successfully.
 * [UITEN-314](https://folio-org.atlassian.net/browse/UITEN-314) Settings > Tenant > Locations setup > Locations. Enable and Display floating collection.
 * [UITEN-317](https://folio-org.atlassian.net/browse/UITEN-317) Settings > Tenant > Locations setup > Locations. Display in detailed view when floating collection is enabled or not enabled.
 * [UITEN-318](https://folio-org.atlassian.net/browse/UITEN-318) Settings > Tenant > Locations setup > Locations. Permissions govern viewing and editing floating collection.
+* [UITEN-320](https://folio-org.atlassian.net/browse/UITEN-320) *BREAKING* migrate stripes-* dependencies.
+* [UITEN-321](https://folio-org.atlassian.net/browse/UITEN-321) *BREAKING* migrate react-intl to v7.
 
 ## [9.0.0](https://github.com/folio-org/ui-tenant-settings/tree/v9.0.0)(2024-10-30)
 

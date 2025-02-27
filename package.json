@@ -1,6 +1,6 @@
 {
   "name": "@folio/tenant-settings",
-  "version": "9.0.0",
+  "version": "10.0.0",
   "description": "Tenant settings",
   "main": "src/index.js",
   "repository": "folio-org/ui-tenant-settings",
@@ -254,7 +254,7 @@
     "test:unit": "jest --ci --coverage",
     "test": "yarn run test:unit",
     "build-mod-descriptor": "stripes mod descriptor --full --strict | jq '.[]' > module-descriptor.json ",
-    "formatjs-compile": "formatjs compile-folder --ast --format simple ./translations/ui-tenant-settings ./translations/ui-tenant-settings/compiled"
+    "formatjs-compile": "stripes translate compile"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
@@ -266,14 +266,14 @@
     "@babel/plugin-transform-runtime": "^7.10.5",
     "@babel/preset-react": "^7.10.4",
     "@babel/preset-typescript": "^7.13.0",
-    "@folio/eslint-config-stripes": "^7.0.0",
-    "@folio/stripes": "^9.0.0",
-    "@folio/stripes-cli": "^3.0.0",
-    "@folio/stripes-components": "^12.0.0",
-    "@folio/stripes-core": "^10.0.0",
-    "@folio/stripes-smart-components": "^9.0.0",
-    "@folio/stripes-testing": "^4.4.0",
-    "@formatjs/cli": "^6.1.3",
+    "@folio/eslint-config-stripes": "^8.0.0",
+    "@folio/stripes": "^10.0.0",
+    "@folio/stripes-cli": "^4.0.0",
+    "@folio/stripes-components": "^13.0.0",
+    "@folio/stripes-core": "^11.0.0",
+    "@folio/stripes-smart-components": "^10.0.0",
+    "@folio/stripes-testing": "^5.0.0",
+    "@formatjs/cli": "^6.6.0",
     "@testing-library/dom": "^7.26.3",
     "@testing-library/jest-dom": "^5.11.1",
     "@testing-library/react": "^11.0.2",
@@ -300,7 +300,7 @@
     "miragejs": "^0.1.40",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-intl": "^6.4.4",
+    "react-intl": "^7.1.5",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.0",
@@ -317,10 +317,10 @@
     "redux-form": "^8.0.0"
   },
   "peerDependencies": {
-    "@folio/stripes": "^9.0.0",
+    "@folio/stripes": "^10.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-intl": "^6.4.4",
+    "react-intl": "^7.1.5",
     "react-query": "^3.6.0",
     "react-router-dom": "^5.2.0"
   }
