@@ -110,7 +110,7 @@
     "settings.save.error.network": "Record not saved",
     "settings.locale.localeWarning": "The settings on this page will PERMANENTLY change the locale (including language display, date format, and number format) for all users. You are strongly discouraged from changing the locale here unless you are absolutely certain it is the correct action. To TEMPORARILY change the locale for your session only, click the \"{label}\" button instead.",
     "settings.locale.changeSessionLocale": "Change session locale",
-    "settings.pluginNames.create-inventory-records": "Create inventory records",
+    "settings.pluginNames.create-inventory-records": "Створити записи для \"Обліку фондів\"",
     "settings.pluginNames.find-user": "Find user",
     "settings.pluginNames.find-instance": "Find instance",
     "settings.pluginNames.find-import-profile": "Find import profile",
