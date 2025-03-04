@@ -8,6 +8,7 @@
 * [UITEN-318](https://folio-org.atlassian.net/browse/UITEN-318) Settings > Tenant > Locations setup > Locations. Permissions govern viewing and editing floating collection.
 * [UITEN-320](https://folio-org.atlassian.net/browse/UITEN-320) *BREAKING* migrate stripes-* dependencies.
 * [UITEN-321](https://folio-org.atlassian.net/browse/UITEN-321) *BREAKING* migrate react-intl to v7.
+* [UITEN-324](https://folio-org.atlassian.net/browse/UITEN-324) Add loaders to edit/duplicate form to prevent errors.
 
 ## [9.0.0](https://github.com/folio-org/ui-tenant-settings/tree/v9.0.0)(2024-10-30)
 

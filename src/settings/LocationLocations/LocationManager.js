@@ -35,6 +35,8 @@ import {
   MultiColumnList,
   Layer,
   Callout,
+  Layout,
+  Loading,
 } from '@folio/stripes/components';
 import {
   TitleManager,
@@ -133,12 +135,12 @@ const LocationManager = ({ label }) => {
     query: 'cql.allRecords=1 sortby name',
   } });
 
-  const { servicePoints } = useServicePoints({ searchParams: {
+  const { servicePoints, isServicePointsLoading } = useServicePoints({ searchParams: {
     limit: 1000,
     query: 'cql.allRecords=1 sortby name',
   } });
 
-  const { locations: locationEntries, refetch: refetchLocationEntries } = useLocations({
+  const { locations: locationEntries, refetch: refetchLocationEntries, isLocationsLoading } = useLocations({
     searchParams: {
       limit: 3000,
       query: 'cql.allRecords=1 sortby name'
@@ -471,17 +473,23 @@ const LocationManager = ({ label }) => {
               contentLabel={contentLabelChunks.join()}
               container={container}
             >
-              <EditForm
-                servicePointsByName={servicePointsByName}
-                initialValues={initialValues}
-                onSave={updateSelected}
-                onCancel={onCancel}
-                checkLocationHasHoldingsOrItems={checkLocationHasHoldingsOrItems}
-                institutions={institutions}
-                campuses={campuses}
-                libraries={libraries}
-                servicePoints={servicePoints}
-              />
+              {isLocationsLoading || isServicePointsLoading ? (
+                <Layout className="flex centerContent full">
+                  <Loading size="large" />
+                </Layout>
+              ) : (
+                <EditForm
+                  servicePointsByName={servicePointsByName}
+                  initialValues={initialValues}
+                  onSave={updateSelected}
+                  onCancel={onCancel}
+                  checkLocationHasHoldingsOrItems={checkLocationHasHoldingsOrItems}
+                  institutions={institutions}
+                  campuses={campuses}
+                  libraries={libraries}
+                  servicePoints={servicePoints}
+                />
+              )}
             </Layer>
           )}
         </FormattedMessage>

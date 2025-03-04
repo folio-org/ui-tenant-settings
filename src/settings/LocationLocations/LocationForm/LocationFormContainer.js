@@ -92,7 +92,7 @@ const LocationFormContainer = ({
       .catch(showSubmitErrorCallout);
   };
 
-  return Boolean(location) && (
+  return (
     <LocationForm
       {...rest}
       initialValues={location}
