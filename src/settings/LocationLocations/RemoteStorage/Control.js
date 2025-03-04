@@ -29,7 +29,7 @@ const CustomSelect = ({ message, ...rest }) => (
     : <Select {...rest} />
 );
 
-export const Control = ({ disabled, readOnly, message, ...rest }) => {
+export const Control = ({ isMappingsLoading, readOnly, message, ...rest }) => {
   const {
     configurations,
     isConfigurationsLoading,
@@ -39,13 +39,13 @@ export const Control = ({ disabled, readOnly, message, ...rest }) => {
 
   const errorMessage = isConfigurationsError && t('failed');
   const loadingMessage = isConfigurationsLoading && t('loading');
-  const isDisabled = disabled || isConfigurationsLoading;
+  const isLoading = isMappingsLoading || isConfigurationsLoading;
 
   const configurationOptions = configurations.map(c => ({ label: c.name, value: c.id }));
   const defaultOption = { label: t('no'), value: '' };
   const options = !isConfigurationsLoading ? [defaultOption, ...configurationOptions] : undefined;
 
-  if (isDisabled) {
+  if (isLoading) {
     return (
       <Layout className="flex marginTopLabelSpacer">
         <Loading size="large" />
@@ -55,9 +55,10 @@ export const Control = ({ disabled, readOnly, message, ...rest }) => {
 
   return (
     <CustomSelect
+      key={readOnly}
       dataOptions={options}
-      disabled={isDisabled}
-      readOnly={readOnly && !isDisabled}
+      disabled={isLoading}
+      readOnly={readOnly && !isLoading}
       message={errorMessage || message || loadingMessage}
       {...rest}
     />
@@ -69,7 +70,7 @@ Control.propTypes = {
     PropTypes.string,
     PropTypes.element,
   ]),
-  disabled: PropTypes.bool,
+  isMappingsLoading: PropTypes.bool,
   readOnly: PropTypes.bool,
 };
 
