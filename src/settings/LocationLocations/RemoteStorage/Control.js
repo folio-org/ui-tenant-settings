@@ -1,7 +1,7 @@
 import React from 'react';
-import { Select, Tooltip } from '@folio/stripes/components';
-
 import PropTypes from 'prop-types';
+
+import { Loading, Layout, Select, Tooltip } from '@folio/stripes/components';
 
 import { useRemoteStorageApi } from './Provider';
 
@@ -44,6 +44,14 @@ export const Control = ({ disabled, readOnly, message, ...rest }) => {
   const configurationOptions = configurations.map(c => ({ label: c.name, value: c.id }));
   const defaultOption = { label: t('no'), value: '' };
   const options = !isConfigurationsLoading ? [defaultOption, ...configurationOptions] : undefined;
+
+  if (isDisabled || readOnly) {
+    return (
+      <Layout className="flex marginTopLabelSpacer">
+        <Loading size="large" />
+      </Layout>
+    );
+  }
 
   return (
     <CustomSelect
