@@ -45,7 +45,7 @@ export const Control = ({ disabled, readOnly, message, ...rest }) => {
   const defaultOption = { label: t('no'), value: '' };
   const options = !isConfigurationsLoading ? [defaultOption, ...configurationOptions] : undefined;
 
-  if (isDisabled || readOnly) {
+  if (isDisabled) {
     return (
       <Layout className="flex marginTopLabelSpacer">
         <Loading size="large" />
