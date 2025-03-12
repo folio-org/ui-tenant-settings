@@ -1,6 +1,8 @@
 # Change history for ui-tenant-settings
 
-## 10.0.0 (IN PROGRESS)
+## 10.1.0 (IN PROGRESS)
+
+## [10.0.0](https://github.com/folio-org/ui-tenant-settings/tree/v10.0.0)(2025-03-12)
 
 * [UITEN-316](https://folio-org.atlassian.net/browse/UITEN-316) Fix code to pass ESLint successfully.
 * [UITEN-314](https://folio-org.atlassian.net/browse/UITEN-314) Settings > Tenant > Locations setup > Locations. Enable and Display floating collection.
