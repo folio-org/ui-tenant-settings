@@ -212,9 +212,9 @@
     "settings.reading-room-access.termDeleted": "De leeszaaltoegang <b>{term}</b> is <b>verwijderd</b>",
     "settings.reading-room-access.termWillBeDeleted": "De leeszaaltoegang <b>{term}</b> wordt <b>verwijderd</b>",
     "settings.servicePoints.placeholder": "Servicepunt selecteren",
-    "settings.location.floating": "Floating collection",
-    "settings.location.locations.floating": "Enable floating collection",
-    "settings.location.floating.enabled": "Enabled",
-    "permission.settings.location.floating.view": "Settings (tenant): Can view floating collection flag",
-    "permission.settings.location.floating.edit": "Settings (tenant): Can view and edit floating collection flag"
+    "settings.location.floating": "Zwevende collectie",
+    "settings.location.locations.floating": "Zwevende collectie inschakelen",
+    "settings.location.floating.enabled": "Ingeschakeld",
+    "permission.settings.location.floating.view": "Instellingen (huurder): Kan zwevende verzamelflag bekijken",
+    "permission.settings.location.floating.edit": "Instellingen (tenant): Kan zwevende verzamelflag bekijken en bewerken"
 }

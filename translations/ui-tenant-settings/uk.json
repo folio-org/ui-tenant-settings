@@ -112,7 +112,7 @@
     "settings.locale.changeSessionLocale": "Change session locale",
     "settings.pluginNames.create-inventory-records": "Створити записи для \"Обліку фондів\"",
     "settings.pluginNames.find-user": "Find user",
-    "settings.pluginNames.find-instance": "Find instance",
+    "settings.pluginNames.find-instance": "Знайти біб.запис (інстанс)",
     "settings.pluginNames.find-import-profile": "Find import profile",
     "settings.pluginNames.find-eresource": "Find e-resource",
     "settings.pluginNames.find-contact": "Find contact",
