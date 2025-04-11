@@ -8,7 +8,7 @@ export const useRemoteStorageMappings = ({ searchParams, options = {} }) => {
   const [namespaceKey] = useNamespace({ key: REMOTE_STORAGE_MAPPINGS });
 
   const { data, isLoading: isMappingsLoading, isError: isMappingsError } = useQuery({
-    queryKey: [namespaceKey, searchParams],
+    queryKey: [REMOTE_STORAGE_MAPPINGS, namespaceKey, searchParams],
     queryFn: () => ky.get('remote-storage/mappings', { searchParams }).json(),
     ...options,
   });

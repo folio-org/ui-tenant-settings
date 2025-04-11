@@ -8,7 +8,7 @@ export const useRemoteStorageConfigurations = ({ searchParams, options = {} }) =
   const [namespaceKey] = useNamespace({ key: REMOTE_STORAGE_CONFIGURATIONS });
 
   const { data, isLoading: isConfigurationsLoading, isError: isConfigurationsError } = useQuery({
-    queryKey: [namespaceKey, searchParams],
+    queryKey: [REMOTE_STORAGE_CONFIGURATIONS, namespaceKey, searchParams],
     queryFn: () => ky.get('remote-storage/configurations', { searchParams }).json(),
     ...options,
   });
