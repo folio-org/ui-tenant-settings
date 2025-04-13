@@ -12,8 +12,6 @@ import { useLocationCreate } from '../../../hooks/useLocationCreate';
 import { useLocationUpdate } from '../../../hooks/useLocationUpdate';
 import { LOCATIONS } from '../../../hooks/useLocations';
 import { SERVICE_POINTS } from '../../../hooks/useServicePoints';
-import { REMOTE_STORAGE_CONFIGURATIONS } from '../../../hooks/useRemoteStorageConfigurations';
-import { REMOTE_STORAGE_MAPPINGS } from '../../../hooks/useRemoteStorageMappings';
 
 
 const LocationFormContainer = ({
@@ -91,10 +89,6 @@ const LocationFormContainer = ({
 
     saveData(data)
       .then(onSave)
-      .then(() => {
-        queryClient.invalidateQueries(REMOTE_STORAGE_CONFIGURATIONS);
-        queryClient.invalidateQueries(REMOTE_STORAGE_MAPPINGS);
-      })
       .catch(showSubmitErrorCallout);
   };
 
