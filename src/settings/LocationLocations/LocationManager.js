@@ -57,6 +57,8 @@ import { useCampuses } from '../../hooks/useCampuses';
 import { SERVICE_POINTS, useServicePoints } from '../../hooks/useServicePoints';
 import { LOCATIONS, useLocations } from '../../hooks/useLocations';
 import { useLocationDelete } from '../../hooks/useLocationDelete';
+import { REMOTE_STORAGE_CONFIGURATIONS } from '../../hooks/useRemoteStorageConfigurations';
+import { REMOTE_STORAGE_MAPPINGS } from '../../hooks/useRemoteStorageMappings';
 
 
 const initialSelectedLocationId = (location) => {
@@ -384,6 +386,9 @@ const LocationManager = ({ label }) => {
       layer: null,
     });
     setSelectedId(loc.id);
+
+    queryClient.invalidateQueries(REMOTE_STORAGE_CONFIGURATIONS);
+    queryClient.invalidateQueries(REMOTE_STORAGE_MAPPINGS);
   };
 
   const locations = prepareLocationsData();
