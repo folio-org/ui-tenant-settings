@@ -3,11 +3,18 @@ import PropTypes from 'prop-types';
 import { useIntl } from 'react-intl';
 
 import { ConfigManager } from '@folio/stripes/smart-components';
-import { TitleManager, useStripes } from '@folio/stripes/core';
+import {
+  TitleManager,
+  useStripes,
+  tenantLocaleConfig,
+  getFullLocale,
+} from '@folio/stripes/core';
 
 import LocaleForm from './LocaleForm';
-import { parseSerializedLocale, serializeLocale } from './localeHelpers';
-
+import {
+  beforeSave,
+  getInitialValues,
+} from './localeHelpers';
 
 const Locale = ({ label, ...rest }) => {
   const intl = useIntl();
@@ -16,11 +23,20 @@ const Locale = ({ label, ...rest }) => {
   const ConnectedConfigManager = stripes.connect(ConfigManager);
 
   const afterSave = (setting) => {
-    const localeValues = JSON.parse(setting.value);
-    const { locale, timezone, currency } = localeValues;
+    const {
+      locale,
+      numberingSystem,
+      timezone,
+      currency,
+    } = setting.value;
 
     setTimeout(() => {
-      if (locale) stripes.setLocale(locale);
+      if (locale) {
+        const fullLocale = getFullLocale(locale, numberingSystem);
+
+        stripes.setLocale(fullLocale);
+      }
+
       if (timezone) stripes.setTimezone(timezone);
       if (currency) stripes.setCurrency(currency);
     }, 2000);
@@ -30,12 +46,12 @@ const Locale = ({ label, ...rest }) => {
     <TitleManager page={intl.formatMessage({ id: 'ui-tenant-settings.settings.locale.title' })}>
       <ConnectedConfigManager
         label={label}
-        moduleName="ORG"
-        configName="localeSettings"
-        onBeforeSave={serializeLocale}
+        scope={tenantLocaleConfig.SCOPE}
+        configName={tenantLocaleConfig.KEY}
+        onBeforeSave={beforeSave}
         onAfterSave={afterSave}
         configFormComponent={LocaleForm}
-        getInitialValues={parseSerializedLocale}
+        getInitialValues={getInitialValues}
         {...rest}
       />
     </TitleManager>
