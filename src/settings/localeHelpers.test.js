@@ -1,29 +1,35 @@
-import { parseSerializedLocale, serializeLocale } from './localeHelpers';
+import { getInitialValues } from './localeHelpers';
 
 describe('Locale helpers', () => {
-  it('parseSerializedLocale should parse a locale value', () => {
-    const raw = [{ 'value': '{"locale":"en-GB","timezone":"UTC","currency":"USD"}' }];
-    const cooked = { 'locale':'en-GB', 'timezone':'UTC', 'currency':'USD' };
+  describe('getInitialValues', () => {
+    describe('when there are settings', () => {
+      it('should merge input settings with default settings', () => {
+        const settings = [{
+          value: {
+            locale: 'en-GB',
+            numberingSystem: 'arab',
+          },
+        }];
 
-    expect(parseSerializedLocale(raw)).toMatchObject(cooked);
-  });
+        expect(getInitialValues(settings)).toEqual({
+          locale: 'en-GB',
+          numberingSystem: 'arab',
+          timezone: 'UTC',
+          currency: 'USD',
+        });
+      });
+    });
 
-  it('parseSerializedLocale should parse a locale value with numbering system', () => {
-    const raw = [{ 'value': '{"locale":"en-GB-u-nu-arab","timezone":"UTC","currency":"USD"}' }];
-    const cooked = { 'locale': 'en-GB', 'timezone': 'UTC', 'currency': 'USD', 'numberingSystem': 'arab' };
+    describe('when there are no settings', () => {
+      it('should return default settings', () => {
+        const settings = [];
 
-    expect(parseSerializedLocale(raw)).toMatchObject(cooked);
-  });
-
-  it('serializeLocale should return a locale', () => {
-    const raw = { 'locale': 'en-GB', 'timezone': 'UTC', 'currency': 'USD' };
-    expect(serializeLocale(raw)).toEqual(JSON.stringify(raw));
-  });
-
-  it('serializeLocale should concatenate numbering system onto locale', () => {
-    const raw = { 'locale': 'en-GB', 'numberingSystem': 'arab', 'timezone': 'UTC', 'currency': 'USD' };
-    const cooked = '{"locale":"en-GB-u-nu-arab","timezone":"UTC","currency":"USD"}';
-
-    expect(serializeLocale(raw)).toEqual(cooked);
+        expect(getInitialValues(settings)).toEqual({
+          locale: 'en-US',
+          timezone: 'UTC',
+          currency: 'USD',
+        });
+      });
+    });
   });
 });

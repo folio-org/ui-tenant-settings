@@ -13,13 +13,13 @@ export const getInitialValues = (settings) => {
 
   return {
     ...defaultConfig,
-    ...(setting && setting),
+    ...setting,
   };
 };
 
 /**
  * @param {object} shaped like locale, numberingSystem?, timezone, currency
- * @returns {object} shaped like locale, timezone, currency
+ * @returns {object} shaped like locale, numberingSystem?, timezone, currency
  */
 export const beforeSave = (data) => {
   return data;
