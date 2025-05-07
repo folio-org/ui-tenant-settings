@@ -61,7 +61,7 @@
     "settings.servicePoints.discoveryDisplayName": "Discovery display name",
     "settings.servicePoints.description": "Description",
     "settings.servicePoints.shelvingLagTime": "Shelving lag time (minutes)",
-    "settings.servicePoints.pickupLocation": "Pickup location",
+    "settings.servicePoints.pickupLocation": "Місце видачі",
     "settings.servicePoints.feeFineOwner": "Fee fine owner",
     "settings.servicePoints.deleteServicePoint": "Delete service point",
     "settings.servicePoints.delete": "Delete",
