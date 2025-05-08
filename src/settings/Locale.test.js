@@ -1,11 +1,16 @@
 import React from 'react';
 
+import { useStripes } from '@folio/stripes/core';
+
 import { act, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import {
+  buildStripes,
+  stripesConnect,
+} from '../../test/jest/__mocks__/stripesCore.mock';
 import '../../test/jest/__mocks__';
 import {
-  withStripes,
   renderWithRouter
 } from '../../test/jest/helpers';
 
@@ -15,23 +20,39 @@ const setCurrency = jest.fn();
 const setLocale = jest.fn();
 const setTimezone = jest.fn();
 
-const LocaleWithStripes = withStripes(Locale, {
-  stripes: {
-    setCurrency,
-    setLocale,
-    setTimezone,
-  },
-  resources: {
-    settings: {
-      hasLoaded: true,
-      records: [{ configName: 'bindings', module: 'ORG', value: '' }],
-    },
-  },
-});
+useStripes.mockReturnValue(buildStripes({
+  setCurrency,
+  setLocale,
+  setTimezone,
+  connect: stripesConnect,
+}));
 
-const renderLocale = (props) => renderWithRouter(<LocaleWithStripes {...props} />);
+const resources = {
+  settings: {
+    hasLoaded: true,
+    records: [{
+      items: [
+        {
+          value: {
+            locale: 'en-US',
+            numberingSystem: 'latn',
+            timezone: 'America/New_York',
+            currency: 'USD',
+          },
+        },
+      ],
+    }],
+  },
+};
 
-describe.skip('Locale', () => {
+const renderLocale = (props) => renderWithRouter(
+  <Locale
+    resources={resources}
+    {...props}
+  />
+);
+
+describe('Locale', () => {
   afterEach(() => {
     setCurrency.mockClear();
     setLocale.mockClear();
@@ -64,10 +85,10 @@ describe.skip('Locale', () => {
       userEvent.click(saveButton);
     });
 
-    jest.advanceTimersByTime(500);
+    jest.advanceTimersByTime(2000);
 
-    expect(setCurrency).toHaveBeenCalledTimes(1);
-    expect(setLocale).toHaveBeenCalledTimes(1);
-    expect(setTimezone).toHaveBeenCalledTimes(1);
+    expect(setCurrency).toHaveBeenCalledWith('EUR');
+    expect(setLocale).toHaveBeenCalledWith('ar-u-nu-arab');
+    expect(setTimezone).toHaveBeenCalledWith('America/New_York');
   });
 });

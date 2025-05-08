@@ -2,6 +2,38 @@ export const mockHasPerm = jest.fn(() => true);
 export const mockHasInterface = jest.fn().mockReturnValue(true);
 export const mockUseOkapiKy = jest.fn();
 
+let STRIPES;
+
+export const stripesConnect = Component => ({ mutator, resources, stripes, ...rest }) => {
+  const fakeMutator = mutator || Object.keys(Component.manifest).reduce((acc, mutatorName) => {
+    const returnValue = Component.manifest[mutatorName].records ? [] : {};
+
+    acc[mutatorName] = {
+      GET: jest.fn().mockReturnValue(Promise.resolve(returnValue)),
+      PUT: jest.fn().mockReturnValue(Promise.resolve()),
+      POST: jest.fn().mockReturnValue(Promise.resolve()),
+      DELETE: jest.fn().mockReturnValue(Promise.resolve()),
+      reset: jest.fn(),
+      update: jest.fn(),
+      replace: jest.fn(),
+    };
+
+    return acc;
+  }, {});
+
+  const fakeResources = resources || Object.keys(Component.manifest).reduce((acc, resourceName) => {
+    acc[resourceName] = {
+      records: [],
+    };
+
+    return acc;
+  }, {});
+
+  const fakeStripes = stripes || STRIPES;
+
+  return <Component {...rest} mutator={fakeMutator} resources={fakeResources} stripes={fakeStripes} />;
+};
+
 export const buildStripes = (otherProperties = {}) => ({
   actionNames: [],
   clone: buildStripes,
@@ -48,42 +80,14 @@ export const buildStripes = (otherProperties = {}) => ({
   ...otherProperties,
 });
 
-const STRIPES = buildStripes();
+STRIPES = buildStripes();
 
 const mockStripesCore = {
-  stripesConnect: Component => ({ mutator, resources, stripes, ...rest }) => {
-    const fakeMutator = mutator || Object.keys(Component.manifest).reduce((acc, mutatorName) => {
-      const returnValue = Component.manifest[mutatorName].records ? [] : {};
-
-      acc[mutatorName] = {
-        GET: jest.fn().mockReturnValue(Promise.resolve(returnValue)),
-        PUT: jest.fn().mockReturnValue(Promise.resolve()),
-        POST: jest.fn().mockReturnValue(Promise.resolve()),
-        DELETE: jest.fn().mockReturnValue(Promise.resolve()),
-        reset: jest.fn(),
-        update: jest.fn(),
-        replace: jest.fn(),
-      };
-
-      return acc;
-    }, {});
-
-    const fakeResources = resources || Object.keys(Component.manifest).reduce((acc, resourceName) => {
-      acc[resourceName] = {
-        records: [],
-      };
-
-      return acc;
-    }, {});
-
-    const fakeStripes = stripes || STRIPES;
-
-    return <Component {...rest} mutator={fakeMutator} resources={fakeResources} stripes={fakeStripes} />;
-  },
+  stripesConnect,
 
   useOkapiKy: mockUseOkapiKy,
 
-  useStripes: () => STRIPES,
+  useStripes: jest.fn(() => STRIPES),
 
   withStripes: Component => ({ stripes, ...rest }) => {
     const fakeStripes = stripes || STRIPES;
@@ -108,6 +112,15 @@ const mockStripesCore = {
   useNamespace: ({ key }) => [`@folio/bulk-edit:${key}`],
   TitleManager: ({ children }) => <>{children}</>,
   checkIfUserInMemberTenant: () => true,
+  getFullLocale: jest.fn((localeRegion, numberingSystem) => [localeRegion, numberingSystem].filter(Boolean).join('-u-nu-')),
+  userOwnLocaleConfig: {
+    SCOPE: 'user-locale-scope',
+    KEY: 'user-locale-key',
+  },
+  tenantLocaleConfig: {
+    SCOPE: 'tenant-locale-scope',
+    KEY: 'tenant-locale-key',
+  },
 };
 
 jest.mock('@folio/stripes/core', () => ({
