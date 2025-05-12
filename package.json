@@ -20,6 +20,13 @@
       "settings": "1.0",
       "users": "15.0 16.0"
     },
+    "icons": [
+      {
+        "name": "app",
+        "alt": "Tenant settings",
+        "title": "Tenant settings"
+      }
+    ],
     "optionalOkapiInterfaces": {
       "location-units": "2.0",
       "locations": "3.0",

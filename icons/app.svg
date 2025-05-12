@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>14 x 14 / dark outline</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="14" height="14" rx="3.5"></rect>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="97.0714415%" id="linearGradient-3">
+            <stop stop-color="#3D9BD4" offset="0%"></stop>
+            <stop stop-color="#1E60A6" offset="100%"></stop>
+        </linearGradient>
+        <rect id="path-4" x="0" y="0" width="14" height="14" rx="3.5"></rect>
+    </defs>
+    <g id="14-x-14-/-dark-outline" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icon-Artboard">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <g id="Mask"></g>
+            <g mask="url(#mask-2)">
+                <g id="BG-style-/-Blue" fill="url(#linearGradient-3)" fill-rule="evenodd">
+                    <rect id="BG" x="0" y="0" width="14" height="14"></rect>
+                </g>
+                <path d="M10.5136719,10.4042969 L8.30801588,10.3979046 L8.30801588,7.83496893 C8.30801588,7.55285141 8.21695168,7.32411783 7.93600667,7.32411783 L6.13968824,7.32411783 C5.85874323,7.32411783 5.76767904,7.55285141 5.76767904,7.83496893 L5.76767904,10.3979046 L3.51367187,10.4042969 L3.51367187,6.26155429 L7.02029635,3.71341797 L10.5136719,6.26155429 L10.5136719,10.4042969 Z" id="tenant-14x14" fill="#FFFFFF" fill-rule="nonzero"></path>
+            </g>
+            <mask id="mask-5" fill="white">
+                <use xlink:href="#path-4"></use>
+            </mask>
+            <rect stroke-opacity="0.2" stroke="#000000" x="0.5" y="0.5" width="13" height="13" rx="3.5"></rect>
+        </g>
+    </g>
+</svg>

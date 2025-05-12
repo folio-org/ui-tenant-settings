@@ -4,6 +4,7 @@
 
 * [UITEN-327](https://folio-org.atlassian.net/browse/UITEN-327) Invalidate queries after updating location
 * [UITEN-330](https://folio-org.atlassian.net/browse/UITEN-330) *BREAKING* Refactor locale settings handling.
+* [UITEN-326](https://folio-org.atlassian.net/browse/UITEN-326) Settings > Tenant > Add Tenant application icon.
 
 ## [10.0.0](https://github.com/folio-org/ui-tenant-settings/tree/v10.0.0)(2025-03-12)
 
