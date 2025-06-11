@@ -260,6 +260,7 @@
   "scripts": {
     "start": "yarn stripes serve",
     "lint": "eslint .",
+    "qlint": "eslint -f unix --rule '{\"react/forbid-prop-types\":\"off\"}' .",
     "test:unit": "jest --ci --coverage",
     "test": "yarn run test:unit",
     "build-mod-descriptor": "stripes mod descriptor --full --strict | jq '.[]' > module-descriptor.json ",
