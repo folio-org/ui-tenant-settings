@@ -33,7 +33,7 @@
       "login-saml": "2.0",
       "remote-storage-configurations": "1.0",
       "remote-storage-mappings": "1.0 2.0",
-      "service-points": "3.0",
+      "service-points": "3.5",
       "reading-room": "1.0"
     },
     "permissionSets": [
