@@ -63,13 +63,9 @@ const LocationDetail = ({
 
   const renderServicePoint = (sp, index) => {
     return (
-      index === 0 ?
-        <li key={index}>
-          <>{sp} (primary)</>
-        </li> :
-        <li key={index}>
-          {sp}
-        </li>
+      <li key={index}>
+        {sp}{index === 0 ? ` (${intl.formatMessage({ id: 'ui-tenant-settings.settings.servicePoints.primary' })})` : ''}
+      </li>
     );
   };
 
