@@ -96,6 +96,10 @@ const ServicePointForm = ({
       value: true
     }
   ];
+  const defaultActionOptions = ['Keep_on_hold_shelf', 'Close_loan_and_return_item', 'Ask_for_action'].map(key => ({
+    label: intl.formatMessage({ id: `ui-tenant-settings.settings.servicePoints.defaultCheckinAction.${key}` }),
+    value: key
+  }));
   const periods = intervalPeriods.map(ip => (
     {
       ...ip,
@@ -343,6 +347,19 @@ const ServicePointForm = ({
                 </>
               )
             }
+            <Row>
+              <Col xs={4}>
+                <Field
+                  data-test-default-action
+                  label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.defaultCheckinAction" />}
+                  name="defaultCheckInActionForUseAtLocation"
+                  id="input-service-defaultCheckInActionForUseAtLocation"
+                  component={Select}
+                  dataOptions={defaultActionOptions}
+                  disabled={disabled}
+                />
+              </Col>
+            </Row>
             <StaffSlipEditList staffSlips={staffSlips} />
           </Accordion>
           <LocationList

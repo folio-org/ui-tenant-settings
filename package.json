@@ -33,7 +33,7 @@
       "login-saml": "2.0",
       "remote-storage-configurations": "1.0",
       "remote-storage-mappings": "1.0 2.0",
-      "service-points": "3.0",
+      "service-points": "3.5",
       "reading-room": "1.0"
     },
     "permissionSets": [
@@ -260,6 +260,7 @@
   "scripts": {
     "start": "yarn stripes serve",
     "lint": "eslint .",
+    "qlint": "eslint -f unix --rule '{\"react/forbid-prop-types\":\"off\"}' .",
     "test:unit": "jest --ci --coverage",
     "test": "yarn run test:unit",
     "build-mod-descriptor": "stripes mod descriptor --full --strict | jq '.[]' > module-descriptor.json ",
