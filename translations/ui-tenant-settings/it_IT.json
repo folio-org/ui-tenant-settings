@@ -216,5 +216,9 @@
     "settings.location.locations.floating": "Enable floating collection",
     "settings.location.floating.enabled": "Enabled",
     "permission.settings.location.floating.view": "Settings (tenant): Can view floating collection flag",
-    "permission.settings.location.floating.edit": "Settings (tenant): Can view and edit floating collection flag"
+    "permission.settings.location.floating.edit": "Settings (tenant): Can view and edit floating collection flag",
+    "settings.servicePoints.defaultCheckinAction": "Default check-in action for use at location",
+    "settings.servicePoints.defaultCheckinAction.Keep_on_hold_shelf": "Keep on hold shelf",
+    "settings.servicePoints.defaultCheckinAction.Close_loan_and_return_item": "Close loan and return item",
+    "settings.servicePoints.defaultCheckinAction.Ask_for_action": "Ask for action"
 }
