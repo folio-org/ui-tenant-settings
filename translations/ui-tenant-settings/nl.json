@@ -216,5 +216,9 @@
     "settings.location.locations.floating": "Zwevende collectie inschakelen",
     "settings.location.floating.enabled": "Ingeschakeld",
     "permission.settings.location.floating.view": "Instellingen (huurder): Kan zwevende verzamelflag bekijken",
-    "permission.settings.location.floating.edit": "Instellingen (tenant): Kan zwevende verzamelflag bekijken en bewerken"
+    "permission.settings.location.floating.edit": "Instellingen (tenant): Kan zwevende verzamelflag bekijken en bewerken",
+    "settings.servicePoints.defaultCheckinAction": "Standaard incheckactie voor gebruik op Locatie",
+    "settings.servicePoints.defaultCheckinAction.Keep_on_hold_shelf": "In de wacht bewaren",
+    "settings.servicePoints.defaultCheckinAction.Close_loan_and_return_item": "Uitlening sluiten en item retourneren",
+    "settings.servicePoints.defaultCheckinAction.Ask_for_action": "Vraag om actie"
 }

@@ -216,5 +216,9 @@
     "settings.location.locations.floating": "Povolit Výměnný fond",
     "settings.location.floating.enabled": "Povoleno",
     "permission.settings.location.floating.view": "Nastavení (Nájemce): Může zobrazit příznak Výměnný fond",
-    "permission.settings.location.floating.edit": "Nastavení (Nájemce): Může zobrazit a upravit příznak Výměnný fond"
+    "permission.settings.location.floating.edit": "Nastavení (Nájemce): Může zobrazit a upravit příznak Výměnný fond",
+    "settings.servicePoints.defaultCheckinAction": "Výchozí akce pro návrat v lokaci",
+    "settings.servicePoints.defaultCheckinAction.Keep_on_hold_shelf": "Uchovat na poličce",
+    "settings.servicePoints.defaultCheckinAction.Close_loan_and_return_item": "Uzavřít výpůjčku a vrátit jednotku",
+    "settings.servicePoints.defaultCheckinAction.Ask_for_action": "Požádat o akci"
 }

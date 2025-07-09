@@ -216,5 +216,9 @@
     "settings.location.locations.floating": "Habilitar coleção flutuante",
     "settings.location.floating.enabled": "Habilitado",
     "permission.settings.location.floating.view": "Configurações (tenant): Pode visualizar o sinalizador de coleção flutuante",
-    "permission.settings.location.floating.edit": "Configurações (tenant): Pode visualizar e editar o sinalizador de coleção flutuante"
+    "permission.settings.location.floating.edit": "Configurações (tenant): Pode visualizar e editar o sinalizador de coleção flutuante",
+    "settings.servicePoints.defaultCheckinAction": "Ação de devolução padrão para uso no local",
+    "settings.servicePoints.defaultCheckinAction.Keep_on_hold_shelf": "Manter na prateleira de reserva",
+    "settings.servicePoints.defaultCheckinAction.Close_loan_and_return_item": "Fechar empréstimo e devolver item",
+    "settings.servicePoints.defaultCheckinAction.Ask_for_action": "Pergunte por uma ação"
 }

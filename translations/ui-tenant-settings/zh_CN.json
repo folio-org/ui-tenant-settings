@@ -216,5 +216,9 @@
     "settings.location.locations.floating": "启用浮动收藏",
     "settings.location.floating.enabled": "已启用",
     "permission.settings.location.floating.view": "设置 : 租户 )  : 可以查看浮动收藏标志",
-    "permission.settings.location.floating.edit": "设置 : 租户 )  : 可以查看和编辑浮动收藏标志"
+    "permission.settings.location.floating.edit": "设置 : 租户 )  : 可以查看和编辑浮动收藏标志",
+    "settings.servicePoints.defaultCheckinAction": "Default check-in action for use at location",
+    "settings.servicePoints.defaultCheckinAction.Keep_on_hold_shelf": "Keep on hold shelf",
+    "settings.servicePoints.defaultCheckinAction.Close_loan_and_return_item": "Close loan and return item",
+    "settings.servicePoints.defaultCheckinAction.Ask_for_action": "Ask for action"
 }
