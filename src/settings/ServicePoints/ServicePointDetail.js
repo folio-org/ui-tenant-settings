@@ -5,7 +5,7 @@ import {
   injectIntl,
   FormattedMessage,
 } from 'react-intl';
-import { Accordion, Col, ExpandAllButton, KeyValue, Row } from '@folio/stripes/components';
+import { Accordion, Col, ExpandAllButton, KeyValue, NoValue, Row } from '@folio/stripes/components';
 import { ViewMetaData } from '@folio/stripes/smart-components';
 
 import { TitleManager } from '@folio/stripes/core';
@@ -13,6 +13,14 @@ import LocationList from './LocationList';
 import StaffSlipList from './StaffSlipList';
 import { intervalPeriods } from '../../constants';
 import { closedLibraryDateManagementMapping } from './constants';
+
+function renderCheckinAction(action) {
+  if (!action) {
+    return <NoValue />;
+  }
+  return <FormattedMessage id={`ui-tenant-settings.settings.servicePoints.defaultCheckinAction.${action}`} />;
+}
+
 
 class ServicePointDetail extends React.Component {
   static propTypes = {
@@ -171,6 +179,14 @@ class ServicePointDetail extends React.Component {
               </>
             )
           }
+            <Row>
+              <Col xs={12} data-test-default-action>
+                <KeyValue
+                  label={<FormattedMessage id="ui-tenant-settings.settings.servicePoints.defaultCheckinAction" />}
+                  value={renderCheckinAction(servicePoint.defaultCheckInActionForUseAtLocation)}
+                />
+              </Col>
+            </Row>
             <StaffSlipList
               servicePoint={servicePoint}
               staffSlips={staffSlips}

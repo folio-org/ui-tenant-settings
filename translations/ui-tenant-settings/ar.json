@@ -216,5 +216,9 @@
     "settings.location.locations.floating": "تفعيل المجموعة العائمة",
     "settings.location.floating.enabled": "مفعّل",
     "permission.settings.location.floating.view": "الإعدادات (المستأجر): إمكانية عرض إشارة المجموعة العائمة",
-    "permission.settings.location.floating.edit": "الإعدادات (المستأجر): إمكانية عرض وتحرير علامة المجموعة العائمة"
+    "permission.settings.location.floating.edit": "الإعدادات (المستأجر): إمكانية عرض وتحرير علامة المجموعة العائمة",
+    "settings.servicePoints.defaultCheckinAction": "Default check-in action for use at location",
+    "settings.servicePoints.defaultCheckinAction.Keep_on_hold_shelf": "Keep on hold shelf",
+    "settings.servicePoints.defaultCheckinAction.Close_loan_and_return_item": "Close loan and return item",
+    "settings.servicePoints.defaultCheckinAction.Ask_for_action": "Ask for action"
 }
