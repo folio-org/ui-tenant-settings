@@ -44,6 +44,7 @@
 
   "settings.servicePoints.holdShelfClosedLibraryDateManagement": "Closed library date management for hold shelf expiration date calculation",
   "settings.servicePoints.defaultCheckinAction": "Default check-in action for use at location",
+  "settings.servicePoints.defaultCheckinAction.select": "Select an action",
   "settings.servicePoints.defaultCheckinAction.Keep_on_hold_shelf": "Keep on hold shelf",
   "settings.servicePoints.defaultCheckinAction.Close_loan_and_return_item": "Close loan and return item",
   "settings.servicePoints.defaultCheckinAction.Ask_for_action": "Ask for action",

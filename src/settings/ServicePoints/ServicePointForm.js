@@ -96,10 +96,11 @@ const ServicePointForm = ({
       value: true
     }
   ];
-  const defaultActionOptions = ['', 'Keep_on_hold_shelf', 'Close_loan_and_return_item', 'Ask_for_action'].map(key => ({
+  const defaultActionOptions = ['select', 'Keep_on_hold_shelf', 'Close_loan_and_return_item', 'Ask_for_action'].map((key, i) => ({
     // We would like to use <NoValue /> here, but <select> options must be plain strings.
-    label: key ? intl.formatMessage({ id: `ui-tenant-settings.settings.servicePoints.defaultCheckinAction.${key}` }) : '-',
-    value: key
+    disabled: i === 0,
+    label: intl.formatMessage({ id: `ui-tenant-settings.settings.servicePoints.defaultCheckinAction.${key}` }),
+    value: i === 0 ? '' : key,
   }));
   const periods = intervalPeriods.map(ip => (
     {
