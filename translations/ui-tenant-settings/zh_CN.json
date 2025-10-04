@@ -220,5 +220,6 @@
     "settings.servicePoints.defaultCheckinAction": "对现场使用默认归还操作",
     "settings.servicePoints.defaultCheckinAction.Keep_on_hold_shelf": "保留在预约架上",
     "settings.servicePoints.defaultCheckinAction.Close_loan_and_return_item": "结束借阅并归还单件",
-    "settings.servicePoints.defaultCheckinAction.Ask_for_action": "请求操作"
+    "settings.servicePoints.defaultCheckinAction.Ask_for_action": "请求操作",
+    "settings.servicePoints.defaultCheckinAction.select": "选择操作"
 }
