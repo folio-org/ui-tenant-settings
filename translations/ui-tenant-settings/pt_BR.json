@@ -220,5 +220,6 @@
     "settings.servicePoints.defaultCheckinAction": "Ação de devolução padrão para uso no local",
     "settings.servicePoints.defaultCheckinAction.Keep_on_hold_shelf": "Manter na prateleira de reserva",
     "settings.servicePoints.defaultCheckinAction.Close_loan_and_return_item": "Fechar empréstimo e devolver item",
-    "settings.servicePoints.defaultCheckinAction.Ask_for_action": "Pergunte por uma ação"
+    "settings.servicePoints.defaultCheckinAction.Ask_for_action": "Pergunte por uma ação",
+    "settings.servicePoints.defaultCheckinAction.select": "Selecione uma ação"
 }
