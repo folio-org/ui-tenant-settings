@@ -9,11 +9,11 @@ export const useConfigurations = ({ searchParams }) => {
 
   const { data, isLoading: isConfigsLoading } = useQuery({
     queryKey: [CONFIGURATIONS, namespaceKey, searchParams],
-    queryFn: () => ky.get('configurations/entries', { searchParams }).json(),
+    queryFn: () => ky.get('settings/entries', { searchParams }).json(),
   });
 
   return {
-    configs: data?.configs || [],
+    configs: data?.items || [],
     isConfigsLoading,
   };
 };

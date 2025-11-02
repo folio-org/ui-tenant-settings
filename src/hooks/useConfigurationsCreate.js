@@ -5,7 +5,7 @@ export const useConfigurationsCreate = (options) => {
   const ky = useOkapiKy();
 
   const { mutateAsync: createConfiguration, isLoading: isCreatingConfiguration } = useMutation({
-    mutationFn: ({ data }) => ky.post('configurations/entries', { json: data }).json(),
+    mutationFn: ({ data }) => ky.post('settings/entries', { json: data }).json(),
     ...options,
   });
 
