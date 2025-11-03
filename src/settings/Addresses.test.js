@@ -1,145 +1,242 @@
 import React from 'react';
+import { render, screen } from '@testing-library/react';
+import { useIntl } from 'react-intl';
 
-import { screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-
-import '../../test/jest/__mocks__';
-import buildStripes from '../../test/jest/__new_mocks__/stripesCore.mock';
-import {
-  renderWithRouter, renderWithReduxForm
-} from '../../test/jest/helpers';
+import { ControlledVocab } from '@folio/stripes/smart-components';
+import { useStripes } from '@folio/stripes/core';
 
 import Addresses from './Addresses';
 
-const STRIPES = buildStripes();
+jest.mock('@folio/stripes/smart-components', () => ({
+  ControlledVocab: jest.fn(() => <div>ControlledVocab</div>),
+}));
 
-const mutatorPostMock = jest.fn(() => Promise.resolve());
+jest.mock('@folio/stripes/core', () => ({
+  ...jest.requireActual('@folio/stripes/core'),
+  useStripes: jest.fn(),
+  TitleManager: jest.fn(({ children }) => <div>{children}</div>),
+}));
 
-const mutatorPutMock = jest.fn(() => Promise.resolve());
+jest.mock('react-intl', () => ({
+  ...jest.requireActual('react-intl'),
+  useIntl: jest.fn(),
+  FormattedMessage: jest.fn(({ id }) => <div>{id}</div>),
+}));
 
-const mutatorMock = {
-  activeRecord: {
-    update: jest.fn(() => Promise.resolve()),
-  },
-  values: {
-    PUT: mutatorPutMock,
-    DELETE: jest.fn(() => Promise.resolve()),
-    GET: jest.fn(() => Promise.resolve()),
-    POST: mutatorPostMock
-  },
-  updaters: {
-    type: 'okapi',
-    records: 'users',
-    path: 'users',
-    GET: jest.fn(() => Promise.resolve())
-  },
-};
-
-const resourcesMock = {
-  values: {
-    dataKey: 'addresses',
-    failed: false,
-    hasLoaded: true,
-    httpStatus: 200,
-    isPending: false,
-    module: '@folio/tenant-settings',
-    records:[{
-      code: 'ADDRESS_1635329686543',
-      configName: 'tenant.addresses',
-      enabled: true,
-      id: 'beca0c12-204b-4d85-b72e-9358535c564e',
-      module: 'TENANT',
-      value: '{"name":"Test","address":"City"}',
-    }]
+const mockStripes = {
+  hasPerm: jest.fn(() => true),
+  user: {
+    user: {
+      id: 'test-user-id',
+    },
   },
 };
 
-const renderAddresses = () => {
-  const component = () => (
-    <Addresses
-      mutator={mutatorMock}
-      resources={resourcesMock}
-      stripes={STRIPES}
-    />
-  );
-
-  return renderWithRouter(renderWithReduxForm(component));
+const mockIntl = {
+  formatMessage: jest.fn(({ id }) => id),
 };
 
-describe.skip('Addresses', () => {
-  it('should render addresses titles', async () => {
-    await renderAddresses();
+describe('Addresses', () => {
+  beforeEach(() => {
+    useStripes.mockReturnValue(mockStripes);
+    useIntl.mockReturnValue(mockIntl);
+    jest.clearAllMocks();
+  });
 
-    const addressesTitles = screen.getAllByText('ui-tenant-settings.settings.addresses.label');
+  it('should render ControlledVocab component', () => {
+    render(<Addresses />);
+    expect(screen.getByText('ControlledVocab')).toBeInTheDocument();
+  });
 
-    addressesTitles.forEach((el) => expect(el).toBeVisible());
-  }, 5000);
+  it('should pass correct props to ControlledVocab', () => {
+    render(<Addresses />);
 
-  it('should render new button', async () => {
-    await renderAddresses();
+    expect(ControlledVocab).toHaveBeenCalledWith(
+      expect.objectContaining({
+        baseUrl: 'settings/entries',
+        records: 'items',
+        label: 'ui-tenant-settings.settings.addresses.label',
+        nameKey: 'name',
+        id: 'addresses',
+        sortby: 'name',
+        editable: true,
+      }),
+      expect.anything()
+    );
+  });
 
-    expect(screen.getByRole('button', { name: 'stripes-core.button.new' })).toBeVisible();
-  }, 5000);
+  it('should pass correct visibleFields and columnMapping', () => {
+    render(<Addresses />);
 
-  it('should render correct result column', async () => {
-    await renderAddresses();
+    const calledProps = ControlledVocab.mock.calls[0][0];
+    expect(calledProps.visibleFields).toEqual(['name', 'address']);
+    expect(calledProps.hiddenFields).toEqual(['numberOfObjects']);
+    expect(calledProps.columnMapping).toBeDefined();
+  });
 
-    const columnHeaders = [
-      /settings.addresses.name/,
-      /settings.addresses.address/,
-      /cv.lastUpdated/
-    ];
+  it('should set editable to false when user lacks permission', () => {
+    mockStripes.hasPerm.mockReturnValue(false);
+    render(<Addresses />);
 
-    columnHeaders.forEach((el) => expect(screen.getByRole('columnheader', { name: el })).toBeVisible());
-  }, 5000);
+    expect(ControlledVocab).toHaveBeenCalledWith(
+      expect.objectContaining({
+        editable: false,
+      }),
+      expect.anything()
+    );
+  });
 
-  it('should render correct result values', async () => {
-    await renderAddresses();
+  describe('preCreateHook', () => {
+    it('should create item with correct structure', () => {
+      render(<Addresses />);
+      const calledProps = ControlledVocab.mock.calls[0][0];
+      const onCreate = calledProps.preCreateHook;
 
-    const values = [
-      'City',
-      'Test',
-      '-'
-    ];
+      const item = { name: 'Test Address', address: '123 Main St' };
+      const result = onCreate(item);
 
-    values.forEach((el) => expect(screen.getByRole('gridcell', { name: el })).toBeVisible());
-  }, 5000);
+      expect(result).toMatchObject({
+        scope: 'ui-tenant-settings.addresses.manage',
+        value: item,
+      });
+      expect(result.key).toMatch(/^ADDRESS_\d+$/);
+      expect(result.metadata).toBeDefined();
+      expect(result.metadata.createdByUserId).toBe('test-user-id');
+      expect(result.metadata.updatedByUserId).toBe('test-user-id');
+      expect(result.metadata.createdDate).toBeDefined();
+      expect(result.metadata.updatedDate).toBeDefined();
+    });
+  });
 
-  it('should render new form', async () => {
-    await renderAddresses();
+  describe('preUpdateHook', () => {
+    it('should update item with correct structure', () => {
+      render(<Addresses />);
+      const calledProps = ControlledVocab.mock.calls[0][0];
+      const onUpdate = calledProps.preUpdateHook;
 
-    await userEvent.click(screen.getByRole('button', { name: 'stripes-core.button.new' }));
+      const item = {
+        id: 'item-id',
+        key: 'ADDRESS_123',
+        name: 'Updated Address',
+        address: '456 Oak Ave',
+        metadata: {
+          createdByUserId: 'original-user',
+          createdDate: '2023-01-01T00:00:00.000Z',
+        },
+      };
+      const result = onUpdate(item);
 
-    const textBoxex = screen.getAllByRole('textbox');
+      expect(result).toMatchObject({
+        scope: 'ui-tenant-settings.addresses.manage',
+        key: 'ADDRESS_123',
+        id: 'item-id',
+        value: {
+          name: 'Updated Address',
+          address: '456 Oak Ave',
+        },
+      });
+      expect(result.metadata.createdByUserId).toBe('original-user');
+      expect(result.metadata.updatedByUserId).toBe('test-user-id');
+      expect(result.metadata.updatedDate).toBeDefined();
+    });
+  });
 
-    textBoxex.forEach((el) => expect(el).toHaveValue(''));
-  }, 5000);
+  describe('parseRow', () => {
+    it('should parse row correctly', () => {
+      render(<Addresses />);
+      const calledProps = ControlledVocab.mock.calls[0][0];
+      const parseRow = calledProps.parseRow;
 
-  it('should render addresses with empty results', async () => {
-    await renderAddresses();
+      const row = {
+        id: 'row-id',
+        value: {
+          name: 'Test Name',
+          address: 'Test Address',
+        },
+      };
+      const result = parseRow(row);
 
-    await userEvent.click(screen.getByRole('button', { name: 'stripes-core.button.new' }));
+      expect(result).toEqual({
+        id: 'row-id',
+        name: 'Test Name',
+        address: 'Test Address',
+        value: {
+          name: 'Test Name',
+          address: 'Test Address',
+        },
+      });
+    });
+  });
 
-    const textBoxex = screen.getAllByRole('textbox');
+  describe('formatter', () => {
+    it('should format address field with correct CSS class', () => {
+      render(<Addresses />);
+      const calledProps = ControlledVocab.mock.calls[0][0];
+      const addressFormatter = calledProps.formatter.address;
 
-    textBoxex.forEach((el) => userEvent.type(el, 'test'));
+      const item = { address: 'Test Address Content' };
+      const result = addressFormatter(item);
 
-    userEvent.click(screen.getByRole('button', { name: 'stripes-core.button.save' }));
+      expect(result.type).toBe('div');
+      expect(result.props.className).toContain('addressWrapper');
+      expect(result.props.children).toBe('Test Address Content');
+    });
+  });
 
-    expect(mutatorPostMock).toHaveBeenCalled();
-  }, 5000);
+  describe('fieldComponents', () => {
+    it('should have correct field components', () => {
+      render(<Addresses />);
+      const calledProps = ControlledVocab.mock.calls[0][0];
+      const fieldComponents = calledProps.fieldComponents;
 
-  it('should edit item', async () => {
-    await renderAddresses();
+      expect(fieldComponents).toHaveProperty('address');
+      expect(fieldComponents).toHaveProperty('name');
+    });
+  });
 
-    userEvent.click(screen.getByRole('button', { name: 'stripes-components.editThisItem' }));
+  describe('manifest', () => {
+    it('should have correct manifest structure', () => {
+      const manifest = Addresses.manifest;
 
-    const textBoxex = screen.getAllByRole('textbox');
+      expect(manifest.values).toBeDefined();
+      expect(manifest.values.type).toBe('okapi');
+      expect(manifest.values.path).toBe('settings/entries');
+      expect(manifest.values.records).toBe('items');
+      expect(manifest.values.GET.params.query).toBe('scope=ui-tenant-settings.addresses.manage');
+      expect(manifest.values.GET.params.limit).toBe('500');
+    });
 
-    textBoxex.forEach((el) => userEvent.type(el, 'new value'));
+    it('should have correct PUT and DELETE paths', () => {
+      const manifest = Addresses.manifest;
 
-    userEvent.click(screen.getByRole('button', { name: 'stripes-core.button.save' }));
+      expect(manifest.values.PUT.path).toBe('settings/entries/%{activeRecord.id}');
+      expect(manifest.values.DELETE.path).toBe('settings/entries/%{activeRecord.id}');
+    });
 
-    expect(mutatorPutMock).toHaveBeenCalled();
-  }, 5000);
+    it('should have updaters configuration', () => {
+      const manifest = Addresses.manifest;
+
+      expect(manifest.updaters).toBeDefined();
+      expect(manifest.updaters.type).toBe('okapi');
+      expect(manifest.updaters.path).toBe('users');
+      expect(manifest.updaters.records).toBe('users');
+    });
+  });
+
+  describe('translations', () => {
+    it('should pass correct translation keys', () => {
+      render(<Addresses />);
+      const calledProps = ControlledVocab.mock.calls[0][0];
+      const translations = calledProps.translations;
+
+      expect(translations).toEqual({
+        cannotDeleteTermHeader: 'ui-tenant-settings.settings.addresses.cannotDeleteTermHeader',
+        cannotDeleteTermMessage: 'ui-tenant-settings.settings.addresses.cannotDeleteTermMessage',
+        deleteEntry: 'ui-tenant-settings.settings.addresses.deleteEntry',
+        termDeleted: 'ui-tenant-settings.settings.addresses.termDeleted',
+        termWillBeDeleted: 'ui-tenant-settings.settings.addresses.termWillBeDeleted',
+      });
+    });
+  });
 });
+

@@ -3,14 +3,12 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { Field } from 'redux-form';
 
 import { ControlledVocab } from '@folio/stripes/smart-components';
-import { TextArea, TextField } from '@folio/stripes/components';
+import { TextArea, TextField, dayjs } from '@folio/stripes/components';
 import { TitleManager, useStripes } from '@folio/stripes/core';
 
 import css from './Addresses.css';
 
-
-const moduleName = 'TENANT';
-const configName = 'tenant.addresses';
+const scope = 'ui-tenant-settings.addresses.manage';
 
 const translations = {
   cannotDeleteTermHeader: 'ui-tenant-settings.settings.addresses.cannotDeleteTermHeader',
@@ -30,10 +28,9 @@ const fieldComponents = {
 };
 
 const parseRow = row => {
-  const value = JSON.parse(row.value || '{}');
   return {
-    name: value.name,
-    address: value.address,
+    name: row.value.name,
+    address: row.value.address,
     ...row,
   };
 };
@@ -48,28 +45,45 @@ const objectLabel = <FormattedMessage id="ui-tenant-settings.settings.addresses.
 const formatter = {
   address: item => (<div className={css.addressWrapper}>{item.address}</div>),
 };
+const getMeta = (userId, { isNew = false } = {}) => {
+  const date = dayjs().utc().format('YYYY-MM-DDTHH:mm:ss.SSSZ'); // ISO format
 
+  const meta = {
+    updatedByUserId: userId,
+    updatedDate: date,
+  };
+
+  if (isNew) {
+    meta.createdByUserId = userId;
+    meta.createdDate = date;
+  }
+
+  return meta;
+};
 
 const Addresses = (props) => {
   const intl = useIntl();
   const stripes = useStripes();
 
   const onCreate = item => ({
-    value: JSON.stringify(item),
-    module: moduleName,
-    configName,
-    code: `ADDRESS_${(new Date()).valueOf()}`,
+    scope,
+    value: item,
+    key: `ADDRESS_${(new Date()).valueOf()}`,
+    metadata: getMeta(stripes.user.user.id, { isNew: true }),
   });
 
   const onUpdate = item => ({
-    code: item.code,
+    scope,
+    key: item.key,
     id: item.id,
-    module: item.module,
-    configName: item.configName,
-    value: JSON.stringify({
+    metadata: {
+      ...item.metadata,
+      ...getMeta(stripes.user.user.id),
+    },
+    value: {
       name: item.name,
       address: item.address,
-    }),
+    },
   });
 
   return (
@@ -77,8 +91,8 @@ const Addresses = (props) => {
       <ControlledVocab
         {...props}
         dataKey={undefined}
-        baseUrl="configurations/entries"
-        records="configs"
+        baseUrl="settings/entries"
+        records="items"
         parseRow={parseRow}
         label={intl.formatMessage({ id: 'ui-tenant-settings.settings.addresses.label' })}
         translations={translations}
@@ -102,19 +116,19 @@ const Addresses = (props) => {
 Addresses.manifest = Object.freeze({
   values: {
     type: 'okapi',
-    path: 'configurations/entries',
-    records: 'configs',
+    path: 'settings/entries',
+    records: 'items',
     throwErrors: false,
     clientGeneratePk: true,
     PUT: {
-      path: 'configurations/entries/%{activeRecord.id}',
+      path: 'settings/entries/%{activeRecord.id}',
     },
     DELETE: {
-      path: 'configurations/entries/%{activeRecord.id}',
+      path: 'settings/entries/%{activeRecord.id}',
     },
     GET: {
       params: {
-        query: `(module=${moduleName} and configName=${configName})`,
+        query: `scope=${scope}`,
         limit: '500',
       },
     },
