@@ -83,6 +83,8 @@
         "permissionName": "ui-tenant-settings.settings.addresses.view",
         "displayName": "Settings (tenant): Can view tenant addresses",
         "subPermissions": [
+          "mod-settings.entries.collection.get",
+          "mod-settings.entries.item.get",
           "mod-settings.global.read.ui-tenant-settings.addresses.manage",
           "users.collection.get",
           "settings.tenant-settings.enabled"
@@ -94,6 +96,9 @@
         "displayName": "Settings (tenant): Can manage tenant addresses",
         "subPermissions": [
           "ui-tenant-settings.settings.addresses.view",
+          "mod-settings.entries.item.post",
+          "mod-settings.entries.item.put",
+          "mod-settings.entries.item.delete",
           "mod-settings.global.write.ui-tenant-settings.addresses.manage"
         ],
         "visible": true
@@ -123,6 +128,8 @@
         "permissionName": "ui-tenant-settings.settings.plugins.view",
         "displayName": "Settings (tenant): Can view preferred plugins",
         "subPermissions": [
+          "mod-settings.entries.collection.get",
+          "mod-settings.entries.item.get",
           "mod-settings.global.read.ui-tenant-settings.plugins.manage",
           "settings.tenant-settings.enabled"
         ],
@@ -133,6 +140,9 @@
         "displayName": "Settings (tenant): Can maintain preferred plugins",
         "subPermissions": [
           "ui-tenant-settings.settings.plugins.view",
+          "mod-settings.entries.item.post",
+          "mod-settings.entries.item.put",
+          "mod-settings.entries.item.delete",
           "mod-settings.global.write.ui-tenant-settings.plugins.manage"
         ],
         "visible": true
