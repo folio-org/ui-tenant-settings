@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { map, omit } from 'lodash';
+import { map } from 'lodash';
 import { useQueryClient } from 'react-query';
 
 import { modules } from 'stripes-config'; // eslint-disable-line import/no-unresolved, import/no-extraneous-dependencies
@@ -16,6 +16,7 @@ import { useConfigurationsCreate } from '../../hooks/useConfigurationsCreate';
 import { useConfigurationsUpdate } from '../../hooks/useConfigurationsUpdate';
 import { CONFIGURATIONS, useConfigurations } from '../../hooks/useConfigurations';
 
+const scope = 'ui-tenant-settings.plugins.manage';
 
 const Plugins = ({ label }) => {
   const intl = useIntl();
@@ -25,7 +26,7 @@ const Plugins = ({ label }) => {
 
   const { configs } = useConfigurations({
     searchParams: {
-      query: '(module==PLUGINS) sortby configName',
+      query: `(scope=${scope})`,
       limit: '1000',
     },
   });
@@ -51,13 +52,13 @@ const Plugins = ({ label }) => {
 
   const getPlugins = (settings) => {
     const pluginsByType = settings.reduce((memo, setting) => {
-      memo[setting.configName] = setting;
+      memo[setting.key] = setting;
       return memo;
     }, {});
 
     return map(pluginTypes, (types, key) => {
       const plugin = pluginsByType[key];
-      return plugin || { configName: key };
+      return plugin || { key };
     });
   };
 
@@ -66,19 +67,19 @@ const Plugins = ({ label }) => {
     if (plugin.id) {
       updateConfiguration({
         id: plugin.id,
-        data: omit(plugin, ['metadata']),
+        data: plugin
       });
     } else {
       createConfiguration({
         data: {
-          module: 'PLUGINS',
-          configName: plugin.configName,
+          scope,
+          key: plugin.key,
           value,
         },
       });
     }
 
-    stripes.setSinglePlugin(plugin.configName, value);
+    stripes.setSinglePlugin(plugin.key, value);
   };
 
   const save = (data) => {
