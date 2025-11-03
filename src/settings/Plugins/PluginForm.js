@@ -29,22 +29,22 @@ const PluginForm = ({
   const intl = useIntl();
 
   const renderPlugin = (field, plugin) => {
-    const pluginType = pluginTypes[plugin.configName];
+    const pluginType = pluginTypes[plugin.key];
 
     const options = [{ value: '@@', label: '(none)' }].concat(pluginType.map(p => ({
       value: p.module,
       label: intl.formatMessage({ id: `ui-tenant-settings.settings.pluginNames.${p.pluginType}` }) + ' ' + p.version,
     })));
 
-    const lbl = <FormattedMessage id={`ui-tenant-settings.settings.pluginNames.${plugin.configName}`} />;
+    const lbl = <FormattedMessage id={`ui-tenant-settings.settings.pluginNames.${plugin.key}`} />;
 
     return (
-      <Row key={plugin.configName}>
+      <Row key={plugin.key}>
         <Col xs={12}>
           <Field
             readOnly={readOnly}
-            id={plugin.configName}
-            data-testid={plugin.configName}
+            id={plugin.key}
+            data-testid={plugin.key}
             label={lbl}
             name={`${field}.value`}
             placeholder="---"

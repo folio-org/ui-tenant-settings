@@ -23,7 +23,7 @@ const data = [{ id }];
 describe('useConfigurations', () => {
   const kyMock = {
     get: jest.fn(() => ({
-      json: () => Promise.resolve({ configs: data }),
+      json: () => Promise.resolve({ items: data }),
     })),
   };
 
@@ -40,7 +40,7 @@ describe('useConfigurations', () => {
 
     await waitFor(() => expect(result.current.isConfigsLoading).toBeFalsy());
 
-    expect(kyMock.get).toHaveBeenCalledWith('configurations/entries', { searchParams });
+    expect(kyMock.get).toHaveBeenCalledWith('settings/entries', { searchParams });
     expect(result.current.configs).toEqual(data);
   });
 });
