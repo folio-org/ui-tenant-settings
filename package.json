@@ -349,7 +349,8 @@
     "query-string": "^6.8.1",
     "react-final-form": "^6.3.0",
     "react-final-form-arrays": "^3.1.1",
-    "redux-form": "^8.0.0"
+    "redux-form": "^8.0.0",
+    "uuid": "9.0.0"
   },
   "peerDependencies": {
     "@folio/stripes": "^10.0.0",

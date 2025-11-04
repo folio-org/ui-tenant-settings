@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { map } from 'lodash';
 import { useQueryClient } from 'react-query';
+import { v4 as uuidv4 } from 'uuid';
 
 import { modules } from 'stripes-config'; // eslint-disable-line import/no-unresolved, import/no-extraneous-dependencies
 import {
@@ -72,6 +73,7 @@ const Plugins = ({ label }) => {
     } else {
       createConfiguration({
         data: {
+          id: uuidv4(),
           scope,
           key: plugin.key,
           value,
