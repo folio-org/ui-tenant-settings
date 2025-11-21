@@ -141,7 +141,7 @@
     "settings.location.remotes.failed": "Nie udało się załadować",
     "permission.settings.bursar-exports": "Ustawienia (dzierżawca): Administrator kwestury",
     "settings.location.locations.remoteStorage": "Magazyn zdalny",
-    "settings.location.locations.returning-workflow.title": "Returning workflow preference",
+    "settings.location.locations.returning-workflow.title": "Zwracanie preferencji przepływu pracy",
     "settings.location.locations.returning-workflow.Scanned to folio": "Items received at remote storage scanned into FOLIO",
     "settings.location.locations.returning-workflow.Scanned to CaiaSoft": "Items received at remote storage scanned into CaiaSoft",
     "settings.numberingSystem": "System numerowania",
@@ -217,8 +217,9 @@
     "settings.location.floating.enabled": "Włączony",
     "permission.settings.location.floating.view": "Settings (tenant): Can view floating collection flag",
     "permission.settings.location.floating.edit": "Settings (tenant): Can view and edit floating collection flag",
-    "settings.servicePoints.defaultCheckinAction": "Default check-in action for use at location",
+    "settings.servicePoints.defaultCheckinAction": "Domyślna akcja zwrotu dla tej lokalizacji",
     "settings.servicePoints.defaultCheckinAction.Keep_on_hold_shelf": "Keep on hold shelf",
     "settings.servicePoints.defaultCheckinAction.Close_loan_and_return_item": "Zamknij wypożyczenie i zwróć egzemplarz",
-    "settings.servicePoints.defaultCheckinAction.Ask_for_action": "Poproś o akcję"
+    "settings.servicePoints.defaultCheckinAction.Ask_for_action": "Zapytaj o działanie",
+    "settings.servicePoints.defaultCheckinAction.select": "Select an action"
 }
