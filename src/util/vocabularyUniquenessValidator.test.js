@@ -3,14 +3,19 @@ import { FormattedMessage } from 'react-intl';
 import vocabularyUniquenessValidator from './vocabularyUniquenessValidator';
 
 describe('vocabularyUniquenessValidator', () => {
-  const fields = ['name', 'code'];
-  const translationIdsDict = {
-    name: 'ui-tenant-settings.settings.location.institutions.name.error',
-    code: 'ui-tenant-settings.settings.location.institutions.code.error',
-  };
+  const uniquenessConfig = [
+    {
+      field: 'name',
+      messageId: 'ui-tenant-settings.settings.location.institutions.name.error',
+    },
+    {
+      field: 'code',
+      messageId: 'ui-tenant-settings.settings.location.institutions.code.error',
+    },
+  ];
 
   it('should return undefined when no duplicates exist', () => {
-    const validator = vocabularyUniquenessValidator(fields, translationIdsDict);
+    const validator = vocabularyUniquenessValidator(uniquenessConfig);
     const items = [
       { name: 'Item 1', code: 'CODE1' },
       { name: 'Item 2', code: 'CODE2' },
@@ -22,7 +27,7 @@ describe('vocabularyUniquenessValidator', () => {
   });
 
   it('should return error for duplicate name', () => {
-    const validator = vocabularyUniquenessValidator(fields, translationIdsDict);
+    const validator = vocabularyUniquenessValidator(uniquenessConfig);
     const items = [
       { name: 'Item 1', code: 'CODE1' },
       { name: 'Item 1', code: 'CODE2' },
@@ -31,11 +36,11 @@ describe('vocabularyUniquenessValidator', () => {
     const result = validator.validate(items[1], 1, items);
 
     expect(result).toBeDefined();
-    expect(result.name).toEqual(<FormattedMessage id={translationIdsDict.name} />);
+    expect(result.name).toEqual(<FormattedMessage id={uniquenessConfig[0].messageId} />);
   });
 
   it('should return error for duplicate code', () => {
-    const validator = vocabularyUniquenessValidator(fields, translationIdsDict);
+    const validator = vocabularyUniquenessValidator(uniquenessConfig);
     const items = [
       { name: 'Item 1', code: 'CODE1' },
       { name: 'Item 2', code: 'CODE1' },
@@ -44,11 +49,11 @@ describe('vocabularyUniquenessValidator', () => {
     const result = validator.validate(items[1], 1, items);
 
     expect(result).toBeDefined();
-    expect(result.code).toEqual(<FormattedMessage id={translationIdsDict.code} />);
+    expect(result.code).toEqual(<FormattedMessage id={uniquenessConfig[1].messageId} />);
   });
 
   it('should be case insensitive', () => {
-    const validator = vocabularyUniquenessValidator(fields, translationIdsDict);
+    const validator = vocabularyUniquenessValidator(uniquenessConfig);
     const items = [
       { name: 'Item 1', code: 'CODE1' },
       { name: 'ITEM 1', code: 'code1' },
@@ -57,12 +62,12 @@ describe('vocabularyUniquenessValidator', () => {
     const result = validator.validate(items[1], 1, items);
 
     expect(result).toBeDefined();
-    expect(result.name).toEqual(<FormattedMessage id={translationIdsDict.name} />);
-    expect(result.code).toEqual(<FormattedMessage id={translationIdsDict.code} />);
+    expect(result.name).toEqual(<FormattedMessage id={uniquenessConfig[0].messageId} />);
+    expect(result.code).toEqual(<FormattedMessage id={uniquenessConfig[1].messageId} />);
   });
 
   it('should not compare item with itself', () => {
-    const validator = vocabularyUniquenessValidator(fields, translationIdsDict);
+    const validator = vocabularyUniquenessValidator(uniquenessConfig);
     const items = [
       { name: 'Item 1', code: 'CODE1' },
     ];
@@ -73,7 +78,7 @@ describe('vocabularyUniquenessValidator', () => {
   });
 
   it('should handle empty fields array', () => {
-    const validator = vocabularyUniquenessValidator([], translationIdsDict);
+    const validator = vocabularyUniquenessValidator([]);
     const items = [
       { name: 'Item 1', code: 'CODE1' },
       { name: 'Item 1', code: 'CODE1' },
@@ -85,7 +90,7 @@ describe('vocabularyUniquenessValidator', () => {
   });
 
   it('should handle undefined fields', () => {
-    const validator = vocabularyUniquenessValidator(undefined, translationIdsDict);
+    const validator = vocabularyUniquenessValidator(undefined);
     const items = [
       { name: 'Item 1', code: 'CODE1' },
       { name: 'Item 1', code: 'CODE1' },
@@ -97,8 +102,8 @@ describe('vocabularyUniquenessValidator', () => {
   });
 
   it('should memoize validator instances', () => {
-    const validator1 = vocabularyUniquenessValidator(fields, translationIdsDict);
-    const validator2 = vocabularyUniquenessValidator(fields, translationIdsDict);
+    const validator1 = vocabularyUniquenessValidator(uniquenessConfig);
+    const validator2 = vocabularyUniquenessValidator(uniquenessConfig);
 
     expect(validator1).toBe(validator2);
   });

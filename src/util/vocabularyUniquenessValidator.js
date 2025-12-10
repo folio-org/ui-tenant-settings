@@ -1,9 +1,23 @@
 import memoize from 'lodash/memoize';
 import { FormattedMessage } from 'react-intl';
 
-const vocabularyUniquenessValidator = (fields, translationIdsDict) => {
+
+/**
+ *
+ * @param {Array} configs - Array of configuration objects for uniqueness validation.
+ * Each configuration object should have the following structure:
+ * {
+ *   field: string - The name of the field to validate for uniqueness.
+ *   messageId: string - The translation ID for the validation error message.
+ * }
+ *
+ * @returns {Object} An object containing the validate function for uniqueness checking.
+ */
+const vocabularyUniquenessValidator = (configs = []) => {
   const validate = (item, index, items) => {
-    const errorsDict = fields?.reduce((acc, field) => {
+    const errorsDict = configs?.reduce((acc, config) => {
+      const { field, messageId } = config;
+
       const isDuplicate = items.some((otherItem, otherIndex) => {
         return (otherIndex !== index) && (otherItem[field]?.toLocaleLowerCase() === item[field]?.toLocaleLowerCase());
       });
@@ -11,7 +25,7 @@ const vocabularyUniquenessValidator = (fields, translationIdsDict) => {
       if (isDuplicate) {
         return {
           ...acc,
-          [field]: <FormattedMessage id={translationIdsDict?.[field]} />,
+          [field]: <FormattedMessage id={messageId} />,
         };
       }
 

@@ -73,10 +73,12 @@ const getMeta = (userId, { isNew = false } = {}) => {
   return meta;
 };
 
-const uniqueFields = ['name'];
-const validationTranslationIdsDict = {
-  name: 'ui-tenant-settings.settings.addresses.validation.name.unique',
-};
+const uniquenessConfigs = [
+  {
+    field: 'name',
+    messageId: 'ui-tenant-settings.settings.addresses.validation.name.unique',
+  },
+];
 
 const Addresses = (props) => {
   const intl = useIntl();
@@ -124,7 +126,7 @@ const Addresses = (props) => {
         records="items"
         sortby="name"
         translations={translations}
-        validate={composeValidators(vocabularyUniquenessValidator(uniqueFields, validationTranslationIdsDict).validate)}
+        validate={composeValidators(vocabularyUniquenessValidator(uniquenessConfigs).validate)}
         visibleFields={visibleFields}
       />
     </TitleManager>
