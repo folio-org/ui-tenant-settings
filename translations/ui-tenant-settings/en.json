@@ -207,6 +207,7 @@
   "settings.addresses.deleteEntry": "Delete address",
   "settings.addresses.termDeleted": "The address <b>{term}</b> was successfully <b>deleted</b>",
   "settings.addresses.termWillBeDeleted": "The address <b>{term}</b> will be <b>deleted.</b>",
+  "settings.addresses.validation.name.unique": "This address name is already in use.",
   "settings.save.error.network": "Record not saved",
 
   "settings.reading-room-access.label": "Reading room access",

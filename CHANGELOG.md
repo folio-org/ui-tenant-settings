@@ -8,7 +8,8 @@
 * [UITEN-328](https://folio-org.atlassian.net/browse/UITEN-328) Settings > Tenant > Service points: view and edit the new `defaultCheckInActionForUseAtLocation` field. Requires v3.5 of the `service-points` interface.
 * [UITEN-331](https://folio-org.atlassian.net/browse/UITEN-331) Settings > Tenant > Service points: default undefined value for `defaultCheckInActionForUseAtLocation` field.
 * [UITEN-334](https://folio-org.atlassian.net/browse/UITEN-334) Create scopes for Addresses and Preferred plugins
-* [UITEN-322](https://folio-org.atlassian.net/browse/UITEN-322) Migrate "Addresses" tenant settings from mod-configuration to mod-settings
+* [UITEN-322](https://folio-org.atlassian.net/browse/UITEN-322) Migrate "Addresses" tenant settings from mod-configuration to mod-settings.
+* [UITEN-213](https://folio-org.atlassian.net/browse/UITEN-213) Validate uniqueness of the tenant addresses.
 
 ## [10.0.0](https://github.com/folio-org/ui-tenant-settings/tree/v10.0.0)(2025-03-12)
 

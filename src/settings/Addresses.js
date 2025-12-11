@@ -1,10 +1,22 @@
-import React from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import {
+  FormattedMessage,
+  useIntl,
+} from 'react-intl';
 import { Field } from 'redux-form';
 
 import { ControlledVocab } from '@folio/stripes/smart-components';
-import { TextArea, TextField, dayjs } from '@folio/stripes/components';
-import { TitleManager, useStripes } from '@folio/stripes/core';
+import {
+  dayjs,
+  TextArea,
+  TextField,
+} from '@folio/stripes/components';
+import {
+  TitleManager,
+  useStripes,
+} from '@folio/stripes/core';
+
+import composeValidators from '../util/composeValidators';
+import vocabularyUniquenessValidator from '../util/vocabularyUniquenessValidator';
 
 import css from './Addresses.css';
 
@@ -61,6 +73,13 @@ const getMeta = (userId, { isNew = false } = {}) => {
   return meta;
 };
 
+const uniquenessConfigs = [
+  {
+    field: 'name',
+    messageId: 'ui-tenant-settings.settings.addresses.validation.name.unique',
+  },
+];
+
 const Addresses = (props) => {
   const intl = useIntl();
   const stripes = useStripes();
@@ -90,24 +109,25 @@ const Addresses = (props) => {
     <TitleManager page={intl.formatMessage({ id: 'ui-tenant-settings.settings.address.title' })}>
       <ControlledVocab
         {...props}
-        dataKey={undefined}
         baseUrl="settings/entries"
-        records="items"
-        parseRow={parseRow}
-        label={intl.formatMessage({ id: 'ui-tenant-settings.settings.addresses.label' })}
-        translations={translations}
-        objectLabel={objectLabel}
-        visibleFields={visibleFields}
         columnMapping={columnMapping}
-        hiddenFields={hiddenFields}
+        dataKey={undefined}
+        editable={stripes.hasPerm('ui-tenant-settings.settings.addresses')}
         fieldComponents={fieldComponents}
-        nameKey="name"
+        formatter={formatter}
+        hiddenFields={hiddenFields}
         id="addresses"
-        sortby="name"
+        label={intl.formatMessage({ id: 'ui-tenant-settings.settings.addresses.label' })}
+        nameKey="name"
+        objectLabel={objectLabel}
+        parseRow={parseRow}
         preCreateHook={onCreate}
         preUpdateHook={onUpdate}
-        formatter={formatter}
-        editable={stripes.hasPerm('ui-tenant-settings.settings.addresses')}
+        records="items"
+        sortby="name"
+        translations={translations}
+        validate={composeValidators(vocabularyUniquenessValidator(uniquenessConfigs).validate)}
+        visibleFields={visibleFields}
       />
     </TitleManager>
   );
