@@ -89,7 +89,7 @@
     "settings.location.locations.primary": "Główny",
     "settings.servicePoints.disallowDeleteServicePoint": "Nie można usunąć punktu obsługi",
     "settings.servicePoints.disallowDeleteServicePointMessage": "Tego punktu obsługi nie można usunąć, ponieważ jest głównym punktem obsługi dla co najmniej jednej lokalizacji.",
-    "settings.servicePoints.ok": "Zgoda",
+    "settings.servicePoints.ok": "OK",
     "settings.servicePoints.deleteServicePointWithLocsMessage": "<strong> {name} jest powiązany z co najmniej jedną lokalizacją </strong> . Czy na pewno chcesz usunąć <strong> {name} ? </strong>",
     "settings.servicePoints.primary": "główny",
     "settings.servicePoints.printByDefault": "Drukuj domyślnie",
@@ -221,5 +221,6 @@
     "settings.servicePoints.defaultCheckinAction.Keep_on_hold_shelf": "Keep on hold shelf",
     "settings.servicePoints.defaultCheckinAction.Close_loan_and_return_item": "Zamknij wypożyczenie i zwróć egzemplarz",
     "settings.servicePoints.defaultCheckinAction.Ask_for_action": "Zapytaj o działanie",
-    "settings.servicePoints.defaultCheckinAction.select": "Select an action"
+    "settings.servicePoints.defaultCheckinAction.select": "Select an action",
+    "settings.addresses.validation.name.unique": "This address name is already in use."
 }
