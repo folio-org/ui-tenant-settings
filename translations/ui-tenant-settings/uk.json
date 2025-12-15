@@ -221,5 +221,6 @@
     "settings.servicePoints.defaultCheckinAction.Keep_on_hold_shelf": "Утримувати на бронеполиці",
     "settings.servicePoints.defaultCheckinAction.Close_loan_and_return_item": "Закрити видачу та повернути примірник",
     "settings.servicePoints.defaultCheckinAction.Ask_for_action": "Запитувати щодо дії",
-    "settings.servicePoints.defaultCheckinAction.select": "Вибрати дію"
+    "settings.servicePoints.defaultCheckinAction.select": "Вибрати дію",
+    "settings.addresses.validation.name.unique": "This address name is already in use."
 }

@@ -221,5 +221,6 @@
     "settings.servicePoints.defaultCheckinAction.Keep_on_hold_shelf": "保留在预约架上",
     "settings.servicePoints.defaultCheckinAction.Close_loan_and_return_item": "结束借阅并归还单件",
     "settings.servicePoints.defaultCheckinAction.Ask_for_action": "请求操作",
-    "settings.servicePoints.defaultCheckinAction.select": "选择操作"
+    "settings.servicePoints.defaultCheckinAction.select": "选择操作",
+    "settings.addresses.validation.name.unique": "此地址名称已被使用。"
 }
