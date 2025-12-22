@@ -63,7 +63,10 @@ export const getUniquenessValidation = (field, ky, id) => {
 
     if (id && !meta.dirty) return Promise.resolve();
 
-    const query = `(${field}=="${value.replace(/"/gi, '\\"')}")`;
+    const escapedValue = value.replace(/"/gi, '\\"');
+    const idClause = id ? ` AND id<>"${id}"` : '';
+
+    const query = `(${field}=="${escapedValue}")${idClause}`;
 
     return ky.get('locations', { searchParams: { query } }).json()
       .then(({ locations }) => {
