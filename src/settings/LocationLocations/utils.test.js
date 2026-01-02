@@ -130,16 +130,16 @@ describe('getUniquenessValidation', () => {
     });
   });
 
-  it('should escape double quotes in value', async () => {
+  it('should escape special CQL characters in value', async () => {
     mockKy.get.mockReturnValue({
       json: () => Promise.resolve({ locations: [] }),
     });
 
     const validator = getUniquenessValidation(field, mockKy);
-    await validator('Test "Location"', {}, { dirty: true });
+    await validator('Test "Location" a*b?c\\d^e', {}, { dirty: true });
 
     expect(mockKy.get).toHaveBeenCalledWith('locations', {
-      searchParams: { query: '(name=="Test \\"Location\\"")' },
+      searchParams: { query: '(name=="Test \\"Location\\" a\\*b\\?c\\\\d\\^e")' },
     });
   });
 
