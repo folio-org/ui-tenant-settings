@@ -222,5 +222,5 @@
     "settings.servicePoints.defaultCheckinAction.Close_loan_and_return_item": "Uitlening sluiten en item retourneren",
     "settings.servicePoints.defaultCheckinAction.Ask_for_action": "Vraag om actie",
     "settings.servicePoints.defaultCheckinAction.select": "Selecteer een actie",
-    "settings.addresses.validation.name.unique": "This address name is already in use."
+    "settings.addresses.validation.name.unique": "Deze adresnaam is al in gebruik."
 }
