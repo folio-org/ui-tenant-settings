@@ -202,7 +202,7 @@
     "permission.settings.reading-room-access.view": "Settings (tenant): Can view reading room access",
     "permission.settings.reading-room-access.all": "Settings (tenant): Can create, edit and remove reading room access",
     "settings.reading-room.title": "Tenant settings - Reading room access",
-    "settings.reading-room-access.label": "Reading room access",
+    "settings.reading-room-access.label": "閲覧室アクセス",
     "settings.reading-room-access.name": "Room name",
     "settings.reading-room-access.public": "Public",
     "settings.reading-room-access.asp": "Associated service points",

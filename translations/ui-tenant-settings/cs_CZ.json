@@ -222,5 +222,5 @@
     "settings.servicePoints.defaultCheckinAction.Close_loan_and_return_item": "Uzavřít výpůjčku a vrátit jednotku",
     "settings.servicePoints.defaultCheckinAction.Ask_for_action": "Požádat o akci",
     "settings.servicePoints.defaultCheckinAction.select": "Vybrat akci",
-    "settings.addresses.validation.name.unique": "This address name is already in use."
+    "settings.addresses.validation.name.unique": "Tato adresa se již používá."
 }
