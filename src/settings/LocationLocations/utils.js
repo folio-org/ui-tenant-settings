@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { escapeCqlWildcards } from '@folio/stripes-util';
 
 export const validate = values => {
   const errors = {};
@@ -63,7 +64,7 @@ export const getUniquenessValidation = (field, ky, id) => {
 
     if (id && !meta.dirty) return Promise.resolve();
 
-    const escapedValue = value.replace(/"/gi, '\\"');
+    const escapedValue = escapeCqlWildcards(value);
     const idClause = id ? ` AND id<>"${id}"` : '';
 
     const query = `(${field}=="${escapedValue}")${idClause}`;
