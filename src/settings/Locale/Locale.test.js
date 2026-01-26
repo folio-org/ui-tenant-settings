@@ -1,20 +1,21 @@
 import React from 'react';
+import {
+  act,
+  screen,
+  waitFor,
+} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { useStripes } from '@folio/stripes/core';
-
-import { act, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 
 import {
   buildStripes,
   stripesConnect,
-} from '../../test/jest/__mocks__/stripesCore.mock';
-import '../../test/jest/__mocks__';
-import {
-  renderWithRouter
-} from '../../test/jest/helpers';
+} from '../../../test/jest/__mocks__/stripesCore.mock';
+import '../../../test/jest/__mocks__';
+import { renderWithRouter } from '../../../test/jest/helpers';
 
-import Locale from './Locale';
+import Locale from '.';
 
 const setCurrency = jest.fn();
 const setLocale = jest.fn();

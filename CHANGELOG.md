@@ -11,6 +11,7 @@
 * [UITEN-322](https://folio-org.atlassian.net/browse/UITEN-322) Migrate "Addresses" tenant settings from mod-configuration to mod-settings.
 * [UITEN-213](https://folio-org.atlassian.net/browse/UITEN-213) Validate uniqueness of the tenant addresses.
 * [UITEN-337](https://folio-org.atlassian.net/browse/UITEN-337) Add posibility change Location name or code from lower case to upper case.
+* [UITEN-340](https://folio-org.atlassian.net/browse/UITEN-340) *BREAKING* Use locale API to fetch and update tenant locale settings.
 
 ## [10.0.0](https://github.com/folio-org/ui-tenant-settings/tree/v10.0.0)(2025-03-12)
 
