@@ -110,6 +110,9 @@ const mockStripesCore = {
   IfInterface: jest.fn(props => <>{props.children}</>),
 
   useNamespace: ({ key }) => [`@folio/bulk-edit:${key}`],
+  useCallout: jest.fn().mockReturnValue({
+    sendCallout: jest.fn(),
+  }),
   TitleManager: ({ children }) => <>{children}</>,
   checkIfUserInMemberTenant: () => true,
   getFullLocale: jest.fn((localeRegion, numberingSystem) => [localeRegion, numberingSystem].filter(Boolean).join('-u-nu-')),
