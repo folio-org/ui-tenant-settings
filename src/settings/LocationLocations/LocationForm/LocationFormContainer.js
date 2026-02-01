@@ -11,7 +11,6 @@ import { useRemoteStorageApi } from '../RemoteStorage';
 import { useLocationCreate } from '../../../hooks/useLocationCreate';
 import { useLocationUpdate } from '../../../hooks/useLocationUpdate';
 import { LOCATIONS } from '../../../hooks/useLocations';
-import { SERVICE_POINTS } from '../../../hooks/useServicePoints';
 
 
 const LocationFormContainer = ({
@@ -34,7 +33,6 @@ const LocationFormContainer = ({
   const { setMapping } = useRemoteStorageApi();
   const sharedOptions = {
     onSuccess: () => {
-      queryClient.invalidateQueries(SERVICE_POINTS);
       queryClient.invalidateQueries(LOCATIONS);
     },
   };
