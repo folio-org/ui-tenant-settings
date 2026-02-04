@@ -198,7 +198,6 @@ const LocationDetail = ({
       onClose={onClose}
     >
       <TitleManager page={intl.formatMessage({ id: 'ui-tenant-settings.settings.items.title' }, { item: locationName })}>
-
         <Row end="xs">
           <Col xs>
             <ExpandAllButton accordionStatus={sections} onToggle={handleExpandAll} />
