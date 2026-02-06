@@ -61,7 +61,8 @@
         "permissionName": "settings.tenant-settings.enabled",
         "displayName": "Settings: enabled",
         "subPermissions": [
-          "settings.enabled"
+          "settings.enabled",
+          "stripes-core.settings.read"
         ],
         "visible": false
       },
