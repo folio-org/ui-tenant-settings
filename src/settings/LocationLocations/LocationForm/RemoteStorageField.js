@@ -47,7 +47,7 @@ export const RemoteStorageField = ({ initialValues, checkLocationHasHoldingsOrIt
     <Control
       label={t('remote')}
       required
-      disabled={isMappingsLoading}
+      isMappingsLoading={isMappingsLoading}
       readOnly={isReadOnly && !isMappingsLoading}
       message={message}
       {...field}
