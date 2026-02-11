@@ -5,6 +5,10 @@ import {
   waitFor,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import {
+  QueryClient,
+  QueryClientProvider,
+} from 'react-query';
 
 import {
   useStripes,
@@ -38,10 +42,14 @@ const mockTenantLocale = {
   currency: 'USD',
 };
 
+const queryClient = new QueryClient();
+
 const renderLocale = (props) => renderWithRouter(
-  <Locale
-    {...props}
-  />
+  <QueryClientProvider client={queryClient}>
+    <Locale
+      {...props}
+    />
+  </QueryClientProvider>
 );
 
 describe('Locale', () => {

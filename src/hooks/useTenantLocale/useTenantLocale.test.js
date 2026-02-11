@@ -8,13 +8,17 @@ import {
 import {
   useOkapiKy,
   useNamespace,
+  useStripes,
 } from '@folio/stripes/core';
 
+
+import { buildStripes } from '../../../test/jest/__mocks__/stripesCore.mock';
 import { useTenantLocale } from './useTenantLocale';
 
 jest.mock('@folio/stripes/core', () => ({
   useOkapiKy: jest.fn(),
   useNamespace: jest.fn(),
+  useStripes: jest.fn(),
 }));
 
 const queryClient = new QueryClient();
@@ -23,6 +27,10 @@ const wrapper = ({ children }) => (
     {children}
   </QueryClientProvider>
 );
+
+useStripes.mockReturnValue(buildStripes({
+  hasInterface: () => true,
+}));
 
 describe('useTenantLocale', () => {
   const mockLocaleData = {
