@@ -18,8 +18,7 @@
     "okapiInterfaces": {
       "configuration": "2.0",
       "settings": "1.0",
-      "users": "15.0 16.0",
-      "locale": "1.0"
+      "users": "15.0 16.0"
     },
     "icons": [
       {
@@ -29,6 +28,7 @@
       }
     ],
     "optionalOkapiInterfaces": {
+      "locale": "1.0",
       "location-units": "2.0",
       "locations": "3.0",
       "login-saml": "2.0",
@@ -108,6 +108,8 @@
         "permissionName": "ui-tenant-settings.settings.locale.view",
         "displayName": "Settings (tenant): Can view language, localization, and currency",
         "subPermissions": [
+          "mod-settings.entries.collection.get",
+          "mod-settings.global.read.stripes-core.prefs.manage",
           "locale.item.get",
           "settings.tenant-settings.enabled"
         ],
@@ -118,6 +120,9 @@
         "displayName": "Settings (tenant): Can edit language, localization, and currency",
         "subPermissions": [
           "ui-tenant-settings.settings.locale.view",
+          "mod-settings.global.write.stripes-core.prefs.manage",
+          "mod-settings.entries.item.post",
+          "mod-settings.entries.item.put",
           "locale.item.put"
         ],
         "visible": true

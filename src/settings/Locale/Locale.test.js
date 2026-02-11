@@ -73,41 +73,43 @@ describe('Locale', () => {
     mockUpdateTenantLocale.mockClear();
   });
 
-  it('should render localization form', async () => {
-    const { findAllByText } = renderLocale({ label: 'binding' });
+  describe('when using locale API', () => {
+    it('should render localization form', async () => {
+      const { findAllByText } = renderLocale({ label: 'binding' });
 
-    expect(await findAllByText('binding')).toBeDefined();
-  });
-
-  it('should choose and save locale', async () => {
-    jest.useFakeTimers();
-
-    renderLocale({ label: 'binding' });
-
-    await act(async () => {
-      const localeSelect = screen.getByRole('combobox', { name: /settings.localization/ });
-      const nuSelect = screen.getByRole('combobox', { name: /settings.numberingSystem/ });
-      const timezoneSelect = screen.getByRole('combobox', { name: /settings.timeZonePicker/ });
-      const select = screen.getByRole('combobox', { name: /settings.primaryCurrency/ });
-      const saveButton = screen.getByRole('button', { name: 'stripes-core.button.save' });
-
-      userEvent.selectOptions(localeSelect, 'ar');
-      userEvent.selectOptions(nuSelect, 'arab');
-      userEvent.selectOptions(timezoneSelect, 'America/New_York');
-      userEvent.selectOptions(select, 'EUR (EUR)');
-
-      await waitFor(() => expect(saveButton).toBeEnabled());
-      userEvent.click(saveButton);
+      expect(await findAllByText('binding')).toBeDefined();
     });
 
-    await waitFor(() => {
-      expect(mockUpdateTenantLocale).toHaveBeenCalled();
+    it('should choose and save locale', async () => {
+      jest.useFakeTimers();
+
+      renderLocale({ label: 'binding' });
+
+      await act(async () => {
+        const localeSelect = screen.getByRole('combobox', { name: /settings.localization/ });
+        const nuSelect = screen.getByRole('combobox', { name: /settings.numberingSystem/ });
+        const timezoneSelect = screen.getByRole('combobox', { name: /settings.timeZonePicker/ });
+        const select = screen.getByRole('combobox', { name: /settings.primaryCurrency/ });
+        const saveButton = screen.getByRole('button', { name: 'stripes-core.button.save' });
+
+        userEvent.selectOptions(localeSelect, 'ar');
+        userEvent.selectOptions(nuSelect, 'arab');
+        userEvent.selectOptions(timezoneSelect, 'America/New_York');
+        userEvent.selectOptions(select, 'EUR (EUR)');
+
+        await waitFor(() => expect(saveButton).toBeEnabled());
+        userEvent.click(saveButton);
+      });
+
+      await waitFor(() => {
+        expect(mockUpdateTenantLocale).toHaveBeenCalled();
+      });
+
+      jest.advanceTimersByTime(2000);
+
+      expect(setCurrency).toHaveBeenCalledWith('EUR');
+      expect(setLocale).toHaveBeenCalledWith('ar-u-nu-arab');
+      expect(setTimezone).toHaveBeenCalledWith('America/New_York');
     });
-
-    jest.advanceTimersByTime(2000);
-
-    expect(setCurrency).toHaveBeenCalledWith('EUR');
-    expect(setLocale).toHaveBeenCalledWith('ar-u-nu-arab');
-    expect(setTimezone).toHaveBeenCalledWith('America/New_York');
   });
 });
