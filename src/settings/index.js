@@ -5,7 +5,7 @@ import { Settings } from '@folio/stripes/smart-components';
 import { TitleManager, useStripes } from '@folio/stripes/core';
 
 import Addresses from './Addresses';
-import Locale from './Locale';
+import { Locale } from './Locale';
 import Plugins from './Plugins';
 import ReadingRoomAccess from './ReadingRoomAccess';
 import SSOSettings from './SSOSettings';
