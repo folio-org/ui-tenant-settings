@@ -18,7 +18,7 @@
     "settings.saml.downloadMetadata": "メタデータのダウンロード",
     "settings.saml.idpUrlChanged": "IdP URLは、前回のダウンロード以降に変更されています。サービスポイントのメタデータをダウンロードして、IdPに再アップロードしてください。",
     "settings.saml.binding": "SAML binding",
-    "settings.saml.attribute": "SAML attribute",
+    "settings.saml.attribute": "SAML属性",
     "settings.saml.userProperty": "User property",
     "settings.location.label": "所在設定",
     "settings.location.code": "コード",
