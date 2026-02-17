@@ -38,16 +38,6 @@
     },
     "permissionSets": [
       {
-        "permissionName": "mod-settings.global.read.ui-tenant-settings.addresses.manage",
-        "displayName": "Settings (tenant): Read the settings in the 'Addresses' section",
-        "visible": false
-      },
-      {
-        "permissionName": "mod-settings.global.write.ui-tenant-settings.addresses.manage",
-        "displayName": "Settings (tenant): Write the settings in the 'Addresses' section",
-        "visible": false
-      },
-      {
         "permissionName": "mod-settings.global.read.ui-tenant-settings.plugins.manage",
         "displayName": "Settings (tenant): Read the settings in the 'Preferred plugins' section",
         "visible": false
@@ -86,7 +76,7 @@
         "subPermissions": [
           "mod-settings.entries.collection.get",
           "mod-settings.entries.item.get",
-          "mod-settings.global.read.ui-tenant-settings.addresses.manage",
+          "tenant-addresses.collection.get",
           "users.collection.get",
           "settings.tenant-settings.enabled"
         ],
@@ -100,7 +90,9 @@
           "mod-settings.entries.item.post",
           "mod-settings.entries.item.put",
           "mod-settings.entries.item.delete",
-          "mod-settings.global.write.ui-tenant-settings.addresses.manage"
+          "tenant-addresses.item.post",
+          "tenant-addresses.item.put",
+          "tenant-addresses.item.delete"
         ],
         "visible": true
       },

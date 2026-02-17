@@ -6,6 +6,7 @@ import { ControlledVocab } from '@folio/stripes/smart-components';
 import { useStripes } from '@folio/stripes/core';
 
 import Addresses from './Addresses';
+import { TENANT_ADDRESSES_API } from '../constants';
 
 jest.mock('@folio/stripes/smart-components', () => ({
   ControlledVocab: jest.fn(() => <div>ControlledVocab</div>),
@@ -54,7 +55,7 @@ describe('Addresses', () => {
     expect(ControlledVocab).toHaveBeenCalledWith(
       expect.objectContaining({
         baseUrl: 'settings/entries',
-        records: 'items',
+        records: 'addresses',
         label: 'ui-tenant-settings.settings.addresses.label',
         nameKey: 'name',
         id: 'addresses',
@@ -95,10 +96,7 @@ describe('Addresses', () => {
       const item = { name: 'Test Address', address: '123 Main St' };
       const result = onCreate(item);
 
-      expect(result).toMatchObject({
-        scope: 'ui-tenant-settings.addresses.manage',
-        value: item,
-      });
+      expect(result).toMatchObject(item);
       expect(result.key).toMatch(/^ADDRESS_\d+$/);
       expect(result.metadata).toBeDefined();
       expect(result.metadata.createdByUserId).toBe('test-user-id');
@@ -116,7 +114,6 @@ describe('Addresses', () => {
 
       const item = {
         id: 'item-id',
-        key: 'ADDRESS_123',
         name: 'Updated Address',
         address: '456 Oak Ave',
         metadata: {
@@ -127,13 +124,9 @@ describe('Addresses', () => {
       const result = onUpdate(item);
 
       expect(result).toMatchObject({
-        scope: 'ui-tenant-settings.addresses.manage',
-        key: 'ADDRESS_123',
         id: 'item-id',
-        value: {
-          name: 'Updated Address',
-          address: '456 Oak Ave',
-        },
+        name: 'Updated Address',
+        address: '456 Oak Ave',
       });
       expect(result.metadata.createdByUserId).toBe('original-user');
       expect(result.metadata.updatedByUserId).toBe('test-user-id');
@@ -149,10 +142,8 @@ describe('Addresses', () => {
 
       const row = {
         id: 'row-id',
-        value: {
-          name: 'Test Name',
-          address: 'Test Address',
-        },
+        name: 'Test Name',
+        address: 'Test Address',
       };
       const result = parseRow(row);
 
@@ -160,10 +151,6 @@ describe('Addresses', () => {
         id: 'row-id',
         name: 'Test Name',
         address: 'Test Address',
-        value: {
-          name: 'Test Name',
-          address: 'Test Address',
-        },
       });
     });
   });
@@ -191,35 +178,6 @@ describe('Addresses', () => {
 
       expect(fieldComponents).toHaveProperty('address');
       expect(fieldComponents).toHaveProperty('name');
-    });
-  });
-
-  describe('manifest', () => {
-    it('should have correct manifest structure', () => {
-      const manifest = Addresses.manifest;
-
-      expect(manifest.values).toBeDefined();
-      expect(manifest.values.type).toBe('okapi');
-      expect(manifest.values.path).toBe('settings/entries');
-      expect(manifest.values.records).toBe('items');
-      expect(manifest.values.GET.params.query).toBe('scope=ui-tenant-settings.addresses.manage');
-      expect(manifest.values.GET.params.limit).toBe('500');
-    });
-
-    it('should have correct PUT and DELETE paths', () => {
-      const manifest = Addresses.manifest;
-
-      expect(manifest.values.PUT.path).toBe('settings/entries/%{activeRecord.id}');
-      expect(manifest.values.DELETE.path).toBe('settings/entries/%{activeRecord.id}');
-    });
-
-    it('should have updaters configuration', () => {
-      const manifest = Addresses.manifest;
-
-      expect(manifest.updaters).toBeDefined();
-      expect(manifest.updaters.type).toBe('okapi');
-      expect(manifest.updaters.path).toBe('users');
-      expect(manifest.updaters.records).toBe('users');
     });
   });
 
