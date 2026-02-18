@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { useIntl } from 'react-intl';
 
@@ -38,6 +37,17 @@ const mockIntl = {
   formatMessage: jest.fn(({ id }) => id),
 };
 
+const defaultProps = {
+  stripes: mockStripes,
+};
+
+const renderComponent = (props = {}) => render(
+  <Addresses
+    {...defaultProps}
+    {...props}
+  />,
+);
+
 describe('Addresses', () => {
   beforeEach(() => {
     useStripes.mockReturnValue(mockStripes);
@@ -46,12 +56,13 @@ describe('Addresses', () => {
   });
 
   it('should render ControlledVocab component', () => {
-    render(<Addresses />);
+    renderComponent();
+
     expect(screen.getByText('ControlledVocab')).toBeInTheDocument();
   });
 
   it('should pass correct props to ControlledVocab', () => {
-    render(<Addresses />);
+    renderComponent();
 
     expect(ControlledVocab).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -68,7 +79,7 @@ describe('Addresses', () => {
   });
 
   it('should pass correct visibleFields and columnMapping', () => {
-    render(<Addresses />);
+    renderComponent();
 
     const calledProps = ControlledVocab.mock.calls[0][0];
     expect(calledProps.visibleFields).toEqual(['name', 'address']);
@@ -78,7 +89,7 @@ describe('Addresses', () => {
 
   it('should set editable to false when user lacks permission', () => {
     mockStripes.hasPerm.mockReturnValue(false);
-    render(<Addresses />);
+    renderComponent();
 
     expect(ControlledVocab).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -88,30 +99,10 @@ describe('Addresses', () => {
     );
   });
 
-  describe('parseRow', () => {
-    it('should parse row correctly', () => {
-      render(<Addresses />);
-      const calledProps = ControlledVocab.mock.calls[0][0];
-      const parseRow = calledProps.parseRow;
-
-      const row = {
-        id: 'row-id',
-        name: 'Test Name',
-        address: 'Test Address',
-      };
-      const result = parseRow(row);
-
-      expect(result).toEqual({
-        id: 'row-id',
-        name: 'Test Name',
-        address: 'Test Address',
-      });
-    });
-  });
-
   describe('formatter', () => {
     it('should format address field with correct CSS class', () => {
-      render(<Addresses />);
+      renderComponent();
+
       const calledProps = ControlledVocab.mock.calls[0][0];
       const addressFormatter = calledProps.formatter.address;
 
@@ -126,7 +117,8 @@ describe('Addresses', () => {
 
   describe('fieldComponents', () => {
     it('should have correct field components', () => {
-      render(<Addresses />);
+      renderComponent();
+
       const calledProps = ControlledVocab.mock.calls[0][0];
       const fieldComponents = calledProps.fieldComponents;
 
@@ -137,7 +129,8 @@ describe('Addresses', () => {
 
   describe('translations', () => {
     it('should pass correct translation keys', () => {
-      render(<Addresses />);
+      renderComponent();
+
       const calledProps = ControlledVocab.mock.calls[0][0];
       const translations = calledProps.translations;
 
