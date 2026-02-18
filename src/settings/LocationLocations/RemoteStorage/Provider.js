@@ -4,13 +4,14 @@ import React, {
   useMemo,
 } from 'react';
 import { useIntl } from 'react-intl';
+import { useQueryClient } from 'react-query';
 
 import { useStripes } from '@folio/stripes/core';
 
 import { useRemoteStorageConfigurations } from '../../../hooks/useRemoteStorageConfigurations';
 import { useRemoteStorageMappingUpdate } from '../../../hooks/useRemoteStorageMappingUpdate';
 import { useRemoteStorageMappingDelete } from '../../../hooks/useRemoteStorageMappingDelete';
-import { useRemoteStorageMappings } from '../../../hooks/useRemoteStorageMappings';
+import { useRemoteStorageMappings, REMOTE_STORAGE_MAPPINGS } from '../../../hooks/useRemoteStorageMappings';
 
 
 const Context = createContext({});
@@ -19,6 +20,7 @@ export const useRemoteStorageApi = () => useContext(Context);
 
 export const RemoteStorageApiProvider = (props) => {
   const stripes = useStripes();
+  const queryClient = useQueryClient();
 
   const {
     configurations,
@@ -64,13 +66,23 @@ export const RemoteStorageApiProvider = (props) => {
       return Promise.resolve();
     }
 
+    const invalidateMappings = () => {
+      queryClient.invalidateQueries([REMOTE_STORAGE_MAPPINGS]);
+    };
+
     if (configurationId) {
       return updateMapping({
         data: { folioLocationId, configurationId }
+      }).then((result) => {
+        invalidateMappings();
+        return result;
       });
     }
 
-    return deleteMapping({ folioLocationId });
+    return deleteMapping({ folioLocationId }).then((result) => {
+      invalidateMappings();
+      return result;
+    });
   };
 
   const context = {

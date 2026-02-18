@@ -1,6 +1,10 @@
 import React from 'react';
 import { act, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import {
+  QueryClient,
+  QueryClientProvider,
+} from 'react-query';
 
 import { useStripes } from '@folio/stripes/core';
 
@@ -9,9 +13,7 @@ import {
   stripesConnect,
 } from '../../../test/jest/__mocks__/stripesCore.mock';
 import '../../../test/jest/__mocks__';
-import {
-  renderWithRouter
-} from '../../../test/jest/helpers';
+import { renderWithRouter } from '../../../test/jest/helpers';
 
 import Locale from './Locale';
 
@@ -37,12 +39,24 @@ const resources = {
   },
 };
 
+const queryClient = new QueryClient();
+
 const renderLocale = (props) => renderWithRouter(
-  <Locale
-    resources={resources}
-    {...props}
-  />
+  <QueryClientProvider client={queryClient}>
+    <Locale
+      resources={resources}
+      {...props}
+    />
+  </QueryClientProvider>
 );
+
+useStripes.mockReturnValue(buildStripes({
+  setCurrency,
+  setLocale,
+  setTimezone,
+  connect: stripesConnect,
+  hasInterface: () => false,
+}));
 
 describe('Locale', () => {
   afterEach(() => {
@@ -52,18 +66,9 @@ describe('Locale', () => {
   });
 
   describe('when using settings/entries endpoint', () => {
-    beforeAll(() => {
-      useStripes.mockReturnValue(buildStripes({
-        setCurrency,
-        setLocale,
-        setTimezone,
-        connect: stripesConnect,
-        hasInterface: () => false,
-      }));
-    });
-
     it('should render localization form', async () => {
       const { findAllByText } = renderLocale({ label: 'binding' });
+
       expect(await findAllByText('binding')).toBeDefined();
     });
 

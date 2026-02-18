@@ -18,7 +18,7 @@ import {
   serializeLocale,
 } from './localeHelpers';
 
-const Locale = ({ label }) => {
+const Locale = ({ label, ...rest }) => {
   const intl = useIntl();
   const stripes = useStripes();
   const callout = useCallout();
@@ -86,10 +86,10 @@ const Locale = ({ label }) => {
         onAfterSave={afterSave}
         configFormComponent={LocaleForm}
         getInitialValues={parseSerializedLocale}
+        {...rest}
       />
     );
-  }, [label, afterSave]);
-
+  }, [label, afterSave, rest]);
 
   if (isLoadingTenantLocale) {
     return null;
