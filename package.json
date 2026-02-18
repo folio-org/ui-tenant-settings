@@ -38,6 +38,16 @@
     },
     "permissionSets": [
       {
+        "permissionName": "mod-settings.global.read.ui-tenant-settings.addresses.manage",
+        "displayName": "Settings (tenant): Read the settings in the 'Addresses' section",
+        "visible": false
+      },
+      {
+        "permissionName": "mod-settings.global.write.ui-tenant-settings.addresses.manage",
+        "displayName": "Settings (tenant): Write the settings in the 'Addresses' section",
+        "visible": false
+      },
+      {
         "permissionName": "mod-settings.global.read.ui-tenant-settings.plugins.manage",
         "displayName": "Settings (tenant): Read the settings in the 'Preferred plugins' section",
         "visible": false

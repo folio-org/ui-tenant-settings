@@ -5,8 +5,8 @@ import { useIntl } from 'react-intl';
 import { ControlledVocab } from '@folio/stripes/smart-components';
 import { useStripes } from '@folio/stripes/core';
 
-import Addresses from './Addresses';
 import { TENANT_ADDRESSES_API } from '../constants';
+import Addresses from './Addresses';
 
 jest.mock('@folio/stripes/smart-components', () => ({
   ControlledVocab: jest.fn(() => <div>ControlledVocab</div>),
@@ -31,6 +31,7 @@ const mockStripes = {
       id: 'test-user-id',
     },
   },
+  connect: jest.fn(component => component),
 };
 
 const mockIntl = {
@@ -54,7 +55,7 @@ describe('Addresses', () => {
 
     expect(ControlledVocab).toHaveBeenCalledWith(
       expect.objectContaining({
-        baseUrl: 'settings/entries',
+        baseUrl: TENANT_ADDRESSES_API,
         records: 'addresses',
         label: 'ui-tenant-settings.settings.addresses.label',
         nameKey: 'name',
@@ -85,53 +86,6 @@ describe('Addresses', () => {
       }),
       expect.anything()
     );
-  });
-
-  describe('preCreateHook', () => {
-    it('should create item with correct structure', () => {
-      render(<Addresses />);
-      const calledProps = ControlledVocab.mock.calls[0][0];
-      const onCreate = calledProps.preCreateHook;
-
-      const item = { name: 'Test Address', address: '123 Main St' };
-      const result = onCreate(item);
-
-      expect(result).toMatchObject(item);
-      expect(result.key).toMatch(/^ADDRESS_\d+$/);
-      expect(result.metadata).toBeDefined();
-      expect(result.metadata.createdByUserId).toBe('test-user-id');
-      expect(result.metadata.updatedByUserId).toBe('test-user-id');
-      expect(result.metadata.createdDate).toBeDefined();
-      expect(result.metadata.updatedDate).toBeDefined();
-    });
-  });
-
-  describe('preUpdateHook', () => {
-    it('should update item with correct structure', () => {
-      render(<Addresses />);
-      const calledProps = ControlledVocab.mock.calls[0][0];
-      const onUpdate = calledProps.preUpdateHook;
-
-      const item = {
-        id: 'item-id',
-        name: 'Updated Address',
-        address: '456 Oak Ave',
-        metadata: {
-          createdByUserId: 'original-user',
-          createdDate: '2023-01-01T00:00:00.000Z',
-        },
-      };
-      const result = onUpdate(item);
-
-      expect(result).toMatchObject({
-        id: 'item-id',
-        name: 'Updated Address',
-        address: '456 Oak Ave',
-      });
-      expect(result.metadata.createdByUserId).toBe('original-user');
-      expect(result.metadata.updatedByUserId).toBe('test-user-id');
-      expect(result.metadata.updatedDate).toBeDefined();
-    });
   });
 
   describe('parseRow', () => {

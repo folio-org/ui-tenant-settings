@@ -6,7 +6,6 @@ import { Field } from 'react-final-form';
 
 import { ControlledVocab } from '@folio/stripes/smart-components';
 import {
-  dayjs,
   TextArea,
   TextField,
 } from '@folio/stripes/components';
@@ -49,21 +48,6 @@ const objectLabel = <FormattedMessage id="ui-tenant-settings.settings.addresses.
 const formatter = {
   address: item => (<div className={css.addressWrapper}>{item.address}</div>),
 };
-const getMeta = (userId, { isNew = false } = {}) => {
-  const date = dayjs().utc().format('YYYY-MM-DDTHH:mm:ss.SSSZ'); // ISO format
-
-  const meta = {
-    updatedByUserId: userId,
-    updatedDate: date,
-  };
-
-  if (isNew) {
-    meta.createdByUserId = userId;
-    meta.createdDate = date;
-  }
-
-  return meta;
-};
 
 const uniquenessConfigs = [
   {
@@ -77,22 +61,6 @@ const ConnectedControlledVocab = stripesConnect(ControlledVocab);
 const Addresses = (props) => {
   const intl = useIntl();
   const stripes = useStripes();
-
-  const onCreate = item => ({
-    name: item.name,
-    address: item.address,
-    metadata: getMeta(stripes.user.user.id, { isNew: true }),
-  });
-
-  const onUpdate = item => ({
-    id: item.id,
-    name: item.name,
-    address: item.address,
-    metadata: {
-      ...item.metadata,
-      ...getMeta(stripes.user.user.id),
-    },
-  });
 
   return (
     <TitleManager page={intl.formatMessage({ id: 'ui-tenant-settings.settings.address.title' })}>
@@ -110,8 +78,6 @@ const Addresses = (props) => {
         label={intl.formatMessage({ id: 'ui-tenant-settings.settings.addresses.label' })}
         nameKey="name"
         objectLabel={objectLabel}
-        preCreateHook={onCreate}
-        preUpdateHook={onUpdate}
         records="addresses"
         sortby="name"
         translations={translations}
