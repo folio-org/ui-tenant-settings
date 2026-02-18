@@ -7,7 +7,6 @@ import {
   useStripes,
   getFullLocale,
   useCallout,
-  tenantLocaleConfig,
 } from '@folio/stripes/core';
 import { ConfigManager } from '@folio/stripes/smart-components';
 
@@ -15,8 +14,8 @@ import LocaleForm from './LocaleForm';
 import { useTenantLocale } from '../../hooks/useTenantLocale';
 import {
   getInitialValues,
-  getInitialValuesSettingsEntries,
-  beforeSave,
+  parseSerializedLocale,
+  serializeLocale,
 } from './localeHelpers';
 
 const Locale = ({ label }) => {
@@ -37,7 +36,7 @@ const Locale = ({ label }) => {
   });
 
   const afterSave = useCallback((setting) => {
-    const localeValues = isUsingLocaleApi ? setting : setting.values;
+    const localeValues = isUsingLocaleApi ? setting : JSON.parse(setting.value);
     const {
       locale,
       numberingSystem,
@@ -47,7 +46,9 @@ const Locale = ({ label }) => {
 
     setTimeout(() => {
       if (locale) {
-        const fullLocale = getFullLocale(locale, numberingSystem);
+        const fullLocale = isUsingLocaleApi
+          ? getFullLocale(locale, numberingSystem)
+          : locale;
 
         stripes.setLocale(fullLocale);
       }
@@ -79,12 +80,12 @@ const Locale = ({ label }) => {
     return (
       <ConnectedConfigManager
         label={label}
-        scope={tenantLocaleConfig.SCOPE}
-        configName={tenantLocaleConfig.KEY}
-        onBeforeSave={beforeSave}
+        moduleName="ORG"
+        configName="localeSettings"
+        onBeforeSave={serializeLocale}
         onAfterSave={afterSave}
         configFormComponent={LocaleForm}
-        getInitialValues={getInitialValuesSettingsEntries}
+        getInitialValues={parseSerializedLocale}
       />
     );
   }, [label, afterSave]);
