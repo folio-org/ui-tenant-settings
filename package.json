@@ -18,6 +18,7 @@
     "okapiInterfaces": {
       "configuration": "2.0",
       "settings": "1.0",
+      "tenant-addresses": "1.0",
       "users": "15.0 16.0"
     },
     "icons": [
