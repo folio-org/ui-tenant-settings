@@ -1,10 +1,10 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { useIntl } from 'react-intl';
 
 import { ControlledVocab } from '@folio/stripes/smart-components';
 import { useStripes } from '@folio/stripes/core';
 
+import { TENANT_ADDRESSES_API } from '../constants';
 import Addresses from './Addresses';
 
 jest.mock('@folio/stripes/smart-components', () => ({
@@ -30,11 +30,23 @@ const mockStripes = {
       id: 'test-user-id',
     },
   },
+  connect: jest.fn(component => component),
 };
 
 const mockIntl = {
   formatMessage: jest.fn(({ id }) => id),
 };
+
+const defaultProps = {
+  stripes: mockStripes,
+};
+
+const renderComponent = (props = {}) => render(
+  <Addresses
+    {...defaultProps}
+    {...props}
+  />,
+);
 
 describe('Addresses', () => {
   beforeEach(() => {
@@ -44,17 +56,18 @@ describe('Addresses', () => {
   });
 
   it('should render ControlledVocab component', () => {
-    render(<Addresses />);
+    renderComponent();
+
     expect(screen.getByText('ControlledVocab')).toBeInTheDocument();
   });
 
   it('should pass correct props to ControlledVocab', () => {
-    render(<Addresses />);
+    renderComponent();
 
     expect(ControlledVocab).toHaveBeenCalledWith(
       expect.objectContaining({
-        baseUrl: 'settings/entries',
-        records: 'items',
+        baseUrl: TENANT_ADDRESSES_API,
+        records: 'addresses',
         label: 'ui-tenant-settings.settings.addresses.label',
         nameKey: 'name',
         id: 'addresses',
@@ -66,7 +79,7 @@ describe('Addresses', () => {
   });
 
   it('should pass correct visibleFields and columnMapping', () => {
-    render(<Addresses />);
+    renderComponent();
 
     const calledProps = ControlledVocab.mock.calls[0][0];
     expect(calledProps.visibleFields).toEqual(['name', 'address']);
@@ -76,7 +89,7 @@ describe('Addresses', () => {
 
   it('should set editable to false when user lacks permission', () => {
     mockStripes.hasPerm.mockReturnValue(false);
-    render(<Addresses />);
+    renderComponent();
 
     expect(ControlledVocab).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -86,91 +99,10 @@ describe('Addresses', () => {
     );
   });
 
-  describe('preCreateHook', () => {
-    it('should create item with correct structure', () => {
-      render(<Addresses />);
-      const calledProps = ControlledVocab.mock.calls[0][0];
-      const onCreate = calledProps.preCreateHook;
-
-      const item = { name: 'Test Address', address: '123 Main St' };
-      const result = onCreate(item);
-
-      expect(result).toMatchObject({
-        scope: 'ui-tenant-settings.addresses.manage',
-        value: item,
-      });
-      expect(result.key).toMatch(/^ADDRESS_\d+$/);
-      expect(result.metadata).toBeDefined();
-      expect(result.metadata.createdByUserId).toBe('test-user-id');
-      expect(result.metadata.updatedByUserId).toBe('test-user-id');
-      expect(result.metadata.createdDate).toBeDefined();
-      expect(result.metadata.updatedDate).toBeDefined();
-    });
-  });
-
-  describe('preUpdateHook', () => {
-    it('should update item with correct structure', () => {
-      render(<Addresses />);
-      const calledProps = ControlledVocab.mock.calls[0][0];
-      const onUpdate = calledProps.preUpdateHook;
-
-      const item = {
-        id: 'item-id',
-        key: 'ADDRESS_123',
-        name: 'Updated Address',
-        address: '456 Oak Ave',
-        metadata: {
-          createdByUserId: 'original-user',
-          createdDate: '2023-01-01T00:00:00.000Z',
-        },
-      };
-      const result = onUpdate(item);
-
-      expect(result).toMatchObject({
-        scope: 'ui-tenant-settings.addresses.manage',
-        key: 'ADDRESS_123',
-        id: 'item-id',
-        value: {
-          name: 'Updated Address',
-          address: '456 Oak Ave',
-        },
-      });
-      expect(result.metadata.createdByUserId).toBe('original-user');
-      expect(result.metadata.updatedByUserId).toBe('test-user-id');
-      expect(result.metadata.updatedDate).toBeDefined();
-    });
-  });
-
-  describe('parseRow', () => {
-    it('should parse row correctly', () => {
-      render(<Addresses />);
-      const calledProps = ControlledVocab.mock.calls[0][0];
-      const parseRow = calledProps.parseRow;
-
-      const row = {
-        id: 'row-id',
-        value: {
-          name: 'Test Name',
-          address: 'Test Address',
-        },
-      };
-      const result = parseRow(row);
-
-      expect(result).toEqual({
-        id: 'row-id',
-        name: 'Test Name',
-        address: 'Test Address',
-        value: {
-          name: 'Test Name',
-          address: 'Test Address',
-        },
-      });
-    });
-  });
-
   describe('formatter', () => {
     it('should format address field with correct CSS class', () => {
-      render(<Addresses />);
+      renderComponent();
+
       const calledProps = ControlledVocab.mock.calls[0][0];
       const addressFormatter = calledProps.formatter.address;
 
@@ -185,7 +117,8 @@ describe('Addresses', () => {
 
   describe('fieldComponents', () => {
     it('should have correct field components', () => {
-      render(<Addresses />);
+      renderComponent();
+
       const calledProps = ControlledVocab.mock.calls[0][0];
       const fieldComponents = calledProps.fieldComponents;
 
@@ -194,38 +127,10 @@ describe('Addresses', () => {
     });
   });
 
-  describe('manifest', () => {
-    it('should have correct manifest structure', () => {
-      const manifest = Addresses.manifest;
-
-      expect(manifest.values).toBeDefined();
-      expect(manifest.values.type).toBe('okapi');
-      expect(manifest.values.path).toBe('settings/entries');
-      expect(manifest.values.records).toBe('items');
-      expect(manifest.values.GET.params.query).toBe('scope=ui-tenant-settings.addresses.manage');
-      expect(manifest.values.GET.params.limit).toBe('500');
-    });
-
-    it('should have correct PUT and DELETE paths', () => {
-      const manifest = Addresses.manifest;
-
-      expect(manifest.values.PUT.path).toBe('settings/entries/%{activeRecord.id}');
-      expect(manifest.values.DELETE.path).toBe('settings/entries/%{activeRecord.id}');
-    });
-
-    it('should have updaters configuration', () => {
-      const manifest = Addresses.manifest;
-
-      expect(manifest.updaters).toBeDefined();
-      expect(manifest.updaters.type).toBe('okapi');
-      expect(manifest.updaters.path).toBe('users');
-      expect(manifest.updaters.records).toBe('users');
-    });
-  });
-
   describe('translations', () => {
     it('should pass correct translation keys', () => {
-      render(<Addresses />);
+      renderComponent();
+
       const calledProps = ControlledVocab.mock.calls[0][0];
       const translations = calledProps.translations;
 
