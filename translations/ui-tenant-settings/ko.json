@@ -222,5 +222,5 @@
     "settings.servicePoints.defaultCheckinAction.Close_loan_and_return_item": "Close loan and return item",
     "settings.servicePoints.defaultCheckinAction.Ask_for_action": "Ask for action",
     "settings.servicePoints.defaultCheckinAction.select": "Select an action",
-    "settings.addresses.validation.name.unique": "This address name is already in use."
+    "settings.addresses.validation.name.unique": "해당 주소 이름은 이미 사용 중입니다."
 }
