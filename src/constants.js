@@ -52,5 +52,7 @@ export const INSTITUTION_ID_LIBRARIES = 'institutionIdLibraries';
 export const INSTITUTION_ID_CAMPUS = 'institutionIdCampuses';
 export const CAMPUS_ID_LIBRARIES = 'campusIdLibraries';
 
+export const TENANT_ADDRESSES_API = 'tenant-addresses';
+
 export default '';
 
