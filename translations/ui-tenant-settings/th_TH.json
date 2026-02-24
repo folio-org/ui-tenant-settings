@@ -36,7 +36,7 @@
     "settings.location.locations.generalInformation": "General information",
     "settings.location.locations.name": "FOLIO name",
     "settings.location.locations.discoveryDisplayName": "Discovery display name",
-    "settings.location.locations.status": "Status",
+    "settings.location.locations.status": "สถานะ",
     "settings.location.locations.active": "Active",
     "settings.location.locations.inactive": "Inactive",
     "settings.location.locations.description": "Description",
@@ -222,5 +222,5 @@
     "settings.servicePoints.defaultCheckinAction.Close_loan_and_return_item": "Close loan and return item",
     "settings.servicePoints.defaultCheckinAction.Ask_for_action": "Ask for action",
     "settings.servicePoints.defaultCheckinAction.select": "Select an action",
-    "settings.addresses.validation.name.unique": "This address name is already in use."
+    "settings.addresses.validation.name.unique": "ชื่อนี้ของที่อยู่ถูกใช้งานอยู่แล้ว"
 }
