@@ -2,25 +2,24 @@ import {
   FormattedMessage,
   useIntl,
 } from 'react-intl';
-import { Field } from 'redux-form';
+import { Field } from 'react-final-form';
 
 import { ControlledVocab } from '@folio/stripes/smart-components';
 import {
-  dayjs,
   TextArea,
   TextField,
 } from '@folio/stripes/components';
 import {
+  stripesConnect,
   TitleManager,
   useStripes,
 } from '@folio/stripes/core';
 
+import { TENANT_ADDRESSES_API } from '../constants';
 import composeValidators from '../util/composeValidators';
 import vocabularyUniquenessValidator from '../util/vocabularyUniquenessValidator';
 
 import css from './Addresses.css';
-
-const scope = 'ui-tenant-settings.addresses.manage';
 
 const translations = {
   cannotDeleteTermHeader: 'ui-tenant-settings.settings.addresses.cannotDeleteTermHeader',
@@ -39,14 +38,6 @@ const fieldComponents = {
   ),
 };
 
-const parseRow = row => {
-  return {
-    name: row.value.name,
-    address: row.value.address,
-    ...row,
-  };
-};
-
 const hiddenFields = ['numberOfObjects'];
 const visibleFields = ['name', 'address'];
 const columnMapping = {
@@ -57,21 +48,6 @@ const objectLabel = <FormattedMessage id="ui-tenant-settings.settings.addresses.
 const formatter = {
   address: item => (<div className={css.addressWrapper}>{item.address}</div>),
 };
-const getMeta = (userId, { isNew = false } = {}) => {
-  const date = dayjs().utc().format('YYYY-MM-DDTHH:mm:ss.SSSZ'); // ISO format
-
-  const meta = {
-    updatedByUserId: userId,
-    updatedDate: date,
-  };
-
-  if (isNew) {
-    meta.createdByUserId = userId;
-    meta.createdDate = date;
-  }
-
-  return meta;
-};
 
 const uniquenessConfigs = [
   {
@@ -80,50 +56,29 @@ const uniquenessConfigs = [
   },
 ];
 
+const ConnectedControlledVocab = stripesConnect(ControlledVocab);
+
 const Addresses = (props) => {
   const intl = useIntl();
   const stripes = useStripes();
 
-  const onCreate = item => ({
-    scope,
-    value: item,
-    key: `ADDRESS_${(new Date()).valueOf()}`,
-    metadata: getMeta(stripes.user.user.id, { isNew: true }),
-  });
-
-  const onUpdate = item => ({
-    scope,
-    key: item.key,
-    id: item.id,
-    metadata: {
-      ...item.metadata,
-      ...getMeta(stripes.user.user.id),
-    },
-    value: {
-      name: item.name,
-      address: item.address,
-    },
-  });
-
   return (
     <TitleManager page={intl.formatMessage({ id: 'ui-tenant-settings.settings.address.title' })}>
-      <ControlledVocab
+      <ConnectedControlledVocab
         {...props}
-        baseUrl="settings/entries"
+        baseUrl={TENANT_ADDRESSES_API}
         columnMapping={columnMapping}
         dataKey={undefined}
         editable={stripes.hasPerm('ui-tenant-settings.settings.addresses')}
         fieldComponents={fieldComponents}
         formatter={formatter}
+        formType="final-form"
         hiddenFields={hiddenFields}
         id="addresses"
         label={intl.formatMessage({ id: 'ui-tenant-settings.settings.addresses.label' })}
         nameKey="name"
         objectLabel={objectLabel}
-        parseRow={parseRow}
-        preCreateHook={onCreate}
-        preUpdateHook={onUpdate}
-        records="items"
+        records="addresses"
         sortby="name"
         translations={translations}
         validate={composeValidators(vocabularyUniquenessValidator(uniquenessConfigs).validate)}
@@ -132,44 +87,5 @@ const Addresses = (props) => {
     </TitleManager>
   );
 };
-
-Addresses.manifest = Object.freeze({
-  values: {
-    type: 'okapi',
-    path: 'settings/entries',
-    records: 'items',
-    throwErrors: false,
-    clientGeneratePk: true,
-    PUT: {
-      path: 'settings/entries/%{activeRecord.id}',
-    },
-    DELETE: {
-      path: 'settings/entries/%{activeRecord.id}',
-    },
-    GET: {
-      params: {
-        query: `scope=${scope}`,
-        limit: '500',
-      },
-    },
-  },
-  updaterIds: [],
-  activeRecord: {},
-  updaters: {
-    type: 'okapi',
-    records: 'users',
-    path: 'users',
-    GET: {
-      params: {
-        query: (queryParams, pathComponents, resourceValues) => {
-          if (resourceValues.updaterIds && resourceValues.updaterIds.length) {
-            return `(${resourceValues.updaterIds.join(' or ')})`;
-          }
-          return null;
-        },
-      },
-    },
-  },
-});
 
 export default Addresses;

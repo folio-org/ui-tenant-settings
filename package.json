@@ -18,6 +18,7 @@
     "okapiInterfaces": {
       "configuration": "2.0",
       "settings": "1.0",
+      "tenant-addresses": "1.0",
       "users": "15.0 16.0"
     },
     "icons": [
@@ -87,7 +88,7 @@
         "subPermissions": [
           "mod-settings.entries.collection.get",
           "mod-settings.entries.item.get",
-          "mod-settings.global.read.ui-tenant-settings.addresses.manage",
+          "tenant-addresses.collection.get",
           "users.collection.get",
           "settings.tenant-settings.enabled"
         ],
@@ -101,7 +102,9 @@
           "mod-settings.entries.item.post",
           "mod-settings.entries.item.put",
           "mod-settings.entries.item.delete",
-          "mod-settings.global.write.ui-tenant-settings.addresses.manage"
+          "tenant-addresses.item.post",
+          "tenant-addresses.item.put",
+          "tenant-addresses.item.delete"
         ],
         "visible": true
       },
