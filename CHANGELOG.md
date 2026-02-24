@@ -13,8 +13,10 @@
 * [UITEN-337](https://folio-org.atlassian.net/browse/UITEN-337) Add posibility change Location name or code from lower case to upper case.
 * [UITEN-338](https://folio-org.atlassian.net/browse/UITEN-338) Uniqueness check of location name/code is broken for \\ * ? ^
 * [UITEN-339](https://folio-org.atlassian.net/browse/UITEN-339) Invalidate react-query cache after location operations
+* [UITEN-335](https://folio-org.atlassian.net/browse/UITEN-335) Include universal read-only permissions
 * [UITEN-335](https://folio-org.atlassian.net/browse/UITEN-335) Include universal read-only permissions.
 * [UITEN-322](https://folio-org.atlassian.net/browse/UITEN-322) *BREAKING* Use the new `tenant-addresses` interface for managing tenant addresses settings.
+* [UITEN-340](https://folio-org.atlassian.net/browse/UITEN-340) Use locale API to fetch and update tenant locale settings.
 
 ## [10.0.0](https://github.com/folio-org/ui-tenant-settings/tree/v10.0.0)(2025-03-12)
 

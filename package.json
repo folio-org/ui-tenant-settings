@@ -29,6 +29,7 @@
       }
     ],
     "optionalOkapiInterfaces": {
+      "locale": "1.0",
       "location-units": "2.0",
       "locations": "3.0",
       "login-saml": "2.0",
@@ -113,6 +114,7 @@
         "subPermissions": [
           "mod-settings.entries.collection.get",
           "mod-settings.global.read.stripes-core.prefs.manage",
+          "locale.item.get",
           "settings.tenant-settings.enabled"
         ],
         "visible": false
@@ -124,7 +126,8 @@
           "ui-tenant-settings.settings.locale.view",
           "mod-settings.global.write.stripes-core.prefs.manage",
           "mod-settings.entries.item.post",
-          "mod-settings.entries.item.put"
+          "mod-settings.entries.item.put",
+          "locale.item.put"
         ],
         "visible": true
       },
