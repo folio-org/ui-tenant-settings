@@ -2,7 +2,7 @@ import {
   FormattedMessage,
   useIntl,
 } from 'react-intl';
-import { Field } from 'react-final-form';
+import { Field } from 'redux-form';
 
 import { ControlledVocab } from '@folio/stripes/smart-components';
 import {
@@ -72,7 +72,6 @@ const Addresses = (props) => {
         editable={stripes.hasPerm('ui-tenant-settings.settings.addresses')}
         fieldComponents={fieldComponents}
         formatter={formatter}
-        formType="final-form"
         hiddenFields={hiddenFields}
         id="addresses"
         label={intl.formatMessage({ id: 'ui-tenant-settings.settings.addresses.label' })}
