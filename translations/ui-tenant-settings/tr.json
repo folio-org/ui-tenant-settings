@@ -222,5 +222,6 @@
     "settings.servicePoints.defaultCheckinAction.Close_loan_and_return_item": "Ödünç krediyi kapatın ve ürünü iade edin",
     "settings.servicePoints.defaultCheckinAction.Ask_for_action": "Harekete geçilmesini isteyin",
     "settings.servicePoints.defaultCheckinAction.select": "Bir eylem seçin",
-    "settings.addresses.validation.name.unique": "Bu adres adı zaten kullanılıyor."
+    "settings.addresses.validation.name.unique": "Bu adres adı zaten kullanılıyor.",
+    "settings.locale.success": "Setting was successfully updated."
 }

@@ -222,5 +222,6 @@
     "settings.servicePoints.defaultCheckinAction.Close_loan_and_return_item": "Close loan and return item",
     "settings.servicePoints.defaultCheckinAction.Ask_for_action": "Ask for action",
     "settings.servicePoints.defaultCheckinAction.select": "Select an action",
-    "settings.addresses.validation.name.unique": "ชื่อนี้ของที่อยู่ถูกใช้งานอยู่แล้ว"
+    "settings.addresses.validation.name.unique": "ชื่อนี้ของที่อยู่ถูกใช้งานอยู่แล้ว",
+    "settings.locale.success": "Setting was successfully updated."
 }
