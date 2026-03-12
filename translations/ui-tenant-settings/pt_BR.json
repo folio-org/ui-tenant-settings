@@ -222,5 +222,6 @@
     "settings.servicePoints.defaultCheckinAction.Close_loan_and_return_item": "Fechar empréstimo e devolver item",
     "settings.servicePoints.defaultCheckinAction.Ask_for_action": "Pergunte por uma ação",
     "settings.servicePoints.defaultCheckinAction.select": "Selecione uma ação",
-    "settings.addresses.validation.name.unique": "Esse nome de endereço já está em uso."
+    "settings.addresses.validation.name.unique": "Esse nome de endereço já está em uso.",
+    "settings.locale.success": "A configuração foi salva com sucesso"
 }
