@@ -32,7 +32,10 @@ const Locale = ({ label, ...rest }) => {
     isLoadingTenantLocale,
     updateTenantLocale,
   } = useTenantLocale({
-    onUpdateSuccess: () => callout.sendCallout({ type: 'success', message: 'ui-tenant-settings.settings.locale.success' }),
+    onUpdateSuccess: () => callout.sendCallout({
+      type: 'success',
+      message: intl.formatMessage({ id: 'ui-tenant-settings.settings.locale.success' }),
+    }),
   });
 
   const afterSave = useCallback((setting) => {
