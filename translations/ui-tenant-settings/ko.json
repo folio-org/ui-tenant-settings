@@ -62,7 +62,7 @@
     "settings.servicePoints.description": "설명",
     "settings.servicePoints.shelvingLagTime": "보류 지연 시간(분)",
     "settings.servicePoints.pickupLocation": "픽업 위치",
-    "settings.servicePoints.feeFineOwner": "벌금 소유자",
+    "settings.servicePoints.feeFineOwner": "수수료/벌금 관리자",
     "settings.servicePoints.deleteServicePoint": "서비스 포인트 삭제",
     "settings.servicePoints.delete": "삭제",
     "settings.servicePoints.untitledServicePoint": "서비스 포인트 이름",
