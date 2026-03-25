@@ -17,6 +17,7 @@
 * [UITEN-335](https://folio-org.atlassian.net/browse/UITEN-335) Include universal read-only permissions.
 * [UITEN-322](https://folio-org.atlassian.net/browse/UITEN-322) *BREAKING* Use the new `tenant-addresses` interface for managing tenant addresses settings.
 * [UITEN-340](https://folio-org.atlassian.net/browse/UITEN-340) Use locale API to fetch and update tenant locale settings.
+* [UITEN-342](https://folio-org.atlassian.net/browse/UITEN-342) Show a success toast notification when saving tenant locale config.
 
 ## [10.0.0](https://github.com/folio-org/ui-tenant-settings/tree/v10.0.0)(2025-03-12)
 
