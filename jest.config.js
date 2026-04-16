@@ -21,6 +21,8 @@ module.exports = {
     '^.+\\.(svg)$': 'identity-obj-proxy',
     '^.+\\.(png)$': 'identity-obj-proxy',
     'ky': 'ky/umd',
+    '@module-federation/error-codes/browser': '@module-federation/error-codes/dist/browser.cjs',
+    '@module-federation/error-codes/node': '@module-federation/error-codes/dist/node.cjs',
   },
   testMatch: ['**/(lib|src)/**/?(*.)test.{js,jsx}'],
   testPathIgnorePatterns: ['/node_modules/', '/test/ui-testing/', '/test/bigtest/'],
