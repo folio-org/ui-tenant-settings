@@ -1,6 +1,8 @@
 # Change history for ui-tenant-settings
 
-## 11.0.0 (IN PROGRESS)
+## 11.1.0 (IN PROGRESS)
+
+## [11.0.0](https://github.com/folio-org/ui-tenant-settings/tree/v11.0.0)(2026-04-16)
 
 * [UITEN-327](https://folio-org.atlassian.net/browse/UITEN-327) Invalidate queries after updating location
 * [UITEN-330](https://folio-org.atlassian.net/browse/UITEN-330) *BREAKING* Refactor locale settings handling.
