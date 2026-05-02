@@ -223,5 +223,5 @@
     "settings.servicePoints.defaultCheckinAction.Ask_for_action": "Запитувати щодо дії",
     "settings.servicePoints.defaultCheckinAction.select": "Вибрати дію",
     "settings.addresses.validation.name.unique": "Ця назва адреси вже використовується.",
-    "settings.locale.success": "Setting was successfully updated."
+    "settings.locale.success": "Налаштування було успішно оновлено."
 }
