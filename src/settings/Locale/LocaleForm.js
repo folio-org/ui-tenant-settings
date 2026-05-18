@@ -11,6 +11,7 @@ import {
   Button,
   Col,
   CurrencySelect,
+  Layout,
   Pane,
   PaneFooter,
   Row,
@@ -98,83 +99,88 @@ const LocaleForm = ({ handleSubmit, pristine, submitting, label }) => {
   );
 
   return (
-    <form
-      id="locale-form"
-      onSubmit={handleSubmit}
-      className={styles.localeForm}
+    <Layout
+      data-test-tenant-settings-locale
+      className="full"
     >
-      <Pane
-        defaultWidth="fill"
-        fluidContentWidth
-        paneTitle={label}
-        footer={getFooter()}
+      <form
+        id="locale-form"
+        onSubmit={handleSubmit}
+        className={styles.localeForm}
       >
-        <IfPermission perm="ui-developer.settings.locale">
+        <Pane
+          defaultWidth="100%"
+          fluidContentWidth
+          paneTitle={label}
+          footer={getFooter()}
+        >
+          <IfPermission perm="ui-developer.settings.locale">
+            <Row>
+              <Col xs={12}>
+                <p>
+                  <FormattedMessage id="ui-tenant-settings.settings.locale.localeWarning" values={{ label: <FormattedMessage id="ui-tenant-settings.settings.locale.changeSessionLocale" /> }} />
+                </p>
+                <div>
+                  <TextLink to="/settings/developer/locale">
+                    <FormattedMessage id="ui-tenant-settings.settings.locale.changeSessionLocale" />
+                  </TextLink>
+                </div>
+              </Col>
+            </Row>
+          </IfPermission>
           <Row>
-            <Col xs={12}>
-              <p>
-                <FormattedMessage id="ui-tenant-settings.settings.locale.localeWarning" values={{ label: <FormattedMessage id="ui-tenant-settings.settings.locale.changeSessionLocale" /> }} />
-              </p>
-              <div>
-                <TextLink to="/settings/developer/locale">
-                  <FormattedMessage id="ui-tenant-settings.settings.locale.changeSessionLocale" />
-                </TextLink>
-              </div>
+            <Col xs={12} id="select-locale">
+              <Field
+                readOnly={isReadOnly}
+                component={Select}
+                id="locale"
+                name="locale"
+                placeholder="---"
+                dataOptions={localesOptions}
+                label={intl.formatMessage({ id: 'ui-tenant-settings.settings.localization' })}
+              />
             </Col>
           </Row>
-        </IfPermission>
-        <Row>
-          <Col xs={12} id="select-locale">
-            <Field
-              readOnly={isReadOnly}
-              component={Select}
-              id="locale"
-              name="locale"
-              placeholder="---"
-              dataOptions={localesOptions}
-              label={intl.formatMessage({ id: 'ui-tenant-settings.settings.localization' })}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={12} id="select-numbering-system">
-            <Field
-              readOnly={isReadOnly}
-              component={Select}
-              id="numberingSystem"
-              name="numberingSystem"
-              dataOptions={numberingSystemOptions}
-              label={intl.formatMessage({ id: 'ui-tenant-settings.settings.numberingSystem' })}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={12} id="select-timezone">
-            <Field
-              readOnly={isReadOnly}
-              component={Select}
-              id="timezone"
-              name="timezone"
-              placeholder="---"
-              dataOptions={timezoneOptions}
-              label={intl.formatMessage({ id: 'ui-tenant-settings.settings.timeZonePicker' })}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={12} id="select-currency">
-            <Field
-              readOnly={isReadOnly}
-              component={CurrencySelect}
-              id="currency"
-              name="currency"
-              placeholder="---"
-              label={intl.formatMessage({ id: 'ui-tenant-settings.settings.primaryCurrency' })}
-            />
-          </Col>
-        </Row>
-      </Pane>
-    </form>
+          <Row>
+            <Col xs={12} id="select-numbering-system">
+              <Field
+                readOnly={isReadOnly}
+                component={Select}
+                id="numberingSystem"
+                name="numberingSystem"
+                dataOptions={numberingSystemOptions}
+                label={intl.formatMessage({ id: 'ui-tenant-settings.settings.numberingSystem' })}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12} id="select-timezone">
+              <Field
+                readOnly={isReadOnly}
+                component={Select}
+                id="timezone"
+                name="timezone"
+                placeholder="---"
+                dataOptions={timezoneOptions}
+                label={intl.formatMessage({ id: 'ui-tenant-settings.settings.timeZonePicker' })}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12} id="select-currency">
+              <Field
+                readOnly={isReadOnly}
+                component={CurrencySelect}
+                id="currency"
+                name="currency"
+                placeholder="---"
+                label={intl.formatMessage({ id: 'ui-tenant-settings.settings.primaryCurrency' })}
+              />
+            </Col>
+          </Row>
+        </Pane>
+      </form>
+    </Layout>
   );
 };
 
