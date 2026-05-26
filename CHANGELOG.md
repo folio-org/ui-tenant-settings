@@ -2,6 +2,8 @@
 
 ## 11.1.0 (IN PROGRESS)
 
+## [11.0.1](https://github.com/folio-org/ui-tenant-settings/tree/v11.0.1)(2026-05-26)
+
 * [UITEN-345](https://folio-org.atlassian.net/browse/UITEN-345) Unexpected blank space in 'Settings' -> 'Language and localization'
 
 ## [11.0.0](https://github.com/folio-org/ui-tenant-settings/tree/v11.0.0)(2026-04-16)
