@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import '../../../test/jest/__mocks__';
@@ -22,6 +22,27 @@ const renderServicePointFormContainer = () => {
       parentResources={parentResourcesMock}
       initialValues={{ staffSlips }}
       parentMutator={parentMutatorMock}
+    />
+  );
+
+  return renderWithRouter(renderWithReduxForm(component));
+};
+
+const uniqueParentMutator = {
+  ...parentMutatorMock,
+  uniquenessValidator: {
+    ...parentMutatorMock.uniquenessValidator,
+    GET: jest.fn(() => Promise.resolve([])),
+  },
+};
+
+const renderSubmittableServicePointFormContainer = () => {
+  const component = () => (
+    <ServicePointFormContainer
+      onSave={onSave}
+      parentResources={parentResourcesMock}
+      initialValues={{ staffSlips }}
+      parentMutator={uniqueParentMutator}
     />
   );
 
@@ -79,6 +100,20 @@ describe('ServicePointFormContainer', () => {
     textboxes.forEach((el) => expect(screen.getByRole('textbox', { name: el })).toHaveValue('new value'));
 
     userEvent.click(screen.getByRole('button', { name: /saveAndClose/ }));
+  });
+
+  it('should trim leading and trailing whitespace from the name before saving', async () => {
+    onSave.mockClear();
+    renderSubmittableServicePointFormContainer();
+
+    userEvent.type(screen.getByRole('textbox', { name: /settings.servicePoints.name/ }), '  Circ Desk X  ');
+    userEvent.type(screen.getByRole('textbox', { name: /settings.servicePoints.code/ }), 'cdx');
+    userEvent.type(screen.getByRole('textbox', { name: /settings.servicePoints.discoveryDisplayName/ }), 'Display X');
+
+    userEvent.click(screen.getByRole('button', { name: /saveAndClose/ }));
+
+    await waitFor(() => expect(onSave).toHaveBeenCalled());
+    expect(onSave.mock.calls[0][0].name).toBe('Circ Desk X');
   });
 
   it('should render ServicePointFormContainer select with changed options', () => {

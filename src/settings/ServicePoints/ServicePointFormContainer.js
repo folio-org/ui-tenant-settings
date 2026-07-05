@@ -51,6 +51,11 @@ const ServicePointFormContainer = ({
   const onSubmit = useCallback((values) => {
     const data = cloneDeep(values);
 
+    // Trim the name so a service point is never saved with leading/trailing
+    if (typeof data.name === 'string') {
+      data.name = data.name.trim();
+    }
+
     const { locationIds, staffSlips } = data;
 
     if (locationIds) {
