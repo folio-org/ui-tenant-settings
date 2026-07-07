@@ -3,6 +3,7 @@
 ## 11.1.0 (IN PROGRESS)
 
 * [UITEN-345](https://folio-org.atlassian.net/browse/UITEN-345) Unexpected blank space in 'Settings' -> 'Language and localization'
+* [UITEN-343](https://folio-org.atlassian.net/browse/UITEN-343) Trim leading/trailing whitespace from the service point name on save so it can be assigned to a location.
 
 ## [11.0.0](https://github.com/folio-org/ui-tenant-settings/tree/v11.0.0)(2026-04-16)
 
