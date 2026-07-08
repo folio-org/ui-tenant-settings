@@ -116,6 +116,20 @@ describe('ServicePointFormContainer', () => {
     expect(onSave.mock.calls[0][0].name).toBe('Circ Desk X');
   });
 
+  it('should collapse repeated whitespace inside the name before saving', async () => {
+    onSave.mockClear();
+    renderSubmittableServicePointFormContainer();
+
+    userEvent.type(screen.getByRole('textbox', { name: /settings.servicePoints.name/ }), 'Name    with  extra    string');
+    userEvent.type(screen.getByRole('textbox', { name: /settings.servicePoints.code/ }), 'cdx');
+    userEvent.type(screen.getByRole('textbox', { name: /settings.servicePoints.discoveryDisplayName/ }), 'Display X');
+
+    userEvent.click(screen.getByRole('button', { name: /saveAndClose/ }));
+
+    await waitFor(() => expect(onSave).toHaveBeenCalled());
+    expect(onSave.mock.calls[0][0].name).toBe('Name with extra string');
+  });
+
   it('should render ServicePointFormContainer select with changed options', () => {
     renderServicePointFormContainer();
 

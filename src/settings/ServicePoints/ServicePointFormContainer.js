@@ -51,9 +51,10 @@ const ServicePointFormContainer = ({
   const onSubmit = useCallback((values) => {
     const data = cloneDeep(values);
 
-    // Trim the name so a service point is never saved with leading/trailing
+    // Normalize the name so a service point is never saved with leading/trailing
+    // whitespace or repeated spaces between words.
     if (typeof data.name === 'string') {
-      data.name = data.name.trim();
+      data.name = data.name.trim().replace(/\s+/g, ' ');
     }
 
     const { locationIds, staffSlips } = data;
